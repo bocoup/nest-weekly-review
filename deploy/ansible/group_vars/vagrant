@@ -1,0 +1,7 @@
+---
+# configuration for vagrant
+
+app_base_path: "/vagrant/"
+app_fqdn: "192.168.33.31"
+node_env: "development"
+default_user: "vagrant"

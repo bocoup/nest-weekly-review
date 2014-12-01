@@ -1,0 +1,5 @@
+---
+# configure services
+
+- name: Make sure the black-phoenix daemon is on the box
+  template: src=upstart.conf dest=/etc/init/black-phoenix.conf backup=no

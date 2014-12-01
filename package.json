@@ -1,0 +1,25 @@
+{
+  "name": "black-phoenix",
+  "version": "0.1.0",
+  "private": true,
+  "description": "An application for managing billing data for consulting projects",
+  "main": "src/server/index.js",
+  "scripts": {
+    "postinstall": "npm run get-secrets",
+    "get-secrets": "nest get-secrets --prompt",
+    "lint": "jshint src",
+    "start": "node .",
+    "style": "jscs src",
+    "test": "npm run lint && npm run style",
+    "vagrant-restart-server": "vagrant ssh -c 'sudo service black-phoenix restart'",
+    "vagrant-watch-log": "vagrant ssh -c 'tail -f /var/log/black-phoenix'"
+  },
+  "devDependencies": {
+    "jscs": "^1.8.1",
+    "jshint": "^2.5.10",
+    "nest": "git+https://6f278b7cbc5d8c3ba8961945c677a7d1f53e2901:x-oauth-basic@github.com/bocoup/nest-cli.git"
+  },
+  "dependencies": {
+    "debug": "^2.1.0"
+  }
+}

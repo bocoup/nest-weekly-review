@@ -1,0 +1,11 @@
+---
+-
+  hosts: appserver
+  remote_user: ubuntu
+  sudo: yes
+  roles:
+    - ami
+    - nginx
+    - services
+    - startup
+    - production

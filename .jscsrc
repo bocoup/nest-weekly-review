@@ -1,0 +1,5 @@
+{
+  "disallowTrailingWhitespace": true,
+  "validateQuoteMarks": "'",
+  "validateIndentation": 2
+}

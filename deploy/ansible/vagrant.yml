@@ -1,0 +1,11 @@
+---
+-
+  hosts: vagrant
+  remote_user: vagrant
+  sudo: yes
+  vars:
+  roles:
+    - ami
+    - nginx
+    - services
+    - startup

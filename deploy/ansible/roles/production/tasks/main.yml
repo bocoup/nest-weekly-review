@@ -1,0 +1,24 @@
+---
+# configure for production
+
+- name: Make sure the base directory exsists
+  file: path={{app_base_path}} state=directory
+
+- name: Make sure the front end code is on the box
+  synchronize: src=../../client.prod dest={{app_base_path}}
+
+- name: Make sure the server code is on the box
+  synchronize: src=../../server dest={{app_base_path}}
+
+- name: Make sure the main entry file is on the box
+  synchronize: src=../../index.js dest={{app_base_path}}
+
+# this will go away as soon as auth is moved to api.bocoup.com
+- name: Make sure node_modules are on the box
+  synchronize: src=../../node_modules dest={{app_base_path}}
+
+- name: Make sure a project config directory exists
+  file: path={{app_base_path}}/config state=directory
+
+- name: Make sure the github auth config file is on the box
+  synchronize: src=../../config/secrets/github.json dest={{app_base_path}}config/secrets/

@@ -1,0 +1,29 @@
+
+/* Weekly tool structure */
+.week input { 
+  display: block;
+  height: 1.2em;
+  opacity: 0;
+}
+.week label {
+  margin-top: -1.2em;
+  display: block;
+  width: 5em;
+  height: 5em;
+}
+.week td {
+  background: #ddd;
+}
+.week input:checked+label {
+  background: #ff3300;
+}
+
+/* /* Weekly tool theming */
+.alpha label {
+  border-bottom-left-radius: .5em;
+  border-top-left-radius: .5em;
+}
+.omega label {
+  border-top-right-radius: .5em;
+  border-bottom-right-radius: .5em;
+}

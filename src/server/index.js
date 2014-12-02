@@ -1,13 +1,14 @@
 'use strict';
 
 var http = require('http');
+
 var debug = require('debug')('main');
+var express = require('express');
 
-var server = http.createServer(function(req, res) {
-  res.writeHead('200', { 'Content-Type': 'text/plain' });
-  res.end('Hello, world!');
-});
+var app = express();
 
-server.listen(8000, function() {
+app.use(express.static(__dirname + '/../client'));
+
+var server = app.listen(8000, function() {
   debug('Server listening on port ' + server.address().port);
 });

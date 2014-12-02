@@ -9,3 +9,5 @@
     - nginx
     - services
     - startup
+  handlers:
+    - include: handlers.yml

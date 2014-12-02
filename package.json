@@ -12,7 +12,7 @@
     "style": "jscs src",
     "test": "npm run lint && npm run style",
     "vagrant-restart-server": "vagrant ssh -c 'sudo service black-phoenix restart'",
-    "vagrant-watch-log": "vagrant ssh -c 'tail -f /var/log/black-phoenix'"
+    "vagrant-watch-log": "vagrant ssh -c 'find /var/log/blackphoenix/ -name *.log | sudo xargs tail -f'"
   },
   "devDependencies": {
     "jscs": "^1.8.1",

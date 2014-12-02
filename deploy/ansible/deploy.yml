@@ -7,3 +7,5 @@
   roles:
     - production
     - startup
+  handlers:
+    - include: handlers.yml

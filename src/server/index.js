@@ -1,7 +1,5 @@
 'use strict';
 
-var http = require('http');
-
 var debug = require('debug')('main');
 var express = require('express');
 

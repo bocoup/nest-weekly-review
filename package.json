@@ -6,24 +6,29 @@
   "main": "src/server/index.js",
   "scripts": {
     "get-secrets": "nest get-secrets --prompt",
-    "lint": "jshint src",
+    "lint": "jshint src test/unit",
     "start": "node .",
-    "style": "jscs src",
-    "test": "npm run lint && npm run style",
+    "style": "jscs src test/unit",
+    "test": "npm run lint && npm run style && npm run test-unit",
+    "test-unit": "mocha --require test/unit/setup.js --ui tdd test/unit/tests",
     "vagrant-restart-server": "vagrant ssh -c 'sudo service black-phoenix restart'",
     "vagrant-watch-log": "vagrant ssh -c 'find /var/log/blackphoenix/ -name *.log | sudo xargs tail -f'"
   },
   "devDependencies": {
+    "chai": "^1.10.0",
     "jscs": "^1.8.1",
     "jshint": "^2.5.10",
     "nest": "git+https://6f278b7cbc5d8c3ba8961945c677a7d1f53e2901:x-oauth-basic@github.com/bocoup/nest-cli.git"
   },
   "dependencies": {
+    "ampersand-collection": "^1.3.17",
+    "ampersand-model": "^4.0.3",
     "ampersand-router": "^1.0.6",
     "ampersand-state": "^4.4.1",
     "browserify-middleware": "^4.1.0",
     "debug": "^2.1.0",
     "express": "^4.10.4",
+    "mocha": "^2.0.1",
     "ractive": "^0.6.1",
     "through": "^2.3.6"
   }

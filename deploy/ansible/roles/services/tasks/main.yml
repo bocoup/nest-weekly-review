@@ -4,13 +4,8 @@
 - name: Make sure the black-phoenix daemon is on the box
   template: src=upstart.conf dest=/etc/init/black-phoenix.conf backup=no
 
-- name: Configure rsyslog to output to daily files
-  template: src=rsyslog.conf dest=/etc/rsyslog.d/10-black-phoenix.conf
-  notify:
-    - restart rsyslog
+- name: Create log file
+  file: path={{log_file}} state=touch owner={{app_user}} group={{app_user}}
 
-- name: Create directory for log files
-  file: path={{log_file_dir}} state=directory owner={{app_user}} group={{app_user}}
-
-- name: Ensure old log files are removed
-  cron: name="delete old logs" minute="0" job="find {{log_file_dir}} -mtime +{{log_file_timeout}} -exec rm '{}' \;"
+- name: Configure log rotation
+  template: src=logrotate.conf dest=/etc/logrotate.d/blackpheonix

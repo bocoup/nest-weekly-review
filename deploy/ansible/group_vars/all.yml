@@ -1,4 +1,3 @@
 ---
 app_user: www-data
-log_file_dir: /var/log/blackphoenix
-log_file_timeout: 60
+log_file: /var/log/blackphoenix.log

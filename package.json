@@ -12,7 +12,7 @@
     "test": "npm run lint && npm run style && npm run test-unit",
     "test-unit": "mocha --require test/unit/setup.js --ui tdd --recursive test/unit/tests",
     "vagrant-restart-server": "vagrant ssh -c 'sudo service black-phoenix restart'",
-    "vagrant-watch-log": "vagrant ssh -c 'find /var/log/blackphoenix/ -name *.log | sudo xargs tail -f'"
+    "vagrant-watch-log": "vagrant ssh -c 'sudo tail -F /var/log/blackphoenix.log'"
   },
   "devDependencies": {
     "chai": "^1.10.0",

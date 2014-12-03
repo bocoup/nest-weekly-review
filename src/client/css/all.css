@@ -1,29 +1,219 @@
+/* Utility classes */
+
+.a11y-only {
+  text-indent: -9999px;
+  font-size: 1px;
+  color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+.hed-week {
+  font-size: 3.4em;
+}
+.hed-week b {
+  display: block;
+  font-size: .6em;
+}
+
+/* Overall theming */
+main {
+}
+body {
+  background: #f5f5f5;
+  font-family: sans-serif;
+}
+.pagehead {
+  background: #f9f9f9;
+  padding: 2.2em 0 1.8em 0;
+  border-style: solid;
+  border-style: solid;
+  border-width: 0px 0px 4px;
+  -webkit-border-image: url(http://bocoup.com/img/site/stripe.png) 0 402 8 104 stretch;
+  border-image: url(http://bocoup.com/img/site/stripe.png) 0 402 8 104 stretch;
+}
+
+.primary,
+.pagehead .hed-week {
+  margin: 0 auto;
+  max-width: 1024px;
+}
+
+.primary {
+  padding-top: 2em;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td {
+  position: relative;
+}
+thead {
+  border: 1px solid #ccc;
+}
+thead th {
+  color: #444;
+  padding: .65em 0 .5em 0;
+  border: solid #ccc;
+  border-width: 1px 0;
+
+  text-transform: uppercase;
+  font-size: .7em;
+  font-weight: normal;
+
+  background-image: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 100%); /* FF3.6+ */
+  background-image: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.2) 100%); /* Chrome10+,Safari5.1+ */
+  background-image: -o-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 100%); /* Opera 11.10+ */
+  background-image: -ms-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 100%); /* IE10+ */
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 100%); /* W3C */
+}
+tbody th {
+  width: 10em;
+  padding-right: 1.5em;
+}
+tbody td {
+  width: 15%;
+}
+
+/* Utilization color schemes */
+.util-edu td input:checked + label {
+  background-color: #ffd7b3;
+}
+.util-consulting td input:checked label {
+  background-color: #a2ee7a;
+}
+
+/* One-off “other utilization” cells */
+[class*="util-"] td.conf {
+  background-color: #ffaee2;
+}
+[class*="util-"] td.vacation {
+  background-color: #cd80f4;
+}
+[class*="util-"] td.unavail {
+  background-color: #bbb;
+}
+
+
+.btn-approved {
+  background: #eaeaea;
+  border: solid #c8c8c8;
+  border-width: 1px 2px 4px 2px;
+  display: block;
+  padding: .5em 1em;
+}
+.approved:active + label {
+  background: #2fb27d;
+  border: solid #15895a;
+  border-width: 4px 2px 1px 2px;
+}
+.approved:checked + label {
+  background: #2fb27d;
+  border: solid #15895a;
+  border-width: 1px 2px 4px 2px;
+}
 
 /* Weekly tool structure */
-.week input { 
+.week input[type="checkbox"] { 
   display: block;
   height: 1.2em;
   opacity: 0;
 }
-.week label {
-  margin-top: -1.2em;
+.week td [type="checkbox"]+label {
   display: block;
-  width: 5em;
-  height: 5em;
+  min-height: 7.5em;
 }
 .week td {
   background: #ddd;
 }
-.week input:checked+label {
-  background: #ff3300;
+
+/* Blank day interactions */
+.blank-day {
+  border: 1px solid red !important;
+}
+.blank-day + label {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-height: 1px !important;
+  border: 1px solid red;
+}
+.blank-day:checked + label {
+
+}
+.reason {
+  display: none;
+  position: absolute;
+  top: 0;
+}
+.blank-day:checked ~ .reason {
+  display: block;
 }
 
-/* /* Weekly tool theming */
-.alpha label {
+.addt-notes {
+  width: 100%;
+  min-height: 10em;
+}
+
+/* Weekly tool theming */
+/*
+td.checked  {
+  border-radius: 0;
+}
+td.checked.last {
+  border-bottom-right-radius: .5em;
+  border-top-right-radius: .5em;
+}
+td.checked + td:not(.checked){
+  border-radius: 0;
+}
+td.checked:first-of-type {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+td.checked + td.checked:last-of-type {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+td:not(.checked) + td.checked {
+  border-radius: 0;
   border-bottom-left-radius: .5em;
   border-top-left-radius: .5em;
 }
-.omega label {
-  border-top-right-radius: .5em;
-  border-bottom-right-radius: .5em;
+tr td.checked:last-of-type {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
+*/
+
+
+/* Animations */
+
+@-webkit-keyframes attn {
+  0%   { box-shadow: 0 0 10px #329cb4; }
+  100% { box-shadow: 0 0 25px #329cb4; }
+}
+@keyframes attn {
+  0%   { box-shadow: 0 0 10px #329cb4; }
+  100% { box-shadow: 0 0 25px #329cb4; }
+}
+
+.attn {
+  outline: 1px solid #309ab2;
+  z-index: 2;
+  animation: attn 1s infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+  -webkit-animation: attn 1s infinite;
+  -webkit-animation-direction: alternate;
+  -webkit-animation-timing-function: ease-in-out;
+}
+
+

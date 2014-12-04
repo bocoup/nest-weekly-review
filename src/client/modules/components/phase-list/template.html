@@ -1,0 +1,9 @@
+<ul>
+  {{#weekRange}}
+  <li>
+    <a href="/year/{{this.getFullYear()}}/week/{{@index}}/phase/3/">
+      {{ this.getMonth() + 1 }} / {{ this.getDate() }}
+    </a>
+  </li>
+  {{/weekRange}}
+</ul>

@@ -6,9 +6,18 @@
   color: transparent;
 }
 
+/* Globals */
+
 html,
 body {
   margin: 0;
+}
+
+textarea {
+  background: none;
+  border: none;
+  font-size: 1em;
+  line-height: 1.3;
 }
 
 .hed-week {
@@ -18,6 +27,8 @@ body {
   display: block;
   font-size: .6em;
 }
+
+
 
 /* Overall theming */
 main {
@@ -29,11 +40,8 @@ body {
 .pagehead {
   background: #f9f9f9;
   padding: 2.2em 0 1.8em 0;
-  border-style: solid;
-  border-style: solid;
-  border-width: 0px 0px 4px;
-  -webkit-border-image: url(http://bocoup.com/img/site/stripe.png) 0 402 8 104 stretch;
-  border-image: url(http://bocoup.com/img/site/stripe.png) 0 402 8 104 stretch;
+  background: url(/css/img/stripe.png) left bottom repeat-x;
+  background-size: 50% 6px;
 }
 
 .primary,
@@ -49,13 +57,13 @@ body {
 table {
   width: 100%;
   border-collapse: collapse;
+  border-spacing: 0;
 }
 
 td {
   position: relative;
 }
 thead {
-  border: 1px solid #ccc;
 }
 thead th {
   color: #444;
@@ -73,6 +81,16 @@ thead th {
   background-image: -ms-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 100%); /* IE10+ */
   background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 100%); /* W3C */
 }
+thead th.bocouper {
+  background: none;
+  border: none;
+}
+thead th.bocouper+th {
+  border-left: 1px solid #ccc;
+}
+thead th:last-of-type {
+  border-right: 1px solid #ccc;
+}
 tbody th {
   width: 10em;
   padding-right: 1.5em;
@@ -81,12 +99,37 @@ tbody td {
   width: 15%;
 }
 
-/* Utilization color schemes */
-.util-edu td input:checked + label {
-  background-color: #ffd7b3;
+
+[class*="util-"] td input {
+  position: absolute;
+  left: 0;
+  top: 0;
 }
-.util-consulting td input:checked label {
-  background-color: #a2ee7a;
+[class*="util-"] td > label {
+  border-top: 6px solid rgba(0,0,0,.15);
+  margin: -1px;
+}
+
+/* Utilization color schemes */
+.util-edu td:not(.no-util) input:checked + label {
+  border: 1px solid #fec998;
+  background-color: #ffe8d4;
+}
+.util-consulting td:not(.no-util) input:checked label {
+  border-top: solid #a8f181;
+  background-color: #cdeebc;
+}
+[class*="util-"] td:not(.no-util) input:checked + label {
+  border-width: 6px 0 0 0;
+}
+[class*="util-"] td:not(.no-util):first-of-type input:checked + label {
+  border-left-width: 1px;
+}
+[class*="util-"] td:not(.no-util):last-of-type input:checked + label {
+  border-right-width: 1px;
+}
+[class*="util-"] tr:last-of-type td:not(.no-util) input:checked + label {
+  border-bottom-width: 1px;
 }
 
 /* One-off “other utilization” cells */
@@ -96,10 +139,11 @@ tbody td {
 [class*="util-"] td.vacation {
   background-color: #cd80f4;
 }
+
+/* Generic “unavailable” cells */
 [class*="util-"] td.unavail {
   background-color: #bbb;
 }
-
 
 .btn-approved {
   background: #eaeaea;
@@ -135,18 +179,13 @@ tbody td {
 
 /* Blank day interactions */
 .blank-day {
-  border: 1px solid red !important;
 }
 .blank-day + label {
   display: block;
   position: absolute;
   top: 0;
   right: 0;
-  min-height: 1px !important;
-  border: 1px solid red;
-}
-.blank-day:checked + label {
-
+  min-height: 1px;
 }
 .reason {
   display: none;
@@ -156,6 +195,46 @@ tbody td {
 .blank-day:checked ~ .reason {
   display: block;
 }
+
+.flip {
+  background: #ddd;
+  perspective: 1000;
+}
+/* flip the pane when hovered */
+.flip input:checked ~ .front {
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+.flip input:checked ~ .back {
+  -webkit-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+}
+.flip .front, 
+.flip .back {
+  background: #eee;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transition: transform .4s ease-in-out;
+  transition: transform .4s ease-in-out;
+}
+.flip .front { /* Initially visible */
+  z-index: 2;
+  -webkit-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+}
+.flip .back { /* Initially hidden */
+  border: 1px solid #aaa;
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+
+
+
 
 .addt-notes {
   width: 100%;

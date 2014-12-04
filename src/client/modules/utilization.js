@@ -3,6 +3,7 @@ var Model = require('ampersand-model');
 
 module.exports = Model.extend({
   props: {
+    id: 'number',
     utilization_type_id: 'number',
     employee_id: 'number',
     position_id: 'number',

@@ -1,11 +1,40 @@
 'use strict';
-var Collection = require('ampersand-collection');
+var Collection = require('ampersand-rest-collection');
 var Utilization = require('./utilization');
 
 var ONE_DAY = 1000 * 60 * 60 * 24;
 
 module.exports = Collection.extend({
   model: Utilization,
+
+  initialize: function() {
+    this._removed = [];
+    this.on('remove', function(model) {
+      this._removed.push(model);
+    });
+  },
+
+  /**
+   * Save all the models currently in the collection and destroy any models
+   * that have been removed since the last invocation of this method.
+   */
+  save: function() {
+    this.forEach(function(model) {
+      model.save();
+    });
+
+    this._removed.forEach(function(model) {
+      // Account for possibility that model may have been re-inserted into
+      // collection.
+      if ('collection' in model) {
+        return;
+      }
+
+      model.destroy();
+    });
+
+    this._removed.length = 0;
+  },
 
   /**
    * Retrieve the Utilization model that includes the given date if such a
@@ -59,7 +88,6 @@ module.exports = Collection.extend({
         prev.set('last_day', new Date(before));
       } else {
         if (prev !== curr && next !== curr) {
-          // TODO: Ensure that this gets destroyed on the server.
           this.remove(curr);
         }
 
@@ -72,7 +100,6 @@ module.exports = Collection.extend({
       this.add(attrs, { at: index });
     } else if (prev.matches(attrs)) {
       if (next.matches(attrs)) {
-        // TODO: Ensure that this gets destroyed on the server.
         this.remove(next);
         prev.set('last_day', new Date(after));
       } else {
@@ -80,12 +107,10 @@ module.exports = Collection.extend({
         next.set('first_day', new Date(after));
       }
       if (next !== curr) {
-        // TODO: Ensure that this gets destroyed on the server.
         this.remove(curr);
       }
     } else {
       if (prev !== curr) {
-        // TODO: Ensure that this gets destroyed on the server.
         this.remove(curr);
       }
       prev.set('last_day', new Date(before));

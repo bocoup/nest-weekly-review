@@ -21,21 +21,20 @@ textarea {
 }
 
 .hed-week {
-  font-size: 3.4em;
+  font-size: 3em;
 }
 .hed-week b {
   display: block;
   font-size: .6em;
+  font-weight: normal;
 }
 
 
 
 /* Overall theming */
-main {
-}
 body {
   background: #f5f5f5;
-  font-family: sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 .pagehead {
   padding: 2.2em 0 1.8em 0;

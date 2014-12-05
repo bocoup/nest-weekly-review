@@ -1,3 +1,211 @@
-<h2>Reviewing Phase {{phaseId}} (week #{{week}} of {{year}})</h2>
+<main>
+  <div class="pagehead">
+    <h2 class="hed-week">
+      <b class="offering">Riot Phase {{phaseId}}</b>
+      <abbr title="week of">Wk.</abbr> {{week}}, (mm/dd {{year}})
+    </h2>
+  </div>
 
-<p>This is a review template.</p>
+  <div class="primary">
+    <form>
+      <table class="week util-edu">
+      <thead>
+        <tr>
+          <th scope="col" class="bocouper"><span class="a11y-only">Bocouper</span></th>
+          <th scope="col">Monday</th>
+          <th scope="col">Tuesday</th>
+          <th scope="col">Wednesday</th>
+          <th scope="col">Thursday</th>
+          <th scope="col">Friday</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">
+            Roll Fizzlebeef
+            <input type="checkbox" name="approve1" id="approve1" class="approved">
+            <label class="btn-approved" for="approve1">
+              Approved?
+            </label>
+          </th>
+          <td>
+            <input type="checkbox" id="M1" name="M1" checked>
+            <label for="M1">
+            </label>
+          </td>
+          <td>
+            <input type="checkbox" id="T1" name="T1" checked>
+            <label for="T1">
+
+            </label>
+          </td>
+          <td>
+            <input type="checkbox" id="W1" name="W1" checked>
+            <label for="W1">
+
+            </label>
+          </td>
+          <td>
+            <input type="checkbox" id="H1" name="H1" checked>
+            <label for="H1">
+
+            </label>
+          </td>
+          <td>
+            <input type="checkbox" id="F1" name="F1" checked>
+            <label for="F1">
+
+            </label>
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row">
+            Slab Bulkhead
+            <input type="checkbox" name="approve2" id="approve2" class="approved" required>
+            <label class="btn-approved" for="approve2">
+              Approved?
+            </label>
+          </th>
+          <td>
+            <input type="checkbox" id="M2" name="M2" checked>
+            <label for="M2">
+
+            </label>
+          </td>
+          <td>
+            <input type="checkbox" id="T2" name="T2" checked>
+            <label for="T2">
+
+            </label>
+          </td>
+          <td>
+            <input type="checkbox" id="W2" name="W2" checked>
+            <label for="W2">
+
+            </label>
+          </td>
+          <td class="no-util flip">
+            <input type="checkbox" value="h2" class="blank-day" id="h2-reason" name="h2-reason"
+              required
+              title="Additional validation info, if any." >
+            <label for="h2-reason" class="front attn">
+              X
+            </label>
+
+            <div class="reason back">
+              <label>
+                Gotta do this too:
+                <select name="reason-m3" required title="sup">
+                  <option value="">Select a reason</option>
+                  <option value="said-so">Because I said so.</option>
+                </select> 
+              </label>
+            </div>
+          </td>
+          <td>
+            <input type="checkbox" id="F2" name="F2" checked>
+            <label for="F2">
+
+            </label>
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row">
+            Buck Plankchest
+            <input type="checkbox" name="approve3" id="approve3" class="approved" required>
+            <label class="btn-approved" for="approve3">
+              Approved?
+            </label>
+          </th>
+          <td class="no-util attn">
+            <input type="checkbox" value="m3" class="blank-day" id="m3-reason" name="m3-reason"
+              required
+              title="Additional validation info, if any." >
+            <label for="m3-reason">
+              X
+            </label>
+
+            <div class="reason">
+              <label>
+                Gotta do this too:
+                <select name="reason-m3" required title="sup">
+                  <option value="">Select a reason</option>
+                  <option value="said-so">Because I said so.</option>
+                </select> 
+              </label>
+            </div>
+          </td>
+          <td>
+            <input type="checkbox" id="T3" name="T3" checked>
+            <label for="T3">
+            </label>
+          </td>
+          <td>
+            <input type="checkbox" id="W3" name="W3" checked>
+            <label for="W3">
+
+            </label>
+          </td>
+          <td>
+            <input type="checkbox" id="H3" name="H3" checked>
+            <label for="H3">
+
+            </label>
+          </td>
+          <td>
+            <input type="checkbox" id="F3" name="F3" checked>
+            <label for="F3">
+
+            </label>
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row">
+            Bob Johnson
+            <input type="checkbox" name="approve4" id="approve4" class="approved" required>
+            <label class="btn-approved" for="approve4">
+              Approved?
+            </label>
+          </th>
+          <td>
+            <input type="checkbox" id="M4" name="M4" checked>
+            <label for="M4">
+
+            </label>
+          </td>
+          <td>
+            <input type="checkbox" id="T4" name="T4" checked>
+            <label for="T4">
+
+            </label>
+          </td>
+          <td class="unavail">
+          </td>
+          <td>
+            <input type="checkbox" id="W4" name="W4" checked>
+            <label for="W4">
+
+            </label>
+          </td>
+          <td>
+            <input type="checkbox" id="H4" name="H4" checked>
+            <label for="H4">
+
+            </label>
+          </td>
+        </tr>
+
+      </tbody>
+      </table>
+      <div class="notes">
+        <h3>Notes</h3>
+        <textarea class="addt-notes">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>
+      </div>
+
+      <input type="submit">
+    </form>
+  </div>
+</main>

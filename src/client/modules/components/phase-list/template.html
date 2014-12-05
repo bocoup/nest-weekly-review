@@ -1,9 +1,10 @@
 <ul>
-  {{#weekRange}}
+  {{#each phases}}
   <li>
-    <a href="/year/{{this.getFullYear()}}/week/{{@index}}/phase/3/">
-      {{ this.getMonth() + 1 }} / {{ this.getDate() }}
+    <a href="{{url}}">
+      {{ date.getMonth() + 1 }} / {{ date.getDate() }}
     </a>
   </li>
-  {{/weekRange}}
+  {{/each}}
 </ul>
+<a href="{{prevWeek}}">Prev</a> | <a href="{{nextWeek}}">Next</a>

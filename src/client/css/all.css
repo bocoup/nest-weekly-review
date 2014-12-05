@@ -38,10 +38,9 @@ body {
   font-family: sans-serif;
 }
 .pagehead {
-  background: #f9f9f9;
   padding: 2.2em 0 1.8em 0;
-  background: url(/css/img/stripe.png) left bottom repeat-x;
-  background-size: 50% 6px;
+  background: #fff url(/css/img/stripe.png) left bottom repeat-x;
+  background-size: 50% 5px;
 }
 
 .primary,

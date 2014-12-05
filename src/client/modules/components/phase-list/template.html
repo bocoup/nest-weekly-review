@@ -1,0 +1,10 @@
+<ul>
+  {{#each phases}}
+  <li>
+    <a href="{{url}}">
+      {{ date.getMonth() + 1 }} / {{ date.getDate() }}
+    </a>
+  </li>
+  {{/each}}
+</ul>
+<a href="{{prevWeek}}">Prev</a> | <a href="{{nextWeek}}">Next</a>

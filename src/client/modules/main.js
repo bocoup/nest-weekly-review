@@ -20,5 +20,5 @@ document.body.addEventListener('click', function(event) {
   }
 
   event.preventDefault();
-  router.redirectTo(href);
+  router.navigate(href, { trigger: true });
 });

@@ -16,6 +16,7 @@ environment. Instructions for each are provided below.
 Run:
 
     $ npm install
+    $ npm run get-secrets
 
 **Virtual Machine:**
 

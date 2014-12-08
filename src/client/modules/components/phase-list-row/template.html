@@ -1,0 +1,26 @@
+<tr>
+  <td>
+    <h3 class="phase-label">
+      <span class="project-name">{{project.name}}:</span>
+      <span class="phase-name">{{name}}</span>
+    </h3>
+    {{#with date_start}}
+    <time datetime="{{ this.toISOString() }}">
+      Starts: {{ this.getMonth() + 1 }} / {{ this.getDate() }}
+    </time>
+    {{/with}}
+
+    {{#with date_end}}
+    <time datetime="{{ this.toISOString() }}">
+      Ends: {{ this.getMonth() + 1 }} / {{ this.getDate() }}
+    </time>
+    {{/with}}
+  </td>
+  {{#each weeks}}
+  <td class="{{#if isActive}}active{{/if}}">
+    {{#if isActive}}
+    <a href="{{ reviewUrl }}">View</a>
+    {{/if}}
+  </td>
+  {{/each}}
+</tr>

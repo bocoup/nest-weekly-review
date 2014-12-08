@@ -1,13 +1,19 @@
 'use strict';
 var Router = require('ampersand-router');
+var Phases = require('./phases');
 var Layout = require('./components/layout/index');
 var weekNumber = require('./util/week-num');
+require('./ractive-adaptors-backbone');
 
 module.exports = Router.extend({
   initialize: function(options) {
     this.layout = new Layout({
-      el: options.el
+      el: options.el,
+      adapt: ['Backbone']
     });
+    this.phases = new Phases();
+
+    this.phases.fetch();
   },
 
   routes: {
@@ -27,7 +33,8 @@ module.exports = Router.extend({
     this.layout.set('route', 'phaseList');
     this.layout.findComponent('bp-phase-list').set({
       firstWeek: weekNumber.toDate(year, week),
-      numWeeks: 5
+      numWeeks: 5,
+      _phases: this.phases
     });
   },
 

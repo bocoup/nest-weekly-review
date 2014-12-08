@@ -1,10 +1,33 @@
-<ul>
-  {{#each phases}}
-  <li>
-    <a href="{{url}}">
-      {{ date.getMonth() + 1 }} / {{ date.getDate() }}
-    </a>
-  </li>
-  {{/each}}
-</ul>
-<a href="{{prevWeek}}">Prev</a> | <a href="{{nextWeek}}">Next</a>
+<table>
+  <thead>
+    <tr>
+      <td></td>
+      {{#each weeks}}
+      <td>{{ this.getMonth() + 1 }} / {{ this.getDate() }}</td>
+      {{/each}}
+    </tr>
+    <tr>
+      <td></td>
+      {{#each weeks}}
+      <td>
+        {{#if @index == 0}}
+        <a href="{{prevWeek}}">Prev</a>
+        {{/if}}
+        {{#if @index === weeks.length - 1}}
+        <a href="{{nextWeek}}">Next</a>
+        {{/if}}
+      </td>
+      {{/each}}
+    </td>
+  </thead>
+  <tbody>
+    {{#each phases}}
+    <bp-phase-list-row data-num-weeks="{{numWeeks}}" data-first-week="{{firstWeek}}" />
+    {{else}}
+    <tr>
+      <td></td>
+      <td colspan="{{ weeks.length }}">No phases in this timeframe.</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

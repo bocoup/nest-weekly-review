@@ -15,7 +15,6 @@
     "vagrant-watch-log": "vagrant ssh -c 'find /var/log/blackphoenix/ -name *.log | sudo xargs tail -f'"
   },
   "devDependencies": {
-    "grunt-cli": "^0.1.13",
     "jscs": "^1.8.1",
     "jshint": "^2.5.10",
     "nest": "git+https://6f278b7cbc5d8c3ba8961945c677a7d1f53e2901:x-oauth-basic@github.com/bocoup/nest-cli.git"

@@ -162,7 +162,7 @@ tbody td {
 }
 
 /* Weekly tool structure */
-.week input[type="checkbox"] { 
+.week input[type="checkbox"] {
   display: block;
   height: 1.2em;
   opacity: 0;
@@ -207,7 +207,7 @@ tbody td {
   -webkit-transform: rotateY(0deg);
   transform: rotateY(0deg);
 }
-.flip .front, 
+.flip .front,
 .flip .back {
   background: #eee;
   display: block;

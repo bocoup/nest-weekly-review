@@ -1,4 +1,6 @@
 'use strict';
+var DAY_MS = 1000 * 60 * 60 * 24;
+var WEEK_MS = 7 * DAY_MS;
 
 /**
  * Calculate the week number described by the given date.
@@ -11,11 +13,25 @@ exports.fromDate = function(date) {
   var yearBegin = new Date(date.getFullYear(), 0, 1);
   var weekBegin = new Date(date.getFullYear(), date.getMonth(), date.getDate());
   weekBegin.setTime(
-    weekBegin.getTime() - weekBegin.getDay() * 24 * 60 * 60 * 1000
+    weekBegin.getTime() - weekBegin.getDay() * DAY_MS
   );
-  var dayCount = (weekBegin.getTime() - yearBegin.getTime()) / (24 * 60 * 60 * 1000);
+  var dayOffset;
 
-  return Math.floor((dayCount - yearBegin.getDay()) / 7);
+  // If the week began on a date in the previous year, the week offset should
+  // be calculated in terms of that year.
+  if (weekBegin.getTime() < yearBegin.getTime()) {
+    yearBegin.setFullYear(yearBegin.getFullYear() - 1);
+  }
+
+  // This value must be rounded to account for dates where daylight savings
+  // time is in effect.
+  dayOffset = Math.round((weekBegin.getTime() - yearBegin.getTime()) / DAY_MS);
+
+  if (dayOffset < yearBegin.getDay()) {
+    return 0;
+  }
+
+  return Math.floor((dayOffset - (7 - yearBegin.getDay())) / 7);
 };
 
 /**
@@ -32,7 +48,5 @@ exports.toDate = function(year, week) {
   var firstSunday = firstDay === 0 ? 0 : (7 - firstDay);
   var weekBegin = new Date(year, 0, 1 + firstSunday);
 
-  return new Date(
-    weekBegin.getTime() + week * 7 * 24 * 60 * 60 * 1000
-  );
+  return new Date(weekBegin.getTime() + week * WEEK_MS);
 };

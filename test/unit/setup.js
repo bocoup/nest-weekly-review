@@ -1,3 +1,6 @@
 'use strict';
+var chai = require('chai');
 
-global.assert = require('chai').assert;
+chai.use(require('chai-datetime'));
+
+global.assert = chai.assert;

@@ -3,7 +3,9 @@ var DAY_MS = 1000 * 60 * 60 * 24;
 var WEEK_MS = 7 * DAY_MS;
 
 /**
- * Calculate the week number described by the given date.
+ * Calculate the zero-indexed week number described by the given date. The
+ * first Sunday of a year marks that year's first week--some dates may belong
+ * to a week in the previous year (i.e. January 1, 2014).
  *
  * @param {Date} date
  *
@@ -35,10 +37,11 @@ exports.fromDate = function(date) {
 };
 
 /**
- * Generate a Date object describing the day of a given year.
+ * Generate a Date object describing the first day of a given week (as defined
+ * by a year and the week's zero-indexed offset within that year).
  *
  * @param {number} year
- * @param {number} week
+ * @param {number} week - zero-indexed offset
  *
  * @returns {Date}
  */

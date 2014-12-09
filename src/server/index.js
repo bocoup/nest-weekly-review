@@ -9,6 +9,7 @@ var app = express();
 
 app.use('/modules/main.js', browserifyMiddleware(__dirname + '/../client/modules/main.js', {
   transform: [
+    require('./css-transform'),
     require('./ractive-transform')
   ]
 }));

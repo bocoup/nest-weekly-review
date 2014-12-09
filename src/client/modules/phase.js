@@ -4,13 +4,17 @@ var Model = require('ampersand-model');
 var WEEK_MS = 1000 * 60 * 60 * 24 * 7;
 
 module.exports = Model.extend({
+  url: function() {
+    return '/api/phase/' + this.get('id');
+  },
   props: {
     id: 'number',
     date_start: 'date',
     name: 'string',
     calendar_weeks: 'number',
     developer_weeks: 'number',
-    project: 'object'
+    project: 'object',
+    employees: 'array'
   },
   derived: {
     date_end: {

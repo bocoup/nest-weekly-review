@@ -14,6 +14,8 @@ app.use('/modules/main.js', browserifyMiddleware(__dirname + '/../client/modules
   ]
 }));
 
+app.use('/api', require('./api/router'));
+
 // Re-write directory requests to the project root. The client-side code served
 // from the index is capable of rendering the correct page based on the initial
 // URL. This enables direct access (via external link) to specific application

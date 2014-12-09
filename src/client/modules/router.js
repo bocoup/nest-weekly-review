@@ -18,7 +18,7 @@ module.exports = Router.extend({
   routes: {
     '': 'index',
     'year/:year/week/:week/': 'phaseList',
-    'year/:year/week/:week/phase/:phaseId/': 'review'
+    'phase/:phaseId/week/:weekOffset/': 'review'
   },
 
   index: function() {
@@ -44,12 +44,11 @@ module.exports = Router.extend({
     });
   },
 
-  review: function(year, week, phaseId) {
+  review: function(phaseId, weekOffset) {
     this.layout.set('route', 'review');
     this.phases.getOrFetch(parseInt(phaseId, 10), function(err, phase) {
       this.layout.findComponent('bp-review').set({
-        year: year,
-        week: week,
+        weekOffset: parseInt(weekOffset, 10),
         phase: phase
       });
     }.bind(this));

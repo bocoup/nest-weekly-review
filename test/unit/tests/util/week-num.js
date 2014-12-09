@@ -109,4 +109,42 @@ suite('weekNum', function() {
       assert.equalDate(toDate(2015, 51), new Date(2015, 11, 27));
     });
   });
+
+  suite('between', function() {
+    var between = weekNum.between;
+
+    test('same time', function() {
+      assert.equal(between(new Date(2014, 11, 1), new Date(2014, 11, 1)), 0);
+    });
+
+    test('less than one week', function() {
+      assert.equal(between(new Date(2014, 11, 1), new Date(2014, 11, 2)), 1/7);
+      assert.equal(between(new Date(2014, 11, 1), new Date(2014, 11, 3)), 2/7);
+      assert.equal(between(new Date(2014, 11, 1), new Date(2014, 11, 4)), 3/7);
+      assert.equal(between(new Date(2014, 11, 1), new Date(2014, 11, 5)), 4/7);
+      assert.equal(between(new Date(2014, 11, 1), new Date(2014, 11, 6)), 5/7);
+      assert.equal(between(new Date(2014, 11, 1), new Date(2014, 11, 7)), 6/7);
+    });
+
+    test('exactly 1 (Sunday)', function() {
+      assert.equal(between(new Date(2014, 11, 7), new Date(2014, 11, 14)), 1);
+    });
+
+    test('exactly 1 (Tuesday)', function() {
+      assert.equal(between(new Date(2014, 11, 2), new Date(2014, 11, 9)), 1);
+    });
+
+    test('between 1 and two', function() {
+      assert.equal(between(new Date(2014, 11, 7), new Date(2014, 11, 15)), 8/7);
+      assert.equal(between(new Date(2014, 11, 2), new Date(2014, 11, 13)), 11/7);
+    });
+
+    test('across year boundary', function() {
+      assert.equal(between(new Date(2014, 11, 30), new Date(2015, 0, 7)), 8/7);
+    });
+
+    test('across DST boundary', function() {
+      assert.equal(between(new Date(2015, 2, 10), new Date(2015, 2, 17)), 1);
+    });
+  });
 });

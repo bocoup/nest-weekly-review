@@ -2,33 +2,31 @@
 var Ractive = require('ractive/ractive.runtime');
 
 var weekNumber = require('../../util/week-num');
-var WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 
 module.exports = Ractive.extend({
   template: require('./template.html'),
   css: require('./style.css'),
-  reviewUrl: function(date) {
-    return '/year/' + date.getFullYear() +
-      '/week/' + weekNumber.fromDate(date) +
-      '/phase/' + this.get('id') + '/';
+  reviewUrl: function(offset) {
+    return '/phase/' + this.get('id') + '/week/' + offset +'/';
   },
   computed: {
     weeks: function() {
-      var firstWeek = this.get('data-first-week').getTime();
-      var phaseStart = this.get('date_start').getTime();
-      var numWeeks = parseInt(this.get('data-num-weeks', 10));
-      var phaseDuration = this.get('date_end') - phaseStart;
+      var viewWidth = this.get('data-num-weeks');
+      var viewStart = this.get('data-first-week');
+      var phaseStart = this.get('date_start');
+      var between = Math.round(weekNumber.between(phaseStart, viewStart));
+      var phaseLength = this.get('calendar_weeks');
       var weeks = [];
-      var idx, weekStart, msFromStart;
+      var weekOffset, idx;
 
-      for (idx = 0; idx < numWeeks; ++idx) {
-        weekStart = firstWeek + idx * WEEK_MS;
-        msFromStart = weekStart - phaseStart;
+      for (idx = 0; idx < viewWidth; ++idx) {
+        weekOffset = between + idx;
         weeks.push({
-          isActive: msFromStart > -WEEK_MS && msFromStart < phaseDuration,
-          reviewUrl: this.reviewUrl(new Date(weekStart))
+          isActive: weekOffset >= 0 && weekOffset < phaseLength,
+          reviewUrl: this.reviewUrl(weekOffset)
         });
       }
+
       return weeks;
     }
   }

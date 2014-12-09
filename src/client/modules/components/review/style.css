@@ -1,22 +1,33 @@
-.hed-week {
-  font-size: 3em;
-}
-.hed-week b {
-  display: block;
-  font-size: .6em;
-  font-weight: normal;
-}
-
-.pagehead {
-  padding: 2.2em 0 1.8em 0;
-  background: #fff url(/css/img/stripe.png) left bottom repeat-x;
-  background-size: 50% 5px;
-}
-
-.primary,
-.pagehead .hed-week {
+header,
+.primary {
   margin: 0 auto;
   max-width: 1024px;
+}
+
+.phase-info {
+  float: right;
+  text-align: right;
+}
+header h2, header h3 {
+  margin: 0;
+}
+header time {
+  display: block;
+
+  font-size: 0.8em;
+}
+
+.phase-info h3 {
+  font-weight: normal;
+}
+.week-info {
+  float: left;
+}
+
+header:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 .primary {

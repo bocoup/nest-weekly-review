@@ -53,3 +53,15 @@ exports.toDate = function(year, week) {
 
   return new Date(weekBegin.getTime() + week * WEEK_MS);
 };
+
+/**
+ * Calculate the number of weeks between two dates.
+ *
+ * @param {Date} first
+ * @param {Date} second
+ *
+ * @returns {number}
+ */
+exports.between = function(first, second) {
+  return (second.getTime() - first.getTime()) / WEEK_MS;
+};

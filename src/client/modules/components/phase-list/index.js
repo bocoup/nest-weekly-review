@@ -36,19 +36,20 @@ module.exports = Ractive.extend({
       var first = this.get('firstWeek');
       var num = this.get('numWeeks');
       var phases = this.get('_phases');
-      var viewBounds = [first.getTime()];
-      viewBounds[1] = viewBounds[0] + num * WEEK_MS;
 
       if (!phases) {
         return;
       }
 
       phases = phases.filter(function(phase) {
-        var phaseStart = phase.date_start.getTime();
-        var phaseEnd = phaseStart + phase.calendar_weeks * WEEK_MS;
-        return (phaseStart >= viewBounds[0] && phaseStart <= viewBounds[1]) ||
-          (phaseEnd >= viewBounds[0] && phaseEnd <= viewBounds[1]) ||
-          (phaseStart < viewBounds[0] && phaseEnd > viewBounds[1]);
+        var phaseStart = phase.get('date_start');
+        var phaseEnd = phase.get('date_end');
+        var untilStart = Math.round(weekNumber.between(first, phaseStart));
+        var untilEnd = Math.round(weekNumber.between(first, phaseEnd));
+
+        return (untilStart >= 0 && untilStart < num) ||
+          (untilEnd > 0 && untilEnd < num) ||
+          (untilStart <= 0 && untilEnd > 0);
       });
 
       return phases;

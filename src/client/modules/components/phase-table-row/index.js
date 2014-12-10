@@ -6,6 +6,9 @@ var weekNumber = require('../../util/week-num');
 module.exports = Ractive.extend({
   template: require('./template.html'),
   css: require('./style.css'),
+  partials: {
+    date: require('../../partials/date.html')
+  },
   reviewUrl: function(offset) {
     return '/phase/' + this.get('id') + '/week/' + offset +'/';
   },

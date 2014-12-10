@@ -5,15 +5,15 @@
       <span class="phase-name">{{name}}</span>
     </h3>
     {{#with date_start}}
-    <time datetime="{{ this.toISOString() }}">
-      Starts: {{ this.getMonth() + 1 }} / {{ this.getDate() }}
-    </time>
+    <span class="time-boundary">
+      Starts: {{>date}}
+    </span>
     {{/with}}
 
     {{#with date_end}}
-    <time datetime="{{ this.toISOString() }}">
-      Ends: {{ this.getMonth() + 1 }} / {{ this.getDate() }}
-    </time>
+    <span class="time-boundary">
+      Ends: {{>date}}
+    </span>
     {{/with}}
   </td>
   {{#each weeks}}

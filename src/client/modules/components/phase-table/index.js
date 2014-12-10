@@ -15,6 +15,9 @@ module.exports = Ractive.extend({
   components: {
     'bp-phase-table-row': require('../phase-table-row/index')
   },
+  partials: {
+    date: require('../../partials/date.html')
+  },
   formatPhase: function(date) {
     return {
       date: date,

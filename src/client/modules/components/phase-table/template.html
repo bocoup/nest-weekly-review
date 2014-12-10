@@ -3,7 +3,7 @@
     <tr>
       <td></td>
       {{#each weeks}}
-      <td>{{ this.getMonth() + 1 }} / {{ this.getDate() }}</td>
+      <td>{{>date}}</td>
       {{/each}}
     </tr>
     <tr>

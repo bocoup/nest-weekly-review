@@ -9,7 +9,7 @@
   background-color: steelblue;
 }
 
-time {
+.time-boundary {
   display: block;
 
   font-size: 0.8em;

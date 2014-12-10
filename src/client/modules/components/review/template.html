@@ -1,24 +1,24 @@
 <header>
   <div class="week-info">
     <h2>Week #{{weekOffset + 1}}</h2>
-    <time datetime="{{ date.toISOString() }}">
-      {{ date.getMonth() + 1 }} / {{ date.getDate() }} / {{ date.getFullYear() }}
-    </time>
+    {{#with date}}
+      {{>fullDate}}
+    {{/with}}
   </div>
 
   <div class="phase-info">
     <h3 class="offering">{{ phase.project.name }}: {{ phase.name }}</h2>
-    {{#with phase.date_start}}
-    <time datetime="{{ this.toISOString() }}">
-      Starts: {{ this.getMonth() + 1 }} / {{ this.getDate() }} / {{ this.getFullYear() }}
-    </time>
-    {{/with}}
+    <span class="time-boundary">
+      {{#with phase.date_start}}
+      Starts: {{>fullDate}}
+      {{/with}}
+    </span>
 
-    {{#with phase.date_end}}
-    <time datetime="{{ this.toISOString() }}">
-      Ends: {{ this.getMonth() + 1 }} / {{ this.getDate() }} / {{ this.getFullYear() }}
-    </time>
-    {{/with}}
+    <span class="time-boundary">
+      {{#with phase.date_end}}
+      Ends: {{>fullDate}}
+      {{/with}}
+     </span>
   </div>
 </header>
 

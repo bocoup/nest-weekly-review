@@ -5,7 +5,7 @@
 header h2, header h3 {
   margin: 0;
 }
-header time {
+header .time-boundary {
   display: block;
 
   font-size: 0.8em;

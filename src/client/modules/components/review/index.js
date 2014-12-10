@@ -6,6 +6,9 @@ var WEEK_MS = 1000 * 60 * 60 * 24 * 7;
 module.exports = Ractive.extend({
   template: require('./template.html'),
   css: require('./style.css'),
+  partials: {
+    fullDate: require('../../partials/full-date.html')
+  },
   components: {
     'bp-employee-row': require('../review-employee-row')
   },

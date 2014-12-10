@@ -10,7 +10,7 @@
       <td></td>
       {{#each weeks}}
       <td>
-        {{#if @index == 0}}
+        {{#if @index === 0}}
         <a href="{{prevWeek}}">Prev</a>
         {{/if}}
         {{#if @index === weeks.length - 1}}

@@ -13,7 +13,7 @@ module.exports = Ractive.extend({
     numWeeks: 0
   },
   components: {
-    'bp-phase-list-row': require('../phase-list-row/index')
+    'bp-phase-table-row': require('../phase-table-row/index')
   },
   formatPhase: function(date) {
     return {

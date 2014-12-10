@@ -1,6 +1,6 @@
 <tr>
-  <td>
-    <h3 class="phase-label">
+  <td class="phase-label">
+    <h3 class="phase-title">
       <span class="project-name">{{project.name}}:</span>
       <span class="phase-name">{{name}}</span>
     </h3>
@@ -17,7 +17,7 @@
     {{/with}}
   </td>
   {{#each weeks}}
-  <td class="{{#if isActive}}active{{/if}}">
+  <td class="phase {{#if isActive}}active{{/if}}">
     {{#if isActive}}
     <a href="{{ reviewUrl }}">View</a>
     {{/if}}

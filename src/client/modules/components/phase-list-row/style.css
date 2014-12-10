@@ -1,3 +1,10 @@
+.phase-label {
+  width: 20%;
+}
+.phase-title {
+  margin: 0;
+}
+
 .active {
   background-color: steelblue;
 }

@@ -6,6 +6,7 @@ var WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 
 module.exports = Ractive.extend({
   template: require('./template.html'),
+  css: require('./style.css'),
   data: {
     firstWeek: new Date(),
     _phases: null,

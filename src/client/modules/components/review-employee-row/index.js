@@ -1,27 +1,27 @@
 'use strict';
 var Ractive = require('ractive/ractive.runtime');
 
+var weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+
 module.exports = Ractive.extend({
   template: require('./template.html'),
   computed: {
-    ut: function() {
-      var utilizations = this.get('utilizations');
-      var sunday = this.get('data-date');
-      var days = [1, 2, 3, 4, 5].map(function(offset) {
-        return new Date(sunday.getTime() + offset * 1000 * 60 * 60 * 24);
-      }).map(function(date) {
-        var ut;
-
-        utilizations.forEach(function(utilization) {
-          if (utilization.includes(date)) {
-            ut = utilization;
-          }
-        });
-
-        return ut;
+    days: function() {
+      var begin = this.get('data-date').getTime();
+      //var utilizations = this.get('utilizations');
+      //console.log('mike');
+      return weekdays.map(function(name, idx) {
+        return {
+          name: name,
+          date: new Date(begin + idx * 1000 * 60 * 60 * 24),
+          utilization: null
+        };
       });
-
-      return days;
     }
+  },
+  components: {
+    'bp-phase-day': Ractive.extend({
+      template: require('./day.html')
+    })
   }
 });

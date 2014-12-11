@@ -4,29 +4,12 @@
     <input type="checkbox" name="approve{{ id }}" id="approve{{ id }}" class="approved">
     <label class="btn-approved" for="approve{{ id }}">
       Approved?
-      {{#each ut }}
-        {{ date_start }}
-      {{/each}}
     </label>
   </th>
+  {{#each days}}
   <td>
-    <input type="checkbox" id="M{{ id }}" name="M{{ id }}">
-    <label for="M{{ id }}"></label>
+      <input type="checkbox" id="{{name}}{{id}}" name="{{name}}{{id}}" {{#if this.includes(day)}}checked{{/if}}>
+    <label for="{{name}}{{id}}"></label>
   </td>
-  <td>
-    <input type="checkbox" id="T{{ id }}" name="T{{ id }}">
-    <label for="T{{ id }}"></label>
-  </td>
-  <td>
-    <input type="checkbox" id="W{{ id }}" name="W{{ id }}">
-    <label for="W{{ id }}"></label>
-  </td>
-  <td>
-    <input type="checkbox" id="H{{ id }}" name="H{{ id }}">
-    <label for="H{{ id }}"></label>
-  </td>
-  <td>
-    <input type="checkbox" id="F{{ id }}" name="F{{ id }}">
-    <label for="F{{ id }}"></label>
-  </td>
+  {{/each}}
 </tr>

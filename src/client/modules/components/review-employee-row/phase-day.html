@@ -1,0 +1,9 @@
+<input on-change="foo" type="checkbox" id="{{name}}{{id}}" name="{{name}}{{id}}" checked="{{uBool}}">
+<label for="{{name}}{{id}}" style="{{ style }}">
+  {{#with utilization}}
+  <span class="utilization-type">{{ type.name }}</span>
+  {{#if project.name }}
+  <span class="utilization-project">{{ project.name }}</span>
+  {{/if}}
+  {{/with}}
+</label>

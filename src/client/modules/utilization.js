@@ -9,7 +9,9 @@ module.exports = Model.extend({
     position_id: 'number',
     project_id: 'any',
     first_day: 'date',
-    last_day: 'date'
+    last_day: 'date',
+    project: 'object',
+    type: 'object'
   },
 
   /**

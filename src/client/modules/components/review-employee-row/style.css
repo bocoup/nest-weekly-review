@@ -1,0 +1,8 @@
+.utilization-type, .utilization-project {
+  display: block;
+}
+
+.utilization-type {
+  font-weight: bold;
+  font-size: 0.8em;
+}

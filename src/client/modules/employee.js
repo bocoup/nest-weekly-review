@@ -8,10 +8,8 @@ module.exports = Model.extend({
     id: 'number',
     first: 'string',
     last: 'string',
-    github_user: 'string'
-  },
-  collections: {
-    utilizations: Utilizations
+    github_user: 'string',
+    utilizations: 'object'
   },
   setUtilizations: function(allEmployees) {
     var id = this.get('id');
@@ -20,7 +18,7 @@ module.exports = Model.extend({
         return;
       }
 
-      this.set('utilizations', employee.utilizations.models);
+      this.set('utilizations', new Utilizations(employee.utilizations));
     }, this);
   }
 });

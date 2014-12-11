@@ -86,12 +86,8 @@ tbody td {
 
 /* Utilization color schemes */
 .util-edu td:not(.no-util) input:checked + label {
-  border: 1px solid #fec998;
-  background-color: #ffe8d4;
-}
-.util-consulting td:not(.no-util) input:checked label {
-  border-top: solid #a8f181;
-  background-color: #cdeebc;
+  border-width: 1px;
+  border-style: solid;
 }
 [class*="util-"] td:not(.no-util) input:checked + label {
   border-width: 6px 0 0 0;

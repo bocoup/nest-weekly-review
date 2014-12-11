@@ -8,8 +8,7 @@
   </th>
   {{#each days}}
   <td>
-      <input type="checkbox" id="{{name}}{{id}}" name="{{name}}{{id}}" {{#if this.includes(day)}}checked{{/if}}>
-    <label for="{{name}}{{id}}"></label>
+    <bp-phase-day />
   </td>
   {{/each}}
 </tr>

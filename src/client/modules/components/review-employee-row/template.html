@@ -4,6 +4,9 @@
     <input type="checkbox" name="approve{{ id }}" id="approve{{ id }}" class="approved">
     <label class="btn-approved" for="approve{{ id }}">
       Approved?
+      {{#each ut }}
+        {{ date_start }}
+      {{/each}}
     </label>
   </th>
   <td>

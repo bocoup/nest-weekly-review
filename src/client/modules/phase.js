@@ -1,6 +1,8 @@
 'use strict';
 var Model = require('ampersand-model');
 
+var Employees = require('./employees');
+
 var WEEK_MS = 1000 * 60 * 60 * 24 * 7;
 
 module.exports = Model.extend({
@@ -13,8 +15,10 @@ module.exports = Model.extend({
     name: 'string',
     calendar_weeks: 'number',
     developer_weeks: 'number',
-    project: 'object',
-    employees: 'array'
+    project: 'object'
+  },
+  collections: {
+    employees: Employees
   },
   derived: {
     date_end: {
@@ -31,5 +35,18 @@ module.exports = Model.extend({
     attrs.date_start = new Date(attrs.date_start);
 
     return attrs;
+  },
+
+  detectUtilizations: function() {
+    var employees = this.get('employees');
+    var allEmployees = this.collection && this.collection.employees;
+
+    if (!employees || !allEmployees) {
+      return;
+    }
+
+    this.employees.forEach(function(employee) {
+      employee.setUtilizations(allEmployees);
+    });
   }
 });

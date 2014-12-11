@@ -12,7 +12,6 @@ module.exports = Router.extend({
       adapt: ['Backbone']
     });
     this.phases = new Phases();
-
   },
 
   routes: {
@@ -46,6 +45,7 @@ module.exports = Router.extend({
 
   review: function(phaseId, weekOffset) {
     this.layout.set('route', 'review');
+
     this.phases.getOrFetch(parseInt(phaseId, 10), function(err, phase) {
       this.layout.findComponent('bp-review').set({
         weekOffset: parseInt(weekOffset, 10),

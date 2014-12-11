@@ -5,6 +5,7 @@
 var express = require('express');
 
 var phaseData = require('./fixture-data/phases.json');
+var utilizationData = require('./fixture-data/utilizations.json');
 
 var router = module.exports = express.Router();
 
@@ -24,4 +25,8 @@ router.get('/phase/:id', function(req, res) {
   });
 
   res.json(phase);
+});
+
+router.get('/utilizations', function(req, res) {
+  res.json(utilizationData);
 });

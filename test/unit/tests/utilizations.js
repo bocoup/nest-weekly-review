@@ -117,6 +117,24 @@ suite('Utilizations collection', function() {
   });
 
   suite('#setAtDate', function() {
+    test('empty', function() {
+      var u = new Utilizations();
+      var models;
+
+      u.setAtDate(new Date(2013, 3, 4), {
+        utilization_type_id: 3
+      });
+
+      models = u.toJSON();
+
+      assert.equal(models.length, 1);
+      assert.deepEqual(models, [{
+        utilization_type_id: 3,
+        first_day: +new Date(2013, 3, 4),
+        last_day: +new Date(2013, 3, 4)
+      }]);
+    });
+
     test('two-sided split', function() {
       var u = new Utilizations([
         {
@@ -226,6 +244,38 @@ suite('Utilizations collection', function() {
           utilization_type_id: 25,
           first_day: +new Date(2013, 3, 5),
           last_day: +new Date(2013, 3, 5)
+        }]
+      );
+    });
+
+    test('one-sided join (left with missing right)', function() {
+      var u = new Utilizations([
+        {
+          utilization_type_id: 23,
+          first_day: new Date(2013, 3, 3),
+          last_day: new Date(2013, 3, 3)
+        },
+        {
+          utilization_type_id: 24,
+          first_day: new Date(2013, 3, 4),
+          last_day: new Date(2013, 3, 4)
+        }
+      ]);
+      var models;
+
+      u.setAtDate(new Date(2013, 3, 4), {
+        utilization_type_id: 23
+      });
+
+      models = u.toJSON();
+
+      assert.equal(models.length, 1);
+      assert.deepEqual(
+        models,
+        [{
+          utilization_type_id: 23,
+          first_day: +new Date(2013, 3, 3),
+          last_day: +new Date(2013, 3, 4)
         }]
       );
     });

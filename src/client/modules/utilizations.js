@@ -85,7 +85,12 @@ module.exports = Collection.extend({
     var index = this.models.indexOf(prev) + 1;
     var nextAttrs;
 
-    if (curr.matches(attrs)) {
+    if (!curr) {
+      attrs.first_day = new Date(date);
+      attrs.last_day = new Date(date);
+      this.add(attrs, { at: index });
+      return;
+    } else if (curr.matches(attrs)) {
       return;
     }
 
@@ -109,12 +114,15 @@ module.exports = Collection.extend({
       attrs.last_day = new Date(date);
       this.add(attrs, { at: index });
     } else if (prev.matches(attrs)) {
-      if (next.matches(attrs)) {
+      if (next && next.matches(attrs)) {
         this.remove(next);
         prev.set('last_day', new Date(after));
       } else {
+        if (next) {
+          next.set('first_day', new Date(after));
+        }
+
         prev.set('last_day', new Date(date));
-        next.set('first_day', new Date(after));
       }
       if (next !== curr) {
         this.remove(curr);

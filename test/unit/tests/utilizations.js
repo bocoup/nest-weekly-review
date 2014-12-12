@@ -105,6 +105,15 @@ suite('Utilizations collection', function() {
       assert.equal(u.atDate(new Date(2012, 2, 8)), u.at(2));
       assert.equal(u.atDate(new Date(2012, 2, 9)), u.at(2));
     });
+
+    test('with offset', function() {
+      assert.equal(u.atDate(new Date(2012, 2, 2), 2), null);
+      assert.equal(u.atDate(new Date(2012, 2, 2), 3), u.at(1));
+      assert.equal(u.atDate(new Date(2012, 2, 2), 4), u.at(1));
+      assert.equal(u.atDate(new Date(2012, 2, 2), 5), u.at(1));
+      assert.equal(u.atDate(new Date(2012, 2, 2), 6), u.at(2));
+      assert.equal(u.atDate(new Date(2012, 2, 2), 7), u.at(2));
+    });
   });
 
   suite('#setAtDate', function() {

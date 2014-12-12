@@ -41,11 +41,17 @@ module.exports = Collection.extend({
    * model is present in the collection.
    *
    * @param {Date} date
+   * @param {number} [offset] number of days after the supplied date for which
+   *                          to find utilization data. Defaults to `0`.
    *
    * @returns {Utilization|null}
    */
-  atDate: function(date) {
+  atDate: function(date, offset) {
     var idx, length, current;
+
+    if (offset) {
+      date = new Date(date.getTime() + offset * ONE_DAY);
+    }
 
     for (idx = 0, length = this.length; idx < length; ++idx) {
       current = this.at(idx);

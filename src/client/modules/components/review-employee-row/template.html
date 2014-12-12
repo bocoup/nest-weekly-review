@@ -6,7 +6,8 @@
       Approved?
     </label>
   </th>
-  {{#each days}}
-  <bp-phase-day />
+  {{!#each days}}
+  {{#each ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']:offset }}
+  <bp-phase-day name="{{this}}" daynum="{{offset}}" />
   {{/each}}
 </tr>

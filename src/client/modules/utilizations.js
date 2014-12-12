@@ -63,6 +63,10 @@ module.exports = Collection.extend({
     return null;
   },
 
+  atDay: function(first, offset) {
+    return this.atDate(new Date(first.getTime() + offset * ONE_DAY));
+  },
+
   /**
    * Set utilization data for a given date. This operation may result in one or
    * more models being created/destroyed based on whether consecutive dates

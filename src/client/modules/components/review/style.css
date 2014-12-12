@@ -73,48 +73,6 @@ tbody td {
   width: 15%;
 }
 
-
-[class*="util-"] td input {
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-[class*="util-"] td > label {
-  border-top: 6px solid rgba(0,0,0,.15);
-  margin: -1px;
-}
-
-/* Utilization color schemes */
-.util-edu td:not(.no-util) input:checked + label {
-  border-width: 1px;
-  border-style: solid;
-}
-[class*="util-"] td:not(.no-util) input:checked + label {
-  border-width: 6px 0 0 0;
-}
-[class*="util-"] td:not(.no-util):first-of-type input:checked + label {
-  border-left-width: 1px;
-}
-[class*="util-"] td:not(.no-util):last-of-type input:checked + label {
-  border-right-width: 1px;
-}
-[class*="util-"] tr:last-of-type td:not(.no-util) input:checked + label {
-  border-bottom-width: 1px;
-}
-
-/* One-off “other utilization” cells */
-[class*="util-"] td.conf {
-  background-color: #ffaee2;
-}
-[class*="util-"] td.vacation {
-  background-color: #cd80f4;
-}
-
-/* Generic “unavailable” cells */
-[class*="util-"] td.unavail {
-  background-color: #bbb;
-}
-
 .btn-approved {
   background: #eaeaea;
   border: solid #c8c8c8;
@@ -131,76 +89,6 @@ tbody td {
   background: #2fb27d;
   border: solid #15895a;
   border-width: 1px 2px 4px 2px;
-}
-
-/* Weekly tool structure */
-.week input[type="checkbox"] {
-  display: block;
-  height: 1.2em;
-  opacity: 0;
-}
-.week td [type="checkbox"]+label {
-  display: block;
-  min-height: 7.5em;
-}
-.week td {
-  background: #ddd;
-}
-
-/* Blank day interactions */
-.blank-day {
-}
-.blank-day + label {
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  min-height: 1px;
-}
-.reason {
-  display: none;
-  position: absolute;
-  top: 0;
-}
-.blank-day:checked ~ .reason {
-  display: block;
-}
-
-.flip {
-  background: #ddd;
-  perspective: 1000;
-}
-/* flip the pane when hovered */
-.flip input:checked ~ .front {
-  -webkit-transform: rotateY(180deg);
-  transform: rotateY(180deg);
-}
-.flip input:checked ~ .back {
-  -webkit-transform: rotateY(0deg);
-  transform: rotateY(0deg);
-}
-.flip .front,
-.flip .back {
-  background: #eee;
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-transition: transform .4s ease-in-out;
-  transition: transform .4s ease-in-out;
-}
-.flip .front { /* Initially visible */
-  z-index: 2;
-  -webkit-transform: rotateY(0deg);
-  transform: rotateY(0deg);
-}
-.flip .back { /* Initially hidden */
-  border: 1px solid #aaa;
-  -webkit-transform: rotateY(180deg);
-  transform: rotateY(180deg);
 }
 
 .addt-notes {

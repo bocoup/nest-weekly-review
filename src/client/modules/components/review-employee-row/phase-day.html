@@ -1,9 +1,26 @@
-<input on-change="foo" type="checkbox" id="{{name}}{{id}}" name="{{name}}{{id}}" checked="{{uBool}}">
-<label for="{{name}}{{id}}" style="{{ style }}">
-  {{#with utilization}}
-  <span class="utilization-type">{{ type.name }}</span>
-  {{#if project.name }}
-  <span class="utilization-project">{{ project.name }}</span>
-  {{/if}}
-  {{/with}}
-</label>
+<td class="day flip">
+  <input on-change="foo" type="checkbox" id="{{name}}{{id}}" name="{{name}}{{id}}" checked="{{uBool}}">
+
+  <label for="{{name}}{{id}}" class="front" style="{{ style }}">
+    {{#with utilization}}
+    <span class="utilization-type">{{ type.name }}</span>
+    <span class="utilization-project">{{ project.name }}</span>
+    {{/with}}
+  </label>
+
+  <div class="back">
+    <select id="{{name}}{{id}}-type">
+      <option>Consulting</option>
+    </select>
+
+    <select id="{{name}}{{id}}-position">
+      <option>Open Web Engineer</option>
+    </select>
+
+    <select id="{{name}}{{id}}-project}}">
+      <option>Riot</option>
+    </select>
+
+    <label class="set" for="{{name}}{{id}}">Set</label>
+  </div>
+</td>

@@ -6,3 +6,70 @@
   font-weight: bold;
   font-size: 0.8em;
 }
+
+/* Day interactions */
+.day {
+  height: 8em;
+}
+.day .front, .day .back {
+  padding: 0.8em;
+}
+
+/* Weekly tool structure */
+.day input[type="checkbox"] {
+  display: block;
+  height: 1.2em;
+  opacity: 0;
+}
+
+.day select {
+  width: 100%;
+  margin-bottom: 0.3em;
+}
+
+.flip .front {
+  cursor: pointer;
+}
+.flip .back .set {
+  display: block;
+  width: 100%;
+
+  cursor: pointer;
+  text-align: center;
+}
+
+.flip {
+  perspective: 1000;
+}
+
+/* flip the pane when checked */
+.flip input:checked ~ .front {
+  -webkit-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+}
+.flip input:checked ~ .back {
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+
+.flip .front,
+.flip .back {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transition: transform .4s ease-in-out;
+  transition: transform .4s ease-in-out;
+}
+.flip .front { /* Initially visible */
+  z-index: 20;
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+.flip .back { /* Initially hidden */
+  border: 1px solid #aaa;
+}

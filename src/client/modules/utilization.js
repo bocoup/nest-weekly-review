@@ -57,11 +57,23 @@ module.exports = Model.extend({
    * @returns {Utilization}
    */
   createMatching: function(attrs) {
+    var project = this.get('project');
+    var type = this.get('type');
+
     attrs = attrs || {};
     attrs.utilization_type_id = this.get('utilization_type_id');
     attrs.employee_id = this.get('employee_id');
     attrs.position_id = this.get('position_id');
     attrs.project_id = this.get('project_id');
+
+    if (project) {
+      attrs.project = project;
+    }
+
+    if (type) {
+      attrs.type = type;
+    }
+
     return new module.exports(attrs);
   }
 });

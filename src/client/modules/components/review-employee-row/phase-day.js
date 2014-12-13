@@ -13,6 +13,13 @@ module.exports = Ractive.extend({
       }).join(',');
       return 'background-color: rgba(' + rgb + ',0.5);';
     },
+    // TODO: Derive these values from data fetched from the server.
+    types: function() {
+      return [
+        { id: 5, name: 'Vacation Time', color: 'b424ff' },
+        { id: 1, name: 'Consulting', color: '48d800' }
+      ];
+    },
     utilization: function() {
       return this.get('utilizations')
         .atDate(this.get('date'), this.get('daynum'));
@@ -36,8 +43,8 @@ module.exports = Ractive.extend({
 
         // TODO: Set this to the current utilization
         utilizations.setAtDate(date, {
-          utilization_type_id: 5,
-          type: { color: 'aa0000' },
+          utilization_type_id: this.get('newType.id'),
+          type: this.get('newType'),
           employee_id: this.get('id'),
           position_id: 1,
           project_id: this.get('phase.project.id')

@@ -9,15 +9,21 @@
   </label>
 
   <div class="back">
-    <select id="{{name}}{{id}}-type">
-      <option>Consulting</option>
+      <select id="{{name}}{{id}}-type" value="{{newType}}">
+      {{#each types}}
+        <option value="{{this}}">{{name}}</option>
+      {{/each}}
     </select>
 
-    <select id="{{name}}{{id}}-position">
+    {{! TODO: Abstract the condition for consulting projects. }}
+    <select id="{{name}}{{id}}-position" {{#if newType.id !== 1}}disabled{{/if}}>
+      <option selected disabled>Position</option>
       <option>Open Web Engineer</option>
     </select>
 
-    <select id="{{name}}{{id}}-project}}">
+    {{! TODO: Abstract the condition for consulting projects. }}
+    <select id="{{name}}{{id}}-project}}" {{#if newType.id !== 1}}disabled{{/if}}>
+      <option selected disabled>Project</option>
       <option>Riot</option>
     </select>
 

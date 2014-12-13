@@ -1,11 +1,12 @@
 'use strict';
 var Collection = require('ampersand-rest-collection');
 
+var Phase = require('./phase');
 var Employees = require('./employees');
 var getOrFetch = Collection.prototype.getOrFetch;
 
 module.exports = Collection.extend({
-  model: require('./phase'),
+  model: Phase,
   url: '/api/phases',
 
   initialize: function() {

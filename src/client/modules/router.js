@@ -1,6 +1,6 @@
 'use strict';
 var Router = require('ampersand-router');
-var Phases = require('./phases');
+var Phases = require('./models/phases');
 var Layout = require('./components/layout/index');
 var weekNumber = require('./util/week-num');
 require('./ractive-adaptors-backbone');

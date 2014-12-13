@@ -1,7 +1,9 @@
 'use strict';
 var sinon = require('sinon');
 
-var Utilizations = require('../../../src/client/modules/utilizations');
+var Utilizations = require(
+  '../../../../src/client/modules/models/utilizations'
+);
 
 suite('Utilizations collection', function() {
   suite('#save', function() {

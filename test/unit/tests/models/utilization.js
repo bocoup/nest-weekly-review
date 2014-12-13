@@ -1,5 +1,5 @@
 'use strict';
-var Utilization = require('../../../src/client/modules/utilization');
+var Utilization = require('../../../../src/client/modules/models/utilization');
 
 suite('Utilization model', function() {
   suite('#includes', function() {

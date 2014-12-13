@@ -1,17 +1,13 @@
 'use strict';
 var Ractive = require('ractive/ractive.runtime');
+var hexToRgb = require('../../util/hex-to-rgb');
 
 module.exports = Ractive.extend({
   template: require('./phase-day.html'),
   computed: {
     style: function() {
       var hex = this.get('utilization.type.color');
-      var rgb = [
-        hex.slice(0, 2), hex.slice(2, 4), hex.slice(4, 6)
-      ].map(function(hex) {
-        return parseInt(hex, 16);
-      }).join(',');
-      return 'background-color: rgba(' + rgb + ',0.5);';
+      return 'background-color: rgba(' + hexToRgb(hex) + ',0.5);';
     },
     // TODO: Derive these values from data fetched from the server.
     types: function() {

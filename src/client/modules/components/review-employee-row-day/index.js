@@ -3,7 +3,8 @@ var Ractive = require('ractive/ractive.runtime');
 var hexToRgb = require('../../util/hex-to-rgb');
 
 module.exports = Ractive.extend({
-  template: require('./phase-day.html'),
+  template: require('./template.html'),
+  css: require('./style.css'),
   computed: {
     style: function() {
       var hex = this.get('utilization.type.color');

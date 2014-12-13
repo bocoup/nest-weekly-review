@@ -5,6 +5,6 @@ module.exports = Ractive.extend({
   template: require('./template.html'),
   css: require('./style.css'),
   components: {
-    'bp-phase-day': require('./phase-day')
+    'bp-employee-row-day': require('../review-employee-row-day/index')
   }
 });

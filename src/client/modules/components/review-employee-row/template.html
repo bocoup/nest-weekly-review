@@ -8,6 +8,6 @@
   </th>
   {{!#each days}}
   {{#each ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']:offset }}
-  <bp-phase-day name="{{this}}" daynum="{{offset}}" />
+  <bp-employee-row-day name="{{this}}" daynum="{{offset}}" />
   {{/each}}
 </tr>

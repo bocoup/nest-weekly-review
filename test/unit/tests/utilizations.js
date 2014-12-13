@@ -321,6 +321,38 @@ suite('Utilizations collection', function() {
       );
     });
 
+    test('one-sided join (right with missing left)', function() {
+      var u = new Utilizations([
+        {
+          utilization_type_id: 24,
+          first_day: new Date(2013, 3, 4),
+          last_day: new Date(2013, 3, 4)
+        },
+        {
+          utilization_type_id: 25,
+          first_day: new Date(2013, 3, 5),
+          last_day: new Date(2013, 3, 5)
+        }
+      ]);
+      var models;
+
+      u.setAtDate(new Date(2013, 3, 4), {
+        utilization_type_id: 25
+      });
+
+      models = u.toJSON();
+
+      assert.equal(models.length, 1);
+      assert.deepEqual(
+        models,
+        [{
+          utilization_type_id: 25,
+          first_day: +new Date(2013, 3, 4),
+          last_day: +new Date(2013, 3, 5)
+        }]
+      );
+    });
+
     test('one-sided split (left)', function() {
       var u = new Utilizations([
         {

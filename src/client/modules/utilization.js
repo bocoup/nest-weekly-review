@@ -45,5 +45,23 @@ module.exports = Model.extend({
       this.get('employee_id') === other.employee_id &&
       this.get('position_id') === other.position_id &&
       this.get('project_id') === other.project_id;
+  },
+
+  /**
+   * Create a new Utilization model that "matches" the current model (see
+   * description of `Utilization#matches` for more on utilization matching).
+   * Initialze the new model with any additional attributes.
+   *
+   * @param {object} [attrs] - Additional attributes to set on the new model
+   *
+   * @returns {Utilization}
+   */
+  createMatching: function(attrs) {
+    attrs = attrs || {};
+    attrs.utilization_type_id = this.get('utilization_type_id');
+    attrs.employee_id = this.get('employee_id');
+    attrs.position_id = this.get('position_id');
+    attrs.project_id = this.get('project_id');
+    return new module.exports(attrs);
   }
 });

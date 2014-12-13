@@ -83,56 +83,57 @@ module.exports = Collection.extend({
     var curr = this.atDate(date);
     var next = this.atDate(after);
     var index = this.models.indexOf(prev) + 1;
-    var nextAttrs;
+
+    if (curr && curr.matches(attrs)) {
+      return;
+    }
+
+    if (curr && curr !== prev && curr !== next) {
+      this.remove(curr);
+      curr = null;
+    }
+
+    if (prev) {
+      if (prev.matches(attrs)) {
+        prev.set('last_day', new Date(date));
+        curr = prev;
+      } else if (prev === curr) {
+        if (prev === next) {
+          next = prev.createMatching({
+            first_day: new Date('after'),
+            last_day: next.get('last_day')
+          });
+          this.add(next, { at: index });
+        }
+
+        prev.set('last_day', new Date(before));
+        curr = null;
+      }
+    }
+
+    if (next) {
+      if (next.matches(attrs)) {
+        if (curr && curr === prev) {
+          curr.set('last_day', next.get('last_day'));
+          this.remove(next);
+          next = curr;
+        } else {
+          next.set('first_day', new Date(date));
+          curr = next;
+        }
+      } else {
+        next.set('first_day', new Date(after));
+        if (curr !== prev) {
+          curr = null;
+        }
+      }
+    }
 
     if (!curr) {
       attrs.first_day = new Date(date);
       attrs.last_day = new Date(date);
-      this.add(attrs, { at: index });
-      return;
-    } else if (curr.matches(attrs)) {
-      return;
+      curr = this.add(attrs, { at: index });
     }
 
-    if (!prev.matches(attrs) && !next.matches(attrs)) {
-      if (prev === next) {
-        nextAttrs = prev.toJSON();
-        delete nextAttrs.id;
-        nextAttrs.first_day = new Date(after);
-        this.add(nextAttrs, { at: index });
-        prev.set('last_day', new Date(before));
-      } else {
-        if (prev !== curr && next !== curr) {
-          this.remove(curr);
-        }
-
-        prev.set('last_day', new Date(before));
-        next.set('first_day', new Date(after));
-      }
-
-      attrs.first_day = new Date(date);
-      attrs.last_day = new Date(date);
-      this.add(attrs, { at: index });
-    } else if (prev.matches(attrs)) {
-      if (next && next.matches(attrs)) {
-        this.remove(next);
-        prev.set('last_day', new Date(after));
-      } else {
-        if (next) {
-          next.set('first_day', new Date(after));
-        }
-
-        prev.set('last_day', new Date(date));
-      }
-      if (next !== curr) {
-        this.remove(curr);
-      }
-    } else {
-      if (prev !== curr) {
-        this.remove(curr);
-      }
-      prev.set('last_day', new Date(before));
-      next.set('first_day', new Date(date));
-    }
   }
 });

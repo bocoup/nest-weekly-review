@@ -15,14 +15,12 @@
       {{/each}}
     </select>
 
-    {{! TODO: Abstract the condition for consulting projects. }}
-    <select id="{{dayname}}{{employee.id}}-position" {{#if newType.id !== 1}}disabled{{/if}}>
+    <select id="{{dayname}}{{employee.id}}-position" {{#if !newType.isConsulting}}disabled{{/if}}>
       <option selected disabled>Position</option>
       <option>Open Web Engineer</option>
     </select>
 
-    {{! TODO: Abstract the condition for consulting projects. }}
-    <select id="{{dayname}}{{employee.id}}-project" {{#if newType.id !== 1}}disabled{{/if}}>
+    <select id="{{dayname}}{{employee.id}}-project" {{#if !newType.isConsulting}}disabled{{/if}}>
       <option selected disabled>Project</option>
       <option>Riot</option>
     </select>

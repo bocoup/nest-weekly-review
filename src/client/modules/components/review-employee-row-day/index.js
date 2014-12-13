@@ -1,6 +1,12 @@
 'use strict';
 var Component = require('../../util/component');
+var UtilizationType = require('../../models/utilization-type');
 var hexToRgb = require('../../util/hex-to-rgb');
+
+var types = [
+  new UtilizationType({ id: 5, name: 'Vacation Time', color: 'b424ff' }),
+  new UtilizationType({ id: 1, name: 'Consulting', color: '48d800' })
+];
 
 module.exports = Component.extend({
   template: require('./template.html'),
@@ -12,10 +18,7 @@ module.exports = Component.extend({
     },
     // TODO: Derive these values from data fetched from the server.
     types: function() {
-      return [
-        { id: 5, name: 'Vacation Time', color: 'b424ff' },
-        { id: 1, name: 'Consulting', color: '48d800' }
-      ];
+      return types;
     },
     utilization: function() {
       return this.get('utilizations')

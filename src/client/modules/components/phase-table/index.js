@@ -1,10 +1,9 @@
 'use strict';
-var Ractive = require('ractive/ractive.runtime');
-
+var Component = require('../../util/component');
 var weekNumber = require('../../util/week-num');
 var WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 
-module.exports = Ractive.extend({
+module.exports = Component.extend({
   template: require('./template.html'),
   css: require('./style.css'),
   data: {

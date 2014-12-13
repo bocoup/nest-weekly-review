@@ -1,6 +1,6 @@
 <tr>
   <th scope="row">
-    {{ first }} {{ last }}
+    {{ employee.first }} {{ employee.last }}
     <input type="checkbox" name="approve{{ id }}" id="approve{{ id }}" class="approved">
     <label class="btn-approved" for="approve{{ id }}">
       Approved?
@@ -8,6 +8,6 @@
   </th>
   {{!#each days}}
   {{#each ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']:offset }}
-  <bp-employee-row-day name="{{this}}" daynum="{{offset}}" />
+  <bp-employee-row-day utilizations="{{utilizations}}" date="{{date}}" employee="{{employee}}" dayname="{{this}}" daynum="{{offset}}" phase="{{phase}}" />
   {{/each}}
 </tr>

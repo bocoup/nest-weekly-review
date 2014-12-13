@@ -22,7 +22,7 @@
   </thead>
   <tbody>
     {{#each phases}}
-    <bp-phase-table-row data-num-weeks="{{numWeeks}}" data-first-week="{{firstWeek}}" />
+    <bp-phase-table-row phase="{{this}}" data-num-weeks="{{numWeeks}}" data-first-week="{{firstWeek}}" />
     {{else}}
     <tr>
       <td></td>

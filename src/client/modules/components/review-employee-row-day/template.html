@@ -1,7 +1,7 @@
 <td class="day flip">
-  <input on-change="foo" type="checkbox" id="{{name}}{{id}}" name="{{name}}{{id}}" checked="{{uBool}}">
+  <input on-change="foo" type="checkbox" id="{{dayname}}{{employee.id}}" name="{{dayname}}{{employee.id}}" checked="{{uBool}}">
 
-  <label for="{{name}}{{id}}" class="front" style="{{ style }}">
+  <label for="{{dayname}}{{employee.id}}" class="front" style="{{ style }}">
     {{#with utilization}}
     <span class="utilization-type">{{ type.name }}</span>
     <span class="utilization-project">{{ project.name }}</span>
@@ -9,24 +9,24 @@
   </label>
 
   <div class="back">
-      <select id="{{name}}{{id}}-type" value="{{newType}}">
+      <select id="{{dayname}}{{employee.id}}-type" value="{{newType}}">
       {{#each types}}
         <option value="{{this}}">{{name}}</option>
       {{/each}}
     </select>
 
     {{! TODO: Abstract the condition for consulting projects. }}
-    <select id="{{name}}{{id}}-position" {{#if newType.id !== 1}}disabled{{/if}}>
+    <select id="{{dayname}}{{employee.id}}-position" {{#if newType.id !== 1}}disabled{{/if}}>
       <option selected disabled>Position</option>
       <option>Open Web Engineer</option>
     </select>
 
     {{! TODO: Abstract the condition for consulting projects. }}
-    <select id="{{name}}{{id}}-project}}" {{#if newType.id !== 1}}disabled{{/if}}>
+    <select id="{{dayname}}{{employee.id}}-project}}" {{#if newType.id !== 1}}disabled{{/if}}>
       <option selected disabled>Project</option>
       <option>Riot</option>
     </select>
 
-    <label class="set" for="{{name}}{{id}}">Set</label>
+    <label class="set" for="{{dayname}}{{employee.id}}">Set</label>
   </div>
 </td>

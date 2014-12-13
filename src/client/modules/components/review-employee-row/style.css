@@ -1,1 +1,17 @@
-
+.btn-approved {
+  background: #eaeaea;
+  border: solid #c8c8c8;
+  border-width: 1px 2px 4px 2px;
+  display: block;
+  padding: .5em 1em;
+}
+.approved:active + label {
+  background: #2fb27d;
+  border: solid #15895a;
+  border-width: 4px 2px 1px 2px;
+}
+.approved:checked + label {
+  background: #2fb27d;
+  border: solid #15895a;
+  border-width: 1px 2px 4px 2px;
+}

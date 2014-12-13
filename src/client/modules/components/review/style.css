@@ -73,59 +73,10 @@ tbody td {
   width: 15%;
 }
 
-.btn-approved {
-  background: #eaeaea;
-  border: solid #c8c8c8;
-  border-width: 1px 2px 4px 2px;
-  display: block;
-  padding: .5em 1em;
-}
-.approved:active + label {
-  background: #2fb27d;
-  border: solid #15895a;
-  border-width: 4px 2px 1px 2px;
-}
-.approved:checked + label {
-  background: #2fb27d;
-  border: solid #15895a;
-  border-width: 1px 2px 4px 2px;
-}
-
 .addt-notes {
   width: 100%;
   min-height: 10em;
 }
-
-/* Weekly tool theming */
-/*
-td.checked  {
-  border-radius: 0;
-}
-td.checked.last {
-  border-bottom-right-radius: .5em;
-  border-top-right-radius: .5em;
-}
-td.checked + td:not(.checked){
-  border-radius: 0;
-}
-td.checked:first-of-type {
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-}
-td.checked + td.checked:last-of-type {
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-}
-td:not(.checked) + td.checked {
-  border-radius: 0;
-  border-bottom-left-radius: .5em;
-  border-top-left-radius: .5em;
-}
-tr td.checked:last-of-type {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-*/
 
 /* Animations */
 

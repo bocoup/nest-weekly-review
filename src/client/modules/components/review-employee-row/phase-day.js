@@ -42,6 +42,13 @@ module.exports = Ractive.extend({
           position_id: 1,
           project_id: this.get('phase.project.id')
         });
+
+        // The above `Utilizations#setAtDate` operation may trigger changes in
+        // the utilization models that Ractive is unable to detect
+        // automatically. This makes it necessary to explicitly instruct
+        // Ractive to "dirty check" all the dependencies of the `utilizatins`
+        // collection.
+        this.update('utilizations');
       }
     }
   }

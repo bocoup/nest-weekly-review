@@ -1,0 +1,16 @@
+<ul class="notification-list">
+  {{#each notifications}}
+  <li class="ntfn-item{{#if desc}} has-desc{{/if}}{{#if showDesc}} show-desc{{/if}}{{#if type === 'error' }} error{{/if}}">
+    <h2>Error: {{ title }}</h2>
+    <div class="desc">{{ desc }}</div>
+    <a on-click="toggleDesc()" class="toggle-desc">
+      {{#if this.showDesc}}
+      (hide)
+      {{else}}
+      (details)
+      {{/if}}
+    </a>
+    <button on-click="dismiss(this)">&times</button>
+  </li>
+  {{/each}}
+</ul>

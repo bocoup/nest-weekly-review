@@ -1,4 +1,10 @@
-.app-title, main {
+.app-header, main {
+  position: relative;
+
   margin: 0 auto;
   max-width: 1024px;
+}
+
+.app-header h1 {
+  margin: 0;
 }

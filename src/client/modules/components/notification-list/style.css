@@ -1,0 +1,63 @@
+.notification-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+
+  margin: 0;
+  padding: 0;
+
+  list-style-type: none;
+}
+
+.ntfn-item {
+  position: relative;
+
+  border-width: 1px;
+  padding: 0.2em;
+  margin-bottom: 0.4em;
+
+  background-color: #fff;
+  border-color: #333;
+  border-style: solid;
+  border-radius: 2px;
+}
+
+.ntfn-item:last-child {
+  margin-bottom: 0;
+}
+
+.ntfn-item.error {
+  border-color: #a00;
+}
+
+.ntfn-item h2 {
+  margin: 0;
+}
+
+.ntfn-item button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.desc {
+  display: none;
+}
+
+.show-desc .desc {
+  display: block;
+}
+
+.toggle-desc {
+  display: none;
+
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.has-desc .toggle-desc {
+  display: block;
+}

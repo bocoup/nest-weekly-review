@@ -17,7 +17,14 @@ module.exports = Router.extend({
     this.phases = new Phases();
     this.utilizationTypes = new UtilizationTypes();
 
-    this.utilizationTypes.fetch();
+    this.utilizationTypes.fetch({
+      error: function(model, response) {
+        this.layout.addError({
+          title: 'Couldn\'t fetch utilization type data',
+          description: response.body
+        });
+      }.bind(this)
+    });
   },
 
   routes: {

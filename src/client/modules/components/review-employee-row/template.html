@@ -1,8 +1,8 @@
 <tr>
   <th scope="row">
     {{ employee.first }} {{ employee.last }}
-    <input type="checkbox" name="approve{{ id }}" id="approve{{ id }}" class="approved">
-    <label class="btn-approved" for="approve{{ id }}">
+    <input type="checkbox" name="approve{{ employee.id }}" id="approve-{{ employee.id }}" class="approved">
+    <label class="btn-approved" for="approve-{{ employee.id }}">
       Approved?
     </label>
   </th>

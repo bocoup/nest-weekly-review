@@ -8,6 +8,13 @@
   </th>
   {{!#each days}}
   {{#each ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']:offset }}
-  <bp-employee-row-day utilizations="{{utilizations}}" date="{{date}}" employee="{{employee}}" dayname="{{this}}" daynum="{{offset}}" phase="{{phase}}" />
+  <bp-employee-row-day
+    dayname="{{this}}"
+    date="{{date}}"
+    daynum="{{offset}}"
+    employee="{{employee}}"
+    phase="{{phase}}"
+    utilizations="{{utilizations}}"
+    utilizationTypes="{{utilizationTypes}}" />
   {{/each}}
 </tr>

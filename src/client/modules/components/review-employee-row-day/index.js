@@ -1,12 +1,6 @@
 'use strict';
 var Component = require('../../util/component');
-var UtilizationType = require('../../models/utilization-type');
 var hexToRgb = require('../../util/hex-to-rgb');
-
-var types = [
-  new UtilizationType({ id: 5, name: 'Vacation Time', color: 'b424ff' }),
-  new UtilizationType({ id: 1, name: 'Consulting', color: '48d800' })
-];
 
 module.exports = Component.extend({
   template: require('./template.html'),
@@ -15,10 +9,6 @@ module.exports = Component.extend({
     style: function() {
       var hex = this.get('utilization.type.color');
       return 'background-color: rgba(' + hexToRgb(hex) + ',0.5);';
-    },
-    // TODO: Derive these values from data fetched from the server.
-    types: function() {
-      return types;
     },
     utilization: function() {
       return this.get('utilizations')

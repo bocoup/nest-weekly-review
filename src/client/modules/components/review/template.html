@@ -37,7 +37,12 @@
     </thead>
     <tbody>
       {{#each phase.employees}}
-      <bp-employee-row date="{{ date }}" employee="{{this}}" phase="{{phase}}" utilizations="{{utilizations}}" />
+      <bp-employee-row
+        date="{{ date }}"
+        employee="{{this}}"
+        phase="{{phase}}"
+        utilizations="{{utilizations}}"
+        utilizationTypes="{{utilizationTypes}}" />
       {{/each}}
     </tbody>
     </table>

@@ -1,8 +1,11 @@
 'use strict';
 var Router = require('ampersand-router');
+
 var Phases = require('./models/phases');
+var UtilizationTypes = require('./models/utilization-types');
 var Layout = require('./components/layout/index');
 var weekNumber = require('./util/week-num');
+
 require('./ractive-adaptors-backbone');
 
 module.exports = Router.extend({
@@ -12,6 +15,9 @@ module.exports = Router.extend({
       adapt: ['Backbone']
     });
     this.phases = new Phases();
+    this.utilizationTypes = new UtilizationTypes();
+
+    this.utilizationTypes.fetch();
   },
 
   routes: {
@@ -49,7 +55,8 @@ module.exports = Router.extend({
     this.phases.getOrFetch(parseInt(phaseId, 10), function(err, phase) {
       this.layout.findComponent('bp-review').set({
         weekOffset: parseInt(weekOffset, 10),
-        phase: phase
+        phase: phase,
+        utilizationTypes: this.utilizationTypes
       });
     }.bind(this));
   }

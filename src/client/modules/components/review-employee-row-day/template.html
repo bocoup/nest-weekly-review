@@ -15,16 +15,16 @@
       {{/each}}
     </select>
 
+    <select id="{{dayname}}{{employee.id}}-project" {{#if !newType.isConsulting}}disabled{{/if}}>
+      <option selected disabled>Project</option>
+      <option>Riot</option>
+    </select>
+
     <select id="{{dayname}}{{employee.id}}-position" {{#if !newType.isConsulting}}disabled{{/if}} value="{{newPosition}}">
       <option selected disabled>Position</option>
       {{#each positions}}
       <option value="{{this}}">{{name}}</option>
       {{/each}}
-    </select>
-
-    <select id="{{dayname}}{{employee.id}}-project" {{#if !newType.isConsulting}}disabled{{/if}}>
-      <option selected disabled>Project</option>
-      <option>Riot</option>
     </select>
 
     <label class="set" for="{{dayname}}{{employee.id}}">Set</label>

@@ -8,7 +8,7 @@ var WEEK_MS = 1000 * 60 * 60 * 24 * 7;
 
 module.exports = Model.extend({
   url: function() {
-    return API_ROOT + '/phase/' + this.get('id');
+    return API_ROOT + '/project_phases/' + this.get('id');
   },
   props: {
     id: 'number',

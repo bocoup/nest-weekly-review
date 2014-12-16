@@ -10,7 +10,7 @@ function formatDateParam(date) {
 
 module.exports = Collection.extend({
   model: Employee,
-  url: API_ROOT + '/utilizations',
+  url: API_ROOT + '/employees/utilizations',
   fetchBetween: function(options) {
     this.fetch({
       success: options.success,

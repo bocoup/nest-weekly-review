@@ -11,11 +11,11 @@ var utilizationTypeData = require('./fixture-data/utilization-types.json');
 
 var router = module.exports = express.Router();
 
-router.get('/phases', function(req, res) {
+router.get('/project_phases', function(req, res) {
   res.json(phaseData);
 });
 
-router.get('/phase/:id', function(req, res) {
+router.get('/project_phases/:id', function(req, res) {
   var id = parseInt(req.params.id, 10);
   var phase = null;
 
@@ -33,7 +33,7 @@ router.get('/positions', function(req, res) {
   res.json(positionData);
 });
 
-router.get('/utilizations', function(req, res) {
+router.get('/employees/utilizations', function(req, res) {
   res.json(utilizationData);
 });
 

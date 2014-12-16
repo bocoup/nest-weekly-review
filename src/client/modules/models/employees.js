@@ -2,13 +2,15 @@
 var Collection = require('ampersand-rest-collection');
 var Employee = require('./employee');
 
+var API_ROOT = require('../api-root');
+
 function formatDateParam(date) {
   return date.toISOString().replace(/T.*$/, '');
 }
 
 module.exports = Collection.extend({
   model: Employee,
-  url: '/api/utilizations',
+  url: API_ROOT + '/utilizations',
   fetchBetween: function(options) {
     this.fetch({
       success: options.success,

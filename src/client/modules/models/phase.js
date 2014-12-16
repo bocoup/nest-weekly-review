@@ -3,11 +3,12 @@ var Model = require('ampersand-model');
 
 var Employees = require('./employees');
 
+var API_ROOT = require('../api-root');
 var WEEK_MS = 1000 * 60 * 60 * 24 * 7;
 
 module.exports = Model.extend({
   url: function() {
-    return '/api/phase/' + this.get('id');
+    return API_ROOT + '/phase/' + this.get('id');
   },
   props: {
     id: 'number',

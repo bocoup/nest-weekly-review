@@ -5,9 +5,11 @@ var Phase = require('./phase');
 var Employees = require('./employees');
 var getOrFetch = Collection.prototype.getOrFetch;
 
+var API_ROOT = require('../api-root');
+
 module.exports = Collection.extend({
   model: Phase,
-  url: '/api/phases',
+  url: API_ROOT + '/phases',
 
   initialize: function() {
     this.employees = new Employees();

@@ -2,6 +2,7 @@
 var Router = require('ampersand-router');
 
 var Phases = require('./models/phases');
+var Positions = require('./models/positions');
 var UtilizationTypes = require('./models/utilization-types');
 var Layout = require('./components/layout/index');
 var weekNumber = require('./util/week-num');
@@ -15,7 +16,17 @@ module.exports = Router.extend({
       adapt: ['Backbone']
     });
     this.phases = new Phases();
+    this.positions = new Positions();
     this.utilizationTypes = new UtilizationTypes();
+
+    this.positions.fetch({
+      error: function(model, response) {
+        this.layout.addError({
+          title: 'Couldn\'t fetch position data',
+          description: response.body
+        });
+      }.bind(this)
+    });
 
     this.utilizationTypes.fetch({
       error: function(model, response) {
@@ -63,6 +74,7 @@ module.exports = Router.extend({
       this.layout.findComponent('bp-review').set({
         weekOffset: parseInt(weekOffset, 10),
         phase: phase,
+        positions: this.positions,
         utilizationTypes: this.utilizationTypes
       });
     }.bind(this));

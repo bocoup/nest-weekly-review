@@ -5,6 +5,7 @@
 var express = require('express');
 
 var phaseData = require('./fixture-data/phases.json');
+var positionData = require('./fixture-data/positions.json');
 var utilizationData = require('./fixture-data/utilizations.json');
 var utilizationTypeData = require('./fixture-data/utilization-types.json');
 
@@ -26,6 +27,10 @@ router.get('/phase/:id', function(req, res) {
   });
 
   res.json(phase);
+});
+
+router.get('/positions', function(req, res) {
+  res.json(positionData);
 });
 
 router.get('/utilizations', function(req, res) {

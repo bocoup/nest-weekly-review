@@ -2,6 +2,9 @@
 var Component = require('../../util/component');
 var hexToRgb = require('../../util/hex-to-rgb');
 
+// TODO: Initially set `newType`, `newPosition` to the associated value for the
+// current day.
+
 module.exports = Component.extend({
   template: require('./template.html'),
   css: require('./style.css'),
@@ -36,7 +39,7 @@ module.exports = Component.extend({
           utilization_type_id: this.get('newType.id'),
           type: this.get('newType'),
           employee_id: this.get('id'),
-          position_id: 1,
+          position_id: this.get('newPosition.id'),
           project_id: this.get('phase.project.id')
         });
 

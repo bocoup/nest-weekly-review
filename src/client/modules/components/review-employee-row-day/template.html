@@ -15,9 +15,11 @@
       {{/each}}
     </select>
 
-    <select id="{{dayname}}{{employee.id}}-position" {{#if !newType.isConsulting}}disabled{{/if}}>
+    <select id="{{dayname}}{{employee.id}}-position" {{#if !newType.isConsulting}}disabled{{/if}} value="{{newPosition}}">
       <option selected disabled>Position</option>
-      <option>Open Web Engineer</option>
+      {{#each positions}}
+      <option value="{{this}}">{{name}}</option>
+      {{/each}}
     </select>
 
     <select id="{{dayname}}{{employee.id}}-project" {{#if !newType.isConsulting}}disabled{{/if}}>

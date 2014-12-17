@@ -21,8 +21,19 @@
     </td>
   </thead>
   <tbody>
-    {{#each phases}}
-    <bp-phase-table-row phase="{{this}}" data-num-weeks="{{numWeeks}}" data-first-week="{{firstWeek}}" />
+    {{#each visibleProjects:projectIdx}}
+      {{#each phases}}
+      <bp-phase-table-row
+        project="{{visibleProjects[projectIdx]}}"
+        phase="{{this}}"
+        data-num-weeks="{{numWeeks}}"
+        data-first-week="{{firstWeek}}" />
+      {{else}}
+      <bp-phase-table-row
+        project="{{this}}"
+        data-num-weeks="{{numWeeks}}"
+        data-first-week="{{firstWeek}}" />
+      {{/each}}
     {{else}}
     <tr>
       <td></td>

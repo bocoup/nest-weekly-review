@@ -9,13 +9,13 @@ var API_ROOT = require('../api-root');
 
 module.exports = Collection.extend({
   model: Phase,
-  url: API_ROOT + '/phases',
+  url: API_ROOT + '/project_phases',
 
   initialize: function() {
     this.employees = new Employees();
   },
 
-  getOrFetch: function() {
+  getOrFetchold: function() {
     var employees = this.employees;
     var callback = arguments[arguments.length - 1];
     var args = Array.prototype.slice.call(arguments);
@@ -33,7 +33,8 @@ module.exports = Collection.extend({
         success: function() {
           phase.detectUtilizations();
           done();
-        }
+        },
+        error: callback
       });
     };
 

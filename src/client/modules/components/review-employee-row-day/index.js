@@ -14,7 +14,7 @@ module.exports = Component.extend({
       return 'background-color: rgba(' + hexToRgb(hex) + ',0.5);';
     },
     utilization: function() {
-      return this.get('utilizations')
+      return this.get('employee.utilizations')
         .atDate(this.get('date'), this.get('daynum'));
     },
     // Define a set-able computed property so the utilizations collection can

@@ -8,7 +8,6 @@ module.exports = Component.extend({
   css: require('./style.css'),
   data: {
     firstWeek: new Date(),
-    _phases: null,
     numWeeks: 0
   },
   components: {
@@ -35,27 +34,27 @@ module.exports = Component.extend({
       var date = new Date(this.get('firstWeek').getTime() - WEEK_MS);
       return this.phaseUrl(date);
     },
-    phases: function() {
+    visibleProjects: function() {
       var first = this.get('firstWeek');
       var num = this.get('numWeeks');
-      var phases = this.get('_phases');
+      var projects = this.get('projects');
 
-      if (!phases) {
+      if (!projects) {
         return;
       }
 
-      phases = phases.filter(function(phase) {
-        var phaseStart = phase.get('date_start');
-        var phaseEnd = phase.get('date_end');
-        var untilStart = Math.round(weekNumber.between(first, phaseStart));
-        var untilEnd = Math.round(weekNumber.between(first, phaseEnd));
+      projects = projects.filter(function(project) {
+        var projectStart = project.get('date_start');
+        var projectEnd = project.get('date_end');
+        var untilStart = Math.round(weekNumber.between(first, projectStart));
+        var untilEnd = Math.round(weekNumber.between(first, projectEnd));
 
         return (untilStart >= 0 && untilStart < num) ||
           (untilEnd > 0 && untilEnd < num) ||
           (untilStart <= 0 && untilEnd > 0);
       });
 
-      return phases;
+      return projects;
     },
     weeks: function() {
       var first = this.get('firstWeek');

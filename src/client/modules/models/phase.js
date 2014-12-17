@@ -2,6 +2,7 @@
 var Model = require('ampersand-model');
 
 var Employees = require('./employees');
+var weekNum = require('../util/week-num');
 
 var API_ROOT = require('../api-root');
 var WEEK_MS = 1000 * 60 * 60 * 24 * 7;
@@ -12,8 +13,9 @@ module.exports = Model.extend({
   },
   props: {
     id: 'number',
-    date_start: 'date',
     name: 'string',
+    first_calendar_week: 'number',
+    year: 'number',
     calendar_weeks: 'number',
     developer_weeks: 'number',
     project: 'object'
@@ -22,20 +24,48 @@ module.exports = Model.extend({
     employees: Employees
   },
   derived: {
-    date_end: {
-      deps: ['date_start', 'calendar_weeks'],
+    date_start: {
+      deps: ['year', 'first_calendar_week'],
       fn: function() {
-        return new Date(
-          this.get('date_start').getTime() +
-          this.get('calendar_weeks') * WEEK_MS
+        return weekNum.toDate(
+          this.get('year'), this.get('first_calendar_week')
         );
+      }
+    },
+    date_end: {
+      deps: ['year', 'first_calendar_week', 'calendar_weeks'],
+      fn: function() {
+        var year = this.get('year');
+        var week = this.get('first_calendar_week') + this.get('calendar_weeks');
+
+        if (week > 52) {
+          year += 1;
+          week -= 52;
+        }
+
+        return weekNum.toDate(year, week);
       }
     }
   },
-  parse: function(attrs) {
-    attrs.date_start = new Date(attrs.date_start);
 
-    return attrs;
+  fetch: function(options) {
+    var success = options && options.success;
+    options = options || {};
+
+    options.success = function() {
+      this.employees.fetch({
+        data: {
+          start: this.get('date_start'),
+          end: this.get('date_end')
+        },
+        success: function() {
+          this.detectUtilizations();
+          success && sucess();
+        }.bind(this)
+      })
+    }.bind(this);
+
+    return Model.prototype.fetch.call(this, options);
   },
 
   detectUtilizations: function() {
@@ -47,7 +77,7 @@ module.exports = Model.extend({
     }
 
     this.employees.forEach(function(employee) {
-      employee.setUtilizations(allEmployees);
+      //employee.setUtilizations(allEmployees);
     });
   }
 });

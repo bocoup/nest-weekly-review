@@ -11,14 +11,20 @@ function formatDateParam(date) {
 module.exports = Collection.extend({
   model: Employee,
   url: API_ROOT + '/employees/utilizations',
-  fetchBetween: function(options) {
-    this.fetch({
-      success: options.success,
-      failure: options.failure,
-      data: {
-        start: formatDateParam(options.start),
-        end: formatDateParam(options.end)
+
+  fetchUtilizations: function(options) {
+    var ids = this.pluck('id');
+    var success = options.success;
+
+    options.url = this.url + '?ids=' + ids.join(',');
+    options.success = function(resp) {
+      this.reset(resp, options);
+
+      if (success) {
+        success(this, resp, options);
       }
-    });
+    }.bind(this);
+
+    this.sync('read', this, options);
   }
 });

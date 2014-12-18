@@ -80,6 +80,9 @@ module.exports = Collection.extend({
    *                              model/collection mutation methods
    *                              (`Model#set`, `Collection#add`, and
    *                              `Collection#remove`)
+   *
+   * @returns {Utilization} the model describing utilization for the specified
+   *                        `date` after the set operation has completed.
    */
   setAtDate: function(date, attrs, options) {
     var timestamp = date.getTime();
@@ -141,5 +144,6 @@ module.exports = Collection.extend({
       curr = this.add(attrs, withIndex, options);
     }
 
+    return curr;
   }
 });

@@ -121,15 +121,16 @@ suite('Utilizations collection', function() {
   suite('#setAtDate', function() {
     test('empty', function() {
       var u = new Utilizations();
-      var models;
+      var models, current;
 
-      u.setAtDate(new Date(2013, 3, 4), {
+      current = u.setAtDate(new Date(2013, 3, 4), {
         utilization_type_id: 3
       });
 
       models = u.toJSON();
 
       assert.equal(models.length, 1);
+      assert.equal(current, u.at(0));
       assert.deepEqual(models, [{
         utilization_type_id: 3,
         first_day: +new Date(2013, 3, 4),
@@ -145,15 +146,16 @@ suite('Utilizations collection', function() {
           last_day: new Date(2013, 3, 5)
         }
       ]);
-      var models;
+      var models, current;
 
-      u.setAtDate(new Date(2013, 3, 4), {
+      current = u.setAtDate(new Date(2013, 3, 4), {
         utilization_type_id: 5
       });
 
       models = u.toJSON();
 
       assert.equal(models.length, 3);
+      assert.equal(current, u.at(1));
       assert.deepEqual(
         models,
         [{
@@ -190,15 +192,16 @@ suite('Utilizations collection', function() {
           last_day: new Date(2013, 3, 5)
         }
       ]);
-      var models;
+      var models, current;
 
-      u.setAtDate(new Date(2013, 3, 4), {
+      current = u.setAtDate(new Date(2013, 3, 4), {
         utilization_type_id: 23
       });
 
       models = u.toJSON();
 
       assert.equal(models.length, 1);
+      assert.equal(current, u.at(0));
       assert.deepEqual(
         models,
         [{
@@ -227,15 +230,16 @@ suite('Utilizations collection', function() {
           last_day: new Date(2013, 3, 5)
         }
       ]);
-      var models;
+      var models, current;
 
-      u.setAtDate(new Date(2013, 3, 4), {
+      current = u.setAtDate(new Date(2013, 3, 4), {
         utilization_type_id: 23
       });
 
       models = u.toJSON();
 
       assert.equal(models.length, 2);
+      assert.equal(current, u.at(0));
       assert.deepEqual(
         models,
         [{
@@ -263,15 +267,16 @@ suite('Utilizations collection', function() {
           last_day: new Date(2013, 3, 4)
         }
       ]);
-      var models;
+      var models, current;
 
-      u.setAtDate(new Date(2013, 3, 4), {
+      current = u.setAtDate(new Date(2013, 3, 4), {
         utilization_type_id: 23
       });
 
       models = u.toJSON();
 
       assert.equal(models.length, 1);
+      assert.equal(current, u.at(0));
       assert.deepEqual(
         models,
         [{
@@ -300,15 +305,16 @@ suite('Utilizations collection', function() {
           last_day: new Date(2013, 3, 5)
         }
       ]);
-      var models;
+      var models, current;
 
-      u.setAtDate(new Date(2013, 3, 4), {
+      current = u.setAtDate(new Date(2013, 3, 4), {
         utilization_type_id: 25
       });
 
       models = u.toJSON();
 
       assert.equal(models.length, 2);
+      assert.equal(current, u.at(1));
       assert.deepEqual(
         models,
         [{
@@ -336,15 +342,16 @@ suite('Utilizations collection', function() {
           last_day: new Date(2013, 3, 5)
         }
       ]);
-      var models;
+      var models, current;
 
-      u.setAtDate(new Date(2013, 3, 4), {
+      current = u.setAtDate(new Date(2013, 3, 4), {
         utilization_type_id: 25
       });
 
       models = u.toJSON();
 
       assert.equal(models.length, 1);
+      assert.equal(current, u.at(0));
       assert.deepEqual(
         models,
         [{
@@ -368,15 +375,16 @@ suite('Utilizations collection', function() {
           last_day: new Date(2013, 3, 5)
         }
       ]);
-      var models;
+      var models, current;
 
-      u.setAtDate(new Date(2013, 3, 4), {
+      current = u.setAtDate(new Date(2013, 3, 4), {
         utilization_type_id: 24
       });
 
       models = u.toJSON();
 
       assert.equal(models.length, 3);
+      assert.equal(current, u.at(1));
       assert.deepEqual(
         models,
         [{
@@ -408,15 +416,16 @@ suite('Utilizations collection', function() {
           last_day: new Date(2013, 3, 5)
         }
       ]);
-      var models;
+      var models, current;
 
-      u.setAtDate(new Date(2013, 3, 4), {
+      current = u.setAtDate(new Date(2013, 3, 4), {
         utilization_type_id: 24
       });
 
       models = u.toJSON();
 
       assert.equal(models.length, 3);
+      assert.equal(current, u.at(1));
       assert.deepEqual(
         models,
         [{
@@ -448,15 +457,16 @@ suite('Utilizations collection', function() {
           last_day: new Date(2013, 3, 5)
         }
       ]);
-      var models;
+      var models, current;
 
-      u.setAtDate(new Date(2013, 3, 4), {
+      current = u.setAtDate(new Date(2013, 3, 4), {
         utilization_type_id: 23
       });
 
       models = u.toJSON();
 
       assert.equal(models.length, 2);
+      assert.equal(current, u.at(0));
       assert.deepEqual(
         models,
         [{
@@ -484,15 +494,16 @@ suite('Utilizations collection', function() {
           last_day: new Date(2013, 3, 5)
         }
       ]);
-      var models;
+      var models, current;
 
-      u.setAtDate(new Date(2013, 3, 4), {
+      current = u.setAtDate(new Date(2013, 3, 4), {
         utilization_type_id: 25
       });
 
       models = u.toJSON();
 
       assert.equal(models.length, 2);
+      assert.equal(current, u.at(1));
       assert.deepEqual(
         models,
         [{
@@ -525,15 +536,16 @@ suite('Utilizations collection', function() {
           last_day: new Date(2013, 3, 5)
         }
       ]);
-      var models;
+      var models, current;
 
-      u.setAtDate(new Date(2013, 3, 4), {
+      current = u.setAtDate(new Date(2013, 3, 4), {
         utilization_type_id: 21
       });
 
       models = u.toJSON();
 
       assert.equal(models.length, 3);
+      assert.equal(current, u.at(1));
       assert.deepEqual(
         models,
         [{

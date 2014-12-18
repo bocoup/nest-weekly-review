@@ -13,10 +13,6 @@ module.exports = Component.extend({
       var hex = this.get('utilization.type.color');
       return 'background-color: rgba(' + hexToRgb(hex) + ',0.5);';
     },
-    utilization: function() {
-      return this.get('employee.utilizations')
-        .atDate(this.get('date'), this.get('daynum'));
-    },
     // Define a set-able computed property so the utilizations collection can
     // be updated according to the state of a checkbox input.
     uBool: {
@@ -28,6 +24,7 @@ module.exports = Component.extend({
         var date = new Date(
           this.get('date').getTime() + this.get('daynum')*1000*60*60*24
         );
+        var current;
 
         // Leave the utilization as-is until a new value is selected.
         if (!val) {
@@ -35,20 +32,15 @@ module.exports = Component.extend({
         }
 
         // TODO: Set this to the current utilization
-        utilizations.setAtDate(date, {
+        current = utilizations.setAtDate(date, {
           utilization_type_id: this.get('newType.id'),
           type: this.get('newType'),
           employee_id: this.get('id'),
           position_id: this.get('newPosition.id'),
           project_id: this.get('phase.project.id')
-        });
+        }, { silent: true });
 
-        // The above `Utilizations#setAtDate` operation may trigger changes in
-        // the utilization models that Ractive is unable to detect
-        // automatically. This makes it necessary to explicitly instruct
-        // Ractive to "dirty check" all the dependencies of the `utilizatins`
-        // collection.
-        this.update('utilizations');
+        this.set('utilization', current);
       }
     }
   }

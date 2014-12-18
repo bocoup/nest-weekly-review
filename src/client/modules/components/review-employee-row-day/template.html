@@ -1,5 +1,8 @@
 <td class="day flip">
-  <input type="checkbox" id="{{dayname}}{{employee.id}}" name="{{dayname}}{{employee.id}}" checked="{{uBool}}">
+  <input type="checkbox"
+    id="{{dayname}}{{employee.id}}"
+    name="{{dayname}}{{employee.id}}"
+    checked="{{uBool}}" />
 
   <label for="{{dayname}}{{employee.id}}" class="front" style="{{ style }}">
     {{#with utilization}}
@@ -15,12 +18,17 @@
       {{/each}}
     </select>
 
-    <select id="{{dayname}}{{employee.id}}-project" {{#if !newType.isConsulting}}disabled{{/if}}>
+    <select id="{{dayname}}{{employee.id}}-project"
+      {{#if !newType.isConsulting}}disabled{{/if}}>
+
       <option selected disabled>Project</option>
       <option>Riot</option>
     </select>
 
-    <select id="{{dayname}}{{employee.id}}-position" {{#if !newType.isConsulting}}disabled{{/if}} value="{{newPosition}}">
+    <select id="{{dayname}}{{employee.id}}-position"
+      {{#if !newType.isConsulting}}disabled{{/if}}
+      value="{{newPosition}}">
+
       <option selected disabled>Position</option>
       {{#each positions}}
       <option value="{{this}}">{{name}}</option>

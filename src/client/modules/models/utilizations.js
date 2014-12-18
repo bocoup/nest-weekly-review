@@ -1,5 +1,7 @@
 'use strict';
 var Collection = require('ampersand-rest-collection');
+var extend = require('lodash.assign');
+
 var Utilization = require('./utilization');
 
 var ONE_DAY = 1000 * 60 * 60 * 24;
@@ -74,22 +76,26 @@ module.exports = Collection.extend({
    *
    * @param {Date} date
    * @param {Object} attrs - new utilization data
+   * @param {Object} [options] - behavior modifiers forwarded to underlying
+   *                              model/collection mutation methods
+   *                              (`Model#set`, `Collection#add`, and
+   *                              `Collection#remove`)
    */
-  setAtDate: function(date, attrs) {
+  setAtDate: function(date, attrs, options) {
     var timestamp = date.getTime();
     var before = new Date(timestamp - ONE_DAY);
     var after = new Date(timestamp + ONE_DAY);
     var prev = this.atDate(before);
     var curr = this.atDate(date);
     var next = this.atDate(after);
-    var index = this.models.indexOf(prev) + 1;
+    var withIndex = extend({ at: this.models.indexOf(prev) + 1 }, options);
 
     if (curr && curr.matches(attrs)) {
       return;
     }
 
     if (curr && curr !== prev && curr !== next) {
-      this.remove(curr);
+      this.remove(curr, options);
       curr = null;
     }
 
@@ -103,10 +109,10 @@ module.exports = Collection.extend({
             first_day: new Date('after'),
             last_day: next.get('last_day')
           });
-          this.add(next, { at: index });
+          this.add(next, withIndex);
         }
 
-        prev.set('last_day', new Date(before));
+        prev.set('last_day', new Date(before), options);
         curr = null;
       }
     }
@@ -115,14 +121,14 @@ module.exports = Collection.extend({
       if (next.matches(attrs)) {
         if (curr && curr === prev) {
           curr.set('last_day', next.get('last_day'));
-          this.remove(next);
+          this.remove(next, options);
           next = curr;
         } else {
-          next.set('first_day', new Date(date));
+          next.set('first_day', new Date(date), options);
           curr = next;
         }
       } else {
-        next.set('first_day', new Date(after));
+        next.set('first_day', new Date(after), options);
         if (curr !== prev) {
           curr = null;
         }
@@ -132,7 +138,7 @@ module.exports = Collection.extend({
     if (!curr) {
       attrs.first_day = new Date(date);
       attrs.last_day = new Date(date);
-      curr = this.add(attrs, { at: index });
+      curr = this.add(attrs, withIndex, options);
     }
 
   }

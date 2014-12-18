@@ -30,6 +30,7 @@
     "browserify-middleware": "^4.1.0",
     "debug": "^2.1.0",
     "express": "^4.10.4",
+    "lodash.assign": "^2.4.1",
     "mocha": "^2.0.1",
     "ractive": "^0.6.1",
     "through": "^2.3.6"

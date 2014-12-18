@@ -551,5 +551,43 @@ suite('Utilizations collection', function() {
         }]
       );
     });
+
+    suite('options', function() {
+      var u, events;
+
+      setup(function() {
+        u = new Utilizations([
+          {
+            utilization_type_id: 23,
+            first_day: new Date(2013, 3, 3),
+            last_day: new Date(2013, 3, 5)
+          }
+        ]);
+
+        events = [];
+
+        u.on('all', function(eventName) {
+          events.push(eventName);
+        });
+      });
+
+      test('triggers events by default', function() {
+        u.setAtDate(new Date(2013, 3, 4), {
+          utilization_type_id: 45
+        });
+
+        assert.sameMembers(
+          events, ['add', 'change', 'change:last_day', 'change:first_day']
+        );
+      });
+
+      test('honors `silent` flag when present', function() {
+        u.setAtDate(new Date(2013, 3, 4), {
+          utilization_type_id: 45
+        }, { silent: true });
+
+        assert.deepEqual(events, []);
+      });
+    });
   });
 });

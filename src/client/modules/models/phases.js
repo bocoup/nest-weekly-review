@@ -30,10 +30,7 @@ module.exports = Collection.extend({
       employees.fetchBetween({
         start: phase.get('date_start'),
         end: phase.get('date_end'),
-        success: function() {
-          phase.detectUtilizations();
-          done();
-        },
+        success: done,
         error: callback
       });
     };

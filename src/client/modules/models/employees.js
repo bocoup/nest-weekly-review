@@ -4,10 +4,6 @@ var Employee = require('./employee');
 
 var API_ROOT = require('../api-root');
 
-function formatDateParam(date) {
-  return date.toISOString().replace(/T.*$/, '');
-}
-
 module.exports = Collection.extend({
   model: Employee,
   url: API_ROOT + '/employees/utilizations',

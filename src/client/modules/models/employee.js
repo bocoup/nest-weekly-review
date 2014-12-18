@@ -12,15 +12,5 @@ module.exports = Model.extend({
   },
   collections: {
     utilizations: Utilizations
-  },
-  setUtilizations: function(allEmployees) {
-    var id = this.get('id');
-    allEmployees.forEach(function(employee) {
-      if (employee.get('id') !== id) {
-        return;
-      }
-
-      //this.set('utilizations', new Utilizations(employee.utilizations));
-    }, this);
   }
 });

@@ -1,5 +1,6 @@
 {
   "strict": true,
   "undef": true,
-  "unused": true
+  "unused": true,
+  "predef": ["-Promise"]
 }

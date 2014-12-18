@@ -5,7 +5,6 @@ var Employees = require('./employees');
 var weekNum = require('../util/week-num');
 
 var API_ROOT = require('../api-root');
-var WEEK_MS = 1000 * 60 * 60 * 24 * 7;
 
 module.exports = Model.extend({
   url: function() {
@@ -58,26 +57,11 @@ module.exports = Model.extend({
           start: this.get('date_start'),
           end: this.get('date_end')
         },
-        success: function() {
-          this.detectUtilizations();
-          success && sucess();
-        }.bind(this)
-      })
+        success: success,
+        error: options.error
+      });
     }.bind(this);
 
     return Model.prototype.fetch.call(this, options);
-  },
-
-  detectUtilizations: function() {
-    var employees = this.get('employees');
-    var allEmployees = this.collection && this.collection.employees;
-
-    if (!employees || !allEmployees) {
-      return;
-    }
-
-    this.employees.forEach(function(employee) {
-      //employee.setUtilizations(allEmployees);
-    });
   }
 });

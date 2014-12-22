@@ -13,6 +13,11 @@ module.exports = Component.extend({
       var hex = this.get('utilization.type.color');
       return 'background-color: rgba(' + hexToRgb(hex) + ',0.5);';
     },
+    date: function() {
+      var offset = this.get('dayNum') * 1000* 60 * 60 * 24;
+
+      return new Date(this.get('weekStart').getTime() + offset);
+    },
     // Define a set-able computed property so the utilizations collection can
     // be updated according to the state of a checkbox input.
     uBool: {
@@ -21,9 +26,7 @@ module.exports = Component.extend({
       },
       set: function(val) {
         var utilizations = this.get('utilizations');
-        var date = new Date(
-          this.get('date').getTime() + this.get('daynum')*1000*60*60*24
-        );
+        var date = this.get('date');
         var current;
 
         // Leave the utilization as-is until a new value is selected.
@@ -37,7 +40,8 @@ module.exports = Component.extend({
           type: this.get('newType'),
           employee_id: this.get('id'),
           position_id: this.get('newPosition.id'),
-          project_id: this.get('phase.project.id')
+          project_id: this.get('newProject.id'),
+          project: this.get('newProject')
         }, { silent: true });
 
         this.set('utilization', current);

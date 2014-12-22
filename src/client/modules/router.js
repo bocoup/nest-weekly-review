@@ -145,7 +145,7 @@ module.exports = Router.extend({
         this.layout.findComponent('bp-review').set({
           weekOffset: parseInt(weekOffset, 10),
           phase: models.phase,
-          projects: models.project,
+          projects: this.projects,
           positions: this.positions,
           utilizationTypes: this.utilizationTypes
         });

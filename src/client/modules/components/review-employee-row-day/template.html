@@ -1,10 +1,10 @@
 <td class="day flip">
   <input type="checkbox"
-    id="{{dayname}}{{employee.id}}"
-    name="{{dayname}}{{employee.id}}"
+    id="{{dayName}}{{employee.id}}"
+    name="{{dayName}}{{employee.id}}"
     checked="{{uBool}}" />
 
-  <label for="{{dayname}}{{employee.id}}" class="front" style="{{ style }}">
+  <label for="{{dayName}}{{employee.id}}" class="front" style="{{ style }}">
     {{#with utilization}}
     <span class="utilization-type">{{ type.name }}</span>
     <span class="utilization-project">{{ project.name }}</span>
@@ -12,13 +12,13 @@
   </label>
 
   <div class="back">
-      <select id="{{dayname}}{{employee.id}}-type" value="{{newType}}">
+      <select id="{{dayName}}{{employee.id}}-type" value="{{newType}}">
       {{#each utilizationTypes}}
         <option value="{{this}}">{{name}}</option>
       {{/each}}
     </select>
 
-    <select id="{{dayname}}{{employee.id}}-position"
+    <select id="{{dayName}}{{employee.id}}-position"
       {{#if !newType.isConsulting}}disabled{{/if}}
       value="{{newPosition}}">
 
@@ -28,13 +28,16 @@
       {{/each}}
     </select>
 
-    <select id="{{dayname}}{{employee.id}}-project"
-      {{#if !newType.isConsulting}}disabled{{/if}}>
+    <select id="{{dayName}}{{employee.id}}-project"
+      {{#if !newType.isConsulting}}disabled{{/if}}
+      value="{{newProject}}">
 
       <option selected disabled>Project</option>
-      <option>Riot</option>
+      {{#each projects}}
+      <option value="{{this}}">{{name}}</option>
+      {{/each}}
     </select>
 
-    <label class="set" for="{{dayname}}{{employee.id}}">Set</label>
+    <label class="set" for="{{dayName}}{{employee.id}}">Set</label>
   </div>
 </td>

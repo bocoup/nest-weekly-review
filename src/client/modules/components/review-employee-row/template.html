@@ -9,14 +9,15 @@
   {{!#each days}}
   {{#each ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']:offset }}
   <bp-employee-row-day
-    dayname="{{this}}"
-    date="{{date}}"
-    daynum="{{offset}}"
+    dayName="{{this}}"
+    dayNum="{{offset}}"
     employee="{{employee}}"
     phase="{{phase}}"
     positions="{{positions}}"
+    projects="{{projects}}",
     utilization="{{utilizations.atDay(date, offset)}}"
     utilizations="{{utilizations}}"
-    utilizationTypes="{{utilizationTypes}}" />
+    utilizationTypes="{{utilizationTypes}}"
+    weekStart="{{date}}" />
   {{/each}}
 </tr>

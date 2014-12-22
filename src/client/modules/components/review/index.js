@@ -22,6 +22,16 @@ module.exports = Component.extend({
       }
 
       return new Date(start.getTime() + WEEK_MS * weekOffset);
+    },
+    activeProjects: function() {
+      var reviewStart = this.get('date').getTime();
+      var reviewEnd = reviewStart + WEEK_MS;
+
+      return this.get('projects').filter(function(project) {
+        var projectStart = project.get('date_start').getTime();
+        var projectEnd = project.get('date_end').getTime();
+        return projectStart <= reviewEnd && projectEnd >= reviewStart;
+      });
     }
   }
 });

@@ -3,6 +3,8 @@ var Component = require('../../util/component');
 
 var weekNumber = require('../../util/week-num');
 
+var WEEK_MS = 1000 * 60 * 60 * 24 * 7;
+
 module.exports = Component.extend({
   template: require('./template.html'),
   css: require('./style.css'),
@@ -10,14 +12,15 @@ module.exports = Component.extend({
     date: require('../../partials/date.html')
   },
   reviewUrl: function(offset) {
-    var url = '/project/' + this.get('project.id') + '/';
     var phase = this.get('phase');
+    var firstDay = phase.get('first_day');
+    var date = new Date(firstDay.getTime() + offset * WEEK_MS);
 
-    if (phase) {
-      url += 'phase/' + phase.get('id') + '/';
-    }
-
-    return url + 'week/' + offset +'/';
+    return '/project/' + this.get('project.id') + '/' +
+      'phase/' + phase.get('id') +
+      '/date/' +
+        date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() +
+      '/';
   },
   computed: {
     weeks: function() {

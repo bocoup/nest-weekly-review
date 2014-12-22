@@ -13,16 +13,6 @@ module.exports = Component.extend({
     'bp-employee-row': require('../review-employee-row')
   },
   computed: {
-    date: function() {
-      var start = this.get('phase.first_day');
-      var weekOffset = this.get('weekOffset');
-
-      if (!start || weekOffset === undefined) {
-        return start;
-      }
-
-      return new Date(start.getTime() + WEEK_MS * weekOffset);
-    },
     activeProjects: function() {
       var reviewStart = this.get('date').getTime();
       var reviewEnd = reviewStart + WEEK_MS;

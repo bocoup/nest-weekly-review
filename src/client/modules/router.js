@@ -42,7 +42,7 @@ module.exports = Router.extend({
   routes: {
     '': 'index',
     'year/:year/week/:week/': 'phaseList',
-    'project/:projectId/phase/:phaseId/week/:weekOffset/': 'review'
+    'project/:projectId/phase/:phaseId/date/:date/': 'review'
   },
 
   index: function() {
@@ -55,20 +55,8 @@ module.exports = Router.extend({
   phaseList: function(year, week) {
     this.layout.set('route', 'phaseList');
 
-    // TODO: Fetch with date range, and only when the range includes dates that
-    // have not previously been fetched.
-    if (!this.hasFetched) {
-      this.projects.fetch({
-        // The default behavior of `Collection#fetch` is to fire `add`/`remove`
-        // events on a per-module basis. Because Ractive is configured to
-        // respond to every such event, this behavior causes unecessary
-        // rendering. Use the `reset` flag to avoid triggering individual
-        // `add`/`remove` events, instead relying on a single `reset` event to
-        // instruct Ractive to re-render views as necessary.
-        reset: true
-      });
-      this.hasFetched = true;
-    }
+    this._getProjects(new Date());
+
     this.layout.findComponent('bp-phase-table').set({
       firstWeek: weekNumber.toDate(year, week),
       numWeeks: 5,
@@ -76,17 +64,52 @@ module.exports = Router.extend({
     });
   },
 
-  _getProject: function(projectId) {
-    return new Promise(function(resolve, reject) {
-        this.projects.getOrFetch(projectId, function(err, project) {
-          if (err) {
-            reject(new Error('Couldn\'t find project with ID ' + projectId));
-            return;
-          }
+  /**
+   * Fetch project data for all projects that are active during the provided
+   * date. Optionally, include projects that are included during a range of
+   * dates beyond the provided one.
+   *
+   * @param {Date} date
+   * @param {number} [throughWeeks]
+   */
+  _getProjects: function(date, throughWeeks) {
+    var time = date.getTime();
+    var projects = this.projects;
 
-          resolve(project);
-        });
-      }.bind(this));
+    throughWeeks = throughWeeks || 1;
+
+    return new Promise(function(resolve, reject) {
+      // TODO: Only fetch project data that has not previously been fetched,
+      // likely encapsulated in an instance method such as
+      // `Projects#fetchBetween`.
+      projects.fetch({
+        // The default behavior of `Collection#fetch` is to fire `add`/`remove`
+        // events on a per-module basis. Because Ractive is configured to
+        // respond to every such event, this behavior causes unecessary
+        // rendering. Use the `reset` flag to avoid triggering individual
+        // `add`/`remove` events, instead relying on a single `reset` event to
+        // instruct Ractive to re-render views as necessary.
+        reset: true,
+
+        data: {
+          after: time,
+          before: time + throughWeeks * 1000 * 60 * 60 * 24 * 7,
+        },
+        success: function() {
+          resolve(projects);
+        },
+        error: function(error) {
+          reject(error);
+        }
+      });
+    });
+  },
+
+  _getProject: function(projectId, date) {
+    return this._getProjects(date)
+      .then(function(projects) {
+        return projects.get(projectId);
+      });
   },
 
   _getPhase: function(project, phaseId) {
@@ -118,14 +141,22 @@ module.exports = Router.extend({
       });
   },
 
-  getWeek: function(projectId, phaseId) {
+  /**
+   * Retrieve all the information necessary to render the "review" page.
+   *
+   * @param {object} opts
+   * @param {number} opts.projectId
+   * @param {number} opts.phaseId
+   * @param {Date} opts.date
+   */
+  fetchReviewData: function(opts) {
     var project, phase;
 
-    return this._getProject(projectId)
+    return this._getProject(opts.projectId, opts.date)
       .then(function(_project) {
         project = _project;
 
-        return this._getPhase(project, phaseId);
+        return this._getPhase(project, opts.phaseId);
       }.bind(this))
       .then(function(_phase) {
         phase = _phase;
@@ -137,13 +168,20 @@ module.exports = Router.extend({
       });
   },
 
-  review: function(projectId, phaseId, weekOffset) {
-    this.layout.set('route', 'review');
+  review: function(projectId, phaseId, dateStr) {
+    var dateParts, date;
 
-    this.getWeek(parseInt(projectId, 10), parseInt(phaseId, 10))
-      .then(function(models) {
+    this.layout.set('route', 'review');
+    dateParts = dateStr.split('-').map(Number);
+    date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+
+    this.fetchReviewData({
+      projectId: parseInt(projectId, 10),
+      phaseId: parseInt(phaseId, 10),
+      date: date
+    }).then(function(models) {
         this.layout.findComponent('bp-review').set({
-          weekOffset: parseInt(weekOffset, 10),
+          date: date,
           phase: models.phase,
           projects: this.projects,
           positions: this.positions,

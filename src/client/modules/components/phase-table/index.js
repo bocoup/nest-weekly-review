@@ -34,18 +34,31 @@ module.exports = Component.extend({
       var date = new Date(this.get('firstWeek').getTime() - WEEK_MS);
       return this.phaseUrl(date);
     },
-    visibleProjects: function() {
+    visiblePhases: function() {
       var first = this.get('firstWeek');
       var num = this.get('numWeeks');
       var projects = this.get('projects');
+      var visible;
 
       if (!projects) {
         return;
       }
 
-      projects = projects.filter(function(project) {
-        var projectStart = project.get('date_start');
-        var projectEnd = project.get('date_end');
+      visible = [];
+      projects.forEach(function(project) {
+        var phases = project.get('phases');
+
+        if (phases) {
+          phases.forEach(function(phase) {
+            visible.push({ project: project, phase: phase });
+          });
+        }
+      });
+
+      return visible.filter(function(thing) {
+        var phase = thing.phase;
+        var projectStart = phase.get('date_start');
+        var projectEnd = phase.get('date_end');
         var untilStart = Math.round(weekNumber.between(first, projectStart));
         var untilEnd = Math.round(weekNumber.between(first, projectEnd));
 
@@ -53,8 +66,6 @@ module.exports = Component.extend({
           (untilEnd > 0 && untilEnd < num) ||
           (untilStart <= 0 && untilEnd > 0);
       });
-
-      return projects;
     },
     weeks: function() {
       var first = this.get('firstWeek');

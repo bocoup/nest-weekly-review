@@ -96,7 +96,7 @@ module.exports = Router.extend({
         // responses.
         project.phases.fetch({
           success: function(phases) {
-            resolve( phases.get(phaseId));
+            resolve(phases.get(phaseId));
           },
           error: function() {
             reject(new Error('Couldn\'t find phase with ID ' + phaseId));

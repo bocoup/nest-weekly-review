@@ -4,13 +4,13 @@
       <span class="project-name">{{project.name}}</span>
       <span class="phase-name">{{phase.name}}</span>
     </h3>
-    {{#with date_start}}
+    {{#with phase.first_day}}
     <span class="time-boundary">
       Starts: {{>date}}
     </span>
     {{/with}}
 
-    {{#with date_end}}
+    {{#with phase.last_day}}
     <span class="time-boundary">
       Ends: {{>date}}
     </span>

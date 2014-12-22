@@ -2,9 +2,9 @@
 var Model = require('ampersand-model');
 
 var Employees = require('./employees');
-var weekNum = require('../util/week-num');
 
 var API_ROOT = require('../api-root');
+var WEEK_MS = 1000 * 60 * 60 * 24 * 7;
 
 module.exports = Model.extend({
   url: function() {
@@ -13,8 +13,7 @@ module.exports = Model.extend({
   props: {
     id: 'number',
     name: 'string',
-    first_calendar_week: 'number',
-    year: 'number',
+    first_day: 'date',
     calendar_weeks: 'number',
     developer_weeks: 'number',
     project: 'object'
@@ -23,26 +22,15 @@ module.exports = Model.extend({
     employees: Employees
   },
   derived: {
-    date_start: {
-      deps: ['year', 'first_calendar_week'],
+    last_day: {
+      deps: ['first_day', 'calendar_weeks'],
       fn: function() {
-        return weekNum.toDate(
-          this.get('year'), this.get('first_calendar_week')
+        var firstDay = this.get('first_day');
+        var numWeeks = this.get('calendar_weeks');
+
+        return new Date(
+          firstDay.getTime() + numWeeks * WEEK_MS
         );
-      }
-    },
-    date_end: {
-      deps: ['year', 'first_calendar_week', 'calendar_weeks'],
-      fn: function() {
-        var year = this.get('year');
-        var week = this.get('first_calendar_week') + this.get('calendar_weeks');
-
-        if (week > 52) {
-          year += 1;
-          week -= 52;
-        }
-
-        return weekNum.toDate(year, week);
       }
     }
   },
@@ -54,8 +42,8 @@ module.exports = Model.extend({
     options.success = function() {
       this.employees.fetch({
         data: {
-          start: this.get('date_start'),
-          end: this.get('date_end')
+          start: this.get('first_day'),
+          end: this.get('last_day')
         },
         success: success,
         error: options.error

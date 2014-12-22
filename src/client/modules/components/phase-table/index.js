@@ -57,8 +57,8 @@ module.exports = Component.extend({
 
       return visible.filter(function(thing) {
         var phase = thing.phase;
-        var projectStart = phase.get('date_start');
-        var projectEnd = phase.get('date_end');
+        var projectStart = phase.get('first_day');
+        var projectEnd = phase.get('last_day');
         var untilStart = Math.round(weekNumber.between(first, projectStart));
         var untilEnd = Math.round(weekNumber.between(first, projectEnd));
 

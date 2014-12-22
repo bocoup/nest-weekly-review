@@ -9,13 +9,13 @@
   <div class="phase-info">
     <h3 class="offering">{{ phase.project.name }}: {{ phase.name }}</h2>
     <span class="time-boundary">
-      {{#with phase.date_start}}
+      {{#with phase.first_day}}
       Starts: {{>fullDate}}
       {{/with}}
     </span>
 
     <span class="time-boundary">
-      {{#with phase.date_end}}
+      {{#with phase.last_day}}
       Ends: {{>fullDate}}
       {{/with}}
      </span>

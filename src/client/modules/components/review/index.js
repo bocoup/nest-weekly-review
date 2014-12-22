@@ -14,7 +14,7 @@ module.exports = Component.extend({
   },
   computed: {
     date: function() {
-      var start = this.get('phase.date_start');
+      var start = this.get('phase.first_day');
       var weekOffset = this.get('weekOffset');
 
       if (!start || weekOffset === undefined) {

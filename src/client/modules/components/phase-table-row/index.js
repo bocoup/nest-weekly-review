@@ -20,19 +20,12 @@ module.exports = Component.extend({
     return url + 'week/' + offset +'/';
   },
   computed: {
-    date_start: function() {
-      return this.get('phase.date_start') || this.get('project.date_start');
-    },
-    date_end: function() {
-      return this.get('phase.date_end') || this.get('project.date_end');
-    },
     weeks: function() {
       var viewWidth = this.get('data-num-weeks');
       var viewStart = this.get('data-first-week');
-      var phaseStart = this.get('date_start');
+      var phaseStart = this.get('phase.first_day');
       var between = Math.round(weekNumber.between(phaseStart, viewStart));
-      var phaseLength = this.get('phase.calendar_weeks') ||
-        this.get('project.calendar_weeks');
+      var phaseLength = this.get('phase.calendar_weeks');
       var weeks = [];
       var weekOffset, idx;
 

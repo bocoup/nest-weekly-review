@@ -564,6 +564,52 @@ suite('Utilizations collection', function() {
       );
     });
 
+    test('equivalent value (no change)', function() {
+      var u = new Utilizations([
+        {
+          utilization_type_id: 23,
+          first_day: new Date(2013, 3, 3),
+          last_day: new Date(2013, 3, 3)
+        },
+        {
+          utilization_type_id: 24,
+          first_day: new Date(2013, 3, 4),
+          last_day: new Date(2013, 3, 4)
+        },
+        {
+          utilization_type_id: 25,
+          first_day: new Date(2013, 3, 5),
+          last_day: new Date(2013, 3, 5)
+        }
+      ]);
+      var models, current;
+
+      current = u.setAtDate(new Date(2013, 3, 4), {
+        utilization_type_id: 24
+      });
+
+      models = u.toJSON();
+
+      assert.equal(models.length, 3);
+      assert.equal(current, u.at(1));
+      assert.deepEqual(
+        models,
+        [{
+          utilization_type_id: 23,
+          first_day: +new Date(2013, 3, 3),
+          last_day: +new Date(2013, 3, 3)
+        }, {
+          utilization_type_id: 24,
+          first_day: +new Date(2013, 3, 4),
+          last_day: +new Date(2013, 3, 4),
+        }, {
+          utilization_type_id: 25,
+          first_day: +new Date(2013, 3, 5),
+          last_day: +new Date(2013, 3, 5),
+        }]
+      );
+    });
+
     suite('options', function() {
       var u, events;
 

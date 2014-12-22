@@ -94,7 +94,7 @@ module.exports = Collection.extend({
     var withIndex = extend({ at: this.models.indexOf(prev) + 1 }, options);
 
     if (curr && curr.matches(attrs)) {
-      return;
+      return curr;
     }
 
     if (curr && curr !== prev && curr !== next) {

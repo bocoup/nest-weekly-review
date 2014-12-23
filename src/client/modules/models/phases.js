@@ -14,6 +14,13 @@ module.exports = Collection.extend({
     this.employees = new Employees();
   },
 
+  /**
+   * Retrieve phase data for a specific project.
+   *
+   * @param {number} projectId
+   * @param {object} [options] Behavior modifiers exposed by
+   *                           `Collection#fetch`.
+   */
   fetchByProject: function(projectId, options) {
     options.url = this.url + '?project_id=' + projectId;
 

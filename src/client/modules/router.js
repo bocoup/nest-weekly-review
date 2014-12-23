@@ -156,6 +156,9 @@ module.exports = Router.extend({
       .then(function(_project) {
         project = _project;
 
+        // "Shallow" phase data is included in the response for projects, but
+        // the desired phase must be explicitly fetched in order to get
+        // employee IDs (which are necessary for requesting utilization data).
         return this._getPhase(project, opts.phaseId);
       }.bind(this))
       .then(function(_phase) {

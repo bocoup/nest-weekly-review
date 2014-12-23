@@ -33,6 +33,16 @@ module.exports = Model.extend({
     }
   },
 
+  /**
+   * Fetch phase data for the current project.
+   *
+   * Although the endpoint driving this model returns some phase data, it does
+   * not include employee membership information. In cases where that is
+   * required, a dedicated request must be made.
+   *
+   * @param {object} [options] Behavior modifiers exposed by
+   *                           `Collection#fetch`.
+   */
   fetchPhases: function(options) {
     return this.phases.fetchByProject(this.id, options);
   },

@@ -27,6 +27,7 @@ module.exports = Component.extend({
       set: function(val) {
         var utilizations = this.get('utilizations');
         var date = this.get('date');
+        var type = this.get('newType');
         var current;
 
         // Leave the utilization as-is until a new value is selected.
@@ -34,10 +35,15 @@ module.exports = Component.extend({
           return;
         }
 
+        if (!type.isConsulting) {
+          this.set('newPosition', null);
+          this.set('newProject', null);
+        }
+
         // TODO: Set this to the current utilization
         current = utilizations.setAtDate(date, {
           utilization_type_id: this.get('newType.id'),
-          type: this.get('newType'),
+          type: type,
           employee_id: this.get('id'),
           position_id: this.get('newPosition.id'),
           project_id: this.get('newProject.id'),
@@ -45,6 +51,10 @@ module.exports = Component.extend({
         }, { silent: true });
 
         this.set('utilization', current);
+
+        utilizations.save().then(null, function(err) {
+          this.fire('error', err);
+        }.bind(this));
       }
     }
   }

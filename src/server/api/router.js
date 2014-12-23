@@ -3,6 +3,7 @@
  */
 'use strict';
 var express = require('express');
+var bodyParser = require('body-parser');
 
 var projectDataWithPhases = require('./fixture-data/projects.json');
 var projectData = projectDataWithPhases.map(function(project) {
@@ -24,6 +25,8 @@ var utilizationData = require('./fixture-data/utilizations.json');
 var utilizationTypeData = require('./fixture-data/utilization-types.json');
 
 var router = module.exports = express.Router();
+
+router.use(bodyParser.json());
 
 router.get('/projects/:id?', function(req, res) {
   var data = 'with_phases' in req.query ? projectDataWithPhases : projectData;
@@ -110,4 +113,18 @@ router.get('/employees/utilizations', function(req, res) {
 
 router.get('/utilization_types', function(req, res) {
   res.json(utilizationTypeData);
+});
+
+/**
+ * Stub out the API for modifying utilization data on the server.
+ */
+router.use('/utilizations', function(req, res, next) {
+  if (req.method === 'POST') {
+    req.body.id = Math.round(Math.random() * 10000 + 1000);
+  } else if (req.method !== 'PUT' && req.method !== 'DELETE') {
+    next();
+    return;
+  }
+
+  res.json(req.body);
 });

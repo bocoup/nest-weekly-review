@@ -33,12 +33,20 @@ suite('Utilizations collection', function() {
       delete Utilizations.prototype.model.prototype.sync;
     });
 
-    test('updates changed models', function() {
-      var u = new Utilizations([{ id: 34 }]);
+    test('updates previously-existing changed models', function() {
+      var u = new Utilizations([{ id: 32 }]);
 
+      u.at(0).set('id', 34);
       u.save();
 
       assert.sameMembers(syncReport().update, [34]);
+    });
+    test('does not update previously-existing unchanged models', function() {
+      var u = new Utilizations([{ id: 32 }]);
+
+      u.save();
+
+      assert.notOk(syncReport().update);
     });
     test('creates new models', function() {
       var u = new Utilizations();
@@ -77,10 +85,11 @@ suite('Utilizations collection', function() {
 
       u.remove(model);
       u.add(model);
+      model.set('id', 45);
       u.save();
 
       report = syncReport();
-      assert.sameMembers(report.update, [23]);
+      assert.sameMembers(report.update, [45]);
       assert.notOk(report.delete);
     });
   });

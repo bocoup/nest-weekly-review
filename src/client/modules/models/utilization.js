@@ -1,7 +1,11 @@
 'use strict';
 var Model = require('ampersand-model');
 
+var API_ROOT = require('../api-root');
+
 module.exports = Model.extend({
+  urlRoot: API_ROOT + '/utilizations',
+
   props: {
     id: 'number',
     utilization_type_id: 'number',

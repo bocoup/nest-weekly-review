@@ -1,5 +1,6 @@
 'use strict';
 var Collection = require('ampersand-rest-collection');
+var Promise = require('ractive/ractive.runtime').Promise;
 var extend = require('lodash.assign');
 
 var Utilization = require('./utilization');
@@ -11,18 +12,45 @@ module.exports = Collection.extend({
 
   initialize: function() {
     this._removed = [];
-    this.on('remove', function(model) {
+    this.on('_remove remove', function(model) {
       this._removed.push(model);
     });
   },
 
   /**
+   * This collection tracks all models that have been removed from it. Because
+   * consumer code may silence the `remove` event standard to all Collections,
+   * publish a `_remove` event intended for internal use only.
+   */
+  remove: function(model, options) {
+    var val = Collection.prototype.remove.apply(this, arguments);
+
+    if (options && options.silent) {
+      this.trigger('_remove', model);
+    }
+
+    return val;
+  },
+
+  /**
    * Save all the models currently in the collection and destroy any models
    * that have been removed since the last invocation of this method.
+   *
+   * @returns {Promise}
    */
   save: function() {
+    var requests = [];
+    var removed = this._removed;
+
     this.forEach(function(model) {
-      model.save();
+      // Don't bother saving previously-existing models that have not changed.
+      if (!model.isNew() && !model.hasChanged()) {
+        return;
+      }
+
+      requests.push(new Promise(function(resolve, reject) {
+        model.save(null, { success: resolve, error: reject });
+      }));
     });
 
     this._removed.forEach(function(model) {
@@ -32,10 +60,19 @@ module.exports = Collection.extend({
         return;
       }
 
-      model.destroy();
+      requests.push(new Promise(function(resolve, reject) {
+        model.destroy({
+          success: function() {
+            var index = removed.indexOf(model);
+            removed.splice(index, 1);
+            resolve();
+          },
+          error: reject
+        });
+      }));
     });
 
-    this._removed.length = 0;
+    return Promise.all(requests);
   },
 
   /**
@@ -141,7 +178,7 @@ module.exports = Collection.extend({
     if (!curr) {
       attrs.first_day = new Date(date);
       attrs.last_day = new Date(date);
-      curr = this.add(attrs, withIndex, options);
+      curr = this.add(attrs, withIndex);
     }
 
     return curr;

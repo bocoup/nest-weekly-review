@@ -51,6 +51,7 @@ router.get('/projects/:id?', function(req, res) {
 router.get('/project_phases/:id?', function(req, res) {
   var data = phaseData;
   var id = parseInt(req.params.id, 10);
+  var projectId = parseInt(req.query.project_id, 10);
   var found;
 
   if (id === id) {
@@ -65,7 +66,12 @@ router.get('/project_phases/:id?', function(req, res) {
       res.sendStatus(404);
       return;
     }
+  } else if (projectId) {
+    data = data.filter(function(phase) {
+      return phase.project_id === projectId;
+    });
   }
+
   res.json(data);
 });
 

@@ -117,7 +117,7 @@ module.exports = Router.extend({
         // TODO: Explicitly request the phase with the ID `phaseId` once the
         // API is updated to include employee information in phase-specific
         // responses.
-        project.phases.fetch({
+        project.fetchPhases({
           success: function(phases) {
             resolve(phases.get(phaseId));
           },

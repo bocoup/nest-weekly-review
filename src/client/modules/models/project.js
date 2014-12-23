@@ -33,6 +33,10 @@ module.exports = Model.extend({
     }
   },
 
+  fetchPhases: function(options) {
+    return this.phases.fetchByProject(this.id, options);
+  },
+
   parse: function(attrs) {
 
     if ('date_start' in attrs) {

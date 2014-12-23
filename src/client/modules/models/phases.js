@@ -36,5 +36,11 @@ module.exports = Collection.extend({
     };
 
     getOrFetch.apply(this, args);
+  },
+
+  fetchByProject: function(projectId, options) {
+    options.url = this.url + '?project_id=' + projectId;
+
+    return this.fetch(options);
   }
 });

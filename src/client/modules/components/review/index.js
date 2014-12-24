@@ -1,8 +1,6 @@
 'use strict';
 var Component = require('../../util/component');
 
-var WEEK_MS = 1000 * 60 * 60 * 24 * 7;
-
 module.exports = Component.extend({
   template: require('./template.html'),
   css: require('./style.css'),
@@ -14,13 +12,18 @@ module.exports = Component.extend({
   },
   computed: {
     activeProjects: function() {
-      var reviewStart = this.get('date').getTime();
-      var reviewEnd = reviewStart + WEEK_MS;
+      return this.get('activePhases').map(function(phase) {
+        return phase.project;
+      }).filter(function(project, until, projects) {
+        var idx;
 
-      return this.get('projects').filter(function(project) {
-        var projectStart = project.get('date_start').getTime();
-        var projectEnd = project.get('date_end').getTime();
-        return projectStart <= reviewEnd && projectEnd >= reviewStart;
+        for (idx = 0; idx < until; ++idx) {
+          if (projects[idx].id === project.id) {
+            return false;
+          }
+        }
+
+        return true;
       });
     }
   }

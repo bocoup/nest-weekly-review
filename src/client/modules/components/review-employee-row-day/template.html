@@ -33,17 +33,17 @@
       value="{{newProject}}">
 
       <option selected disabled>Project</option>
-      {{#each projects}}
+      {{#each activeProjects}}
       <option value="{{this}}">{{name}}</option>
       {{/each}}
     </select>
 
     <select id="{{dayName}}{{employee.id}}-phase"
-      {{#if !newType.isConsulting || !newProject.phases.length}}disabled{{/if}}
+      {{#if !newType.isConsulting || !phases.length}}disabled{{/if}}
       >
 
       <option selected disabled>Phase</option>
-      {{#each newProject.phases}}
+      {{#each phases}}
       <option value="{{this}}">{{name}}</option>
       {{/each}}
     </select>

@@ -23,8 +23,7 @@
   <tbody>
     {{#each visiblePhases:phaseIdx}}
       <bp-phase-table-row
-        project="{{visiblePhases[phaseIdx].project}}"
-        phase="{{visiblePhases[phaseIdx].phase}}"
+        phase="{{visiblePhases[phaseIdx]}}"
         data-num-weeks="{{numWeeks}}"
         data-first-week="{{firstWeek}}" />
     {{else}}

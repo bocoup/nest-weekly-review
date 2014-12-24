@@ -16,8 +16,7 @@ module.exports = Component.extend({
     var firstDay = phase.get('first_day');
     var date = new Date(firstDay.getTime() + offset * WEEK_MS);
 
-    return '/project/' + this.get('project.id') + '/' +
-      'phase/' + phase.get('id') +
+    return '/phase/' + phase.get('id') +
       '/date/' +
         date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() +
       '/';

@@ -2,7 +2,7 @@
 var Router = require('ampersand-router');
 var Promise = require('ractive/ractive.runtime').Promise;
 
-var Projects = require('./models/projects');
+var Phases = require('./models/phases');
 var Positions = require('./models/positions');
 var UtilizationTypes = require('./models/utilization-types');
 var Layout = require('./components/layout/index');
@@ -16,7 +16,7 @@ module.exports = Router.extend({
       el: options.el,
       adapt: ['Backbone']
     });
-    this.projects = new Projects();
+    this.phases = new Phases();
     this.positions = new Positions();
     this.utilizationTypes = new UtilizationTypes();
 
@@ -42,7 +42,7 @@ module.exports = Router.extend({
   routes: {
     '': 'index',
     'year/:year/week/:week/': 'phaseList',
-    'project/:projectId/phase/:phaseId/date/:date/': 'review'
+    'phase/:phaseId/date/:date/': 'review'
   },
 
   index: function() {
@@ -53,28 +53,30 @@ module.exports = Router.extend({
   },
 
   phaseList: function(year, week) {
+    var numWeeks = 5;
+
     this.layout.set('route', 'phaseList');
 
-    this._getProjects(new Date());
+    this.getPhases(new Date(), numWeeks);
 
     this.layout.findComponent('bp-phase-table').set({
       firstWeek: weekNumber.toDate(year, week),
-      numWeeks: 5,
-      projects: this.projects
+      numWeeks: numWeeks,
+      phases: this.phases
     });
   },
 
   /**
-   * Fetch project data for all projects that are active during the provided
+   * Fetch phase data for all projects that are active during the provided
    * date. Optionally, include projects that are included during a range of
    * dates beyond the provided one.
    *
    * @param {Date} date
    * @param {number} [throughWeeks]
    */
-  _getProjects: function(date, throughWeeks) {
+  getPhases: function(date, throughWeeks) {
     var time = date.getTime();
-    var projects = this.projects;
+    var phases = this.phases;
 
     throughWeeks = throughWeeks || 1;
 
@@ -82,7 +84,7 @@ module.exports = Router.extend({
       // TODO: Only fetch project data that has not previously been fetched,
       // likely encapsulated in an instance method such as
       // `Projects#fetchBetween`.
-      projects.fetch({
+      phases.fetch({
         // The default behavior of `Collection#fetch` is to fire `add`/`remove`
         // events on a per-module basis. Because Ractive is configured to
         // respond to every such event, this behavior causes unecessary
@@ -96,7 +98,7 @@ module.exports = Router.extend({
           before: time + throughWeeks * 1000 * 60 * 60 * 24 * 7,
         },
         success: function() {
-          resolve(projects);
+          resolve(phases);
         },
         error: function(error) {
           reject(error);
@@ -105,27 +107,17 @@ module.exports = Router.extend({
     });
   },
 
-  _getProject: function(projectId, date) {
-    return this._getProjects(date)
-      .then(function(projects) {
-        return projects.get(projectId);
-      });
-  },
-
-  _getPhase: function(project, phaseId) {
+  getPhase: function(phaseId) {
     return new Promise(function(resolve, reject) {
-        // TODO: Explicitly request the phase with the ID `phaseId` once the
-        // API is updated to include employee information in phase-specific
-        // responses.
-        project.fetchPhases({
-          success: function(phases) {
-            resolve(phases.get(phaseId));
-          },
-          error: function() {
+        this.phases.getOrFetch(phaseId, function(err, phase) {
+          if (err) {
             reject(new Error('Couldn\'t find phase with ID ' + phaseId));
+            return;
           }
+
+          resolve(phase);
         });
-      });
+      }.bind(this));
   },
 
   _getUtil: function(employees) {
@@ -145,33 +137,21 @@ module.exports = Router.extend({
    * Retrieve all the information necessary to render the "review" page.
    *
    * @param {object} opts
-   * @param {number} opts.projectId
    * @param {number} opts.phaseId
    * @param {Date} opts.date
    */
   fetchReviewData: function(opts) {
-    var project, phase;
+    return this.getPhases(opts.date)
+      .then(function(phases) {
+        var phase = phases.get(opts.phaseId);
 
-    return this._getProject(opts.projectId, opts.date)
-      .then(function(_project) {
-        project = _project;
-
-        // "Shallow" phase data is included in the response for projects, but
-        // the desired phase must be explicitly fetched in order to get
-        // employee IDs (which are necessary for requesting utilization data).
-        return this._getPhase(project, opts.phaseId);
-      }.bind(this))
-      .then(function(_phase) {
-        phase = _phase;
-
-        return this._getUtil(phase.employees);
-      }.bind(this))
-      .then(function() {
-        return { project: project, phase: phase };
-      });
+        return this._getUtil(phase.employees).then(function() {
+          return { phase: phase, phases: phases };
+        });
+      }.bind(this));
   },
 
-  review: function(projectId, phaseId, dateStr) {
+  review: function(phaseId, dateStr) {
     var dateParts, date;
 
     this.layout.set('route', 'review');
@@ -179,14 +159,13 @@ module.exports = Router.extend({
     date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
 
     this.fetchReviewData({
-      projectId: parseInt(projectId, 10),
       phaseId: parseInt(phaseId, 10),
       date: date
     }).then(function(models) {
         this.layout.findComponent('bp-review').set({
           date: date,
           phase: models.phase,
-          projects: this.projects,
+          activePhases: models.phases,
           positions: this.positions,
           utilizationTypes: this.utilizationTypes
         });

@@ -55,9 +55,18 @@ router.get('/project_phases/:id?', function(req, res) {
   var data = phaseData;
   var id = parseInt(req.params.id, 10);
   var projectId = parseInt(req.query.project_id, 10);
+  var timeBounds = [req.query.before, req.query.after].map(function(dateStr) {
+    if (!dateStr) {
+      return null;
+    }
+
+    var parts = dateStr.split('-').map(Number);
+
+    return new Date(parts[0], parts[1] - 1, parts[2]).getTime();
+  });
   var found;
 
-  if (id === id) {
+  if (id) {
     found = phaseData.some(function(phase) {
       if (phase.id === id) {
         data = phase;
@@ -72,6 +81,21 @@ router.get('/project_phases/:id?', function(req, res) {
   } else if (projectId) {
     data = data.filter(function(phase) {
       return phase.project_id === projectId;
+    });
+  } else if (timeBounds[0] || timeBounds[1]) {
+    data = data.filter(function(phase) {
+      var start = new Date(phase.first_day).getTime();
+      var end = start + phase.calendar_weeks * 1000 * 60 * 60 * 24 * 7;
+
+      if (timeBounds[0] && timeBounds[0] > end) {
+        return false;
+      }
+
+      if (timeBounds[1] && timeBounds[1] < start) {
+        return false;
+      }
+
+      return true;
     });
   }
 

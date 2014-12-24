@@ -1,8 +1,6 @@
 'use strict';
 var Model = require('ampersand-model');
 
-var Phases = require('./phases');
-
 var API_ROOT = require('../api-root');
 var WEEK_MS = 1000 * 60 * 60 * 24 * 7;
 
@@ -16,9 +14,6 @@ module.exports = Model.extend({
     date_start: 'date',
     calendar_weeks: 'number',
     developer_weeks: 'number'
-  },
-  collections: {
-    phases: Phases
   },
 
   derived: {

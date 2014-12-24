@@ -18,8 +18,28 @@ module.exports = Component.extend({
 
       return new Date(this.get('weekStart').getTime() + offset);
     },
-    // Define a set-able computed property so the utilizations collection can
-    // be updated according to the state of a checkbox input.
+
+    /**
+     * Infer the valid phases for the currently-selected project by iterating
+     * through all active phases, filtering out any phases that belong to
+     * another project.
+     */
+    phases: function() {
+      var newProject = this.get('newProject');
+
+      if (!newProject) {
+        return [];
+      }
+
+      return this.get('activePhases').filter(function(phase) {
+        return phase.project.id === newProject.id;
+      });
+    },
+
+    /**
+     * Define a set-able computed property so the utilizations collection can
+     * be updated according to the state of a checkbox input.
+     */
     uBool: {
       get: function() {
         return !!this.get('utilization');

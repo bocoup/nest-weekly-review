@@ -1,6 +1,7 @@
 'use strict';
 var Model = require('ampersand-model');
 
+var Project = require('./project');
 var Employees = require('./employees');
 
 var API_ROOT = require('../api-root');
@@ -15,8 +16,10 @@ module.exports = Model.extend({
     name: 'string',
     first_day: 'date',
     calendar_weeks: 'number',
-    developer_weeks: 'number',
-    project: 'object'
+    developer_weeks: 'number'
+  },
+  children: {
+    project: Project
   },
   collections: {
     employees: Employees
@@ -33,23 +36,5 @@ module.exports = Model.extend({
         );
       }
     }
-  },
-
-  fetch: function(options) {
-    var success = options && options.success;
-    options = options || {};
-
-    options.success = function() {
-      this.employees.fetch({
-        data: {
-          start: this.get('first_day'),
-          end: this.get('last_day')
-        },
-        success: success,
-        error: options.error
-      });
-    }.bind(this);
-
-    return Model.prototype.fetch.call(this, options);
   }
 });

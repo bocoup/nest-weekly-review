@@ -37,26 +37,9 @@ module.exports = Component.extend({
     visiblePhases: function() {
       var first = this.get('firstWeek');
       var num = this.get('numWeeks');
-      var projects = this.get('projects');
-      var visible;
+      var phases = this.get('phases');
 
-      if (!projects) {
-        return;
-      }
-
-      visible = [];
-      projects.forEach(function(project) {
-        var phases = project.get('phases');
-
-        if (phases) {
-          phases.forEach(function(phase) {
-            visible.push({ project: project, phase: phase });
-          });
-        }
-      });
-
-      return visible.filter(function(thing) {
-        var phase = thing.phase;
+      return phases.filter(function(phase) {
         var projectStart = phase.get('first_day');
         var projectEnd = phase.get('last_day');
         var untilStart = Math.round(weekNumber.between(first, projectStart));

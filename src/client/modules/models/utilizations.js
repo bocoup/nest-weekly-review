@@ -185,6 +185,44 @@ module.exports = Collection.extend({
   },
 
   /**
+   * Ensure there is a utilization that begins on the specified date. This is
+   * a no-op unless a utilization exists at the given date but has a
+   * `first_day` at some previous date.
+   *
+   * In that case, create a new, matching utilization that begins on the
+   * specified date and insert it at the appropriate index in the collection.
+   * Update the previously-existing utilization to end one day prior to the
+   * specified date (avoiding overlap).
+   *
+   * @param {Date} splitDate
+   * @param {Object} [options] - behavior modifiers forwarded to underlying
+   *                             model/collection mutation methods
+   *                             (`Model#set`, `Collection#add`, and
+   *                             `Collection#remove`)
+   *
+   * @returns {null|Utilization} The newly-created utilization (if any)
+   */
+  split: function(splitDate, options) {
+    var preSplitDate = new Date(splitDate.getTime() - ONE_DAY);
+    var first = this.atDate(splitDate);
+    var previous = this.atDate(preSplitDate);
+    var newUtilization;
+
+    if (!first || first !== previous) {
+      return null;
+    }
+
+    newUtilization = first.createMatching({
+      first_day: splitDate,
+      last_day: first.get('last_day')
+    });
+    first.set('last_day', preSplitDate, options);
+    this.add(newUtilization, extend({ at: this.indexOf(first) + 1 }, options));
+
+    return newUtilization;
+  },
+
+  /**
    * Verify utilizations (i.e. set the `verified` property of the `Utilization`
    * model) existing in the specified date range.
    *

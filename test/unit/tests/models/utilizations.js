@@ -658,6 +658,109 @@ suite('Utilizations collection', function() {
     });
   });
 
+  suite('#split', function() {
+    test('splits utilization at given date', function() {
+      var u = new Utilizations([{
+        first_day: new Date(2013, 3, 1),
+        last_day: new Date(2013, 3, 5)
+      }]);
+      var newUtilization;
+
+      newUtilization = u.split(new Date(2013, 3, 3));
+
+      assert.equal(u.length, 2);
+      assert.equalDate(u.at(0).get('first_day'), new Date(2013, 3, 1));
+      assert.equalDate(u.at(0).get('last_day'), new Date(2013, 3, 2));
+      assert.equalDate(u.at(1).get('first_day'), new Date(2013, 3, 3));
+      assert.equalDate(u.at(1).get('last_day'), new Date(2013, 3, 5));
+      assert.equal(newUtilization, u.at(1));
+    });
+
+    suite('no splitting required', function() {
+      test('no utilization preceeding', function() {
+        var u = new Utilizations([{
+          first_day: new Date(2013, 3, 4),
+          last_day: new Date(2013, 3, 5)
+        }]);
+        var newUtilization;
+
+        newUtilization = u.split(new Date(2013, 3, 4));
+
+        assert.equal(u.length, 1);
+        assert.strictEqual(newUtilization, null);
+      });
+
+      test('no utilization following', function() {
+        var u = new Utilizations([{
+          first_day: new Date(2013, 3, 4),
+          last_day: new Date(2013, 3, 5)
+        }]);
+        var newUtilization;
+
+        newUtilization = u.split(new Date(2013, 3, 6));
+
+        assert.equal(u.length, 1);
+        assert.strictEqual(newUtilization, null);
+      });
+
+      test('no utilization at specified date', function() {
+        var u = new Utilizations([{
+          first_day: new Date(2013, 3, 4),
+          last_day: new Date(2013, 3, 5)
+        }]);
+        var newUtilization;
+
+        newUtilization = u.split(new Date(2013, 3, 7));
+
+        assert.equal(u.length, 1);
+        assert.strictEqual(newUtilization, null);
+      });
+
+      test('distinct utilizations at split point', function() {
+        var u = new Utilizations([
+          {
+            first_day: new Date(2013, 3, 4),
+            last_day: new Date(2013, 3, 5)
+          }, {
+            first_day: new Date(2013, 3, 6),
+            last_day: new Date(2013, 3, 7)
+          }]);
+        var newUtilization;
+
+        newUtilization = u.split(new Date(2013, 3, 6));
+
+        assert.equal(u.length, 2);
+        assert.strictEqual(newUtilization, null);
+      });
+    });
+
+    suite('events', function() {
+      var u, events;
+
+      setup(function() {
+        u = new Utilizations([{
+          first_day: new Date(2013, 3, 1),
+          last_day: new Date(2013, 3, 5)
+        }]);
+        events = [];
+
+        u.on('all', function(eventName) {
+          events.push(eventName);
+        });
+      });
+      test('triggers appropriate events by default', function() {
+        u.split(new Date(2013, 3, 3));
+
+        assert.sameMembers(events, ['add', 'change', 'change:last_day']);
+      });
+      test('honors `silent` flag when present', function() {
+        u.split(new Date(2013, 3, 3), { silent: true });
+
+        assert.deepEqual(events, []);
+      });
+    });
+  });
+
   suite('#verify', function() {
     test('sets flag on specified utilization', function() {
       var u = new Utilizations([{

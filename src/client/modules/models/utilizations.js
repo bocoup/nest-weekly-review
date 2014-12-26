@@ -145,11 +145,7 @@ module.exports = Collection.extend({
         curr = prev;
       } else if (prev === curr) {
         if (prev === next) {
-          next = prev.createMatching({
-            first_day: new Date(after),
-            last_day: next.get('last_day')
-          });
-          this.add(next, withIndex);
+          next = this.split(new Date(after), options);
         }
 
         prev.set('last_day', new Date(before), options);
@@ -232,36 +228,15 @@ module.exports = Collection.extend({
    *                           (i.e. only the specified date is verified)
    */
   verify: function(firstDay, through) {
-    var idx, utilization, newUtilization, currentDay, prevDay, finalDay,
-        firstUtil, finalUtil;
+    var idx, utilization, currentDay, prevDay;
 
     if (arguments.length < 2) {
       through = 1;
     }
 
-    finalDay = new Date(firstDay.getTime() + ONE_DAY * (through - 1));
-
     // Split utilizations at either end of the period (when necessary)
-    firstUtil = this.atDate(firstDay);
-    if (firstUtil &&
-      firstUtil.get('first_day').getTime() !== firstDay.getTime()) {
-      newUtilization = firstUtil.createMatching({
-        first_day: firstDay,
-        last_day: firstUtil.get('last_day')
-      });
-      firstUtil.set('last_day', new Date(firstDay.getTime() - ONE_DAY));
-      this.add(newUtilization, this.indexOf(firstUtil) + 1);
-    }
-    finalUtil = this.atDate(finalDay);
-    if (finalUtil &&
-      finalUtil.get('last_day').getTime() !== finalDay.getTime()) {
-      newUtilization = finalUtil.createMatching({
-        first_day: finalUtil.get('first_day'),
-        last_day: finalDay
-      });
-      finalUtil.set('first_day', new Date(finalDay.getTime() + ONE_DAY));
-      this.add(newUtilization, { at: this.indexOf(finalUtil) });
-    }
+    this.split(firstDay);
+    this.split(new Date(firstDay.getTime() + ONE_DAY * through));
 
     for (idx = 0; idx < through; ++idx) {
       prevDay = currentDay || new Date(firstDay.getTime() - ONE_DAY);

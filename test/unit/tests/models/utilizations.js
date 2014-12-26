@@ -657,4 +657,106 @@ suite('Utilizations collection', function() {
       });
     });
   });
+
+  suite('#verify', function() {
+    test('sets flag on specified utilization', function() {
+      var u = new Utilizations([{
+        first_day: new Date(2013, 3, 3),
+        last_day: new Date(2013, 3, 3)
+      }]);
+      var model = u.at(0);
+
+      u.verify(new Date(2013, 3, 3));
+
+      assert.ok(model.get('verified'));
+    });
+
+    test('sets flag on all utilizations in specified interval', function() {
+      var u = new Utilizations([
+        {
+          first_day: new Date(2013, 3, 3),
+          last_day: new Date(2013, 3, 3)
+        }, {
+          first_day: new Date(2013, 3, 4),
+          last_day: new Date(2013, 3, 5)
+        }, {
+          first_day: new Date(2013, 3, 6),
+          last_day: new Date(2013, 3, 6)
+        }
+      ]);
+
+      u.verify(new Date(2013, 3, 3), 4);
+
+      assert.ok(u.at(0).get('verified'));
+      assert.ok(u.at(1).get('verified'));
+      assert.ok(u.at(2).get('verified'));
+    });
+
+    test('splits first utilization if it extends before the specified date', function() {
+      var u = new Utilizations([
+        {
+          first_day: new Date(2013, 3, 3),
+          last_day: new Date(2013, 3, 5)
+        }
+      ]);
+
+      u.verify(new Date(2013, 3, 4), 2);
+
+      assert.equal(u.length, 2);
+      assert.notOk(u.at(0).get('verified'));
+      assert.equalDate(u.at(0).get('first_day'), new Date(2013, 3, 3));
+      assert.equalDate(u.at(0).get('last_day'), new Date(2013, 3, 3));
+      assert.ok(u.at(1).get('verified'));
+      assert.equalDate(u.at(1).get('first_day'), new Date(2013, 3, 4));
+      assert.equalDate(u.at(1).get('last_day'), new Date(2013, 3, 5));
+    });
+
+    test('splits last utilization if it extends beyond the specified date', function() {
+      var u = new Utilizations([
+        {
+          first_day: new Date(2013, 3, 4),
+          last_day: new Date(2013, 3, 4)
+        },
+        {
+          first_day: new Date(2013, 3, 5),
+          last_day: new Date(2013, 3, 9)
+        }
+      ]);
+
+      u.verify(new Date(2013, 3, 4), 2);
+
+      assert.equal(u.length, 3);
+      assert.ok(u.at(0).get('verified'));
+      assert.equalDate(u.at(0).get('first_day'), new Date(2013, 3, 4));
+      assert.equalDate(u.at(0).get('last_day'), new Date(2013, 3, 4));
+      assert.ok(u.at(1).get('verified'));
+      assert.equalDate(u.at(1).get('first_day'), new Date(2013, 3, 5));
+      assert.equalDate(u.at(1).get('last_day'), new Date(2013, 3, 5));
+      assert.notOk(u.at(2).get('verified'));
+      assert.equalDate(u.at(2).get('first_day'), new Date(2013, 3, 6));
+      assert.equalDate(u.at(2).get('last_day'), new Date(2013, 3, 9));
+    });
+
+    test('splits utilization on both sides of time period if it extends beyond the entire range', function() {
+      var u = new Utilizations([
+        {
+          first_day: new Date(2013, 3, 1),
+          last_day: new Date(2013, 3, 20)
+        }
+      ]);
+
+      u.verify(new Date(2013, 3, 4), 3);
+
+      assert.equal(u.length, 3);
+      assert.notOk(u.at(0).get('verified'));
+      assert.equalDate(u.at(0).get('first_day'), new Date(2013, 3, 1));
+      assert.equalDate(u.at(0).get('last_day'), new Date(2013, 3, 3));
+      assert.ok(u.at(1).get('verified'));
+      assert.equalDate(u.at(1).get('first_day'), new Date(2013, 3, 4));
+      assert.equalDate(u.at(1).get('last_day'), new Date(2013, 3, 6));
+      assert.notOk(u.at(2).get('verified'));
+      assert.equalDate(u.at(2).get('first_day'), new Date(2013, 3, 7));
+      assert.equalDate(u.at(2).get('last_day'), new Date(2013, 3, 20));
+    });
+  });
 });

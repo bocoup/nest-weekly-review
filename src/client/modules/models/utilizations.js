@@ -182,5 +182,57 @@ module.exports = Collection.extend({
     }
 
     return curr;
+  },
+
+  /**
+   * Verify utilizations (i.e. set the `verified` property of the `Utilization`
+   * model) existing in the specified date range.
+   *
+   * @param {Date} firstDay The first date whose utilization should be verified
+   * @param {number} [through] The number of consecutive days to verify,
+   *                           inclusive of the `firstDay`. Defaults to `1`
+   *                           (i.e. only the specified date is verified)
+   */
+  verify: function(firstDay, through) {
+    var idx, utilization, newUtilization, currentDay, prevDay, finalDay,
+        firstUtil, finalUtil;
+
+    if (arguments.length < 2) {
+      through = 1;
+    }
+
+    finalDay = new Date(firstDay.getTime() + ONE_DAY * (through - 1));
+
+    // Split utilizations at either end of the period (when necessary)
+    firstUtil = this.atDate(firstDay);
+    if (firstUtil &&
+      firstUtil.get('first_day').getTime() !== firstDay.getTime()) {
+      newUtilization = firstUtil.createMatching({
+        first_day: firstDay,
+        last_day: firstUtil.get('last_day')
+      });
+      firstUtil.set('last_day', new Date(firstDay.getTime() - ONE_DAY));
+      this.add(newUtilization, this.indexOf(firstUtil) + 1);
+    }
+    finalUtil = this.atDate(finalDay);
+    if (finalUtil &&
+      finalUtil.get('last_day').getTime() !== finalDay.getTime()) {
+      newUtilization = finalUtil.createMatching({
+        first_day: finalUtil.get('first_day'),
+        last_day: finalDay
+      });
+      finalUtil.set('first_day', new Date(finalDay.getTime() + ONE_DAY));
+      this.add(newUtilization, { at: this.indexOf(finalUtil) });
+    }
+
+    for (idx = 0; idx < through; ++idx) {
+      prevDay = currentDay || new Date(firstDay.getTime() - ONE_DAY);
+      currentDay = new Date(firstDay.getTime() + ONE_DAY * idx);
+      utilization = this.atDate(currentDay);
+
+      if (utilization) {
+        utilization.set('verified', true);
+      }
+    }
   }
 });

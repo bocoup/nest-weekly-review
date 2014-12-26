@@ -15,7 +15,8 @@ module.exports = Model.extend({
     first_day: 'date',
     last_day: 'date',
     project: 'object',
-    type: 'object'
+    type: 'object',
+    verified: 'boolean'
   },
 
   /**

@@ -644,7 +644,7 @@ suite('Utilizations collection', function() {
         });
 
         assert.sameMembers(
-          events, ['add', 'change', 'change:last_day', 'change:first_day']
+          events, ['add', 'change', 'change:last_day']
         );
       });
 

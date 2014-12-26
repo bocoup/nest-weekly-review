@@ -146,7 +146,7 @@ module.exports = Collection.extend({
       } else if (prev === curr) {
         if (prev === next) {
           next = prev.createMatching({
-            first_day: new Date('after'),
+            first_day: new Date(after),
             last_day: next.get('last_day')
           });
           this.add(next, withIndex);

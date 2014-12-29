@@ -142,7 +142,7 @@ router.get('/utilization_types', function(req, res) {
 /**
  * Stub out the API for modifying utilization data on the server.
  */
-router.use('/utilizations', function(req, res, next) {
+router.use(/\/(utilizations|project_phase_reviews)/, function(req, res, next) {
   if (req.method === 'POST') {
     req.body.id = Math.round(Math.random() * 10000 + 1000);
   } else if (req.method !== 'PUT' && req.method !== 'DELETE') {

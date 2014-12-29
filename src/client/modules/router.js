@@ -5,6 +5,8 @@ var Promise = require('ractive/ractive.runtime').Promise;
 var Phases = require('./models/phases');
 var Positions = require('./models/positions');
 var UtilizationTypes = require('./models/utilization-types');
+var Review = require('./models/phase-review');
+
 var Layout = require('./components/layout/index');
 var weekNumber = require('./util/week-num');
 
@@ -163,9 +165,15 @@ module.exports = Router.extend({
       phaseId: parseInt(phaseId, 10),
       date: date
     }).then(function(models) {
+        var review = models.phase.reviews.forDate(date) || new Review({
+          first_day: date,
+          project_phase_id: models.phase.get('id')
+        });
+
         this.layout.findComponent('bp-review').set({
           date: date,
           phase: models.phase,
+          review: review,
           activePhases: models.phases,
           positions: this.positions,
           utilizationTypes: this.utilizationTypes

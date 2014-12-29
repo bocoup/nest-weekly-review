@@ -26,5 +26,12 @@ module.exports = Component.extend({
         return true;
       });
     }
+  },
+  handleSubmit: function() {
+    this.event.original.preventDefault();
+    this.submit();
+  },
+  submit: function() {
+    this.get('review').save();
   }
 });

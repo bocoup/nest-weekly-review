@@ -226,17 +226,22 @@ module.exports = Collection.extend({
    * @param {number} [through] The number of consecutive days to verify,
    *                           inclusive of the `firstDay`. Defaults to `1`
    *                           (i.e. only the specified date is verified)
+   * @param {Object} [options] - behavior modifiers forwarded to underlying
+   *                             model/collection mutation methods
+   *                             (`Model#set`, `Collection#add`, and
+   *                             `Collection#remove`)
    */
-  verify: function(firstDay, through) {
+  verify: function(firstDay, through, options) {
     var idx, utilization, currentDay, prevDay;
 
-    if (arguments.length < 2) {
+    if (typeof through !== 'number') {
+      options = through;
       through = 1;
     }
 
     // Split utilizations at either end of the period (when necessary)
-    this.split(firstDay);
-    this.split(new Date(firstDay.getTime() + ONE_DAY * through));
+    this.split(firstDay, options);
+    this.split(new Date(firstDay.getTime() + ONE_DAY * through), options);
 
     for (idx = 0; idx < through; ++idx) {
       prevDay = currentDay || new Date(firstDay.getTime() - ONE_DAY);
@@ -244,7 +249,7 @@ module.exports = Collection.extend({
       utilization = this.atDate(currentDay);
 
       if (utilization) {
-        utilization.set('verified', true);
+        utilization.set('verified', true, options);
       }
     }
   }

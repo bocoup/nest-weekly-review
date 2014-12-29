@@ -861,5 +861,39 @@ suite('Utilizations collection', function() {
       assert.equalDate(u.at(2).get('first_day'), new Date(2013, 3, 7));
       assert.equalDate(u.at(2).get('last_day'), new Date(2013, 3, 20));
     });
+
+    suite('events', function() {
+      var u, events;
+
+      setup(function() {
+        u = new Utilizations([{
+          first_day: new Date(2013, 3, 1),
+          last_day: new Date(2013, 3, 5)
+        }]);
+        events = [];
+
+        u.on('all', function(eventName) {
+          events.push(eventName);
+        });
+      });
+      test('triggers appropriate events by default', function() {
+        u.verify(new Date(2013, 3, 3));
+
+        assert.sameMembers(
+          events,
+          ['add', 'change', 'change:last_day', 'change:verified']
+        );
+      });
+      test('honors `silent` flag when present', function() {
+        u.verify(new Date(2013, 3, 3), { silent: true });
+
+        assert.deepEqual(events, []);
+      });
+      test('honors `silent` flag when present after a `through` parameter', function() {
+        u.verify(new Date(2013, 3, 3), 2, { silent: true });
+
+        assert.deepEqual(events, []);
+      });
+    });
   });
 });

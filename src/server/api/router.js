@@ -51,7 +51,7 @@ router.get('/projects/:id?', function(req, res) {
   res.json(data);
 });
 
-router.get('/project_phases/:id?', function(req, res) {
+router.get('/project-phases/:id?', function(req, res) {
   var data = phaseData;
   var id = parseInt(req.params.id, 10);
   var projectId = parseInt(req.query.project_id, 10);
@@ -102,7 +102,7 @@ router.get('/project_phases/:id?', function(req, res) {
   res.json(data);
 });
 
-router.get('/project_phases/:id', function(req, res) {
+router.get('/project-phases/:id', function(req, res) {
   var id = parseInt(req.params.id, 10);
   var phase = null;
 
@@ -135,14 +135,14 @@ router.get('/employees/utilizations', function(req, res) {
   res.json(data);
 });
 
-router.get('/utilization_types', function(req, res) {
+router.get('/utilization-types', function(req, res) {
   res.json(utilizationTypeData);
 });
 
 /**
  * Stub out the API for modifying utilization data on the server.
  */
-router.use(/\/(utilizations|project_phase_reviews)/, function(req, res, next) {
+router.use(/\/(utilizations|project-phase-reviews)/, function(req, res, next) {
   if (req.method === 'POST') {
     req.body.id = Math.round(Math.random() * 10000 + 1000);
   } else if (req.method !== 'PUT' && req.method !== 'DELETE') {

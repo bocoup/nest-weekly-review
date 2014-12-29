@@ -8,7 +8,7 @@ var API_ROOT = require('../api-root');
 
 module.exports = Collection.extend({
   model: Phase,
-  url: API_ROOT + '/project_phases',
+  url: API_ROOT + '/project-phases',
 
   initialize: function() {
     this.employees = new Employees();

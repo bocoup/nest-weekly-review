@@ -26,7 +26,12 @@ suite('Utilizations collection', function() {
     }
 
     setup(function() {
-      sync = Utilizations.prototype.model.prototype.sync = sinon.stub();
+      sync = Utilizations.prototype.model.prototype.sync =
+        sinon.spy(function(operation, model, options) {
+          if (options.success) {
+            setTimeout(options.success, 0);
+          }
+        });
     });
 
     teardown(function() {
@@ -37,24 +42,25 @@ suite('Utilizations collection', function() {
       var u = new Utilizations([{ id: 32 }]);
 
       u.at(0).set('id', 34);
-      u.save();
 
-      assert.sameMembers(syncReport().update, [34]);
+      return u.save().then(function() {
+        assert.sameMembers(syncReport().update, [34]);
+      });
     });
     test('does not update previously-existing unchanged models', function() {
       var u = new Utilizations([{ id: 32 }]);
 
-      u.save();
-
-      assert.notOk(syncReport().update);
+      return u.save().then(function() {
+        assert.notOk(syncReport().update);
+      });
     });
     test('creates new models', function() {
       var u = new Utilizations();
 
       u.add({});
-      u.save();
-
-      assert.equal(syncReport().create.length, 1);
+      return u.save().then(function() {
+        assert.equal(syncReport().create.length, 1);
+      });
     });
     test('destroys removed models', function() {
       var u = new Utilizations([
@@ -74,9 +80,10 @@ suite('Utilizations collection', function() {
       u.remove(u.get(58));
       // Removed as an array of model instances
       u.remove([u.get(59), u.get(60)]);
-      u.save();
 
-      assert.sameMembers(syncReport().delete, [55, 56, 57, 58, 59, 60]);
+      return u.save().then(function() {
+        assert.sameMembers(syncReport().delete, [55, 56, 57, 58, 59, 60]);
+      });
     });
     test('updates models that have been removed then re-inserted', function() {
       var u = new Utilizations([{ id: 23 }]);
@@ -86,11 +93,12 @@ suite('Utilizations collection', function() {
       u.remove(model);
       u.add(model);
       model.set('id', 45);
-      u.save();
 
-      report = syncReport();
-      assert.sameMembers(report.update, [45]);
-      assert.notOk(report.delete);
+      return u.save().then(function() {
+        report = syncReport();
+        assert.sameMembers(report.update, [45]);
+        assert.notOk(report.delete);
+      });
     });
   });
 

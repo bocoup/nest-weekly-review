@@ -33,25 +33,16 @@ module.exports = Collection.extend({
   },
 
   /**
-   * Save all the models currently in the collection and destroy any models
-   * that have been removed since the last invocation of this method.
+   * Destroy any models that have been removed since the last invocation of
+   * this method, then save changes to existing models, then save new models.
+   * Each set of operations only takes place once the previous set is
+   * complete--this avoids creating invalid utilization states on the server.
    *
    * @returns {Promise}
    */
   save: function() {
-    var requests = [];
+    var destroyRequests = [];
     var removed = this._removed;
-
-    this.forEach(function(model) {
-      // Don't bother saving previously-existing models that have not changed.
-      if (!model.isNew() && !model.hasChanged()) {
-        return;
-      }
-
-      requests.push(new Promise(function(resolve, reject) {
-        model.save(null, { success: resolve, error: reject });
-      }));
-    });
 
     this._removed.forEach(function(model) {
       // Account for possibility that model may have been re-inserted into
@@ -60,7 +51,7 @@ module.exports = Collection.extend({
         return;
       }
 
-      requests.push(new Promise(function(resolve, reject) {
+      destroyRequests.push(new Promise(function(resolve, reject) {
         model.destroy({
           success: function() {
             var index = removed.indexOf(model);
@@ -72,7 +63,37 @@ module.exports = Collection.extend({
       }));
     });
 
-    return Promise.all(requests);
+    return Promise.all(destroyRequests).then(function() {
+      var createRequests = [];
+
+      this.forEach(function(model) {
+        // Don't bother saving previously-existing models that have not
+        // changed.
+        if (!model.isNew()) {
+          return;
+        }
+
+        createRequests.push(new Promise(function(resolve, reject) {
+          model.save(null, { success: resolve, error: reject });
+        }));
+      });
+
+      return Promise.all(createRequests);
+    }.bind(this)).then(function() {
+      var updateRequests = [];
+
+      this.forEach(function(model) {
+        if (!model.hasChanged()) {
+          return;
+        }
+
+        updateRequests.push(new Promise(function(resolve, reject) {
+          model.save(null, { success: resolve, error: reject });
+        }));
+      });
+
+      return Promise.all(updateRequests);
+    }.bind(this));
   },
 
   /**

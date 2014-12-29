@@ -3,6 +3,7 @@ var Model = require('ampersand-model');
 
 var Project = require('./project');
 var Employees = require('./employees');
+var PhaseReviews = require('./phase-reviews');
 
 var API_ROOT = require('../api-root');
 var WEEK_MS = 1000 * 60 * 60 * 24 * 7;
@@ -22,7 +23,8 @@ module.exports = Model.extend({
     project: Project
   },
   collections: {
-    employees: Employees
+    employees: Employees,
+    reviews: PhaseReviews
   },
   derived: {
     last_day: {

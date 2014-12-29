@@ -159,6 +159,20 @@
         "github_user": "mzgoddard",
         "position_id": 1
       }
+    ],
+    "reviews": [
+      {
+        "id": 1,
+        "project_phase_id": 3,
+        "first_day": "2014-12-21T05:00:00.000Z",
+        "notes": "This are some notes about things and also stuff"
+      },
+      {
+        "id": 2,
+        "project_phase_id": 3,
+        "first_day": "2014-12-28T05:00:00.000Z",
+        "notes": "This are some more notes about things and also stuff"
+      }
     ]
   },
   {

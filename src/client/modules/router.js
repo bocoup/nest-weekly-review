@@ -96,6 +96,7 @@ module.exports = Router.extend({
         data: {
           after: time,
           before: time + throughWeeks * 1000 * 60 * 60 * 24 * 7,
+          with_reviews: true
         },
         success: function() {
           resolve(phases);

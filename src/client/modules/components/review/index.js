@@ -1,4 +1,6 @@
 'use strict';
+var Promise = require('ractive/ractive.runtime').Promise;
+
 var Component = require('../../util/component');
 
 module.exports = Component.extend({
@@ -31,11 +33,20 @@ module.exports = Component.extend({
     this.event.original.preventDefault();
     this.submit();
   },
+
+  /**
+   * Ensure that the user has explicitly verified each employee's utilization
+   * data, then set the `verified` flag on all utilizations for the active
+   * week (creating new utilization models at the week boundaries via
+   * `Utilizations#verify`), and finally submit the report.
+   */
   submit: function() {
     var employeeRows = this.findAllComponents('bp-employee-row');
+    var date = this.get('date');
     var allVerified = employeeRows.every(function(employeeRow) {
       return employeeRow.get('verified');
     });
+    var verificationRequests;
 
     if (!allVerified) {
       this.fire(
@@ -46,7 +57,22 @@ module.exports = Component.extend({
       return;
     }
 
-    // TODO: Verify each utilization for each employee.
-    this.get('review').save();
+    verificationRequests = this.get('phase.employees').map(function(employee) {
+      var utilizations = employee.get('utilizations');
+
+      // Verify "silently" to prevent needless thrashing in Ractive. This is
+      // valid because the utilization views do not visualize their
+      // verification status.
+      utilizations.verify(date, 7, { silent: true });
+
+      return utilizations.save();
+    });
+
+    Promise.all(verificationRequests).then(function() {
+        this.get('review').save();
+      }.bind(this),
+      function(err) {
+        this.fire('error', err);
+      }.bind(this));
   }
 });

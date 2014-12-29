@@ -49,3 +49,19 @@ Visit http://192.168.33.31
 ### Tests
 
     $ npm test
+
+### Building for Production
+
+The application can be optimized into a single file with the following command:
+
+    $ npm run build
+
+The location of the Nest API is configurable at build time. If the `NODE_ENV`
+environmental variable is set to `production`, then `http://api.bocoup.com`
+will be used. This behavior can be overridden via the `BP_API` environmental
+variable--that may be set to any arbitrary URL.
+
+In order to serve the optimized file, the `NODE_ENV` environmental variable
+must be set to `production` when running the server. In Unix-like systems:
+
+    $ NODE_ENV=production npm start

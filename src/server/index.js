@@ -5,16 +5,27 @@ var debug = require('debug')('main');
 var express = require('express');
 var browserifyMiddleware = require('browserify-middleware');
 
+var buildApplication = browserifyMiddleware(
+    __dirname + '/../client/modules/main.js',
+    {
+      transform: [
+        require('./css-transform'),
+        require('./ractive-transform'),
+        require('envify')
+      ]
+    }
+  );
 var app = express();
 
-app.use('/modules/main.js', browserifyMiddleware(__dirname + '/../client/modules/main.js', {
-  transform: [
-    require('./css-transform'),
-    require('./ractive-transform')
-  ]
-}));
+if (process.env.NODE_ENV === 'production') {
+  app.use('/modules/main.js', function(req, res) {
+    res.sendFile('./app-production.js', { root: '.' });
+  });
+} else {
+  app.use('/modules/main.js', buildApplication);
+  app.use('/api', require('./api/router'));
+}
 
-app.use('/api', require('./api/router'));
 
 // Re-write directory requests to the project root. The client-side code served
 // from the index is capable of rendering the correct page based on the initial

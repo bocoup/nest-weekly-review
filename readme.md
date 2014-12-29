@@ -1,4 +1,4 @@
-# Black Phoenix
+# Black Phoenix [![Status on TravisCI](https://magnum.travis-ci.com/bocoup/black-phoenix.svg?token=gK8nkH4p5NnBw5E9JB7L)](https://magnum.travis-ci.com/bocoup/black-phoenix)
 
 An application for managing billing data for consulting projects
 

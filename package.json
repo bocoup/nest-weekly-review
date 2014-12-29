@@ -26,7 +26,6 @@
     "ampersand-model": "^4.0.3",
     "ampersand-rest-collection": "^2.0.4",
     "ampersand-router": "^1.0.6",
-    "ampersand-state": "^4.4.1",
     "body-parser": "^1.10.0",
     "browserify-middleware": "^4.1.0",
     "debug": "^2.1.0",

@@ -1,7 +1,11 @@
 <tr>
   <th scope="row">
     {{ employee.first }} {{ employee.last }}
-    <input type="checkbox" name="verify{{ employee.id }}" id="verify-{{ employee.id }}" class="verified">
+    <input type="checkbox"
+      name="verify{{ employee.id }}"
+      id="verify-{{ employee.id }}"
+      class="verification"
+      checked="{{verified}}">
     <label class="btn-verified" for="verify-{{ employee.id }}">
       Verified
     </label>

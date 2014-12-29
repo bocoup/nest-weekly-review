@@ -32,6 +32,21 @@ module.exports = Component.extend({
     this.submit();
   },
   submit: function() {
+    var employeeRows = this.findAllComponents('bp-employee-row');
+    var allVerified = employeeRows.every(function(employeeRow) {
+      return employeeRow.get('verified');
+    });
+
+    if (!allVerified) {
+      this.fire(
+        'error',
+        'Please verify utilizations for all employees before submitting ' +
+          'the review.'
+      );
+      return;
+    }
+
+    // TODO: Verify each utilization for each employee.
     this.get('review').save();
   }
 });

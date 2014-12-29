@@ -9,23 +9,23 @@
 /**
  * Hide checkbox from view (but not from screen readers).
  */
-.verified {
+.verification {
   position: absolute;
 
   opacity: 0;
 }
 
-.verified:active + label {
+.verification:active + label {
   background: #2fb27d;
   border: solid #15895a;
   border-width: 4px 2px 1px 2px;
 }
 
-.verified:not(:checked) + label:after {
+.verification:not(:checked) + label:after {
   content: '?';
 }
 
-.verified:checked + label {
+.verification:checked + label {
   background: #2fb27d;
   border: solid #15895a;
   border-width: 1px 2px 4px 2px;

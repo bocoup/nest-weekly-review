@@ -1,0 +1,6 @@
+{
+  "index": {
+    "title": "h1",
+    "weekLabels": ".phase-table > thead .week-label"
+  }
+}

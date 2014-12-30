@@ -59,7 +59,17 @@ running the server:
 
 ### Tests
 
+Unit tests, linting checks and style checks can be run with the following
+command:
+
     $ npm test
+
+The UI tests have additional requirements on
+[Java](http://www.oracle.com/technetwork/java/index.html) and
+[Firefox](http://firefox.com). Once those are installed, the tests can be run
+with the following command:
+
+    $ npm run test-ui
 
 ### Building for Production
 

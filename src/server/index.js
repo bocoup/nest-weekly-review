@@ -35,7 +35,7 @@ if (process.env.NODE_ENV === 'production') {
   }
 
   app.use('/modules/main.js', buildApplication);
-  app.use('/api', require('./api/router'));
+  app.use('/api', require('./api-stub/router'));
 }
 
 app.use('/auth', require('./auth'));

@@ -4,6 +4,7 @@ var url = require('url');
 var debug = require('debug')('main');
 var express = require('express');
 var browserifyMiddleware = require('browserify-middleware');
+var port = process.env.NODE_PORT || 8000;
 
 var buildApplication = browserifyMiddleware(
     __dirname + '/../client/modules/main.js',
@@ -56,6 +57,6 @@ app.use(function(req, res, next) {
 
 app.use(express.static(__dirname + '/../client'));
 
-var server = app.listen(8000, function() {
+var server = app.listen(port, function() {
   debug('Server listening on port ' + server.address().port);
 });

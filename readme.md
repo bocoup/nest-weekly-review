@@ -47,6 +47,8 @@ time. This is useful for offline development and testing. The following
 environmental variables will alter the application's behavior if set prior to
 running the server:
 
+- `NODE_PORT` - the TCP/IP port to which the HTTP server should be bound.
+  Defaults to `8000`.
 - `BP_API` - the "base" URL the client should use to make dynamic requests for
   data. By default, the value `http://api.bocoup.com` will be used, but this
   may be set to a staging server, a server with cached responses or a local

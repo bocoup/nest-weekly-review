@@ -1,11 +1,6 @@
 'use strict';
 
-var express = require('express');
 var octonode = require('octonode');
-
-var setToken = require('../token').set;
-
-var router = module.exports = express.Router();
 
 // TODO: Define this according to `process.env.NODE_ENV`
 var githubCreds = require('../../../config/secrets/github.json')['black-phoenix'].production;
@@ -24,27 +19,14 @@ if (!stateMatch) {
 }
 
 expectedState = stateMatch[1];
+exports.url = authUrl;
 
-router.get('/login', function(req, res) {
-  res.writeHead(301, {
-    'Content-Type': 'text/plain',
-    'Location': authUrl
-  });
-
-  res.end('Redirecting to ' + authUrl);
-});
-
-router.get('/authorize', function(req, res) {
+exports.authorize = function(req, done) {
   // Guard against CSRF attacks
   if (req.query.state !== expectedState) {
-    res.writeHead(403, {'Content-Type': 'text/plain'});
-    res.end('');
+    done(new Error('Unrecognized request origin.'));
     return;
   }
 
-  octonode.auth.login(req.query.code, function (err, token) {
-    setToken(req, res, token);
-    res.writeHead(301, { 'Content-Type': 'text/plain', 'Location': '/' });
-    res.end();
-  });
-});
+  octonode.auth.login(req.query.code, done);
+};

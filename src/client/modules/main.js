@@ -11,11 +11,15 @@ router.history.start({
 // using root-relative paths. Click events on these links should be intercepted
 // and handled with the application router (this prevents a full page
 // redirect).
+// Some internal links (such as those relating to session management) require a
+// full page redirect. Any link that specifies a `data-passthrough` attribute
+// will be ignored by this hijacking logic.
 document.body.addEventListener('click', function(event) {
   var target = event.target;
   var href = target.getAttribute('href');
+  var passthrough = target.getAttribute('data-passthrough') !== null;
 
-  if (!href || !/^\//.test(href)) {
+  if (!href || !/^\//.test(href) || passthrough) {
     return;
   }
 

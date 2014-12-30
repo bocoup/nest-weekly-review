@@ -30,21 +30,30 @@ Run:
 
 ### Running
 
-**Local**
-
-Run:
+To run in your **development environment**, execute the following command:
 
     $ npm start
 
-Visit http://localhost:8000
+...and visit http://localhost:8000
 
-**Virtual Machine**
-
-Run
+To run within a **virtual machine**, execute the following command:
 
     $ vagrant up
 
-Visit http://192.168.33.31
+...and visit http://192.168.33.31
+
+The application's dependencies on external services may be configured at run
+time. This is useful for offline development and testing. The following
+environmental variables will alter the application's behavior if set prior to
+running the server:
+
+- `BP_API` - the "base" URL the client should use to make dynamic requests for
+  data. By default, the value `http://api.bocoup.com` will be used, but this
+  may be set to a staging server, a server with cached responses or a local
+  installation of the Nest API server.
+- `BP_BYPASS_AUTH` - disable all requirements for authentication. This setting
+  is only useful when overriding `BP_API` and is explicitly ignored when
+  `NODE_ENV` is set to `production`.
 
 ### Tests
 

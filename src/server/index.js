@@ -16,12 +16,19 @@ var buildApplication = browserifyMiddleware(
     }
   );
 var app = express();
+var token = require('./token');
 
 if (process.env.NODE_ENV === 'production') {
   app.use('/modules/main.js', function(req, res) {
     res.sendFile('./app-production.js', { root: '.' });
   });
 } else {
+  if (process.env.BP_BYPASS_AUTH) {
+    app.use(function(req, res, next) {
+      token.set(req, res, 'authentication bypassed');
+      next();
+    });
+  }
   app.use('/modules/main.js', buildApplication);
   app.use('/api', require('./api/router'));
 }

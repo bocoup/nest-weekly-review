@@ -3,6 +3,7 @@
 var express = require('express');
 
 var token = require('./token');
+var debug = require('debug')('auth');
 
 var router = module.exports = express.Router();
 var providers = Object.create(null);
@@ -14,11 +15,15 @@ router.get('/login', function(req, res) {
 
   if (!providerName) {
     res.status(404).send('Authentication provider not specified.');
+    debug('Failed login attempt: no provider');
     return;
   }
 
   if (!provider) {
     res.status(404).send('Unrecognized provider: "' + providerName +'".');
+    debug(
+      'Failed login attempt: unrecognized provider (' + providerName + ')'
+    );
     return;
   }
 
@@ -36,11 +41,16 @@ router.get('/authorize', function(req, res) {
 
   if (!providerName) {
     res.status(404).send('Authentication provider not specified.');
+    debug('Failed authorization attempt: unspecified provider');
     return;
   }
 
   if (!provider) {
     res.status(404).send('Unrecognized provider: "' + providerName +'".');
+    debug(
+      'Failed authorization attempt: unrecognized provider (' + providerName +
+      ')'
+    );
     return;
   }
 

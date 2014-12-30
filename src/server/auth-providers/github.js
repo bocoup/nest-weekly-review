@@ -2,12 +2,13 @@
 
 var octonode = require('octonode');
 
-// TODO: Define this according to `process.env.NODE_ENV`
-var githubCreds = require('../../../config/secrets/github.json')['black-phoenix'].production;
+var credentials = require(
+    '../../../config/secrets/github.json'
+  )['black-phoenix'].production;
 var REQUIRED_SCOPES = ['read:org'];
 var authUrl = octonode.auth.config({
-  id: githubCreds.clientId,
-  secret: githubCreds.clientSecret
+  id: credentials.clientId,
+  secret: credentials.clientSecret
 }).login(REQUIRED_SCOPES);
 var stateMatch = authUrl.match(/&state=([0-9a-z]{32})/i);
 var expectedState;

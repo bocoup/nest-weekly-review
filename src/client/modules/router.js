@@ -9,6 +9,7 @@ var Review = require('./models/phase-review');
 
 var Layout = require('./components/layout/index');
 var weekNumber = require('./util/week-num');
+var getToken = require('./util/get-token');
 
 require('./ractive-adaptors-backbone');
 
@@ -21,6 +22,10 @@ module.exports = Router.extend({
     this.phases = new Phases();
     this.positions = new Positions();
     this.utilizationTypes = new UtilizationTypes();
+
+    if (!getToken()) {
+      return;
+    }
 
     this.positions.fetch({
       error: function(model, response) {
@@ -39,6 +44,15 @@ module.exports = Router.extend({
         });
       }.bind(this)
     });
+  },
+
+  // Effectively disable the router if the user is not logged in.
+  execute: function() {
+    if (!getToken()) {
+      return;
+    }
+
+    return Router.prototype.execute.apply(this, arguments);
   },
 
   routes: {

@@ -1,6 +1,8 @@
 'use strict';
 var Model = require('ampersand-model');
 
+var setBearer = require('../ajax-config');
+
 var API_ROOT = require('../api-root');
 var WEEK_MS = 1000 * 60 * 60 * 24 * 7;
 
@@ -8,6 +10,8 @@ module.exports = Model.extend({
   url: function() {
     return API_ROOT + '/projects/' + this.get('id') + '?with_phases';
   },
+  ajaxConfig: setBearer,
+
   props: {
     id: 'number',
     name: 'string',

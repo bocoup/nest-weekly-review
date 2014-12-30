@@ -1,11 +1,14 @@
 'use strict';
 var Collection = require('ampersand-rest-collection');
+
 var Employee = require('./employee');
+var setBearer = require('../ajax-config');
 
 var API_ROOT = require('../api-root');
 
 module.exports = Collection.extend({
   model: Employee,
+  ajaxConfig: setBearer,
   url: API_ROOT + '/employees/utilizations',
 
   fetchUtilizations: function(options) {

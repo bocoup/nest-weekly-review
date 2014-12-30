@@ -1,0 +1,14 @@
+.login-prompt {
+  text-align: center;
+}
+
+.login-button {
+  padding: 4px 10px;
+  border-width: 1px;
+
+  background-color: #ddd;
+  border-color: #444;
+  border-radius: 10px;
+  border-style: solid;
+  color: #444;
+}

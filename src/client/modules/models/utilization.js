@@ -1,10 +1,13 @@
 'use strict';
 var Model = require('ampersand-model');
 
+var setBearer = require('../ajax-config');
+
 var API_ROOT = require('../api-root');
 
 module.exports = Model.extend({
   urlRoot: API_ROOT + '/utilizations',
+  ajaxConfig: setBearer,
 
   props: {
     id: 'number',

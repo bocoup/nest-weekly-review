@@ -1,5 +1,9 @@
 <header class="app-header">
   <h1 class="app-title"><a href="/">Black Phoenix</a></h1>
+
+  {{#if loggedIn }}
+  <a href="/auth/logout" class="log-out" data-passthrough>Log Out</a>
+  {{/if }}
   <bp-notification-list />
 </header>
 
@@ -10,5 +14,9 @@
 
   {{#if route === 'review' }}
   <bp-review />
+  {{/if}}
+
+  {{#if !loggedIn }}
+  <bp-login-prompt />
   {{/if}}
 </main>

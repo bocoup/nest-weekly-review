@@ -26,6 +26,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use('/api', require('./api/router'));
 }
 
+app.use('/auth', require('./auth'));
 
 // Re-write directory requests to the project root. The client-side code served
 // from the index is capable of rendering the correct page based on the initial

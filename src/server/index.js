@@ -9,8 +9,8 @@ var buildApplication = browserifyMiddleware(
     __dirname + '/../client/modules/main.js',
     {
       transform: [
-        require('./css-transform'),
-        require('./ractive-transform'),
+        require('./transforms/css'),
+        require('./transforms/ractive'),
         require('envify')
       ]
     }

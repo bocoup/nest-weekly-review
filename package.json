@@ -5,7 +5,7 @@
   "description": "An application for managing billing data for consulting projects",
   "main": "src/server/index.js",
   "scripts": {
-    "build": "browserify src/client/modules/main.js -t ./src/server/ractive-transform.js -t ./src/server/css-transform.js -t envify > app-production.js",
+    "build": "browserify src/client/modules/main.js -t ./src/server/transforms/ractive -t ./src/server/transforms/css -t envify > app-production.js",
     "get-secrets": "nest get-secrets --prompt",
     "lint": "jshint src test/unit",
     "start": "node .",

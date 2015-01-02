@@ -28,7 +28,7 @@ Run:
 - VirtualBox ([download](https://www.virtualbox.org/))
 - Vagrant ([download](http://www.vagrantup.com/downloads.html))
 
-### Running
+### Running (production)
 
 To run in your **development environment**, execute the following command:
 
@@ -42,20 +42,39 @@ To run within a **virtual machine**, execute the following command:
 
 ...and visit http://192.168.33.31
 
-The application's dependencies on external services may be configured at run
-time. This is useful for offline development and testing. The following
-environmental variables will alter the application's behavior if set prior to
-running the server:
+The `NODE_PORT` environmental variable allows for runtime configuration of the
+TCP/IP port to which the HTTP server should be bound. Defaults to `8000`.
 
-- `NODE_PORT` - the TCP/IP port to which the HTTP server should be bound.
-  Defaults to `8000`.
+### Running (development)
+
+To run the application in development mode, execute the following command:
+
+    $ npm run start-dev
+
+In addition to `NODE_PORT` (see above), this mode allows for runtime
+configuration of the application's dependencies on external services. This is
+useful for offline development and testing. The following environmental
+variables will alter the application's behavior if set prior to running the
+server:
+
 - `BP_API` - the "base" URL the client should use to make dynamic requests for
   data. By default, the value `http://api.bocoup.com` will be used, but this
-  may be set to a staging server, a server with cached responses or a local
-  installation of the Nest API server.
+  may be set to a staging server, a server with cached responses (see [the
+  "Mock API Server" section](#mock-api-server) below) or a local installation
+  of the Nest API server.
 - `BP_BYPASS_AUTH` - disable all requirements for authentication. This setting
   is only useful when overriding `BP_API` and is explicitly ignored when
   `NODE_ENV` is set to `production`.
+
+### Mock API Server
+
+A mock API server is available for testing. To run it, use the following
+command:
+
+    $ npm run start-api
+
+This server also honors the `NODE_PORT` environment variable. Defaults to
+`4000`.
 
 ### Tests
 

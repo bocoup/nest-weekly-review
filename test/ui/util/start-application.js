@@ -1,19 +1,22 @@
 'use strict';
 
-var spawn = require('child_process').spawn;
+var spawnNpmScript = require('./spawn-npm-script');
 
 var pollHttp = require('./poll-http');
 
-module.exports = function(port) {
+module.exports = function(applicationPort, mockApiPort) {
   var env = {
+    BP_API: 'http://localhost:' + mockApiPort,
     BP_BYPASS_AUTH: '1',
-    NODE_PORT: port,
+    NODE_PORT: applicationPort,
     PATH: process.env.PATH
   };
-  var child = spawn('node',  ['.'], { env: env });
-  var kill = child.kill.bind(child, 'SIGKILL');
+  var child = spawnNpmScript(
+    '../../../package.json', 'start-dev', { env: env }
+  );
+  var kill = child.kill.bind(child, 'SIGTERM');
 
-  return pollHttp(port).then(function() {
+  return pollHttp(applicationPort).then(function() {
       return kill;
     }, function(err) {
       try {

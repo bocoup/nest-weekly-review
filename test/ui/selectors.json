@@ -2,5 +2,8 @@
   "index": {
     "title": "h1",
     "weekLabels": ".phase-table > thead .week-label"
+  },
+  "session": {
+    "loginButton": ".login-prompt .login-button"
   }
 }

@@ -12,7 +12,7 @@ describe('phase overview', function() {
 
   describe('index page', function() {
     beforeEach(function() {
-      this.timeout(5 * 1000);
+      this.timeout(9000);
       return driver.get('/');
     });
 
@@ -40,7 +40,7 @@ describe('phase overview', function() {
 
   describe('specific phase', function() {
     beforeEach(function() {
-      this.timeout(5 * 1000);
+      this.timeout(9000);
       return driver.get('/year/2014/week/50/');
     });
 

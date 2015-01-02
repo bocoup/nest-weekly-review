@@ -23,7 +23,8 @@ module.exports = Component.extend({
     };
   },
   phaseUrl: function(date) {
-    return '/year/' + date.getFullYear() + '/week/' + weekNumber.fromDate(date) + '/';
+    var time = weekNumber.fromDate(date);
+    return '/year/' + time.year + '/week/' + time.week + '/';
   },
   computed: {
     nextWeek: function() {

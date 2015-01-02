@@ -48,10 +48,9 @@ module.exports = Router.extend({
   },
 
   index: function() {
-    var now = new Date();
-    var thisWeek = weekNumber.fromDate(now);
+    var time = weekNumber.fromDate(new Date());
 
-    this.phaseList(now.getFullYear(), thisWeek);
+    this.phaseList(time.year, time.week);
   },
 
   phaseList: function(year, week) {

@@ -6,63 +6,192 @@ suite('weekNum', function() {
     var fromDate = weekNum.fromDate;
 
     test('first week', function() {
-      assert.equal(fromDate(new Date(2014, 0, 5)), 0);
-      assert.equal(fromDate(new Date(2014, 0, 6)), 0);
-      assert.equal(fromDate(new Date(2014, 0, 7)), 0);
-      assert.equal(fromDate(new Date(2014, 0, 8)), 0);
-      assert.equal(fromDate(new Date(2014, 0, 9)), 0);
-      assert.equal(fromDate(new Date(2014, 0, 10)), 0);
-      assert.equal(fromDate(new Date(2014, 0, 11)), 0);
+      assert.deepEqual(
+        fromDate(new Date(2014, 0, 5)),
+        { year: 2014, week: 0 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2014, 0, 6)),
+        { year: 2014, week: 0 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2014, 0, 7)),
+        { year: 2014, week: 0 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2014, 0, 8)),
+        { year: 2014, week: 0 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2014, 0, 9)),
+        { year: 2014, week: 0 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2014, 0, 10)),
+        { year: 2014, week: 0 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2014, 0, 11)),
+        { year: 2014, week: 0 }
+      );
 
-      assert.equal(fromDate(new Date(2015, 0, 4)), 0);
-      assert.equal(fromDate(new Date(2015, 0, 5)), 0);
-      assert.equal(fromDate(new Date(2015, 0, 6)), 0);
-      assert.equal(fromDate(new Date(2015, 0, 7)), 0);
-      assert.equal(fromDate(new Date(2015, 0, 8)), 0);
-      assert.equal(fromDate(new Date(2015, 0, 9)), 0);
-      assert.equal(fromDate(new Date(2015, 0, 10)), 0);
+      assert.deepEqual(
+        fromDate(new Date(2015, 0, 4)),
+        { year: 2015, week: 0 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2015, 0, 5)),
+        { year: 2015, week: 0 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2015, 0, 6)),
+        { year: 2015, week: 0 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2015, 0, 7)),
+        { year: 2015, week: 0 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2015, 0, 8)),
+        { year: 2015, week: 0 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2015, 0, 9)),
+        { year: 2015, week: 0 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2015, 0, 10)),
+        { year: 2015, week: 0 }
+      );
     });
 
     test('during daylight savings time', function() {
-      assert.equal(fromDate(new Date(2015, 2, 15)), 10);
+      assert.deepEqual(
+        fromDate(new Date(2015, 2, 15)),
+        { year: 2015, week: 10 }
+      );
     });
 
     test('second weeks', function() {
-      assert.equal(fromDate(new Date(2014, 0, 12)), 1);
-      assert.equal(fromDate(new Date(2014, 0, 13)), 1);
-      assert.equal(fromDate(new Date(2014, 0, 14)), 1);
-      assert.equal(fromDate(new Date(2014, 0, 15)), 1);
-      assert.equal(fromDate(new Date(2014, 0, 16)), 1);
-      assert.equal(fromDate(new Date(2014, 0, 17)), 1);
-      assert.equal(fromDate(new Date(2014, 0, 18)), 1);
+      assert.deepEqual(
+        fromDate(new Date(2014, 0, 12)),
+        { year: 2014, week: 1 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2014, 0, 13)),
+        { year: 2014, week: 1 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2014, 0, 14)),
+        { year: 2014, week: 1 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2014, 0, 15)),
+        { year: 2014, week: 1 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2014, 0, 16)),
+        { year: 2014, week: 1 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2014, 0, 17)),
+        { year: 2014, week: 1 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2014, 0, 18)),
+        { year: 2014, week: 1 }
+      );
 
-      assert.equal(fromDate(new Date(2015, 0, 11)), 1);
-      assert.equal(fromDate(new Date(2015, 0, 12)), 1);
-      assert.equal(fromDate(new Date(2015, 0, 13)), 1);
-      assert.equal(fromDate(new Date(2015, 0, 14)), 1);
-      assert.equal(fromDate(new Date(2015, 0, 15)), 1);
-      assert.equal(fromDate(new Date(2015, 0, 16)), 1);
-      assert.equal(fromDate(new Date(2015, 0, 17)), 1);
+      assert.deepEqual(
+        fromDate(new Date(2015, 0, 11)),
+        { year: 2015, week: 1 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2015, 0, 12)),
+        { year: 2015, week: 1 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2015, 0, 13)),
+        { year: 2015, week: 1 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2015, 0, 14)),
+        { year: 2015, week: 1 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2015, 0, 15)),
+        { year: 2015, week: 1 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2015, 0, 16)),
+        { year: 2015, week: 1 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2015, 0, 17)),
+        { year: 2015, week: 1 }
+      );
     });
 
     test('penultimate week', function() {
-      assert.equal(fromDate(new Date(2014, 11, 21)), 50);
-      assert.equal(fromDate(new Date(2014, 11, 22)), 50);
-      assert.equal(fromDate(new Date(2014, 11, 23)), 50);
-      assert.equal(fromDate(new Date(2014, 11, 24)), 50);
-      assert.equal(fromDate(new Date(2014, 11, 25)), 50);
-      assert.equal(fromDate(new Date(2014, 11, 26)), 50);
-      assert.equal(fromDate(new Date(2014, 11, 27)), 50);
+      assert.deepEqual(
+        fromDate(new Date(2014, 11, 21)),
+        { year: 2014, week: 50 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2014, 11, 22)),
+        { year: 2014, week: 50 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2014, 11, 23)),
+        { year: 2014, week: 50 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2014, 11, 24)),
+        { year: 2014, week: 50 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2014, 11, 25)),
+        { year: 2014, week: 50 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2014, 11, 26)),
+        { year: 2014, week: 50 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2014, 11, 27)),
+        { year: 2014, week: 50 }
+      );
     });
 
     test('final week', function() {
-      assert.equal(fromDate(new Date(2014, 11, 28)), 51);
-      assert.equal(fromDate(new Date(2014, 11, 29)), 51);
-      assert.equal(fromDate(new Date(2014, 11, 30)), 51);
-      assert.equal(fromDate(new Date(2014, 11, 31)), 51);
-      assert.equal(fromDate(new Date(2015, 0, 1)), 51);
-      assert.equal(fromDate(new Date(2015, 0, 2)), 51);
-      assert.equal(fromDate(new Date(2015, 0, 3)), 51);
+      assert.deepEqual(
+        fromDate(new Date(2014, 11, 28)),
+        { year: 2014, week: 51 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2014, 11, 29)),
+        { year: 2014, week: 51 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2014, 11, 30)),
+        { year: 2014, week: 51 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2014, 11, 31)),
+        { year: 2014, week: 51 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2015, 0, 1)),
+        { year: 2014, week: 51 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2015, 0, 2)),
+        { year: 2014, week: 51 }
+      );
+      assert.deepEqual(
+        fromDate(new Date(2015, 0, 3)),
+        { year: 2014, week: 51 }
+      );
     });
   });
 

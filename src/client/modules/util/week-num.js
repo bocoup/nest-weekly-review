@@ -9,7 +9,8 @@ var WEEK_MS = 7 * DAY_MS;
  *
  * @param {Date} date
  *
- * @returns {number}
+ * @returns {object} Object with numeric `week` and `year` properties
+ *                   describing the given date
  */
 exports.fromDate = function(date) {
   var yearBegin = new Date(date.getFullYear(), 0, 1);
@@ -17,7 +18,7 @@ exports.fromDate = function(date) {
   weekBegin.setTime(
     weekBegin.getTime() - weekBegin.getDay() * DAY_MS
   );
-  var dayOffset;
+  var dayOffset, week;
 
   // If the week began on a date in the previous year, the week offset should
   // be calculated in terms of that year.
@@ -30,10 +31,15 @@ exports.fromDate = function(date) {
   dayOffset = Math.round((weekBegin.getTime() - yearBegin.getTime()) / DAY_MS);
 
   if (dayOffset < yearBegin.getDay()) {
-    return 0;
+    week = 0;
+  } else {
+    week = Math.floor((dayOffset - (7 - yearBegin.getDay())) / 7);
   }
 
-  return Math.floor((dayOffset - (7 - yearBegin.getDay())) / 7);
+  return {
+    year: yearBegin.getFullYear(),
+    week: week
+  };
 };
 
 /**

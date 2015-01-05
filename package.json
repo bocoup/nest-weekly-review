@@ -5,7 +5,7 @@
   "description": "An application for managing billing data for consulting projects",
   "main": "src/server/index.js",
   "scripts": {
-    "build": "browserify src/client/modules/main.js -t ./src/server/transforms/ractive -t ./src/server/transforms/css -t envify > app-production.js",
+    "build": "node build/build.js > app-production.js",
     "get-secrets": "nest get-secrets --prompt",
     "lint": "jshint src test",
     "start": "node .",
@@ -37,7 +37,6 @@
     "ampersand-router": "^1.0.6",
     "body-parser": "^1.10.0",
     "browserify": "^8.0.2",
-    "browserify-middleware": "^4.1.0",
     "cookies": "^0.5.0",
     "cookies-js": "^1.1.0",
     "debug": "^2.1.0",

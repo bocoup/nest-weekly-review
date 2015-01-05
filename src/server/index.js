@@ -3,19 +3,9 @@ var url = require('url');
 
 var debug = require('debug')('main');
 var express = require('express');
-var browserifyMiddleware = require('browserify-middleware');
 var port = process.env.NODE_PORT || 8000;
+var build = require('../../build/build');
 
-var buildApplication = browserifyMiddleware(
-    __dirname + '/../client/modules/main.js',
-    {
-      transform: [
-        require('./transforms/css'),
-        require('./transforms/ractive'),
-        require('envify')
-      ]
-    }
-  );
 var app = express();
 
 if (process.env.NODE_ENV === 'production') {
@@ -25,7 +15,9 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile('./app-production.js', { root: '.' });
   });
 } else {
-  app.use('/modules/main.js', buildApplication);
+  app.get('/modules/main.js', function(req, res) {
+    build().pipe(res);
+  });
 }
 
 app.use('/auth', require('./auth'));

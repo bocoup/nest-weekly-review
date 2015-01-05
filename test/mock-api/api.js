@@ -72,7 +72,7 @@ API.prototype._loadJSON = function(filePath) {
 API.prototype._set = function(identifier, representation) {
   if (!(identifier in this._data)) {
     throw new Error(
-      'Unrecognized resource identifier: "' + identifier + "'. " +
+      'Unrecognized resource identifier: "' + identifier + '". ' +
       'Valid identifiers: ' + Object.keys(this._data).join(', ')
     );
   }

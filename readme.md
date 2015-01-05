@@ -63,8 +63,8 @@ server:
   "Mock API Server" section](#mock-api-server) below) or a local installation
   of the Nest API server.
 - `BP_BYPASS_AUTH` - disable all requirements for authentication. This setting
-  is only useful when overriding `BP_API` and is explicitly ignored when
-  `NODE_ENV` is set to `production`.
+  is only useful when overriding `BP_API` to reference a server instance that
+  does not require authentication.
 
 ### Mock API Server
 
@@ -96,12 +96,5 @@ The application can be optimized into a single file with the following command:
 
     $ npm run build
 
-The location of the Nest API is configurable at build time. If the `NODE_ENV`
-environmental variable is set to `production`, then `http://api.bocoup.com`
-will be used. This behavior can be overridden via the `BP_API` environmental
-variable--that may be set to any arbitrary URL.
-
-In order to serve the optimized file, the `NODE_ENV` environmental variable
-must be set to `production` when running the server. In Unix-like systems:
-
-    $ NODE_ENV=production npm start
+The location of the Nest API is configurable at build time via the `BP_API`
+environmental variable--that may be set to any arbitrary URL.

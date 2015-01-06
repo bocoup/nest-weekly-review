@@ -4,12 +4,13 @@ var Collection = require('ampersand-rest-collection');
 var Phase = require('./phase');
 var Employees = require('./employees');
 var setBearer = require('../ajax-config');
+var parse = require('../util/parse-json-api-resp')('project_phases');
 
 var API_ROOT = require('../api-root');
 
 module.exports = Collection.extend({
   model: Phase,
-  url: API_ROOT + '/project-phases',
+  url: API_ROOT + '/project-phases?include=employees',
   ajaxConfig: setBearer,
 
   initialize: function() {
@@ -27,5 +28,7 @@ module.exports = Collection.extend({
     options.url = this.url + '?project_id=' + projectId;
 
     return this.fetch(options);
-  }
+  },
+
+  parse: parse
 });

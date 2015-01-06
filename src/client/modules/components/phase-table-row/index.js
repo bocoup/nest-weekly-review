@@ -3,7 +3,8 @@ var Component = require('../../util/component');
 
 var weekNumber = require('../../util/week-num');
 
-var WEEK_MS = 1000 * 60 * 60 * 24 * 7;
+var DAY_MS = 1000 * 60 * 60 * 24;
+var WEEK_MS = DAY_MS * 7;
 
 module.exports = Component.extend({
   template: require('./template.html'),
@@ -14,7 +15,9 @@ module.exports = Component.extend({
   reviewUrl: function(offset) {
     var phase = this.get('phase');
     var firstDay = phase.get('first_day');
-    var date = new Date(firstDay.getTime() + offset * WEEK_MS);
+    var date = new Date(
+      firstDay.getTime() - (firstDay.getDay() * DAY_MS) + (offset * WEEK_MS)
+    );
 
     return '/phase/' + phase.get('id') +
       '/date/' +

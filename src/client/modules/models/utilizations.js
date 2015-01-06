@@ -4,11 +4,17 @@ var Promise = require('ractive/ractive.runtime').Promise;
 var extend = require('lodash.assign');
 
 var Utilization = require('./utilization');
+var parse = require('../util/parse-json-api-resp')('utilizations');
+var setBearer = require('../ajax-config');
+var API_ROOT = require('../api-root');
 
 var ONE_DAY = 1000 * 60 * 60 * 24;
 
 module.exports = Collection.extend({
   model: Utilization,
+  url: API_ROOT + '/utilizations',
+  ajaxConfig: setBearer,
+  comparator: 'first_day',
 
   initialize: function() {
     this._removed = [];
@@ -16,6 +22,8 @@ module.exports = Collection.extend({
       this._removed.push(model);
     });
   },
+
+  parse: parse,
 
   /**
    * This collection tracks all models that have been removed from it. Because

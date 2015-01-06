@@ -2,27 +2,6 @@
 var make = require('../../../../src/client/modules/util/parse-json-api-resp');
 
 suite('parseJsonApiResponse', function() {
-  test('mike', function() {
-    var Model = require('ampersand-model');
-    var Collection = require('ampersand-rest-collection');
-    var M = Model.extend({
-      parse: function(data) {
-        console.log('M#parse');
-        return data;
-      }
-    });
-    var C = Collection.extend({
-      model: M,
-      parse: function(data) {
-        console.log('C#parse', data);
-        return data;
-      }
-    });
-
-    var c = new C();
-
-    c.set([{}, {}], { parse: true });
-  });
   test('simple document', function() {
     var parse = make('gooo');
     var response = {

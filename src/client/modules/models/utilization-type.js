@@ -1,6 +1,7 @@
 'use strict';
 var Model = require('ampersand-model');
 
+var parse = require('../util/parse-json-api-resp')('type');
 var CONSULTING_ID = 1;
 
 module.exports = Model.extend({
@@ -9,6 +10,7 @@ module.exports = Model.extend({
     'name': 'string',
     'color': 'string'
   },
+  parse: parse,
   derived: {
     isConsulting: {
       deps: ['id'],

@@ -150,6 +150,7 @@ suite('Utilizations collection', function() {
       assert.equal(current, u.at(0));
       assert.deepEqual(models, [{
         utilization_type_id: 3,
+        type: {},
         first_day: +new Date(2013, 3, 4),
         last_day: +new Date(2013, 3, 4)
       }]);
@@ -177,14 +178,17 @@ suite('Utilizations collection', function() {
         models,
         [{
           utilization_type_id: 23,
+          type: {},
           first_day: +new Date(2013, 3, 3),
           last_day: +new Date(2013, 3, 3)
         }, {
           utilization_type_id: 5,
+          type: {},
           first_day: +new Date(2013, 3, 4),
           last_day: +new Date(2013, 3, 4)
         }, {
           utilization_type_id: 23,
+          type: {},
           first_day: +new Date(2013, 3, 5),
           last_day: +new Date(2013, 3, 5)
         }
@@ -223,6 +227,7 @@ suite('Utilizations collection', function() {
         models,
         [{
           utilization_type_id: 23,
+          type: {},
           first_day: +new Date(2013, 3, 3),
           last_day: +new Date(2013, 3, 5)
         }]
@@ -261,10 +266,12 @@ suite('Utilizations collection', function() {
         models,
         [{
           utilization_type_id: 23,
+          type: {},
           first_day: +new Date(2013, 3, 3),
           last_day: +new Date(2013, 3, 4)
         }, {
           utilization_type_id: 25,
+          type: {},
           first_day: +new Date(2013, 3, 5),
           last_day: +new Date(2013, 3, 5)
         }]
@@ -298,6 +305,7 @@ suite('Utilizations collection', function() {
         models,
         [{
           utilization_type_id: 23,
+          type: {},
           first_day: +new Date(2013, 3, 3),
           last_day: +new Date(2013, 3, 4)
         }]
@@ -336,10 +344,12 @@ suite('Utilizations collection', function() {
         models,
         [{
           utilization_type_id: 23,
+          type: {},
           first_day: +new Date(2013, 3, 3),
           last_day: +new Date(2013, 3, 3)
         }, {
           utilization_type_id: 25,
+          type: {},
           first_day: +new Date(2013, 3, 4),
           last_day: +new Date(2013, 3, 5)
         }]
@@ -373,6 +383,7 @@ suite('Utilizations collection', function() {
         models,
         [{
           utilization_type_id: 25,
+          type: {},
           first_day: +new Date(2013, 3, 4),
           last_day: +new Date(2013, 3, 5)
         }]
@@ -406,14 +417,17 @@ suite('Utilizations collection', function() {
         models,
         [{
           utilization_type_id: 23,
+          type: {},
           first_day: +new Date(2013, 3, 3),
           last_day: +new Date(2013, 3, 3)
         }, {
           utilization_type_id: 24,
+          type: {},
           first_day: +new Date(2013, 3, 4),
           last_day: +new Date(2013, 3, 4),
         }, {
           utilization_type_id: 25,
+          type: {},
           first_day: +new Date(2013, 3, 5),
           last_day: +new Date(2013, 3, 5)
         }]
@@ -447,14 +461,17 @@ suite('Utilizations collection', function() {
         models,
         [{
           utilization_type_id: 23,
+          type: {},
           first_day: +new Date(2013, 3, 3),
           last_day: +new Date(2013, 3, 3)
         }, {
           utilization_type_id: 24,
+          type: {},
           first_day: +new Date(2013, 3, 4),
           last_day: +new Date(2013, 3, 4),
         }, {
           utilization_type_id: 25,
+          type: {},
           first_day: +new Date(2013, 3, 5),
           last_day: +new Date(2013, 3, 5)
         }]
@@ -488,10 +505,12 @@ suite('Utilizations collection', function() {
         models,
         [{
           utilization_type_id: 23,
+          type: {},
           first_day: +new Date(2013, 3, 3),
           last_day: +new Date(2013, 3, 4)
         }, {
           utilization_type_id: 25,
+          type: {},
           first_day: +new Date(2013, 3, 5),
           last_day: +new Date(2013, 3, 5),
         }]
@@ -525,10 +544,12 @@ suite('Utilizations collection', function() {
         models,
         [{
           utilization_type_id: 23,
+          type: {},
           first_day: +new Date(2013, 3, 3),
           last_day: +new Date(2013, 3, 3)
         }, {
           utilization_type_id: 25,
+          type: {},
           first_day: +new Date(2013, 3, 4),
           last_day: +new Date(2013, 3, 5),
         }]
@@ -567,14 +588,17 @@ suite('Utilizations collection', function() {
         models,
         [{
           utilization_type_id: 23,
+          type: {},
           first_day: +new Date(2013, 3, 3),
           last_day: +new Date(2013, 3, 3)
         }, {
           utilization_type_id: 21,
+          type: {},
           first_day: +new Date(2013, 3, 4),
           last_day: +new Date(2013, 3, 4),
         }, {
           utilization_type_id: 25,
+          type: {},
           first_day: +new Date(2013, 3, 5),
           last_day: +new Date(2013, 3, 5),
         }]
@@ -613,14 +637,17 @@ suite('Utilizations collection', function() {
         models,
         [{
           utilization_type_id: 23,
+          type: {},
           first_day: +new Date(2013, 3, 3),
           last_day: +new Date(2013, 3, 3)
         }, {
           utilization_type_id: 24,
+          type: {},
           first_day: +new Date(2013, 3, 4),
           last_day: +new Date(2013, 3, 4),
         }, {
           utilization_type_id: 25,
+          type: {},
           first_day: +new Date(2013, 3, 5),
           last_day: +new Date(2013, 3, 5),
         }]

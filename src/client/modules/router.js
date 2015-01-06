@@ -90,10 +90,14 @@ module.exports = Router.extend({
    * @param {number} [throughWeeks]
    */
   getPhases: function(date, throughWeeks) {
-    var time = date.getTime();
     var phases = this.phases;
+    var beforeDate;
 
     throughWeeks = throughWeeks || 1;
+
+    beforeDate = new Date(
+      date.getTime() + throughWeeks * 1000 * 60 * 60 * 24 * 7
+    );
 
     return new Promise(function(resolve, reject) {
       // TODO: Only fetch project data that has not previously been fetched,
@@ -109,9 +113,9 @@ module.exports = Router.extend({
         reset: true,
 
         data: {
-          after: time,
-          before: time + throughWeeks * 1000 * 60 * 60 * 24 * 7,
-          with_reviews: true
+          after: date.toISOString().replace(/T.*$/, ''),
+          before: beforeDate.toISOString().replace(/T.*$/, ''),
+          include: 'reviews'
         },
         success: function() {
           resolve(phases);

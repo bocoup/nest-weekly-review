@@ -1,13 +1,61 @@
 'use strict';
 var Model = require('ampersand-model');
 
+var UtilizationType = require('./utilization-type');
 var setBearer = require('../ajax-config');
+var parse = require('../util/parse-json-api-resp')('utilization');
 
 var API_ROOT = require('../api-root');
+var local = new Date('2014-01-01').getTime();
+
+// TODO: Remove this when/if it is implemented upstream:
+// https://github.com/AmpersandJS/ampersand-state/pull/124
+var tzPattern = /(Z|[-+]\d\d:\d\d)$/;
+function normalize(date) {
+  var offset;
+
+  if (typeof date !== 'string') {
+    return date;
+  } else if (tzPattern.test(date)) {
+    return date;
+  }
+
+  offset = new Date(2014, 0, 1) - local;
+
+  // The offset will be zero in the follow cases:
+  //
+  // 1. The client's time zone is currently equivalent to GMT
+  // 2. The code is executed in an ECMAScript 6-compliant environment (where
+  //    date strings without explicit time zone information are interpreted in
+  //    the local time zone).
+  //
+  // The offset value cannot be pre-computed or cached because it will vary in
+  // accordance with the client's time settings and entrance/exit of daylight
+  // savings time.
+  if (offset === 0) {
+    return date;
+  }
+
+  return new Date(new Date(date).getTime() + offset);
+}
 
 module.exports = Model.extend({
   urlRoot: API_ROOT + '/utilizations',
   ajaxConfig: setBearer,
+  parse: function(data) {
+    data = parse(data);
+
+    if (data) {
+      if (typeof data.first_day) {
+        data.first_day = normalize(data.first_day);
+      }
+      if (typeof data.last_day) {
+        data.last_day = normalize(data.last_day);
+      }
+    }
+
+    return data;
+  },
 
   props: {
     id: 'number',
@@ -18,8 +66,11 @@ module.exports = Model.extend({
     first_day: 'date',
     last_day: 'date',
     project: 'object',
-    type: 'object',
     verified: 'boolean'
+  },
+
+  children: {
+    type: UtilizationType
   },
 
   /**

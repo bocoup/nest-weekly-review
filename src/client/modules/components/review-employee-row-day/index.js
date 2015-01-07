@@ -8,6 +8,21 @@ var hexToRgb = require('../../util/hex-to-rgb');
 module.exports = Component.extend({
   template: require('./template.html'),
   css: require('./style.css'),
+
+  read: function() {
+    var type = this.get('newType');
+    var isConsulting = type.get('isConsulting');
+
+    return {
+      utilization_type_id: type.get('id'),
+      type: type.toJSON(),
+      employee_id: this.get('employee.id'),
+      position_id: isConsulting ? this.get('newPosition.id') : 1,
+      project_id: isConsulting ? this.get('newProject.id') : 1,
+      project: isConsulting ? this.get('newProject') : null
+    };
+  },
+
   computed: {
     style: function() {
       var hex = this.get('utilization.type.color');
@@ -47,7 +62,6 @@ module.exports = Component.extend({
       set: function(val) {
         var utilizations = this.get('utilizations');
         var date = this.get('date');
-        var type = this.get('newType');
         var current;
 
         // Leave the utilization as-is until a new value is selected.
@@ -55,21 +69,11 @@ module.exports = Component.extend({
           return;
         }
 
-        if (!type.isConsulting) {
-          this.set('newPosition', null);
-          this.set('newProject', null);
-        }
-
         // TODO: Set this to the current utilization
-        current = utilizations.setAtDate(date, {
-          utilization_type_id: this.get('newType.id'),
-          type: type,
-          employee_id: this.get('id'),
-          position_id: this.get('newPosition.id'),
-          project_id: this.get('newProject.id'),
-          project: this.get('newProject')
-        }, { silent: true });
+        current = utilizations.setAtDate(date, this.read(), { silent: true });
 
+        // TODO: Render some sort of progress indicator for the duration of the
+        // 'save' operation.
         this.set('utilization', current);
 
         utilizations.save().then(null, function(err) {

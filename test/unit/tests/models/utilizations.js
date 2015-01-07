@@ -4,6 +4,9 @@ var sinon = require('sinon');
 var Utilizations = require(
   '../../../../src/client/modules/models/utilizations'
 );
+function dateStr(year, month, day) {
+  return new Date(year, month, day).toISOString().replace(/T.*$/, '');
+}
 
 suite('Utilizations collection', function() {
   suite('#save', function() {
@@ -151,8 +154,8 @@ suite('Utilizations collection', function() {
       assert.deepEqual(models, [{
         utilization_type_id: 3,
         type: {},
-        first_day: +new Date(2013, 3, 4),
-        last_day: +new Date(2013, 3, 4)
+        first_day: dateStr(2013, 3, 4),
+        last_day: dateStr(2013, 3, 4)
       }]);
     });
 
@@ -179,18 +182,18 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 23,
           type: {},
-          first_day: +new Date(2013, 3, 3),
-          last_day: +new Date(2013, 3, 3)
+          first_day: dateStr(2013, 3, 3),
+          last_day: dateStr(2013, 3, 3)
         }, {
           utilization_type_id: 5,
           type: {},
-          first_day: +new Date(2013, 3, 4),
-          last_day: +new Date(2013, 3, 4)
+          first_day: dateStr(2013, 3, 4),
+          last_day: dateStr(2013, 3, 4)
         }, {
           utilization_type_id: 23,
           type: {},
-          first_day: +new Date(2013, 3, 5),
-          last_day: +new Date(2013, 3, 5)
+          first_day: dateStr(2013, 3, 5),
+          last_day: dateStr(2013, 3, 5)
         }
       ]);
     });
@@ -228,8 +231,8 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 23,
           type: {},
-          first_day: +new Date(2013, 3, 3),
-          last_day: +new Date(2013, 3, 5)
+          first_day: dateStr(2013, 3, 3),
+          last_day: dateStr(2013, 3, 5)
         }]
       );
     });
@@ -267,13 +270,13 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 23,
           type: {},
-          first_day: +new Date(2013, 3, 3),
-          last_day: +new Date(2013, 3, 4)
+          first_day: dateStr(2013, 3, 3),
+          last_day: dateStr(2013, 3, 4)
         }, {
           utilization_type_id: 25,
           type: {},
-          first_day: +new Date(2013, 3, 5),
-          last_day: +new Date(2013, 3, 5)
+          first_day: dateStr(2013, 3, 5),
+          last_day: dateStr(2013, 3, 5)
         }]
       );
     });
@@ -306,8 +309,8 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 23,
           type: {},
-          first_day: +new Date(2013, 3, 3),
-          last_day: +new Date(2013, 3, 4)
+          first_day: dateStr(2013, 3, 3),
+          last_day: dateStr(2013, 3, 4)
         }]
       );
     });
@@ -345,13 +348,13 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 23,
           type: {},
-          first_day: +new Date(2013, 3, 3),
-          last_day: +new Date(2013, 3, 3)
+          first_day: dateStr(2013, 3, 3),
+          last_day: dateStr(2013, 3, 3)
         }, {
           utilization_type_id: 25,
           type: {},
-          first_day: +new Date(2013, 3, 4),
-          last_day: +new Date(2013, 3, 5)
+          first_day: dateStr(2013, 3, 4),
+          last_day: dateStr(2013, 3, 5)
         }]
       );
     });
@@ -384,8 +387,8 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 25,
           type: {},
-          first_day: +new Date(2013, 3, 4),
-          last_day: +new Date(2013, 3, 5)
+          first_day: dateStr(2013, 3, 4),
+          last_day: dateStr(2013, 3, 5)
         }]
       );
     });
@@ -418,18 +421,18 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 23,
           type: {},
-          first_day: +new Date(2013, 3, 3),
-          last_day: +new Date(2013, 3, 3)
+          first_day: dateStr(2013, 3, 3),
+          last_day: dateStr(2013, 3, 3)
         }, {
           utilization_type_id: 24,
           type: {},
-          first_day: +new Date(2013, 3, 4),
-          last_day: +new Date(2013, 3, 4),
+          first_day: dateStr(2013, 3, 4),
+          last_day: dateStr(2013, 3, 4),
         }, {
           utilization_type_id: 25,
           type: {},
-          first_day: +new Date(2013, 3, 5),
-          last_day: +new Date(2013, 3, 5)
+          first_day: dateStr(2013, 3, 5),
+          last_day: dateStr(2013, 3, 5)
         }]
       );
     });
@@ -462,18 +465,18 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 23,
           type: {},
-          first_day: +new Date(2013, 3, 3),
-          last_day: +new Date(2013, 3, 3)
+          first_day: dateStr(2013, 3, 3),
+          last_day: dateStr(2013, 3, 3)
         }, {
           utilization_type_id: 24,
           type: {},
-          first_day: +new Date(2013, 3, 4),
-          last_day: +new Date(2013, 3, 4),
+          first_day: dateStr(2013, 3, 4),
+          last_day: dateStr(2013, 3, 4),
         }, {
           utilization_type_id: 25,
           type: {},
-          first_day: +new Date(2013, 3, 5),
-          last_day: +new Date(2013, 3, 5)
+          first_day: dateStr(2013, 3, 5),
+          last_day: dateStr(2013, 3, 5)
         }]
       );
     });
@@ -506,13 +509,13 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 23,
           type: {},
-          first_day: +new Date(2013, 3, 3),
-          last_day: +new Date(2013, 3, 4)
+          first_day: dateStr(2013, 3, 3),
+          last_day: dateStr(2013, 3, 4)
         }, {
           utilization_type_id: 25,
           type: {},
-          first_day: +new Date(2013, 3, 5),
-          last_day: +new Date(2013, 3, 5),
+          first_day: dateStr(2013, 3, 5),
+          last_day: dateStr(2013, 3, 5),
         }]
       );
     });
@@ -545,13 +548,13 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 23,
           type: {},
-          first_day: +new Date(2013, 3, 3),
-          last_day: +new Date(2013, 3, 3)
+          first_day: dateStr(2013, 3, 3),
+          last_day: dateStr(2013, 3, 3)
         }, {
           utilization_type_id: 25,
           type: {},
-          first_day: +new Date(2013, 3, 4),
-          last_day: +new Date(2013, 3, 5),
+          first_day: dateStr(2013, 3, 4),
+          last_day: dateStr(2013, 3, 5),
         }]
       );
     });
@@ -589,18 +592,18 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 23,
           type: {},
-          first_day: +new Date(2013, 3, 3),
-          last_day: +new Date(2013, 3, 3)
+          first_day: dateStr(2013, 3, 3),
+          last_day: dateStr(2013, 3, 3)
         }, {
           utilization_type_id: 21,
           type: {},
-          first_day: +new Date(2013, 3, 4),
-          last_day: +new Date(2013, 3, 4),
+          first_day: dateStr(2013, 3, 4),
+          last_day: dateStr(2013, 3, 4),
         }, {
           utilization_type_id: 25,
           type: {},
-          first_day: +new Date(2013, 3, 5),
-          last_day: +new Date(2013, 3, 5),
+          first_day: dateStr(2013, 3, 5),
+          last_day: dateStr(2013, 3, 5),
         }]
       );
     });
@@ -638,18 +641,18 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 23,
           type: {},
-          first_day: +new Date(2013, 3, 3),
-          last_day: +new Date(2013, 3, 3)
+          first_day: dateStr(2013, 3, 3),
+          last_day: dateStr(2013, 3, 3)
         }, {
           utilization_type_id: 24,
           type: {},
-          first_day: +new Date(2013, 3, 4),
-          last_day: +new Date(2013, 3, 4),
+          first_day: dateStr(2013, 3, 4),
+          last_day: dateStr(2013, 3, 4),
         }, {
           utilization_type_id: 25,
           type: {},
-          first_day: +new Date(2013, 3, 5),
-          last_day: +new Date(2013, 3, 5),
+          first_day: dateStr(2013, 3, 5),
+          last_day: dateStr(2013, 3, 5),
         }]
       );
     });

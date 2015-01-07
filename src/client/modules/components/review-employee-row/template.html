@@ -14,7 +14,7 @@
   {{#each ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']:offset }}
   <bp-employee-row-day
     dayName="{{this}}"
-    dayNum="{{offset}}"
+    dayNum="{{offset + 1}}"
     employee="{{employee}}"
     phase="{{phase}}"
     activePhases="{{activePhases}}"

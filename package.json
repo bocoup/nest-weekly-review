@@ -43,6 +43,7 @@
     "envify": "^3.2.0",
     "express": "^4.10.4",
     "lodash.assign": "^2.4.1",
+    "lodash.isdate": "^2.4.1",
     "mocha": "^2.0.1",
     "octonode": "^0.6.12",
     "ractive": "^0.6.1",

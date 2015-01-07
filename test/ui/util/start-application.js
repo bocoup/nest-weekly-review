@@ -1,28 +1,30 @@
 'use strict';
 
+var Promise = require('bluebird');
+
 var spawnNpmScript = require('./spawn-npm-script');
+var portGuard = require('./port-guard');
 
-var pollHttp = require('./poll-http');
-
-module.exports = function(applicationPort, mockApiPort) {
+module.exports = function(port, apiUrl) {
   var env = {
-    WR_API: 'http://localhost:' + mockApiPort,
+    WR_API: apiUrl,
     WR_AUTH: 'bypass',
-    NODE_PORT: applicationPort,
+    NODE_PORT: port,
     PATH: process.env.PATH
   };
-  var child = spawnNpmScript(
-    '../../../package.json', 'start-dev', { env: env }
-  );
-  var kill = child.kill.bind(child, 'SIGTERM');
+  return portGuard(port, function() {
+      var child = spawnNpmScript(
+        '../../../package.json', 'start-dev', { env: env }
+      );
+      var kill = function() {
+        child.kill();
 
-  return pollHttp(applicationPort).then(function() {
+        return new Promise(function(resolve, reject) {
+          child.once('exit', resolve);
+          child.once('error', reject);
+        });
+      };
+
       return kill;
-    }, function(err) {
-      try {
-        kill();
-      } catch(err) {}
-
-      throw err;
     });
 };

@@ -20,7 +20,7 @@ module.exports = Collection.extend({
 
     options.data = {
       employee_id: ids.join(','),
-      include: ['projects', 'types']
+      include: ['project', 'type']
     };
 
     options.success = function() {

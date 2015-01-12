@@ -8,15 +8,6 @@ function inflate(linkedLookups, key, value) {
   }
 
   if (typeof value === 'string' || typeof value === 'number') {
-
-    // TODO: Remove these hard-coded translations once the API begins using the
-    // `"type"` field.
-    if (key === 'project') {
-      key = 'projects';
-    } else if (key === 'type') {
-      key = 'utilization_types';
-    }
-
     return linkedLookups[key][value];
   }
 

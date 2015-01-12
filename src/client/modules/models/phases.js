@@ -4,7 +4,7 @@ var Collection = require('ampersand-rest-collection');
 var Phase = require('./phase');
 var Employees = require('./employees');
 var setBearer = require('../ajax-config');
-var parse = require('../util/parse-json-api-resp')('project_phases');
+var parse = require('../util/parse-json-api-resp')('project-phases');
 
 var API_ROOT = require('../api-root');
 

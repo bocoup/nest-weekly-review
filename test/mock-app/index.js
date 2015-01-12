@@ -1,4 +1,13 @@
 'use strict';
+var Table = require('cli-table');
+var table = new Table({
+  head: ['Environmental Var', 'Description', 'Current value'],
+});
+var configurableItems = [
+  { name: 'BP_API', desc: 'Data source' },
+  { name: 'NODE_PORT', desc: 'Application server' },
+  { name: 'BY_BYPASS_AUTH', desc: 'Toggle authentication' }
+];
 
 function injectDependency(targetModuleId, mockModuleId) {
   var targetModulePath = require.resolve(targetModuleId);
@@ -15,6 +24,8 @@ function injectDependency(targetModuleId, mockModuleId) {
   require.cache[targetModulePath] = require.cache[mockModulePath];
 }
 
+process.env.BP_API = process.env.BP_API || 'https://api-staging.bocoup.com';
+
 if (process.env.NODE_ENV === 'production') {
   console.error(
     'Cannot run the development application in "production" mode.'
@@ -29,3 +40,11 @@ if (process.env.BP_BYPASS_AUTH) {
 injectDependency('../../src/server/serve-app', './serve-app');
 
 require('../..');
+
+configurableItems.forEach(function(item) {
+  table.push([
+    item.name, item.desc, JSON.stringify(process.env[item.name] || '')
+  ]);
+});
+
+console.log(table.toString());

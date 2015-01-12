@@ -2,7 +2,7 @@
 
 var debug = require('debug')('main');
 var express = require('express');
-var port = process.env.NODE_PORT || 8000;
+var port = process.env.NODE_PORT = process.env.NODE_PORT || 8000;
 
 var app = express();
 

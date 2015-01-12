@@ -1,6 +1,8 @@
 'use strict';
 
 function inflate(linkedLookups, key, value) {
+  var lookup;
+
   if (value === null || value === undefined) {
     return value;
   }
@@ -18,7 +20,13 @@ function inflate(linkedLookups, key, value) {
     return linkedLookups[key][value];
   }
 
-  return linkedLookups[value.type][value.id] || null;
+  lookup = linkedLookups[value.type];
+
+  if (value.ids) {
+    return value.ids.map(function(id) { return lookup[id]; });
+  }
+
+  return lookup[value.id] || null;
 }
 
 module.exports = function(name) {

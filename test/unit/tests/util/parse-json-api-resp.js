@@ -118,5 +118,70 @@ suite('parseJsonApiResponse', function() {
         { id: 99, ned: [] }
       );
     });
+
+    test('one-to-many (without associated `links` entry)', function() {
+      var parse = make('foboy');
+      var response = {
+        linked: {},
+        foboy: [
+          {
+            id: 33,
+            links: { ned: { ids: [] } }
+          }
+        ]
+      };
+
+      var parsed = parse(response);
+
+      assert.deepEqual(
+        parsed[0],
+        { id: 33, ned: [] }
+      );
+    });
+
+    test('one-to-many (with `type` field)', function() {
+      var parse = make('foboy');
+      var response = {
+        linked: {
+          oof: [
+            { id: 23, vappy: 4 }, { id: 45, vappy: 8 }, { id: 99, vappy: 12 }
+          ]
+        },
+        foboy: [
+          {
+            id: 33,
+            links: { ned: { type: 'oof', ids: [23, 45] } }
+          },
+          {
+            id: 66,
+            links: { ned: { type: 'oof', ids: [99] } }
+          },
+          {
+            id: 99,
+            links: { ned: { type: 'oof', ids: [] } }
+          }
+        ]
+      };
+
+      var parsed = parse(response);
+
+      assert.deepEqual(
+        parsed[0],
+        {
+          id: 33,
+          ned: [ { id: 23, vappy: 4 }, { id: 45, vappy: 8 } ]
+        }
+      );
+
+      assert.deepEqual(
+        parsed[1],
+        { id: 66, ned: [ { id: 99, vappy: 12 } ] }
+      );
+
+      assert.deepEqual(
+        parsed[2],
+        { id: 99, ned: [] }
+      );
+    });
   });
 });

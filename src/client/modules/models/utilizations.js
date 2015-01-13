@@ -66,10 +66,12 @@ module.exports = Collection.extend({
             removed.splice(index, 1);
             resolve();
           },
-          error: reject
+          error: function(model, response) {
+            reject(response.responseText);
+          }
         });
       }));
-    });
+    }, this);
 
     return Promise.all(destroyRequests).then(function() {
       var createRequests = [];
@@ -82,7 +84,12 @@ module.exports = Collection.extend({
         }
 
         createRequests.push(new Promise(function(resolve, reject) {
-          model.save(null, { success: resolve, error: reject });
+          model.save(null, {
+            success: resolve,
+            error: function(model, response) {
+              reject(response.responseText);
+            }
+          });
         }));
       });
 
@@ -96,7 +103,12 @@ module.exports = Collection.extend({
         }
 
         updateRequests.push(new Promise(function(resolve, reject) {
-          model.save(null, { success: resolve, error: reject });
+          model.save(null, {
+            success: resolve,
+            error: function(model, response) {
+              reject(response.responseText);
+            }
+          });
         }));
       });
 

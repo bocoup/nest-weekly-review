@@ -77,7 +77,9 @@ module.exports = Component.extend({
         this.set('utilization', current);
 
         utilizations.save().then(null, function(err) {
-          this.fire('error', err);
+          this.fire('error', {
+            title: 'Failed to save utilization', desc: err
+          });
         }.bind(this));
       }
     }

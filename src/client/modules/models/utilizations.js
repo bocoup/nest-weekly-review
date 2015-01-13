@@ -53,9 +53,9 @@ module.exports = Collection.extend({
     var removed = this._removed;
 
     this._removed.forEach(function(model) {
-      // Account for possibility that model may have been re-inserted into
-      // collection.
-      if ('collection' in model) {
+      // Account for possibility that the model may have been re-inserted into
+      // this collection.
+      if (model.collection === this) {
         return;
       }
 

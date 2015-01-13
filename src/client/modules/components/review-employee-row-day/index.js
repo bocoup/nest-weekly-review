@@ -2,9 +2,6 @@
 var Component = require('../../util/component');
 var hexToRgb = require('../../util/hex-to-rgb');
 
-// TODO: Initially set `newType`, `newPosition` to the associated value for the
-// current day.
-
 module.exports = Component.extend({
   template: require('./template.html'),
   css: require('./style.css'),
@@ -19,6 +16,7 @@ module.exports = Component.extend({
       employee_id: this.get('employee.id'),
       position_id: isConsulting ? this.get('newPosition.id') : 1,
       project_id: isConsulting ? this.get('newProject.id') : 1,
+      project_phase_id: isConsulting ? this.get('newPhase.id') : null,
       project: isConsulting ? this.get('newProject') : null
     };
   },
@@ -32,6 +30,109 @@ module.exports = Component.extend({
       var offset = this.get('dayNum') * 1000* 60 * 60 * 24;
 
       return new Date(this.get('weekStart').getTime() + offset);
+    },
+
+    /**
+     * The following `new`-prefixed viewmodel attributes are necessary because
+     * each Ractive component is visualizing one day among many in a given
+     * Utilization model. Setting attributes on this model directly would
+     * also effect neighboring days. Instead, modified attribute state is
+     * stored on the view itself. In the `uBool` attribute setter (defined
+     * below), this information is retrieved via the `read` method and used to
+     * potentially create a *new* Utilization model when `Utilization#save` is
+     * called.
+     */
+    newType: {
+      set: function(val) {
+        this.set('_newType', val);
+      },
+      get: function() {
+        var newType = this.get('_newType');
+        var currentTypeId = this.get('utilization.utilization_type_id');
+        var types = this.get('utilizationTypes');
+
+        if (!newType && currentTypeId && types) {
+          types.some(function(type) {
+            if (type.id === currentTypeId) {
+              newType = type;
+              return true;
+            }
+          });
+        }
+
+        return newType;
+      }
+    },
+
+    newPosition: {
+      set: function(val) {
+        this.set('_newPosition', val);
+      },
+      get: function() {
+        var newPosition = this.get('_newPosition');
+        var currentPositionId = this.get('utilization.position_id');
+        var positions = this.get('positions');
+
+        if (!newPosition && currentPositionId && positions) {
+          positions.some(function(position) {
+            if (position.id === currentPositionId) {
+              newPosition = position;
+              return true;
+            }
+          });
+        }
+
+        return newPosition;
+      }
+    },
+
+    newProject: {
+      set: function(val) {
+        this.set('_newProject', val);
+      },
+      get: function() {
+        var newProject = this.get('_newProject');
+        var currentProjectId = this.get('utilization.project_id');
+        var activeProjects = this.get('activeProjects');
+        var type = this.get('newType');
+
+        if (!type || !type.isConsulting) {
+          return null;
+        }
+
+        if (!newProject && currentProjectId && activeProjects) {
+          activeProjects.some(function(project) {
+            if (project.id === currentProjectId) {
+              newProject = project;
+              return true;
+            }
+          });
+        }
+
+        return newProject;
+      }
+    },
+
+    newPhase: {
+      set: function(val) {
+        this.set('_newPhase', val);
+      },
+      get: function() {
+        var newPhase = this.get('_newPhase');
+        var currentPhaseId = this.get('utilization.project_phase_id');
+        var phases = this.get('phases');
+
+        if (!newPhase && currentPhaseId && phases) {
+          phases.some(function(phase) {
+            if (phase.id === currentPhaseId) {
+              newPhase = phase;
+              return true;
+            }
+          });
+        }
+
+        return newPhase;
+      }
     },
 
     /**
@@ -69,7 +170,6 @@ module.exports = Component.extend({
           return;
         }
 
-        // TODO: Set this to the current utilization
         current = utilizations.setAtDate(date, this.read(), { silent: true });
 
         // TODO: Render some sort of progress indicator for the duration of the

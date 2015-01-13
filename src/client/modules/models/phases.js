@@ -10,7 +10,7 @@ var API_ROOT = require('../api-root');
 
 module.exports = Collection.extend({
   model: Phase,
-  url: API_ROOT + '/project-phases?include=employees',
+  url: API_ROOT + '/project-phases',
   ajaxConfig: setBearer,
 
   initialize: function() {

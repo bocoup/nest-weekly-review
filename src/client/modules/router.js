@@ -115,7 +115,7 @@ module.exports = Router.extend({
         data: {
           after: date.toISOString().replace(/T.*$/, ''),
           before: beforeDate.toISOString().replace(/T.*$/, ''),
-          include: 'reviews'
+          include: ['reviews', 'project', 'employees']
         },
         success: function() {
           resolve(phases);

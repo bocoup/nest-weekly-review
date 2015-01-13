@@ -40,9 +40,13 @@
 
     <select id="{{dayName}}{{employee.id}}-phase"
       {{#if !newType.isConsulting || !phases.length}}disabled{{/if}}
-      >
+      value="{{newPhase}}">
 
-      <option selected disabled>Phase</option>
+      {{! TODO: Remove the value assigned to the `disabled` attribute once the
+          underlying issue in Ractive is resolved:
+          https://github.com/ractivejs/ractive/issues/1635
+      }}
+      <option selected disabled="{{ _newPhase !== undefined }}">Phase</option>
       {{#each phases}}
       <option value="{{this}}">{{name}}</option>
       {{/each}}

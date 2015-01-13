@@ -21,7 +21,8 @@ module.exports = Model.extend({
     utilization_type_id: 'number',
     employee_id: 'number',
     position_id: 'number',
-    project_id: 'any',
+    project_id: 'number',
+    project_phase_id: 'number',
     first_day: 'dateStr',
     last_day: 'dateStr',
     project: 'object',
@@ -62,7 +63,8 @@ module.exports = Model.extend({
     return this.get('utilization_type_id') === other.utilization_type_id &&
       this.get('employee_id') === other.employee_id &&
       this.get('position_id') === other.position_id &&
-      this.get('project_id') === other.project_id;
+      this.get('project_id') === other.project_id &&
+      this.get('project_phase_id') === other.project_phase_id;
   },
 
   /**
@@ -83,6 +85,7 @@ module.exports = Model.extend({
     attrs.employee_id = this.get('employee_id');
     attrs.position_id = this.get('position_id');
     attrs.project_id = this.get('project_id');
+    attrs.project_phase_id = this.get('project_phase_id');
 
     if (project) {
       attrs.project = project;

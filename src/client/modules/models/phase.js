@@ -5,6 +5,7 @@ var Project = require('./project');
 var Employees = require('./employees');
 var PhaseReviews = require('./phase-reviews');
 var setBearer = require('../ajax-config');
+var weekNum = require('../util/week-num');
 
 var API_ROOT = require('../api-root');
 var WEEK_MS = 1000 * 60 * 60 * 24 * 7;
@@ -41,5 +42,13 @@ module.exports = Model.extend({
         );
       }
     }
+  },
+
+  reviewAt: function(date) {
+    var thisOffsets = weekNum.fromDate(this.get('first_day'));
+    var thatOffsets = weekNum.fromDate(date);
+    var weekOffset = (thatOffsets.week - thisOffsets.week) +
+      (thatOffsets.year - thisOffsets.year) * 52;
+    return this.reviews.atWeek(weekOffset) || null;
   }
 });

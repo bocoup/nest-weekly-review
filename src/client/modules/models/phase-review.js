@@ -12,7 +12,7 @@ module.exports = Model.extend({
   props: {
     id: 'number',
     project_phase_id: 'number',
-    first_day: 'date',
+    week_number: 'number',
     notes: 'string'
   }
 });

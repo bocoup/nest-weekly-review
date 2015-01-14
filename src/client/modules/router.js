@@ -182,7 +182,7 @@ module.exports = Router.extend({
       phaseId: parseInt(phaseId, 10),
       date: date
     }).then(function(models) {
-        var review = models.phase.reviews.forDate(date) || new Review({
+        var review = models.phase.reviewAt(date) || new Review({
           first_day: date,
           project_phase_id: models.phase.get('id')
         });

@@ -2,73 +2,44 @@
 var PhaseReviews = require('../../../../src/client/modules/models/phase-reviews');
 
 suite('PhaseReviews', function() {
-  suite('#forDate', function() {
+  suite('#atWeek', function() {
     var reviews;
 
     setup(function() {
       reviews = new PhaseReviews([
-        { id: 1, first_day: new Date(2014, 11, 7) },
-        { id: 2, first_day: new Date(2014, 11, 14) },
-        { id: 2, first_day: new Date(2014, 11, 21) }
+        { id: 1, week_number: 2 },
+        { id: 2, week_number: 3 },
+        { id: 3, week_number: 4 }
       ]);
     });
 
     test('empty set', function() {
       var emptySet = new PhaseReviews();
-      assert.strictEqual(emptySet.forDate(new Date(2014, 11, 6)), null);
+      assert.strictEqual(emptySet.atWeek(0), null);
     });
 
-    test('no review (before all existing)', function() {
-      assert.strictEqual(reviews.forDate(new Date(2014, 11, 6)), null);
+    test('none (before all)', function() {
+      assert.strictEqual(reviews.atWeek(1), null);
     });
 
-    test('no review (after all existing)', function() {
-      assert.strictEqual(reviews.forDate(new Date(2014, 11, 28)), null);
+    test('first', function() {
+      assert.strictEqual(reviews.atWeek(2), reviews.at(0));
     });
 
-    suite('via timestamp', function() {
-      test('beginning of first review in a set', function() {
-        assert.equal(
-          reviews.forDate(new Date(2014, 11, 7).getTime()),
-          reviews.at(0)
-        );
-      });
-      test('beginning of middle review in a set', function() {
-        assert.equal(
-          reviews.forDate(new Date(2014, 11, 14).getTime()),
-          reviews.at(1)
-        );
-      });
-      test('beginning of final review in a set', function() {
-        assert.equal(
-          reviews.forDate(new Date(2014, 11, 21).getTime()),
-          reviews.at(2)
-        );
-      });
-      test('during a given week', function() {
-        assert.equal(
-          reviews.forDate(new Date(2014, 11, 17).getTime()),
-          reviews.at(1)
-        );
-      });
+    test('middle', function() {
+      assert.strictEqual(reviews.atWeek(3), reviews.at(1));
     });
 
-    suite('via Date object', function() {
-      test('beginning of first review in a set', function() {
-        assert.equal(reviews.forDate(new Date(2014, 11, 7)), reviews.at(0));
-      });
-      test('beginning of middle review in a set', function() {
-        assert.equal(reviews.forDate(new Date(2014, 11, 14)), reviews.at(1));
-      });
-      test('beginning of final review in a set', function() {
-        assert.equal(reviews.forDate(new Date(2014, 11, 21)), reviews.at(2));
-      });
-      test('during a given week', function() {
-        assert.equal(
-          reviews.forDate(new Date(2014, 11, 17)),
-          reviews.at(1)
-        );
-      });
+    test('middle (with string)', function() {
+      assert.strictEqual(reviews.atWeek('3'), reviews.at(1));
+    });
+
+    test('final', function() {
+      assert.strictEqual(reviews.atWeek(4), reviews.at(2));
+    });
+
+    test('none (after all)', function() {
+      assert.strictEqual(reviews.atWeek(5), null);
     });
   });
 });

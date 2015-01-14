@@ -212,7 +212,7 @@ module.exports = Collection.extend({
       }
     }
 
-    if (!curr) {
+    if (!curr && attrs) {
       attrs.first_day = new Date(date);
       attrs.last_day = new Date(date);
       curr = this.add(attrs, withIndex);

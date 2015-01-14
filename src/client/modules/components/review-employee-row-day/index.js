@@ -163,6 +163,7 @@ module.exports = Component.extend({
       set: function(val) {
         var utilizations = this.get('utilizations');
         var date = this.get('date');
+        var old = utilizations.atDate(date);
         var current;
 
         // Leave the utilization as-is until a new value is selected.
@@ -177,6 +178,9 @@ module.exports = Component.extend({
         this.set('utilization', current);
 
         utilizations.save().then(null, function(err) {
+          utilizations.setAtDate(date, old, { silent: true });
+          this.set('utilization', old);
+
           this.fire('error', {
             title: 'Failed to save utilization', desc: err
           });

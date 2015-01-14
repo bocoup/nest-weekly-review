@@ -56,6 +56,10 @@ module.exports = Model.extend({
    * @returns {boolean}
    */
   matches: function(other) {
+    if (!other) {
+      return false;
+    }
+
     if (other.toJSON) {
       other = other.toJSON();
     }

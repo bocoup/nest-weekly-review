@@ -694,6 +694,94 @@ suite('Utilizations collection', function() {
         assert.deepEqual(events, []);
       });
     });
+
+    suite('unset (null utilization)', function() {
+      test('empty', function() {
+        var u = new Utilizations();
+        var models, current;
+
+        current = u.setAtDate(new Date(2013, 3, 4), null);
+
+        models = u.toJSON();
+
+        assert.equal(models.length, 0);
+        assert.strictEqual(current, null);
+      });
+
+      test('two-sided split', function() {
+        var u = new Utilizations([
+          {
+            utilization_type_id: 23,
+            first_day: new Date(2013, 3, 3),
+            last_day: new Date(2013, 3, 5)
+          }
+        ]);
+        var models, current;
+
+        current = u.setAtDate(new Date(2013, 3, 4), null);
+
+        models = u.toJSON();
+
+        assert.equal(models.length, 2);
+        assert.strictEqual(current, null);
+        assert.deepEqual(
+          models,
+          [{
+            utilization_type_id: 23,
+            type: {},
+            first_day: dateStr(2013, 3, 3),
+            last_day: dateStr(2013, 3, 3)
+          }, {
+            utilization_type_id: 23,
+            type: {},
+            first_day: dateStr(2013, 3, 5),
+            last_day: dateStr(2013, 3, 5)
+          }
+        ]);
+      });
+
+      test('direct update', function() {
+        var u = new Utilizations([
+          {
+            utilization_type_id: 23,
+            first_day: new Date(2013, 3, 3),
+            last_day: new Date(2013, 3, 3)
+          },
+          {
+            utilization_type_id: 24,
+            first_day: new Date(2013, 3, 4),
+            last_day: new Date(2013, 3, 4)
+          },
+          {
+            utilization_type_id: 25,
+            first_day: new Date(2013, 3, 5),
+            last_day: new Date(2013, 3, 5)
+          }
+        ]);
+        var models, current;
+
+        current = u.setAtDate(new Date(2013, 3, 4), null);
+
+        models = u.toJSON();
+
+        assert.equal(models.length, 2);
+        assert.equal(current, null);
+        assert.deepEqual(
+          models,
+          [{
+            utilization_type_id: 23,
+            type: {},
+            first_day: dateStr(2013, 3, 3),
+            last_day: dateStr(2013, 3, 3)
+          }, {
+            utilization_type_id: 25,
+            type: {},
+            first_day: dateStr(2013, 3, 5),
+            last_day: dateStr(2013, 3, 5),
+          }]
+        );
+      });
+    });
   });
 
   suite('#split', function() {

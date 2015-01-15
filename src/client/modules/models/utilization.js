@@ -96,7 +96,7 @@ module.exports = Model.extend({
     }
 
     if (type) {
-      attrs.type = type;
+      attrs.type = type.toJSON();
     }
 
     return new module.exports(attrs);

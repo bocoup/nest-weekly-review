@@ -21,6 +21,42 @@ module.exports = Component.extend({
     };
   },
 
+  setAndSave: function(date, values) {
+    var utilizations = this.get('utilizations');
+    var old = utilizations.atDate(date);
+    var current = utilizations.setAtDate(date, values, { silent: true });
+
+    // TODO: Render some sort of progress indicator for the duration of the
+    // 'save' operation.
+    this.set('utilization', current);
+
+    utilizations.save().then(null, function(err) {
+      utilizations.setAtDate(date, old, { silent: true });
+      this.set('utilization', old);
+
+      this.fire('error', {
+        title: 'Failed to save utilization', desc: err
+      });
+    }.bind(this));
+  },
+
+  handleDragstart: function(event) {
+    event._lastDragEnter = event.node;
+    this.fire('select', this.get('utilization'));
+  },
+
+  handleDragend: function() {
+    this.fire('deselect', this.get('utilization'));
+  },
+
+  handleDragenter: function(event) {
+    if (event.node === event._lastDragEnter) {
+      return;
+    }
+    event._lastDragEnter = event.node;
+    this.fire('brush', this, this.get('date'));
+  },
+
   computed: {
     style: function() {
       var hex = this.get('utilization.type.color');
@@ -161,30 +197,14 @@ module.exports = Component.extend({
         return !!this.get('utilization');
       },
       set: function(val) {
-        var utilizations = this.get('utilizations');
         var date = this.get('date');
-        var old = utilizations.atDate(date);
-        var current;
 
         // Leave the utilization as-is until a new value is selected.
         if (!val) {
           return;
         }
 
-        current = utilizations.setAtDate(date, this.read(), { silent: true });
-
-        // TODO: Render some sort of progress indicator for the duration of the
-        // 'save' operation.
-        this.set('utilization', current);
-
-        utilizations.save().then(null, function(err) {
-          utilizations.setAtDate(date, old, { silent: true });
-          this.set('utilization', old);
-
-          this.fire('error', {
-            title: 'Failed to save utilization', desc: err
-          });
-        }.bind(this));
+        this.setAndSave(date, this.read());
       }
     }
   }

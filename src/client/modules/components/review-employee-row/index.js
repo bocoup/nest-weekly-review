@@ -6,5 +6,27 @@ module.exports = Component.extend({
   css: require('./style.css'),
   components: {
     'bp-employee-row-day': require('../review-employee-row-day/index')
+  },
+
+  onconstruct: function() {
+    this.on('bp-employee-row-day.select', this.selectUtilization.bind(this));
+    this.on('bp-employee-row-day.deselect', this.deselectUtilization.bind(this));
+    this.on('bp-employee-row-day.brush', this.brushUtilization.bind(this));
+  },
+
+  selectUtilization: function(utilization) {
+    this.selected = utilization.createMatching().toJSON();
+  },
+
+  brushUtilization: function(component, date) {
+    if (!this.selected) {
+      return;
+    }
+
+    component.setAndSave(date, this.selected);
+  },
+
+  deselectUtilization: function() {
+    this.selected = null;
   }
 });

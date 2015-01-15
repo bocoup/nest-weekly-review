@@ -15,6 +15,35 @@
   padding: 0.8em;
 }
 
+.saving, .saving-screen, .saving-message {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.saving {
+  opacity: 0;
+  -webkit-transition: opacity 1s;
+  -moz-transition: opacity 1s;
+  transition: opacity 1s;
+}
+
+.is-saving .saving {
+  z-index: 4;
+  opacity: 1;
+}
+
+.saving-screen {
+  background-color: #fff;
+  opacity: 0.8;
+}
+
+.saving-message {
+  text-align: center;
+}
+
 /* Weekly tool structure */
 .day input[type="checkbox"] {
   display: block;

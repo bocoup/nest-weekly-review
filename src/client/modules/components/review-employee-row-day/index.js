@@ -26,18 +26,20 @@ module.exports = Component.extend({
     var old = utilizations.atDate(date);
     var current = utilizations.setAtDate(date, values, { silent: true });
 
-    // TODO: Render some sort of progress indicator for the duration of the
-    // 'save' operation.
-    this.set('utilization', current);
+    this.set('isSaving', true);
 
-    utilizations.save().then(null, function(err) {
-      utilizations.setAtDate(date, old, { silent: true });
-      this.set('utilization', old);
+    utilizations.save().then(function() {
+        this.set('isSaving', false);
+        this.set('utilization', current);
+      }.bind(this), function(err) {
+        this.set('isSaving', false);
+        utilizations.setAtDate(date, old, { silent: true });
+        this.set('utilization', old);
 
-      this.fire('error', {
-        title: 'Failed to save utilization', desc: err
-      });
-    }.bind(this));
+        this.fire('error', {
+          title: 'Failed to save utilization', desc: err
+        });
+      }.bind(this));
   },
 
   handleDragstart: function(event) {

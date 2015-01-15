@@ -11,13 +11,14 @@ var Layout = require('./components/layout/index');
 var weekNumber = require('./util/week-num');
 var getToken = require('./util/get-token');
 
-require('./ractive-adaptors-backbone');
+var ModelAdapter = require('./adapters/ampersand-model');
+var CollectionAdapter = require('./adapters/ampersand-collection');
 
 module.exports = Router.extend({
   initialize: function(options) {
     this.layout = new Layout({
       el: options.el,
-      adapt: ['Backbone']
+      adapt: [ModelAdapter, CollectionAdapter]
     });
     this.phases = new Phases();
     this.positions = new Positions();

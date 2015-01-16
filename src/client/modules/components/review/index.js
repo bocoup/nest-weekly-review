@@ -12,7 +12,30 @@ module.exports = Component.extend({
   components: {
     'bp-employee-row': require('../review-employee-row')
   },
+
   computed: {
+    allPhaseHref: function() {
+      return '/date/' +
+        this.get('date').toISOString().replace(/T.*$/, '') + '/';
+    },
+    previousWeekHref: function() {
+      var previousWeek = this.offsetWeek(-1);
+
+      if (!previousWeek) {
+        return null;
+      }
+
+      return this.weekHref(previousWeek);
+    },
+    nextWeekHref:  function() {
+      var nextWeek = this.offsetWeek(1);
+
+      if (!nextWeek) {
+        return null;
+      }
+
+      return this.weekHref(nextWeek);
+    },
     activeProjects: function() {
       return this.get('activePhases').map(function(phase) {
         return phase.project;
@@ -29,9 +52,33 @@ module.exports = Component.extend({
       });
     }
   },
+
   handleSubmit: function() {
     this.event.original.preventDefault();
     this.submit();
+  },
+
+  weekHref: function(date) {
+    return '/date/' + date.toISOString().replace(/T.*$/, '') +
+      '/phase/' + this.get('phase.id') + '/';
+  },
+
+  offsetWeek: function(offset) {
+    var current = this.get('date');
+    var phase = this.get('phase');
+    var otherWeek;
+
+    if (!phase) {
+      return null;
+    }
+
+    otherWeek = new Date(+current + 1000 * 60 * 60 * 24 * 7 * offset);
+
+    if (!phase.contains(otherWeek)) {
+      return null;
+    }
+
+    return otherWeek;
   },
 
   /**

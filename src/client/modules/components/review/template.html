@@ -26,6 +26,24 @@
     <table class="week util-edu">
     <thead>
       <tr>
+        <th></th>
+        <th scope="col">
+          {{#if previousWeekHref}}
+          <a href="{{ previousWeekHref }}">&lt; Previous Week</a>
+          {{/if}}
+        </th>
+        <th scope="col"></th>
+        <th scope="col">
+          <a href="{{ allPhaseHref }}">All Phases</a>
+        </th>
+        <th scope="col"></th>
+        <th scope="col">
+          {{#if nextWeekHref}}
+          <a href="{{ nextWeekHref }}">Next Week &gt;</a>
+          {{/if}}
+        </th>
+      </tr>
+      <tr>
         <th scope="col" class="bocouper"><span class="a11y-only">Bocouper</span></th>
         <th scope="col">Monday</th>
         <th scope="col">Tuesday</th>

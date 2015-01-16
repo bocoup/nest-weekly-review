@@ -16,15 +16,9 @@ module.exports = Component.extend({
   partials: {
     date: require('../../partials/date.html')
   },
-  formatPhase: function(date) {
-    return {
-      date: date,
-      url: '/year/' + date.getFullYear() + '/week/' + 3 + '/phase/' + 4 + '/',
-    };
-  },
   phaseUrl: function(date) {
-    var time = weekNumber.fromDate(date);
-    return '/year/' + time.year + '/week/' + time.week + '/';
+    var sunday = weekNumber.sundayOf(date);
+    return '/date/' + sunday.toISOString().replace(/T.*$/, '') + '/';
   },
   computed: {
     nextWeek: function() {

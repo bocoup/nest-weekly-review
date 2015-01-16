@@ -14,15 +14,12 @@ module.exports = Component.extend({
   },
   reviewUrl: function(offset) {
     var phase = this.get('phase');
-    var firstDay = phase.get('first_day');
-    var date = new Date(
-      firstDay.getTime() - (firstDay.getDay() * DAY_MS) + (offset * WEEK_MS)
+    var sunday = weekNumber.sundayOf(
+      new Date(+phase.get('first_day') + offset * WEEK_MS)
     );
 
-    return '/phase/' + phase.get('id') +
-      '/date/' +
-        date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() +
-      '/';
+    return '/date/' + sunday.toISOString().replace(/T.*$/, '') +
+      '/phase/' + phase.get('id') + '/';
   },
   computed: {
     weeks: function() {

@@ -24,6 +24,9 @@ module.exports = Router.extend({
     this.positions = new Positions();
     this.utilizationTypes = new UtilizationTypes();
 
+    this.route(/date\/(\d{4})-(\d\d)-(\d\d)\//i, 'phaseList');
+    this.route(/date\/(\d{4})-(\d\d)-(\d\d)\/phase\/(\d+)\//i, 'review');
+
     if (!getToken()) {
       return;
     }
@@ -57,26 +60,24 @@ module.exports = Router.extend({
   },
 
   routes: {
-    '': 'index',
-    'year/:year/week/:week/': 'phaseList',
-    'phase/:phaseId/date/:date/': 'review'
+    '': 'index'
   },
 
   index: function() {
-    var time = weekNumber.fromDate(new Date());
-
-    this.phaseList(time.year, time.week);
+    var now = new Date();
+    this.phaseList(now.getFullYear(), now.getMonth() + 1, now.getDate());
   },
 
-  phaseList: function(year, week) {
+  phaseList: function(year, month, day) {
     var numWeeks = 5;
+    var sunday = weekNumber.sundayOf(new Date(year, month - 1, day));
 
     this.layout.set('route', 'phaseList');
 
-    this.getPhases(weekNumber.toDate(year, week), numWeeks);
+    this.getPhases(sunday, numWeeks);
 
     this.layout.findComponent('bp-phase-table').set({
-      firstWeek: weekNumber.toDate(year, week),
+      firstWeek: sunday,
       numWeeks: numWeeks,
       phases: this.phases
     });
@@ -172,12 +173,10 @@ module.exports = Router.extend({
       }.bind(this));
   },
 
-  review: function(phaseId, dateStr) {
-    var dateParts, date;
+  review: function(year, month, day, phaseId) {
+    var date = new Date(year, month - 1, day);
 
     this.layout.set('route', 'review');
-    dateParts = dateStr.split('-').map(Number);
-    date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
 
     this.fetchReviewData({
       phaseId: parseInt(phaseId, 10),

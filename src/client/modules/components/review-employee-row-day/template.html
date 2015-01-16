@@ -14,7 +14,9 @@
   <label for="{{dayName}}{{employee.id}}" class="front" style="{{ style }}" on-dragstart="handleDragstart()" on-dragend="handleDragend()" draggable="true">
     {{#with utilization}}
     <span class="utilization-type">{{ type.name }}</span>
-    <span class="utilization-project">{{ project.name }}</span>
+    {{#if type.isConsulting}}
+      <span class="utilization-project">{{ project.name }}</span>
+    {{/if}}
     {{/with}}
   </label>
 

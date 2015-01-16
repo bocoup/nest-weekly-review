@@ -48,11 +48,14 @@ module.exports = Model.extend({
     return date >= this.get('first_day') && date < this.get('last_day');
   },
 
-  reviewAt: function(date) {
+  weekOffset: function(date) {
     var thisOffsets = weekNum.fromDate(this.get('first_day'));
     var thatOffsets = weekNum.fromDate(date);
-    var weekOffset = (thatOffsets.week - thisOffsets.week) +
+    return (thatOffsets.week - thisOffsets.week) +
       (thatOffsets.year - thisOffsets.year) * 52;
-    return this.reviews.atWeek(weekOffset) || null;
+  },
+
+  reviewAt: function(date) {
+    return this.reviews.atWeek(this.weekOffset(date)) || null;
   }
 });

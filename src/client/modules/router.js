@@ -183,7 +183,7 @@ module.exports = Router.extend({
       date: date
     }).then(function(models) {
         var review = models.phase.reviewAt(date) || new Review({
-          first_day: date,
+          week_number: models.phase.weekOffset(date),
           project_phase_id: models.phase.get('id')
         });
 

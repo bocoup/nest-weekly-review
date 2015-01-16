@@ -1,7 +1,36 @@
 'use strict';
 var Phase = require('../../../../src/client/modules/models/phase');
 
-suite('Phases', function() {
+suite('Phase', function() {
+  suite('#contains', function() {
+    var first = new Date(2015, 0, 11);
+    var phase = new Phase({ first_day: first, calendar_weeks: 1 });
+
+    test('preceeding dates', function() {
+      assert.isFalse(phase.contains(new Date(first - 1)));
+    });
+
+    test('exact start time', function() {
+      assert.isTrue(phase.contains(new Date(+first)));
+    });
+
+    test('within', function() {
+      assert.isTrue(phase.contains(new Date(+first + 1000)));
+    });
+
+    test('at end', function() {
+      assert.isFalse(
+        phase.contains(new Date(+first + 1000 * 60 * 60 * 24 * 7))
+      );
+    });
+
+    test('after end', function() {
+      assert.isFalse(
+        phase.contains(new Date(+first + 1000 * 60 * 60 * 24 * 7 + 1))
+      );
+    });
+  });
+
   suite('#reviewAt', function() {
     var phase;
     setup(function() {

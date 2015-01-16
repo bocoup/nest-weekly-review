@@ -44,6 +44,10 @@ module.exports = Model.extend({
     }
   },
 
+  contains: function(date) {
+    return date >= this.get('first_day') && date < this.get('last_day');
+  },
+
   reviewAt: function(date) {
     var thisOffsets = weekNum.fromDate(this.get('first_day'));
     var thatOffsets = weekNum.fromDate(date);

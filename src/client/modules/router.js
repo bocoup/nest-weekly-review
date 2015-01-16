@@ -73,7 +73,7 @@ module.exports = Router.extend({
 
     this.layout.set('route', 'phaseList');
 
-    this.getPhases(new Date(), numWeeks);
+    this.getPhases(weekNumber.toDate(year, week), numWeeks);
 
     this.layout.findComponent('bp-phase-table').set({
       firstWeek: weekNumber.toDate(year, week),

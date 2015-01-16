@@ -1,4 +1,4 @@
-<td class="day flip{{#if isSaving}} is-saving{{/if}}" on-dragenter="handleDragenter(event)">
+<td class="day flip{{#if isSaving}} is-saving{{/if}}" on-dragenter="handleDragenter()">
   <input type="checkbox"
     id="{{dayName}}{{employee.id}}"
     name="{{dayName}}{{employee.id}}"
@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <label for="{{dayName}}{{employee.id}}" class="front" style="{{ style }}" on-dragstart="handleDragstart(event)" on-dragend="handleDragend(event)" draggable="true">
+  <label for="{{dayName}}{{employee.id}}" class="front" style="{{ style }}" on-dragstart="handleDragstart()" on-dragend="handleDragend()" draggable="true">
     {{#with utilization}}
     <span class="utilization-type">{{ type.name }}</span>
     <span class="utilization-project">{{ project.name }}</span>

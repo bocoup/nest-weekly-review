@@ -42,8 +42,8 @@ module.exports = Component.extend({
       }.bind(this));
   },
 
-  handleDragstart: function(event) {
-    event._lastDragEnter = event.node;
+  handleDragstart: function() {
+    event._lastDragEnter = this.event.node;
     this.fire('select', this.get('utilization'));
   },
 
@@ -51,7 +51,8 @@ module.exports = Component.extend({
     this.fire('deselect', this.get('utilization'));
   },
 
-  handleDragenter: function(event) {
+  handleDragenter: function() {
+    var event = this.event;
     if (event.node === event._lastDragEnter) {
       return;
     }

@@ -43,7 +43,7 @@
           {{/if}}
         </th>
       </tr>
-      <tr>
+      <tr class="labels">
         <th scope="col" class="bocouper"><span class="a11y-only">Bocouper</span></th>
         <th scope="col">Monday</th>
         <th scope="col">Tuesday</th>
@@ -66,12 +66,17 @@
         utilizationTypes="{{utilizationTypes}}" />
       {{/each}}
     </tbody>
+    <tfoot>
+      <tr>
+        <td class="submit">
+          <input type="submit" class="btn" value="Submit!" />
+        </td>
+        <td colspan="5" class="notes">
+          <h3>Notes</h3>
+          <textarea value="{{ review.notes }}"></textarea>
+        </td>
+      </tr>
+    </tfoot>
     </table>
-    <div class="notes">
-      <h3>Notes</h3>
-      <textarea class="addt-notes" value="{{ review.notes }}"></textarea>
-    </div>
-
-    <input type="submit">
   </form>
 </div>

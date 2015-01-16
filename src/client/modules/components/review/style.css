@@ -37,9 +37,8 @@ table {
 td {
   position: relative;
 }
-thead {
-}
-thead th {
+
+thead tr.labels th {
   color: #444;
   padding: .65em 0 .5em 0;
   border: solid #ccc;
@@ -55,14 +54,14 @@ thead th {
   background-image: -ms-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 100%); /* IE10+ */
   background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 100%); /* W3C */
 }
-thead th.bocouper {
+thead .labels th.bocouper {
   background: none;
   border: none;
 }
-thead th.bocouper+th {
+thead .labels th.bocouper+th {
   border-left: 1px solid #ccc;
 }
-thead th:last-of-type {
+thead .labels th:last-of-type {
   border-right: 1px solid #ccc;
 }
 tbody th {
@@ -73,7 +72,14 @@ tbody td {
   width: 15%;
 }
 
-.addt-notes {
+.submit {
+  text-align: center;
+}
+
+.notes h3 {
+  margin: 0;
+}
+.notes textarea {
   width: 100%;
   min-height: 10em;
 }
@@ -98,4 +104,14 @@ tbody td {
   -webkit-animation: attn 1s infinite;
   -webkit-animation-direction: alternate;
   -webkit-animation-timing-function: ease-in-out;
+}
+
+.btn {
+  border-width: 1px 2px 4px 2px;
+  padding: .5em 1em;
+
+  background: #eaeaea;
+  border-color: #c8c8c8;
+  border-style: solid;
+  font-weight: bold;
 }

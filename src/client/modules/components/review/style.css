@@ -79,9 +79,15 @@ tbody td {
 .notes h3 {
   margin: 0;
 }
+
 .notes textarea {
   width: 100%;
   min-height: 10em;
+  border-width: 0;
+
+  background: none;
+  font-size: 1em;
+  line-height: 1.3;
 }
 
 /* Animations */

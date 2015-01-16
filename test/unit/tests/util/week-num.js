@@ -239,6 +239,27 @@ suite('weekNum', function() {
     });
   });
 
+  suite('sundayOf', function() {
+    var sundayOf = weekNum.sundayOf;
+
+    test('first millisecond in week', function() {
+      assert.equalDate(sundayOf(new Date(2015, 0, 11)), new Date(2015, 0, 11));
+    });
+
+    test('on a Monday', function() {
+      assert.equalDate(sundayOf(new Date(2015, 0, 12)), new Date(2015, 0, 11));
+    });
+
+    test('last millisecond in week', function() {
+      var endOfWeek = new Date(new Date(2015, 0, 18) - 1);
+      assert.equalDate(sundayOf(endOfWeek), new Date(2015, 0, 11));
+    });
+
+    test('year boundary', function() {
+      assert.equalDate(sundayOf(new Date(2015, 0, 2)), new Date(2014, 11, 28));
+    });
+  });
+
   suite('between', function() {
     var between = weekNum.between;
 

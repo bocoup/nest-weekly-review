@@ -61,6 +61,18 @@ exports.toDate = function(year, week) {
 };
 
 /**
+ * Determine the date of the most recent Sunday at a given time
+ *
+ * @param {Date} date
+ *
+ * @returns {Date} the most recent Sunday
+ */
+exports.sundayOf = function(date) {
+  var parts = exports.fromDate(date);
+  return exports.toDate(parts.year, parts.week);
+};
+
+/**
  * Calculate the number of weeks between two dates.
  *
  * @param {Date} first

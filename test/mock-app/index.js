@@ -6,7 +6,7 @@ var table = new Table({
 var configurableItems = [
   { name: 'BP_API', desc: 'Data source' },
   { name: 'NODE_PORT', desc: 'Application server' },
-  { name: 'BY_BYPASS_AUTH', desc: 'Toggle authentication' }
+  { name: 'BP_BYPASS_AUTH', desc: 'Toggle authentication' }
 ];
 
 function injectDependency(targetModuleId, mockModuleId) {

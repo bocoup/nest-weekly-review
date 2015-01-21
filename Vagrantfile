@@ -6,12 +6,10 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "hashicorp/precise64"
-
   config.vm.network "private_network", ip: "192.168.33.31"
-
   config.vm.provision "ansible" do |ansible|
     ansible.limit = "vagrant"
-    ansible.inventory_path = "deploy/ansible/hosts"
-    ansible.playbook = "deploy/ansible/vagrant.yml"
+    ansible.inventory_path = "deploy/ansible/inventory/development"
+    ansible.playbook = "deploy/ansible/provision.yml"
   end
 end

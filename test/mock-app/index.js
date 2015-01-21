@@ -1,13 +1,49 @@
 'use strict';
 var Table = require('cli-table');
-var table = new Table({
-  head: ['Environmental Var', 'Description', 'Current value'],
-});
+var wrap = require('wordwrap');
+
 var configurableItems = [
-  { name: 'WR_API', desc: 'Data source' },
-  { name: 'NODE_PORT', desc: 'Application server' },
-  { name: 'WR_BYPASS_AUTH', desc: 'Toggle authentication' }
+  {
+    name: 'WR_API',
+    desc: 'Data source',
+    dflt: 'https://api-staging.bocoup.com'
+  },
+  { name: 'NODE_PORT', desc: 'Application server port', dflt: '8000' },
+  {
+    name: 'WR_AUTH',
+    desc: 'Control authentication. One of: prod, dev, bypass',
+    dflt: 'dev'
+  }
 ];
+var tableStr;
+
+function processEnv() {
+  var colWidths = [16, 29, 25, 30];
+  var wrapFns = colWidths.map(function(width) { return wrap.hard(width - 1); });
+  var table = new Table({
+    head: ['Environmental\nVar', 'Description', 'Default', 'Current value'],
+    colWidths: colWidths
+  });
+
+  configurableItems.forEach(function(item) {
+    var name = item.name;
+    var rows;
+
+    if (!(name in process.env)) {
+      process.env[name] = item.dflt;
+    }
+
+    rows = [name, item.desc, item.dflt, process.env[item.name]]
+      .map(String)
+      .map(function(val, idx) {
+        return wrapFns[idx](val);
+      });
+
+    table.push(rows);
+  });
+
+  return table.toString();
+}
 
 function injectDependency(targetModuleId, mockModuleId) {
   var targetModulePath = require.resolve(targetModuleId);
@@ -24,7 +60,7 @@ function injectDependency(targetModuleId, mockModuleId) {
   require.cache[targetModulePath] = require.cache[mockModulePath];
 }
 
-process.env.WR_API = process.env.WR_API || 'https://api-staging.bocoup.com';
+tableStr = processEnv();
 
 if (process.env.NODE_ENV === 'production') {
   console.error(
@@ -33,18 +69,17 @@ if (process.env.NODE_ENV === 'production') {
   process.exit(1);
 }
 
-if (process.env.WR_BYPASS_AUTH) {
+if (process.env.WR_AUTH === 'bypass') {
   injectDependency('../../src/server/auth', './auth');
+} else if (process.env.WR_AUTH === 'dev') {
+  (function() {
+    var secrets = require('../../config/secrets/github.json');
+    secrets['weekly-review'].production = secrets['weekly-review'].development;
+  }());
 }
 
 injectDependency('../../src/server/serve-app', './serve-app');
 
 require('../..');
 
-configurableItems.forEach(function(item) {
-  table.push([
-    item.name, item.desc, JSON.stringify(process.env[item.name] || '')
-  ]);
-});
-
-console.log(table.toString());
+console.log(tableStr);

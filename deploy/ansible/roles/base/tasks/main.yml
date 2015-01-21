@@ -1,0 +1,18 @@
+---
+- name: apt-cache is updated
+  apt: update_cache=yes
+
+- name: nginx is installed
+  apt: name=nginx state=present
+
+- name: node ppa is available
+  apt_repository: repo='ppa:chris-lea/node.js'
+
+- name: git is installed
+  apt: name=git state=present
+
+- name: apt cache is updated
+  apt: update_cache=yes
+
+- name: nodejs is installed
+  apt: name=nodejs state=present

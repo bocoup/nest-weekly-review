@@ -1,11 +1,12 @@
 ---
--
-  hosts: appserver
-  remote_user: ubuntu
+# provision machine and deploy code
+
+- hosts: all
+  gather_facts: false
   sudo: yes
   roles:
-    - ami
+    - base
+    - configure
     - nginx
     - services
-    - startup
-    - production
+- include: deploy.yml

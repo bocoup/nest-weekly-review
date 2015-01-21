@@ -8,7 +8,6 @@ var setBearer = require('../ajax-config');
 var weekNum = require('../util/week-num');
 
 var API_ROOT = require('../api-root');
-var WEEK_MS = 1000 * 60 * 60 * 24 * 7;
 
 module.exports = Model.extend({
   url: function() {
@@ -20,7 +19,7 @@ module.exports = Model.extend({
     id: 'number',
     name: 'string',
     first_day: 'date',
-    calendar_weeks: 'number',
+    last_day: 'date',
     developer_weeks: 'number'
   },
   children: {
@@ -29,19 +28,6 @@ module.exports = Model.extend({
   collections: {
     employees: Employees,
     reviews: PhaseReviews
-  },
-  derived: {
-    last_day: {
-      deps: ['first_day', 'calendar_weeks'],
-      fn: function() {
-        var firstDay = this.get('first_day');
-        var numWeeks = this.get('calendar_weeks');
-
-        return new Date(
-          firstDay.getTime() + numWeeks * WEEK_MS
-        );
-      }
-    }
   },
 
   contains: function(date) {

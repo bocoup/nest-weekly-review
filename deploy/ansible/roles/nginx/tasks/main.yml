@@ -1,14 +1,8 @@
 ---
 # configure nginx
 
-- name: make sure nginx has a configuration file
-  template: src=weekly-review.conf dest=/etc/nginx/conf.d/weekly-review.conf backup=no
+- name: nginx has a configuration file
+  template: src=weekly-review.conf dest=/etc/nginx/conf.d/ backup=no
 
 - name: restart nginx
   service: name=nginx state=restarted
-
-- name: Make sure package.json is on the box
-  copy: src=../../package.json dest={{app_base_path}} backup=no
-
-- name: Make sure NPM install has been run
-  npm: path={{app_base_path}}

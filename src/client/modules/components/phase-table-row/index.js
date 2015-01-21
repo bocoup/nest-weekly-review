@@ -27,7 +27,7 @@ module.exports = Component.extend({
       var viewStart = this.get('data-first-week');
       var phaseStart = this.get('phase.first_day');
       var between = Math.round(weekNumber.between(phaseStart, viewStart));
-      var phaseLength = this.get('phase.calendar_weeks');
+      var phaseLength = (this.get('phase.last_day') - phaseStart) / WEEK_MS;
       var weeks = [];
       var weekOffset, idx, isActive, review;
 

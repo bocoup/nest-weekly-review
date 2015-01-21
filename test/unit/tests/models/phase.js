@@ -4,7 +4,8 @@ var Phase = require('../../../../src/client/modules/models/phase');
 suite('Phase', function() {
   suite('#contains', function() {
     var first = new Date(2015, 0, 11);
-    var phase = new Phase({ first_day: first, calendar_weeks: 1 });
+    var last = new Date(2015, 0, 17);
+    var phase = new Phase({ first_day: first, last_day: last });
 
     test('preceeding dates', function() {
       assert.isFalse(phase.contains(new Date(first - 1)));

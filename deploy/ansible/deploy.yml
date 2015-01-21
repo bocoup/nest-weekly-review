@@ -1,11 +1,8 @@
 ---
-# deploy production machine for live use
+# deploy code and restart services
 
-- hosts: appserver
-  remote_user: ubuntu
+- hosts: all
+  gather_facts: false
   sudo: yes
   roles:
-    - production
-    - startup
-  handlers:
-    - include: handlers.yml
+    - deploy

@@ -16,7 +16,9 @@
     "test-unit": "mocha --require test/unit/setup.js --ui tdd --recursive test/unit/tests",
     "test-ui": "mocha --ui bdd test/ui/setup test/ui/tests",
     "vagrant-restart-server": "vagrant ssh -c 'sudo service weekly-review restart'",
-    "vagrant-watch-log": "vagrant ssh -c 'sudo tail -F /var/log/weekly-review.log'"
+    "vagrant-watch-log": "vagrant ssh -c 'sudo tail -F /var/log/weekly-review.log'",
+    "provision": "ansible-playbook -i deploy/ansible/inventory/production deploy/ansible/provision.yml",
+    "deploy": "ansible-playbook -i deploy/ansible/inventory/production deploy/ansible/deploy.yml"
   },
   "devDependencies": {
     "bluebird": "^2.5.3",

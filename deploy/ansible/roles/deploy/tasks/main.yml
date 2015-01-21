@@ -1,0 +1,32 @@
+---
+- name: base directory exsists
+  file: path={{app_base_path}}src state=directory
+
+- name: package.json is on the box
+  copy: src=../../package.json dest={{app_base_path}} backup=no
+
+- name: npm install has been run
+  npm: path={{app_base_path}}
+
+- name: client and server code are on the box
+  synchronize:
+    src: ../../src
+    dest: "{{app_base_path}}"
+    rsync_opts: --delete-before
+
+- name: github auth config file is on the box
+  synchronize:
+    src: ../../config/secrets/github.json
+    dest: "{{app_base_path}}config/secrets/"
+
+- name: production version of the application has been built
+  command: npm run build
+  args:
+    creates: "{{ app_base_path }}app-production.js"
+    chdir: "{{ app_base_path }}"
+
+- name: log file exists
+  file: path={{log_file}} state=touch owner={{app_user}} group={{app_group}}
+
+- name: the service is restarted
+  service: name=weekly-review state=restarted

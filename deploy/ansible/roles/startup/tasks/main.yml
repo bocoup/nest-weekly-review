@@ -1,5 +1,0 @@
----
-# start it up.
-
-- name: Make sure the node app server is running
-  service: name=weekly-review state=restarted

@@ -4,9 +4,9 @@ var table = new Table({
   head: ['Environmental Var', 'Description', 'Current value'],
 });
 var configurableItems = [
-  { name: 'BP_API', desc: 'Data source' },
+  { name: 'WR_API', desc: 'Data source' },
   { name: 'NODE_PORT', desc: 'Application server' },
-  { name: 'BP_BYPASS_AUTH', desc: 'Toggle authentication' }
+  { name: 'WR_BYPASS_AUTH', desc: 'Toggle authentication' }
 ];
 
 function injectDependency(targetModuleId, mockModuleId) {
@@ -24,7 +24,7 @@ function injectDependency(targetModuleId, mockModuleId) {
   require.cache[targetModulePath] = require.cache[mockModulePath];
 }
 
-process.env.BP_API = process.env.BP_API || 'https://api-staging.bocoup.com';
+process.env.WR_API = process.env.WR_API || 'https://api-staging.bocoup.com';
 
 if (process.env.NODE_ENV === 'production') {
   console.error(
@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === 'production') {
   process.exit(1);
 }
 
-if (process.env.BP_BYPASS_AUTH) {
+if (process.env.WR_BYPASS_AUTH) {
   injectDependency('../../src/server/auth', './auth');
 }
 

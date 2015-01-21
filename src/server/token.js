@@ -3,7 +3,7 @@ var Cookies = require('cookies');
 
 // Expire in 10 hours
 var EXPIRY = 1000 * 60 * 60 * 24 * 10;
-var NAME = 'black-phoenix-token';
+var NAME = 'weekly-review-token';
 
 exports.set = function(req, res, value) {
   var cookies = new Cookies(req, res);

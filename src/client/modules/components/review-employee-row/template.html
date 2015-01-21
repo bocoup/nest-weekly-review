@@ -12,7 +12,7 @@
   </th>
   {{!#each days}}
   {{#each ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']:offset }}
-  <bp-employee-row-day
+  <wr-employee-row-day
     dayName="{{this}}"
     dayNum="{{offset + 1}}"
     employee="{{employee}}"

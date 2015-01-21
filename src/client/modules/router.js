@@ -76,7 +76,7 @@ module.exports = Router.extend({
 
     this.getPhases(sunday, numWeeks);
 
-    this.layout.findComponent('bp-phase-table').set({
+    this.layout.findComponent('wr-phase-table').set({
       firstWeek: sunday,
       numWeeks: numWeeks,
       phases: this.phases
@@ -187,7 +187,7 @@ module.exports = Router.extend({
           project_phase_id: models.phase.get('id')
         });
 
-        this.layout.findComponent('bp-review').set({
+        this.layout.findComponent('wr-review').set({
           date: date,
           phase: models.phase,
           review: review,

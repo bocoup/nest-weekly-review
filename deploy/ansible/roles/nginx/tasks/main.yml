@@ -2,7 +2,7 @@
 # configure nginx
 
 - name: make sure nginx has a configuration file
-  template: src=black-phoenix.conf dest=/etc/nginx/conf.d/black-phoenix.conf backup=no
+  template: src=weekly-review.conf dest=/etc/nginx/conf.d/weekly-review.conf backup=no
 
 - name: restart nginx
   service: name=nginx state=restarted

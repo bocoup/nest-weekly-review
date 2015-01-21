@@ -10,10 +10,10 @@ module.exports = Component.extend({
   template: require('./template.html'),
   css: require('./style.css'),
   components: {
-    'bp-notification-list': NotificationList,
-    'bp-phase-table': PhaseTable,
-    'bp-review': Review,
-    'bp-login-prompt': LoginPrompt
+    'wr-notification-list': NotificationList,
+    'wr-phase-table': PhaseTable,
+    'wr-review': Review,
+    'wr-login-prompt': LoginPrompt
   },
 
   computed: {
@@ -27,6 +27,6 @@ module.exports = Component.extend({
   },
 
   addError: function(error) {
-    this.findComponent('bp-notification-list').addError(error);
+    this.findComponent('wr-notification-list').addError(error);
   }
 });

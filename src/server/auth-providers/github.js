@@ -4,7 +4,7 @@ var octonode = require('octonode');
 
 var credentials = require(
     '../../../config/secrets/github.json'
-  )['black-phoenix'].production;
+  )['weekly-review'].production;
 var REQUIRED_SCOPES = ['read:org'];
 var authUrl = octonode.auth.config({
   id: credentials.clientId,

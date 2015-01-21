@@ -1,10 +1,10 @@
 ---
 # configure services
-- name: Make sure the black-phoenix daemon is on the box
-  template: src=upstart.conf dest=/etc/init/black-phoenix.conf backup=no
+- name: Make sure the weekly-review daemon is on the box
+  template: src=upstart.conf dest=/etc/init/weekly-review.conf backup=no
 
 - name: Create log file
   file: path={{log_file}} state=touch owner={{app_user}} group={{app_user}}
 
 - name: Configure log rotation
-  template: src=logrotate.conf dest=/etc/logrotate.d/blackphoenix
+  template: src=logrotate.conf dest=/etc/logrotate.d/weekly-review

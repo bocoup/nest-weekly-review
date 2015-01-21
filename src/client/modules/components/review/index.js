@@ -10,7 +10,7 @@ module.exports = Component.extend({
     fullDate: require('../../partials/full-date.html')
   },
   components: {
-    'bp-employee-row': require('../review-employee-row')
+    'wr-employee-row': require('../review-employee-row')
   },
 
   computed: {
@@ -88,7 +88,7 @@ module.exports = Component.extend({
    * `Utilizations#verify`), and finally submit the report.
    */
   submit: function() {
-    var employeeRows = this.findAllComponents('bp-employee-row');
+    var employeeRows = this.findAllComponents('wr-employee-row');
     var date = this.get('date');
     var allVerified = employeeRows.every(function(employeeRow) {
       return employeeRow.get('verified');

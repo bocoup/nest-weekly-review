@@ -19,7 +19,7 @@ describe('phase overview', function() {
     it('renders the application title', function() {
       return driver.read('index.title')
         .then(function(text) {
-          assert.equal(text, 'Black Phoenix');
+          assert.equal(text, 'Weekly Review');
         });
     });
 

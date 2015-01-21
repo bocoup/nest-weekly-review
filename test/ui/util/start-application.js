@@ -6,8 +6,8 @@ var pollHttp = require('./poll-http');
 
 module.exports = function(applicationPort, mockApiPort) {
   var env = {
-    BP_API: 'http://localhost:' + mockApiPort,
-    BP_BYPASS_AUTH: '1',
+    WR_API: 'http://localhost:' + mockApiPort,
+    WR_BYPASS_AUTH: '1',
     NODE_PORT: applicationPort,
     PATH: process.env.PATH
   };

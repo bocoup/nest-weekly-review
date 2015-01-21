@@ -1,4 +1,4 @@
-# Black Phoenix [![Status on TravisCI](https://magnum.travis-ci.com/bocoup/black-phoenix.svg?token=gK8nkH4p5NnBw5E9JB7L)](https://magnum.travis-ci.com/bocoup/black-phoenix)
+# Weekly Review [![Status on TravisCI](https://magnum.travis-ci.com/bocoup/nest-weekly-review.svg?token=gK8nkH4p5NnBw5E9JB7L)](https://magnum.travis-ci.com/bocoup/nest-weekly-review)
 
 An application for managing billing data for consulting projects
 
@@ -57,13 +57,13 @@ useful for offline development and testing. The following environmental
 variables will alter the application's behavior if set prior to running the
 server:
 
-- `BP_API` - the "base" URL the client should use to make dynamic requests for
+- `WR_API` - the "base" URL the client should use to make dynamic requests for
   data. By default, the value `http://api.bocoup.com` will be used, but this
   may be set to a staging server, a server with cached responses (see [the
   "Mock API Server" section](#mock-api-server) below) or a local installation
   of the Nest API server.
-- `BP_BYPASS_AUTH` - disable all requirements for authentication. This setting
-  is only useful when overriding `BP_API` to reference a server instance that
+- `WR_BYPASS_AUTH` - disable all requirements for authentication. This setting
+  is only useful when overriding `WR_API` to reference a server instance that
   does not require authentication.
 
 ### Mock API Server
@@ -96,5 +96,5 @@ The application can be optimized into a single file with the following command:
 
     $ npm run build
 
-The location of the Nest API is configurable at build time via the `BP_API`
+The location of the Nest API is configurable at build time via the `WR_API`
 environmental variable--that may be set to any arbitrary URL.

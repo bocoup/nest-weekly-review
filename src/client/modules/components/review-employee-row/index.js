@@ -5,13 +5,13 @@ module.exports = Component.extend({
   template: require('./template.html'),
   css: require('./style.css'),
   components: {
-    'bp-employee-row-day': require('../review-employee-row-day/index')
+    'wr-employee-row-day': require('../review-employee-row-day/index')
   },
 
   onconstruct: function() {
-    this.on('bp-employee-row-day.select', this.selectUtilization.bind(this));
-    this.on('bp-employee-row-day.deselect', this.deselectUtilization.bind(this));
-    this.on('bp-employee-row-day.brush', this.brushUtilization.bind(this));
+    this.on('wr-employee-row-day.select', this.selectUtilization.bind(this));
+    this.on('wr-employee-row-day.deselect', this.deselectUtilization.bind(this));
+    this.on('wr-employee-row-day.brush', this.brushUtilization.bind(this));
   },
 
   selectUtilization: function(utilization) {

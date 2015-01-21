@@ -1,22 +1,22 @@
 <header class="app-header">
-  <h1 class="app-title"><a href="/">Black Phoenix</a></h1>
+  <h1 class="app-title"><a href="/">Weekly Review</a></h1>
 
   {{#if loggedIn }}
   <a href="/auth/logout" class="log-out" data-passthrough>Log Out</a>
   {{/if }}
-  <bp-notification-list />
+  <wr-notification-list />
 </header>
 
 <main>
   {{#if route === 'phaseList' }}
-  <bp-phase-table />
+  <wr-phase-table />
   {{/if}}
 
   {{#if route === 'review' }}
-  <bp-review />
+  <wr-review />
   {{/if}}
 
   {{#if !loggedIn }}
-  <bp-login-prompt />
+  <wr-login-prompt />
   {{/if}}
 </main>

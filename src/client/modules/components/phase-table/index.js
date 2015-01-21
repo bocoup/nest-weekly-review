@@ -11,7 +11,7 @@ module.exports = Component.extend({
     numWeeks: 0
   },
   components: {
-    'bp-phase-table-row': require('../phase-table-row/index')
+    'wr-phase-table-row': require('../phase-table-row/index')
   },
   partials: {
     date: require('../../partials/date.html')

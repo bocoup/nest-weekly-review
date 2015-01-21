@@ -7,4 +7,4 @@
   file: path={{log_file}} state=touch owner={{app_user}} group={{app_user}}
 
 - name: Configure log rotation
-  template: src=logrotate.conf dest=/etc/logrotate.d/blackpheonix
+  template: src=logrotate.conf dest=/etc/logrotate.d/blackphoenix

@@ -2,7 +2,7 @@
 # configuration for production
 
 app_base_path: "/mnt/black-phoenix/"
-app_fqdn: "block-phoenix.bocoup.com"
+app_fqdn: "black-phoenix.bocoup.com"
 npm_run_script: "start"
 default_user: "ubuntu"
 ansible_ssh_private_key_file: "{{ lookup('env', 'PWD') }}/config/secrets/black-phoenix.pem"

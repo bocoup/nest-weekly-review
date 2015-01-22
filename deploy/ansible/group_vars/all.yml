@@ -3,3 +3,4 @@ app_port: 8000
 app_user: www-data
 app_group: www-data
 log_file: /var/log/weekly-review.log
+local_secrets_path: "{{ lookup('env', 'PWD') }}/config/secrets"

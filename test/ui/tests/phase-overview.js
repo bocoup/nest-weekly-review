@@ -19,7 +19,7 @@ describe('phase overview', function() {
     var query;
 
     beforeEach(function() {
-      this.timeout(9000);
+      this.timeout(30 * 1000);
       function handlePhaseRequest(req, res) {
         query = req.query;
         res.end(
@@ -66,7 +66,7 @@ describe('phase overview', function() {
 
   describe('specific date', function() {
     beforeEach(function() {
-      this.timeout(5000);
+      this.timeout(30 * 1000);
 
       return driver.get('/date/2014-12-21/');
     });

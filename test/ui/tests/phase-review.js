@@ -11,7 +11,7 @@ describe('phase review', function() {
   beforeEach(function() {
     driver = this.driver;
 
-    this.timeout(9000);
+    this.timeout(30 * 1000);
 
     return driver.get('/date/2014-12-21/')
       .then(function() {

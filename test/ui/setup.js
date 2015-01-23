@@ -46,7 +46,7 @@ function handleCorsPreflight(req, res) {
 
 before(function() {
   middleMan = this.middleMan = new MiddleMan();
-  this.timeout(10 * 1000);
+  this.timeout(20 * 1000);
   replay.allow('ocsp.digicert.com');
   replay.fixtures = __dirname + '/fixtures';
 

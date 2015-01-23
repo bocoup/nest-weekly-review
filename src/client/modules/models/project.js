@@ -8,7 +8,7 @@ var WEEK_MS = 1000 * 60 * 60 * 24 * 7;
 
 module.exports = Model.extend({
   url: function() {
-    return API_ROOT + '/projects/' + this.get('id') + '?with_phases';
+    return API_ROOT + '/projects/' + this.get('id');
   },
   ajaxConfig: setBearer,
 

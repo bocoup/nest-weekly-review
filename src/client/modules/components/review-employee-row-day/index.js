@@ -133,6 +133,7 @@ module.exports = Component.extend({
         var newProject = this.get('_newProject');
         var currentProjectId = this.get('utilization.project_id');
         var activeProjects = this.get('activeProjects');
+
         var type = this.get('newType');
 
         if (!type || !type.isConsulting) {

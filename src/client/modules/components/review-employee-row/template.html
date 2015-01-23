@@ -1,6 +1,8 @@
 <tr>
   <th scope="row">
-    {{ employee.first }} {{ employee.last }}
+    <span class="name">
+      {{ employee.first }} {{ employee.last }}
+    </span>
     <input type="checkbox"
       name="verify{{ employee.id }}"
       id="verify-{{ employee.id }}"

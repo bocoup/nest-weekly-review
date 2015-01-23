@@ -113,12 +113,15 @@ module.exports = Router.extend({
    */
   getPhases: function(date, throughWeeks) {
     var phases = this.phases;
-    var beforeDate;
+    var beforeDate, afterDate;
 
     throughWeeks = throughWeeks || 1;
 
+    afterDate = new Date(
+      date.getTime() - date.getDay() * 1000 * 60 * 60 * 24
+    );
     beforeDate = new Date(
-      date.getTime() + throughWeeks * 1000 * 60 * 60 * 24 * 7
+      afterDate.getTime() + throughWeeks * 1000 * 60 * 60 * 24 * 7
     );
 
     return new Promise(function(resolve, reject) {
@@ -135,7 +138,7 @@ module.exports = Router.extend({
         reset: true,
 
         data: {
-          after: date.toISOString().replace(/T.*$/, ''),
+          after: afterDate.toISOString().replace(/T.*$/, ''),
           before: beforeDate.toISOString().replace(/T.*$/, ''),
           include: ['reviews', 'project', 'employees']
         },

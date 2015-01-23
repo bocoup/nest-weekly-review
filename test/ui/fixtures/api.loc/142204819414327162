@@ -1,0 +1,18 @@
+GET /projects?active=true&hasPhase=false
+if-none-match: W/"11c-1c45112b"
+authorization: Bearer fake token value for testing
+accept-encoding: gzip, deflate
+accept-language: en-US,en;q=0.5
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+host: api.loc
+
+304 HTTP/1.1
+server: nginx/1.4.6 (Ubuntu)
+date: Fri, 23 Jan 2015 21:23:14 GMT
+connection: close
+x-powered-by: Express
+access-control-allow-origin: *
+vary: Origin
+etag: W/"11c-1c45112b"
+set-cookie: connect.sid=s%3A6yRHkNEf0LOEe-_mPZOM-xIHVKKq4sui.G8pyiT84JvajLDwkT3zCTtS%2FzFGPRmybM4cHrE6b66s; Path=/; HttpOnly
+

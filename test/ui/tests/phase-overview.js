@@ -1,34 +1,60 @@
 'use strict';
 
 var ONE_DAY = 1000 * 60 * 60 * 24;
+var Promise = require('bluebird');
 
 describe('phase overview', function() {
   var datePattern = /(\d+)\s*\/\s*(\d+)/;
-  var driver;
+  var driver, middleMan;
+
+  before(function() {
+    middleMan = this.middleMan;
+  });
 
   beforeEach(function() {
     driver = this.driver;
   });
 
   describe('index page', function() {
+    var query;
+
     beforeEach(function() {
-      this.timeout(9000);
-      return driver.get('/');
+      this.timeout(30 * 1000);
+      function handlePhaseRequest(req, res) {
+        query = req.query;
+        res.end(
+          JSON.stringify({})
+        );
+      }
+      return Promise.all([
+        middleMan.once('GET', '/project-phases', handlePhaseRequest),
+        middleMan.once('GET', '/project-phases', handlePhaseRequest),
+        driver.get('/')
+      ]);
     });
 
-    it('renders the application title', function() {
+    it('displays the current week according to the local system time', function() {
+      var today = new Date();
+      var prevSunday = new Date(today.getTime() - ONE_DAY * today.getDay());
+      var fiveWeeks = new Date(prevSunday.getTime() + ONE_DAY * 7 * 5);
+
+      assert.equal(
+        query.after, prevSunday.toISOString().replace(/T.*/, '')
+      );
+      assert.equal(
+        query.before, fiveWeeks.toISOString().replace(/T.*/, '')
+      );
+
       return driver.read('index.title')
         .then(function(text) {
-          assert.equal(text, 'Weekly Review');
-        });
-    });
-
-    it('displays the current week according to the current system time', function() {
-      var now = new Date();
-      var lastSunday = new Date(now.getTime() - now.getDay() * ONE_DAY);
-
-      return driver.read('index.weekLabels')
+          assert.equal(text, 'Weekly Review', 'Application title visible');
+        })
+        .then(function() {
+          return driver.read('index.weekLabels');
+        })
         .then(function(labels) {
+          var now = new Date();
+          var lastSunday = new Date(now.getTime() - now.getDay() * ONE_DAY);
           var match = datePattern.exec(labels[0]);
 
           assert(match, 'Has a date string in the expected location');
@@ -38,13 +64,14 @@ describe('phase overview', function() {
     });
   });
 
-  describe('specific phase', function() {
+  describe('specific date', function() {
     beforeEach(function() {
-      this.timeout(9000);
-      return driver.get('/year/2014/week/50/');
+      this.timeout(30 * 1000);
+
+      return driver.get('/date/2014-12-21/');
     });
 
-    it('displays the correct weeks for a given URL', function() {
+    it('displays the active phases at the given date', function() {
       return driver.read('index.weekLabels')
         .then(function(labels) {
           var match;

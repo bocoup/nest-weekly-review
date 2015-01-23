@@ -9,7 +9,7 @@
 
 /* Day interactions */
 .day {
-  height: 8em;
+  height: 10em;
 }
 .day .front, .day .back {
   padding: 0.8em;

@@ -1,0 +1,34 @@
+GET /projects?active=true&hasPhase=false
+authorization: Bearer fake token value for testing
+accept-encoding: gzip, deflate
+accept-language: en-US,en;q=0.5
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+host: api.loc
+
+200 HTTP/1.1
+server: nginx/1.4.6 (Ubuntu)
+date: Fri, 23 Jan 2015 21:23:05 GMT
+content-type: application/json; charset=utf-8
+content-length: 284
+connection: close
+x-powered-by: Express
+access-control-allow-origin: *
+vary: Origin
+etag: W/"11c-1c45112b"
+set-cookie: connect.sid=s%3A1Yf5UVeaxLBDuyR5jJ60aZaqORn7hSIo.N3ydh6cVWnjbSsVKNM9MoEVFPRlpxPgpV6VLTYbdbbY; Path=/; HttpOnly
+
+{
+  "projects": [
+    {
+      "id": 3,
+      "name": "Roger's Chicken",
+      "default_position_id": 1,
+      "default_utilization_type_id": 1,
+      "completed": true,
+      "organization_id": 1,
+      "project_type_id": 1,
+      "abbr": "RC",
+      "lead_employee_id": 1
+    }
+  ]
+}

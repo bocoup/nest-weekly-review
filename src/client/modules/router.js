@@ -56,7 +56,7 @@ module.exports = Router.extend({
         this.layout.addError({
           title: 'Couldn\'t fetch projects without phases.',
           description: response.body
-        })
+        });
       }.bind(this)
     });
 

@@ -45,6 +45,9 @@
       {{#each activeProjects}}
       <option value="{{this}}">{{name}}</option>
       {{/each}}
+      {{#each phaselessProjects}}
+      <option value="{{this}}">{{name}}</option>
+      {{/each}}
     </select>
 
     <select id="{{dayName}}{{employee.id}}-phase"

@@ -4,6 +4,7 @@ var Promise = require('ractive/ractive.runtime').Promise;
 
 var Phases = require('./models/phases');
 var Positions = require('./models/positions');
+var Projects = require('./models/projects');
 var UtilizationTypes = require('./models/utilization-types');
 var Review = require('./models/phase-review');
 
@@ -21,6 +22,7 @@ module.exports = Router.extend({
       adapt: [ModelAdapter, CollectionAdapter]
     });
     this.phases = new Phases();
+    this.phaselessProjects = new Projects();
     this.positions = new Positions();
     this.utilizationTypes = new UtilizationTypes();
 
@@ -37,6 +39,24 @@ module.exports = Router.extend({
           title: 'Couldn\'t fetch position data',
           description: response.body
         });
+      }.bind(this)
+    });
+
+    /**
+    * Fetch all projects which do not have a phase. These will be appended
+    * to the list of possible projects on a phase review, allowing for
+    * correcting entries to be made
+    */
+    this.phaselessProjects.fetch({
+      data: {
+        active: true,
+        hasPhase: false
+      },
+      error: function (model, response) {
+        this.layout.addError({
+          title: 'Couldn\'t fetch projects without phases.',
+          description: response.body
+        })
       }.bind(this)
     });
 
@@ -193,7 +213,8 @@ module.exports = Router.extend({
           review: review,
           activePhases: models.phases,
           positions: this.positions,
-          utilizationTypes: this.utilizationTypes
+          utilizationTypes: this.utilizationTypes,
+          phaselessProjects: this.phaselessProjects
         });
       }.bind(this), function(err) {
         this.layout.addError(err);

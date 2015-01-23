@@ -9,11 +9,23 @@
 
 <main>
   {{#if route === 'phaseList' }}
-  <wr-phase-table />
+  <wr-phase-table
+    firstWeek="{{firstWeek}}"
+    numWeeks="{{numWeeks}}"
+    phases="{{phases}}"
+    />
   {{/if}}
 
   {{#if route === 'review' }}
-  <wr-review />
+  <wr-review
+    activePhases="{{activePhases}}"
+    date="{{date}}"
+    phase="{{phase}}"
+    phaselessProjects="{{phaselessProjects}}"
+    positions="{{positions}}"
+    review="{{review}}"
+    utilizationTypes="{{utilizationTypes}}"
+    />
   {{/if}}
 
   {{#if !loggedIn }}

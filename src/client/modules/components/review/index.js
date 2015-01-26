@@ -2,6 +2,10 @@
 var Promise = require('ractive/ractive.runtime').Promise;
 
 var Component = require('../../util/component');
+var ordinalSuffix = require('../../util/ordinal-suffix');
+
+var DAY_MS = 1000 * 60 * 60 * 24;
+var DAY_NAMES = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
 
 module.exports = Component.extend({
   template: require('./template.html'),
@@ -14,6 +18,17 @@ module.exports = Component.extend({
   },
 
   computed: {
+    weekDays: function() {
+      var sunday = this.get('date').getTime();
+
+      return DAY_NAMES.map(function(name, idx) {
+        var dayNum = new Date(sunday + (idx + 1) * DAY_MS).getDate();
+        return {
+          name: name,
+          dayOrdinal: dayNum + ordinalSuffix(dayNum)
+        };
+      });
+    },
     allPhaseHref: function() {
       return '/date/' +
         this.get('date').toISOString().replace(/T.*$/, '') + '/';

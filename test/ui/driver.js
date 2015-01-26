@@ -180,3 +180,9 @@ Driver.prototype.editUtilization = function(options) {
       return set[offset].click();
     });
 };
+
+Driver.prototype.readDays = function() {
+  return this._$('phaseWeek.dayLabels').then(function(labels) {
+    return readAll(labels.slice(1));
+  });
+};

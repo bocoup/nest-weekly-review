@@ -19,6 +19,19 @@ describe('phase review', function() {
       });
   });
 
+  it('renders as expected', function() {
+    return driver.readDays()
+      .then(function(days) {
+        assert.deepEqual(
+          days,
+          [
+            'MONDAY (12th)', 'TUESDAY (13th)', 'WEDNESDAY (14th)',
+            'THURSDAY (15th)', 'FRIDAY (16th)'
+          ]
+        );
+      });
+  });
+
   it('correctly edits an existing single-day utilization', function() {
     function handleDelete(req, res) {
       var id = parseInt(req.params.id, 10);

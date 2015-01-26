@@ -44,12 +44,16 @@
         </th>
       </tr>
       <tr class="labels">
-        <th scope="col" class="bocouper"><span class="a11y-only">Bocouper</span></th>
-        <th scope="col">Monday</th>
-        <th scope="col">Tuesday</th>
-        <th scope="col">Wednesday</th>
-        <th scope="col">Thursday</th>
-        <th scope="col">Friday</th>
+        <th scope="col" class="bocouper">
+          <span class="a11y-only">Bocouper</span>
+        </th>
+
+        {{#each weekDays}}
+        <th scope="col">
+          <span class="day-name">{{ name }}</span>
+          <span class="day-ordinal">({{ dayOrdinal }})</span>
+        </th>
+        {{/each}}
       </tr>
     </thead>
     <tbody>

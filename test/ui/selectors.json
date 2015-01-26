@@ -11,6 +11,7 @@
     "set": ".week .day .back .set"
   },
   "session": {
-    "loginButton": ".login-prompt .login-button"
+    "loginButton": ".login-prompt .login-button",
+    "logoutButton": ".app-header .log-out"
   }
 }

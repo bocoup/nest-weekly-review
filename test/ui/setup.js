@@ -78,13 +78,24 @@ beforeEach(function() {
   };
 
   return server.createSession(capabilities).then(function(session) {
-    command = new Command(session);
+      command = new Command(session);
 
-    this.driver = new Driver({
-      command: command,
-      root: 'http://localhost:' + applicationPort
-    });
-  }.bind(this));
+      this.driver = new Driver({
+        command: command,
+        root: 'http://localhost:' + applicationPort
+      });
+
+      return this.driver.get('/');
+    }.bind(this)).then(function() {
+      function ignore(req, res) {
+        res.end();
+      }
+
+      return Promise.all([
+          this.driver.login(),
+          this.middleMan.once('GET', '/project-phases', ignore)
+        ]);
+    }.bind(this));
 });
 
 afterEach(function() {

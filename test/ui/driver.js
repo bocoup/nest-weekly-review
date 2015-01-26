@@ -55,27 +55,25 @@ Driver.prototype.read = function(region) {
 };
 
 /**
- * Navigate to a specific URL within the application, logging in if necessary.
+ * Navigate to a specific URL within the application.
  *
  * @param {string} path
  */
 Driver.prototype.get = function(path) {
-  var navigate = function() {
-    return this._cmd.get(this._root + path);
-  }.bind(this);
+  return this._cmd.get(this._root + path);
+};
 
-  return navigate()
-    .then(function() {
-      return this._$('session.loginButton');
-    }.bind(this))
+/**
+ * Submit the application "log in" form. This method does not input user
+ * credentials; it is designed to work only when the login functionality has
+ * been stubbed out.
+ */
+Driver.prototype.login = function() {
+  return this._$('session.loginButton')
     .then(function(loginBtn) {
-      // If the login button is not present, the current session is already
-      // authenticated and the operation is complete.
-      if (loginBtn.length === 0) {
-        return;
-      }
-      return loginBtn[0].click()
-        .then(navigate);
+      return loginBtn[0].click();
+    }).then(function() {
+      return this._waitFor('session.logoutButton');
     }.bind(this));
 };
 

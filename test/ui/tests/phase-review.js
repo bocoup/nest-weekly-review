@@ -29,6 +29,10 @@ describe('phase review', function() {
             'THURSDAY (15th)', 'FRIDAY (16th)'
           ]
         );
+
+        return driver.readWeekStart();
+      }).then(function(weekStart) {
+        assert.equal(weekStart, '1 / 12 / 2015');
       });
   });
 

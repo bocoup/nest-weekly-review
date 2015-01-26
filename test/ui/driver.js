@@ -186,3 +186,9 @@ Driver.prototype.readDays = function() {
     return readAll(labels.slice(1));
   });
 };
+
+Driver.prototype.readWeekStart = function() {
+  return this._$('phaseWeek.weekStart').then(function(weekStart) {
+    return weekStart[0].getVisibleText();
+  });
+};

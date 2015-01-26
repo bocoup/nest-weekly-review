@@ -18,6 +18,9 @@ module.exports = Component.extend({
   },
 
   computed: {
+    monday: function() {
+      return new Date(this.get('date').getTime() + DAY_MS);
+    },
     weekDays: function() {
       var sunday = this.get('date').getTime();
 

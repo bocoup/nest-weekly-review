@@ -9,7 +9,8 @@
     "dayLabels": ".week thead .labels th",
     "employee": ".week tbody .name",
     "typeInput": ".week .day .back select:nth-child(1)",
-    "set": ".week .day .back .set"
+    "set": ".week .day .back .set",
+    "weekStart": ".week-info time"
   },
   "session": {
     "loginButton": ".login-prompt .login-button",

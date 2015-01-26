@@ -20,7 +20,7 @@ describe('phase review', function() {
   });
 
   it('renders as expected', function() {
-    return driver.readDays()
+    return driver.readAll('phaseWeek.dayLabels')
       .then(function(days) {
         assert.deepEqual(
           days,
@@ -30,7 +30,7 @@ describe('phase review', function() {
           ]
         );
 
-        return driver.readWeekStart();
+        return driver.read('phaseWeek.weekStart');
       }).then(function(weekStart) {
         assert.equal(weekStart, '1 / 12 / 2015');
       });

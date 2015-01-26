@@ -49,7 +49,7 @@ describe('phase overview', function() {
           assert.equal(text, 'Weekly Review', 'Application title visible');
         })
         .then(function() {
-          return driver.read('index.weekLabels');
+          return driver.readAll('index.weekLabels');
         })
         .then(function(labels) {
           var now = new Date();
@@ -71,7 +71,7 @@ describe('phase overview', function() {
     });
 
     it('displays the active phases at the given date', function() {
-      return driver.read('index.weekLabels')
+      return driver.readAll('index.weekLabels')
         .then(function(labels) {
           var match;
 

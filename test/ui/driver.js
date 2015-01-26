@@ -54,8 +54,34 @@ Driver.prototype._selectOption = function(element, value) {
     }.bind(this));
 };
 
+/**
+ * Get the visible text within the element found at the given region
+ *
+ * @param {string} region The name of the region from which the text should be
+ *                        read.
+ *
+ * @returns {string}
+ */
 Driver.prototype.read = function(region) {
-  return this._$(region).getVisibleText();
+  return this._$(region).then(function(els) {
+      return els[0].getVisibleText();
+    });
+};
+
+/**
+ * Get the visible text within the elements found in the given region
+ *
+ * @param {string} region The name of the region from which the text should be
+ *                        read.
+ *
+ * @returns {Array<string>}
+ */
+Driver.prototype.readAll = function(region) {
+  return this._$(region).then(function(els) {
+      return Promise.all(els.map(function(el) {
+        return el.getVisibleText();
+      }));
+    });
 };
 
 /**
@@ -96,19 +122,6 @@ Driver.prototype.viewWeek = function(phaseNumber, weekNumber) {
     }).then(function() {
       return this._waitFor('phaseWeek.employee');
     }.bind(this));
-};
-
-/**
- * Get a list of all employees visible on a given "week review" page.
- *
- * @returns {Promise} Resolved with an array of strings, each describing the
- *                    full name of a visible employee
- */
-Driver.prototype.readEmployees = function() {
-  return this._$('phaseWeek.employee')
-    .then(function(employees) {
-      return readAll(employees);
-    });
 };
 
 Driver.prototype._waitFor = function(region, timeout) {
@@ -153,7 +166,7 @@ Driver.prototype.editUtilization = function(options) {
     throw new Error('Unrecognized day: "' + options.day + '".');
   }
 
-  return this.readEmployees()
+  return this.readAll('phaseWeek.employee')
     .then(function(names) {
       var employeeOffset = names.indexOf(options.name);
 
@@ -179,16 +192,4 @@ Driver.prototype.editUtilization = function(options) {
     .then(function(set) {
       return set[offset].click();
     });
-};
-
-Driver.prototype.readDays = function() {
-  return this._$('phaseWeek.dayLabels').then(function(labels) {
-    return readAll(labels.slice(1));
-  });
-};
-
-Driver.prototype.readWeekStart = function() {
-  return this._$('phaseWeek.weekStart').then(function(weekStart) {
-    return weekStart[0].getVisibleText();
-  });
 };

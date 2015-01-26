@@ -12,6 +12,12 @@ function Driver(options) {
 
 module.exports = Driver;
 
+function readAll(els) {
+  return Promise.all(els.map(function(el) {
+    return el.getVisibleText();
+  }));
+}
+
 Driver.prototype._$ = function(region) {
   var selector = lookup(region, selectors);
   return this._cmd.findAllByCssSelector(selector);
@@ -22,9 +28,7 @@ Driver.prototype._selectOption = function(element, value) {
   return element.findAllByTagName('option')
     .then(function(options) {
       optionEls = options;
-      return Promise.all(options.map(function(option) {
-        return option.getVisibleText();
-      }));
+      return readAll(options);
     })
     .then(function(text) {
       var index = text.indexOf(value);
@@ -103,9 +107,7 @@ Driver.prototype.viewWeek = function(phaseNumber, weekNumber) {
 Driver.prototype.readEmployees = function() {
   return this._$('phaseWeek.employee')
     .then(function(employees) {
-      return Promise.all(employees.map(function(employee) {
-        return employee.getVisibleText();
-      }));
+      return readAll(employees);
     });
 };
 

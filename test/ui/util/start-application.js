@@ -8,7 +8,7 @@ var portGuard = require('./port-guard');
 module.exports = function(port, apiUrl) {
   var env = {
     WR_API: apiUrl,
-    WR_AUTH: 'bypass',
+    WR_BYPASS_AUTH: '1',
     NODE_PORT: port,
     PATH: process.env.PATH
   };

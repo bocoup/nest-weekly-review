@@ -10,7 +10,7 @@ var Review = require('./models/phase-review');
 
 var Layout = require('./components/layout/index');
 var weekNumber = require('./util/week-num');
-var getToken = require('./util/get-token');
+var token = require('./util/token');
 
 var ModelAdapter = require('./adapters/ampersand-model');
 var CollectionAdapter = require('./adapters/ampersand-collection');
@@ -28,8 +28,9 @@ module.exports = Router.extend({
 
     this.route(/date\/(\d{4})-(\d\d)-(\d\d)\//i, 'phaseList');
     this.route(/date\/(\d{4})-(\d\d)-(\d\d)\/phase\/(\d+)\//i, 'review');
+    this.route('logout/', 'logout');
 
-    if (!getToken()) {
+    if (!token.get()) {
       return;
     }
 
@@ -72,7 +73,7 @@ module.exports = Router.extend({
 
   // Effectively disable the router if the user is not logged in.
   execute: function() {
-    if (!getToken()) {
+    if (!token.get()) {
       return;
     }
 
@@ -222,5 +223,10 @@ module.exports = Router.extend({
       }.bind(this), function(err) {
         this.layout.addError(err);
       }.bind(this));
+  },
+
+  logout: function() {
+    token.unset();
+    window.location = '/';
   }
 });

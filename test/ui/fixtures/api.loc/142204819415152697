@@ -1,5 +1,5 @@
 GET /project-phases?after=2014-12-21&before=2015-01-25&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees
-authorization: Bearer fake token value for testing
+authorization: Bearer fake-token-for-testing
 accept-encoding: gzip, deflate
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8

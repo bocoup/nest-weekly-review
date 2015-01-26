@@ -4,7 +4,7 @@ var NotificationList = require('../notification-list/index');
 var PhaseTable = require('../phase-table/index');
 var Review = require('../review/index');
 var LoginPrompt = require('../login-prompt/index');
-var getToken = require('../../util/get-token');
+var getToken = require('../../util/token').get;
 
 module.exports = Component.extend({
   template: require('./template.html'),

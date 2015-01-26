@@ -1,6 +1,6 @@
 GET /utilization-types
 if-none-match: W/"257-22ed4f67"
-authorization: Bearer fake token value for testing
+authorization: Bearer fake-token-for-testing
 accept-encoding: gzip, deflate
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8

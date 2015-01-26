@@ -5,7 +5,7 @@
  */
 'use strict';
 
-var getToken = require('./util/get-token');
+var getToken = require('./util/token').get;
 
 module.exports = function() {
   var token = getToken();

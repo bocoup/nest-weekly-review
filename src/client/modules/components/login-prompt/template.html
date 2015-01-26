@@ -1,7 +1,9 @@
 <div class="login-prompt">
   <h1>Please Log In</h1>
 
-  <a href="/auth/login?provider=github" class="login-button" data-passthrough>
-    With GitHub
+  {{#each authMethods}}
+  <a href="{{ url }}" class="login-button" data-passthrough>
+    With {{ name }}
   </a>
+  {{/each}}
 </div>

@@ -10,9 +10,9 @@ var configurableItems = [
   },
   { name: 'NODE_PORT', desc: 'Application server port', dflt: '8000' },
   {
-    name: 'WR_AUTH',
-    desc: 'Control authentication. One of: prod, dev, bypass',
-    dflt: 'dev'
+    name: 'WR_BYPASS_AUTH',
+    desc: 'Bypass authentication. Set to any value to enable',
+    dflt: ''
   }
 ];
 var tableStr;
@@ -67,15 +67,6 @@ if (process.env.NODE_ENV === 'production') {
     'Cannot run the development application in "production" mode.'
   );
   process.exit(1);
-}
-
-if (process.env.WR_AUTH === 'bypass') {
-  injectDependency('../../src/server/auth', './auth');
-} else if (process.env.WR_AUTH === 'dev') {
-  (function() {
-    var secrets = require('../../config/secrets/github.json');
-    secrets['weekly-review'].production = secrets['weekly-review'].development;
-  }());
 }
 
 injectDependency('../../src/server/serve-app', './serve-app');

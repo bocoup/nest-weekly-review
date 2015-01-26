@@ -62,11 +62,9 @@ server:
   may be set to a staging server, a server with cached responses (see [the
   "Mock API Server" section](#mock-api-server) below) or a local installation
   of the Nest API server.
-- `WR_AUTH` - control authorization requirements. May be set to `production` or
-  `dev` to use associated authentication schemes. May be set to `bypass` to
-  disable authentication completely (this value is only useful when overriding
-  `WR_API` to reference a server instance that does not require
-  authentication).
+- `WR_BYPASS_AUTH` - when set to any value, the application will
+  self-authorize. This only makes sense in contexts where `WR_API` references a
+  permissive server instance (i.e. a local installation of the API).
 
 The default and current values of all recognized variables are printed to the
 console each time the application is initialized.

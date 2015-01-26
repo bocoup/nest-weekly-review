@@ -1,6 +1,6 @@
 GET /positions
 if-none-match: W/"Rb31NBo1Fi8+M8pmiHI+jQ=="
-authorization: Bearer fake token value for testing
+authorization: Bearer fake-token-for-testing
 accept-encoding: gzip, deflate
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8

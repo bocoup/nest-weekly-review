@@ -66,7 +66,7 @@ beforeEach(function() {
 
   this.middleMan.on('*', /.*/, handleCors);
   this.middleMan.on('OPTIONS', /.*/, handleCorsPreflight);
-  this.timeout(10 * 1000);
+  this.timeout(30 * 1000);
 
   server = new Server('http://localhost:' + seleniumPort + '/wd/hub');
   capabilities = {

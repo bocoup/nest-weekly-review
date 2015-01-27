@@ -88,8 +88,15 @@ describe('phase review', function() {
 
   it('correctly submits a review', function() {
     this.timeout(8000);
+    function abort() {
+      throw new Error(
+        'No requests should be issued until all employees have been verified.'
+      );
+    }
+
     return driver.addNote('Everyone did a nice job')
       .then(function() {
+        middleMan.on('*', /.*/, abort);
         return driver.submitReview();
       }).then(function() {
         return driver.verify(['Jerry Seinfeld', 'Cosmo Kramer']);
@@ -97,6 +104,8 @@ describe('phase review', function() {
         function handleRequest(req, res) {
           res.end();
         }
+
+        middleMan.off('*', abort);
 
         return Promise.all([
           middleMan.once('POST', '/project-phase-reviews', handleRequest),

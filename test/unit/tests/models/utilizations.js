@@ -65,6 +65,17 @@ suite('Utilizations collection', function() {
         assert.equal(syncReport().create.length, 1);
       });
     });
+    test('updates previously-existing changed models before saving new models', function() {
+      var u = new Utilizations([{ id: 32 }]);
+
+      u.at(0).set('id', 34);
+      u.add({});
+
+      return u.save().then(function() {
+        assert.equal(sync.args[0][0], 'update');
+        assert.equal(sync.args[1][0], 'create');
+      });
+    });
     test('destroys removed models', function() {
       var u = new Utilizations([
         { id: 55 },

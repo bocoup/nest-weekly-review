@@ -59,21 +59,25 @@ module.exports = Collection.extend({
         return;
       }
 
-      destroyRequests.push(new Promise(function(resolve, reject) {
-        model.destroy({
-          success: function() {
-            var index = removed.indexOf(model);
-            removed.splice(index, 1);
-            resolve();
-          },
-          error: function(model, response) {
-            reject(response.responseText);
-          }
-        });
-      }));
+      destroyRequests.push(model.destroy().then(function() {
+          var index = removed.indexOf(model);
+          removed.splice(index, 1);
+        }.bind(this)));
     }, this);
 
     return Promise.all(destroyRequests).then(function() {
+      var updateRequests = [];
+
+      this.forEach(function(model) {
+        if (!model.hasChanged()) {
+          return;
+        }
+
+        updateRequests.push(model.save());
+      });
+
+      return Promise.all(updateRequests);
+    }.bind(this)).then(function() {
       var createRequests = [];
 
       this.forEach(function(model) {
@@ -83,36 +87,10 @@ module.exports = Collection.extend({
           return;
         }
 
-        createRequests.push(new Promise(function(resolve, reject) {
-          model.save(null, {
-            success: resolve,
-            error: function(model, response) {
-              reject(response.responseText);
-            }
-          });
-        }));
+        createRequests.push(model.save());
       });
 
       return Promise.all(createRequests);
-    }.bind(this)).then(function() {
-      var updateRequests = [];
-
-      this.forEach(function(model) {
-        if (!model.hasChanged()) {
-          return;
-        }
-
-        updateRequests.push(new Promise(function(resolve, reject) {
-          model.save(null, {
-            success: resolve,
-            error: function(model, response) {
-              reject(response.responseText);
-            }
-          });
-        }));
-      });
-
-      return Promise.all(updateRequests);
     }.bind(this));
   },
 

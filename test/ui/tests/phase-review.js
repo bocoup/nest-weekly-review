@@ -45,21 +45,44 @@ describe('phase review', function() {
     function handlePost(req, res) {
       res.end(JSON.stringify({ id: 6 }));
     }
-    function handlePut(req, res) {
-      res.end();
-    }
 
     return Promise.all([
       middleMan.once('DELETE', '/utilizations/:id', handleDelete),
       middleMan.once('POST', '/utilizations', handlePost),
-      // TODO: No PUT requests should be issued in this case. Fix the bug
-      // and remove this.
-      middleMan.once('PUT', '/utilizations/:id', handlePut),
       driver.editUtilization({
         name: 'Jerry Seinfeld',
         day: 'thursday',
         type: 'Education'
       })
     ]);
+  });
+
+  /**
+   * The application should update existing utilizations *before* creating new
+   * utilizations. The reverse order will be rejected by the server because it
+   * would require the database temporarily enter an invalid state.
+   */
+  it('correctly splits an existing multi-day utilization', function() {
+    var hasPut = false;
+    function handlePut(req, res) {
+      assert.equal(req.params.id, 4);
+      hasPut = true;
+      res.end();
+    }
+    function handlePost(req, res) {
+      assert(hasPut, 'Updates existing models before creaating new models');
+      res.end();
+    }
+
+    return Promise.all([
+        middleMan.once('PUT', '/utilizations/:id', handlePut),
+        middleMan.once('POST', '/utilizations', handlePost),
+        middleMan.once('POST', '/utilizations', handlePost),
+        driver.editUtilization({
+          name: 'Jerry Seinfeld',
+          day: 'tuesday',
+          type: 'Vacation'
+        })
+      ]);
   });
 });

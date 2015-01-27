@@ -1,16 +1,14 @@
 'use strict';
-var Model = require('ampersand-model');
+var BaseModel = require('./_base-model');
 
 var UtilizationType = require('./utilization-type');
-var setBearer = require('../ajax-config');
 var parse = require('../util/parse-json-api-resp')('utilization');
 var dateStr = require('../util/date-string');
 
 var API_ROOT = require('../api-root');
 
-module.exports = Model.extend({
+module.exports = BaseModel.extend({
   urlRoot: API_ROOT + '/utilizations',
-  ajaxConfig: setBearer,
   parse: parse,
   dataTypes: {
     dateStr: dateStr

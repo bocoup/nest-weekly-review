@@ -99,6 +99,31 @@ suite('Utilizations collection', function() {
         assert.sameMembers(syncReport().delete, [55, 56, 57, 58, 59, 60]);
       });
     });
+    test('does not reference previously-destroyed models in subsequent invocations', function() {
+      var u = new Utilizations([
+        { id: 81 },
+        { id: 82 },
+        { id: 83 },
+        { id: 84 },
+        { id: 85 },
+        { id: 86 },
+        { id: 87 }
+      ]);
+
+      u.remove({ id: 81 });
+      u.remove({ id: 84 });
+      u.remove({ id: 87 });
+
+      return u.save().then(function() {
+          u.remove({ id: 82 });
+          return u.save();
+        }).then(function() {
+          var deleted = syncReport().delete;
+          assert.equal(deleted.length, 4);
+          assert.sameMembers(deleted.slice(0, 3), [81, 84, 87]);
+          assert.equal(deleted[3], 82);
+        });
+    });
     test('updates models that have been removed then re-inserted', function() {
       var u = new Utilizations([{ id: 23 }]);
       var model = u.get(23);

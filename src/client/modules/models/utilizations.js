@@ -66,17 +66,11 @@ module.exports = Collection.extend({
     }, this);
 
     return Promise.all(destroyRequests).then(function() {
-      var updateRequests = [];
-
-      this.forEach(function(model) {
-        if (!model.hasChanged()) {
-          return;
-        }
-
-        updateRequests.push(model.save());
+      var changing = this.filter(function(model) {
+        return model.hasChanged();
       });
 
-      return Promise.all(updateRequests);
+      return safeUpdate(changing);
     }.bind(this)).then(function() {
       var createRequests = [];
 
@@ -105,20 +99,7 @@ module.exports = Collection.extend({
    * @returns {Utilization|null}
    */
   atDate: function(date, offset) {
-    var idx, length, current;
-
-    if (offset) {
-      date = new Date(date.getTime() + offset * ONE_DAY);
-    }
-
-    for (idx = 0, length = this.length; idx < length; ++idx) {
-      current = this.at(idx);
-      if (current.includes(date)) {
-        return current;
-      }
-    }
-
-    return null;
+    return atDate(this.models, date, offset);
   },
 
   atDay: function(first, offset) {
@@ -273,3 +254,70 @@ module.exports = Collection.extend({
     }
   }
 });
+
+/**
+ * Retrieve the Utilization model that includes the given date if such a model
+ * is present in the array.
+ *
+ * @param {Array<Utilization>} models
+ * @param {Date} date
+ * @param {number} [offset] number of days after the supplied date for which to
+ *                          find utilization data. Defaults to `0`.
+ *
+ * @returns {Utilization|null}
+ */
+function atDate(models, date, offset) {
+  var idx, length, current;
+
+  if (offset) {
+    date = new Date(date.getTime() + offset * ONE_DAY);
+  }
+
+  for (idx = 0, length = models.length; idx < length; ++idx) {
+    current = models[idx];
+    if (current.includes(date)) {
+      return current;
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Update a set of models in distinct "passes" to avoid creating invalid state
+ * on the server (one where two different utilization models include the same
+ * day).
+ *
+ * @param {Array<Utilization>} models Utilization models that should be saved
+ *
+ * @returns {Promise} Resolved when all models have been saved. Rejected when
+ *                    any single save operation fails
+ */
+function safeUpdate(models) {
+  var serverState = models.map(function(model) {
+    return new Utilization(model.previousAttributes());
+  });
+  var canUpdate = [];
+  var mustWait = [];
+
+  models.forEach(function(model) {
+    var firstDay = model.get('first_day');
+    var lastDay = model.get('last_day');
+    var others = serverState.slice();
+    others.splice(models.indexOf(model), 1);
+
+    if ((!firstDay || !atDate(others, firstDay)) &&
+      (!lastDay || !atDate(others, lastDay))) {
+      canUpdate.push(model);
+    } else {
+      mustWait.push(model);
+    }
+  });
+
+  return Promise.all(canUpdate.map(function(model) { return model.save(); }))
+    .then(function() {
+      if (mustWait.length) {
+        return safeUpdate(mustWait);
+      }
+    });
+}

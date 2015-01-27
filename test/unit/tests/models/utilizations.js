@@ -139,6 +139,98 @@ suite('Utilizations collection', function() {
         assert.notOk(report.delete);
       });
     });
+
+    /**
+     * Ensure that update requests are made in the correct order so as to avoid
+     * invalid state. These tests are written to avoid asserting non-essential
+     * request order details--inline comments describe update "phases"; within
+     * each phase, request order is inconsequential.
+     */
+    suite('model update order', function() {
+      test('best case', function() {
+        //        [  +] _____ [- +] _____ [-  ]
+        // Pass 1   x           x           x
+        var u = new Utilizations([
+          { id: 1, first_day: new Date(2012, 4, 1), last_day: new Date(2012, 4, 3) },
+          { id: 2, first_day: new Date(2012, 4, 5), last_day: new Date(2012, 4, 7) },
+          { id: 3, first_day: new Date(2012, 4, 9), last_day: new Date(2012, 4, 12) }
+        ]);
+
+        // Growing on the right
+        u.get(1).set({ last_day: new Date(2012, 4, 4) });
+        // Shrinking on the left, growing on the right
+        u.get(2).set({ first_day: new Date(2012, 4, 6), last_day: new Date(2012, 4, 8) });
+        // Shrinking on the left
+        u.get(3).set({ first_day: new Date(2012, 4, 10) });
+
+        return u.save().then(function() {
+          assert.sameMembers(syncReport().update, [1, 2, 3]);
+        });
+      });
+
+      test('worst case', function() {
+        //        [  +] [- +] [- +] [-  ]
+        // Pass 1                     x
+        // Pass 2               x
+        // Pass 3         x
+        // Pass 4   x
+        var u = new Utilizations([
+          { id: 1, first_day: new Date(2012, 4, 1), last_day: new Date(2012, 4, 3) },
+          { id: 2, first_day: new Date(2012, 4, 4), last_day: new Date(2012, 4, 6) },
+          { id: 3, first_day: new Date(2012, 4, 7), last_day: new Date(2012, 4, 9) },
+          { id: 4, first_day: new Date(2012, 4, 10), last_day: new Date(2012, 4, 12) }
+        ]);
+
+        // Growing on the right
+        u.get(1).set({ last_day: new Date(2012, 4, 4) });
+        // Shrinking on the left, growing on the right
+        u.get(2).set({ first_day: new Date(2012, 4, 5), last_day: new Date(2012, 4, 7) });
+        // Shrinking on the left, growing on the right
+        u.get(3).set({ first_day: new Date(2012, 4, 8), last_day: new Date(2012, 4, 10) });
+        // Shrinking on the left
+        u.get(4).set({ first_day: new Date(2012, 4, 11) });
+
+        return u.save().then(function() {
+          assert.deepEqual(syncReport().update, [4, 3, 2, 1]);
+        });
+      });
+
+      test('distributed', function() {
+        //        [  +] [- +] [-  ] [  -] [+ -] [+  ]
+        // Pass 1               x     x
+        // Pass 2         x                 x
+        // Pass 3   x                             X
+        var u = new Utilizations([
+          { id: 1, first_day: new Date(2012, 4, 1), last_day: new Date(2012, 4, 3) },
+          { id: 2, first_day: new Date(2012, 4, 4), last_day: new Date(2012, 4, 6) },
+          { id: 3, first_day: new Date(2012, 4, 7), last_day: new Date(2012, 4, 9) },
+          { id: 4, first_day: new Date(2012, 4, 10), last_day: new Date(2012, 4, 12) },
+          { id: 5, first_day: new Date(2012, 4, 13), last_day: new Date(2012, 4, 15) },
+          { id: 6, first_day: new Date(2012, 4, 16), last_day: new Date(2012, 4, 18) }
+        ]);
+
+        // Growing on right
+        u.get(1).set({ last_day:  new Date(2012, 4, 4) });
+        // Shrinking on left, growing on right
+        u.get(2).set({ first_day: new Date(2012, 4, 6), last_day: new Date(2012, 4, 7) });
+        // Shrinking on left
+        u.get(3).set({ first_day: new Date(2012, 4, 8) });
+        // Shrinking on the right
+        u.get(4).set({ last_day: new Date(2012, 4, 11) });
+        // Growing on left, shrinking on right
+        u.get(5).set({ first_day: new Date(2012, 4, 12), last_day: new Date(2012, 4, 14) });
+        // Growing on left
+        u.get(6).set({ first_day: new Date(2012, 4, 15) });
+
+        return u.save().then(function() {
+          var updated = syncReport().update;
+
+          assert.sameMembers(updated.slice(0, 2), [3, 4]);
+          assert.sameMembers(updated.slice(2, 4), [2, 5]);
+          assert.sameMembers(updated.slice(4, 6), [1, 6]);
+        });
+      });
+    });
   });
 
   suite('#atDate', function() {

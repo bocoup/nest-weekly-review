@@ -10,7 +10,14 @@
     "employee": ".week tbody .name",
     "typeInput": ".week .day .back select:nth-child(1)",
     "set": ".week .day .back .set",
-    "weekStart": ".week-info time"
+    "weekStart": ".week-info time",
+    "notes": ".notes textarea",
+    "verifyBtns": ".btn-verify",
+    "submit": ".submit .btn"
+  },
+  "notifications": {
+    "item": ".notification-list .ntfn-item",
+    "error": ".notification-list .ntfn-item.error"
   },
   "session": {
     "loginButton": ".login-prompt .login-button",

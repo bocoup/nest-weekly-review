@@ -18,6 +18,36 @@ function readAll(els) {
   }));
 }
 
+function waitFor(conditionFn, options) {
+  var start = new Date().getTime();
+  var timeout, errorMsg;
+
+  if (!options) {
+    options = {};
+  }
+
+  timeout = options.timeout || 1000;
+  errorMsg = options.errorMsg || 'Timeout';
+
+  return conditionFn()
+    .then(function(result) {
+      var delay, remaining;
+
+      if (result) {
+        return;
+      }
+
+      delay = new Date().getTime() - start;
+      remaining = timeout - delay;
+
+      if (delay < 0) {
+        throw new Error(errorMsg);
+      }
+
+      return waitFor(conditionFn, remaining);
+    });
+}
+
 Driver.prototype._$ = function(region) {
   var selector = lookup(region, selectors);
   return this._cmd.findAllByCssSelector(selector);
@@ -103,7 +133,7 @@ Driver.prototype.login = function() {
     .then(function(loginBtn) {
       return loginBtn[0].click();
     }).then(function() {
-      return this._waitFor('session.logoutButton');
+      return this._waitForRegion('session.logoutButton');
     }.bind(this));
 };
 
@@ -120,32 +150,35 @@ Driver.prototype.viewWeek = function(phaseNumber, weekNumber) {
     .then(function(weekLinks) {
       return weekLinks[phaseNumber * 5 + weekNumber].click();
     }).then(function() {
-      return this._waitFor('phaseWeek.employee');
+      return this._waitForRegion('phaseWeek.employee');
     }.bind(this));
 };
 
-Driver.prototype._waitFor = function(region, timeout) {
-  var start = new Date().getTime();
-  if (arguments.length < 2) {
-    timeout = 1000;
-  }
+Driver.prototype._waitForRegion = function(region, timeout) {
+  var options = {
+    timeout: timeout,
+    errorMsg: 'Unable to find element at region "' + region + '"'
+  };
 
-  var poll = function() {
-    return this._$(region)
-      .then(function(els) {
-        if (els.length) {
-          return;
-        }
+  return waitFor(function() {
+      return this._$(region)
+        .then(function(els) {
+          return els.length > 0;
+        });
+    }.bind(this), options);
+};
 
-        if (new Date().getTime() - start > timeout) {
-          throw new Error('Unable to find element at region "' + region + '"');
-        }
+Driver.prototype._getEmployeeOffset = function(name) {
+  return this.readAll('phaseWeek.employee')
+    .then(function(names) {
+      var employeeOffset = names.indexOf(name);
 
-        return poll();
-      });
-  }.bind(this);
+      if (employeeOffset === -1) {
+        throw new Error('Expected employee not found: "' + name + '"');
+      }
 
-  return poll();
+      return employeeOffset;
+    });
 };
 
 /**
@@ -160,36 +193,86 @@ Driver.prototype._waitFor = function(region, timeout) {
  */
 Driver.prototype.editUtilization = function(options) {
   var dayNumber = dayNames.indexOf(options.day);
+  var driver = this;
   var offset;
 
   if (!dayNumber) {
     throw new Error('Unrecognized day: "' + options.day + '".');
   }
 
-  return this.readAll('phaseWeek.employee')
-    .then(function(names) {
-      var employeeOffset = names.indexOf(options.name);
-
-      if (employeeOffset === -1) {
-        throw new Error('Expected employee not found: "' + options.name + '"');
-      }
-
+  return this._getEmployeeOffset(options.name)
+    .then(function(employeeOffset) {
       offset = employeeOffset * 5 + dayNumber;
 
-      return this._$('phaseWeek.day');
-    }.bind(this))
-    .then(function(days) {
+      return driver._$('phaseWeek.day');
+    }).then(function(days) {
       return days[offset].click();
-    })
-    .then(function() {
-      return this._$('phaseWeek.typeInput');
-    }.bind(this)).then(function(typeInputs) {
-      return this._selectOption(typeInputs[offset], options.type);
-    }.bind(this))
-    .then(function() {
-      return this._$('phaseWeek.set');
-    }.bind(this))
-    .then(function(set) {
+    }).then(function() {
+      return driver._$('phaseWeek.typeInput');
+    }).then(function(typeInputs) {
+      return driver._selectOption(typeInputs[offset], options.type);
+    }).then(function() {
+      return driver._$('phaseWeek.set');
+    }).then(function(set) {
       return set[offset].click();
+    });
+};
+
+/**
+ * Verify the utilizations for one or more employees.
+ *
+ * @param {string|Array<string>} name The full name of the employee or an array
+ *                                    of multiple employees whose current
+ *                                    utilizations should be marked as
+ *                                    "verified".
+ *
+ * @returns {Promise}
+ */
+Driver.prototype.verify = function(name) {
+  var driver = this;
+  var offset;
+
+  if (Array.isArray(name)) {
+    return Promise.all(name.map(this.verify.bind(this)));
+  }
+
+  return driver._getEmployeeOffset(name)
+    .then(function(_offset) {
+      offset = _offset;
+
+      return driver._$('phaseWeek.verifyBtns');
+    }).then(function(btns) {
+      return btns[offset].click();
+    });
+};
+
+Driver.prototype.addNote = function(keys) {
+  return this._$('phaseWeek.notes')
+    .then(function(notes) {
+      return notes[0].type(keys);
+    });
+};
+
+/**
+ * Submit the current review form and wait for some feedback from the server.
+ */
+Driver.prototype.submitReview = function() {
+  var driver = this;
+  var initialNotificationCount;
+
+  return this._$('notifications.item')
+    .then(function(notifications) {
+      initialNotificationCount = notifications.length;
+
+      return driver._$('phaseWeek.submit');
+    }).then(function(submit) {
+      return submit[0].click();
+    }).then(function() {
+      return waitFor(function() {
+        return driver._$('notifications.item')
+          .then(function(notifications) {
+            return notifications.length !== initialNotificationCount;
+          });
+      });
     });
 };

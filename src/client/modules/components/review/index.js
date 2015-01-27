@@ -107,7 +107,7 @@ module.exports = Component.extend({
    */
   submit: function() {
     var employeeRows = this.findAllComponents('wr-employee-row');
-    var date = this.get('date');
+    var date = this.get('monday');
     var allVerified = employeeRows.every(function(employeeRow) {
       return employeeRow.get('verified');
     });
@@ -125,19 +125,17 @@ module.exports = Component.extend({
     verificationRequests = this.get('phase.employees').map(function(employee) {
       var utilizations = employee.get('utilizations');
 
-      // Verify "silently" to prevent needless thrashing in Ractive. This is
-      // valid because the utilization views do not visualize their
-      // verification status.
-      utilizations.verify(date, 7, { silent: true });
+      utilizations.verify(date, 5);
 
       return utilizations.save();
     });
 
     Promise.all(verificationRequests).then(function() {
-        this.get('review').save();
-      }.bind(this),
-      function(err) {
-        this.fire('error', err);
-      }.bind(this));
+        return this.get('review').save();
+      }.bind(this)).then(function() {
+          this.fire('notice', 'Review successfully submitted! Way to go!');
+        }.bind(this), function(err) {
+          this.fire('error', err);
+        }.bind(this));
   }
 });

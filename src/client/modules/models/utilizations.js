@@ -65,7 +65,7 @@ module.exports = Collection.extend({
 
     return Promise.all(destroyRequests).then(function() {
       var changing = this.filter(function(model) {
-        return model.hasChanged();
+        return model.isDirty() && !model.isNew();
       });
 
       return safeUpdate(changing);

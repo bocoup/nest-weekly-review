@@ -85,4 +85,27 @@ describe('phase review', function() {
         })
       ]);
   });
+
+  it('correctly submits a review', function() {
+    this.timeout(8000);
+    return driver.addNote('Everyone did a nice job')
+      .then(function() {
+        return driver.submitReview();
+      }).then(function() {
+        return driver.verify(['Jerry Seinfeld', 'Cosmo Kramer']);
+      }).then(function() {
+        function handleRequest(req, res) {
+          res.end();
+        }
+
+        return Promise.all([
+          middleMan.once('POST', '/project-phase-reviews', handleRequest),
+          middleMan.once('PUT', '/utilizations/6', handleRequest),
+          middleMan.once('PUT', '/utilizations/7', handleRequest),
+          middleMan.once('PUT', '/utilizations/8', handleRequest),
+          middleMan.once('POST', '/utilizations', handleRequest),
+          driver.submitReview()
+        ]);
+      });
+  });
 });

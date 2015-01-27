@@ -1,7 +1,10 @@
 <ul class="notification-list">
   {{#each notifications}}
   <li class="ntfn-item{{#if desc}} has-desc{{/if}}{{#if showDesc}} show-desc{{/if}}{{#if type === 'error' }} error{{/if}}">
-    <h2>Error: {{ title }}</h2>
+    <h2>
+      {{#if type === 'error' }}Error:{{/if}}{{#if type === 'notice' }}Notice:{{/if}}
+      {{ title }}
+    </h2>
     <div class="desc">{{ desc }}</div>
     <a on-click="toggleDesc()" class="toggle-desc">
       {{#if this.showDesc}}

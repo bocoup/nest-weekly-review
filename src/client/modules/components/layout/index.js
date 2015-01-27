@@ -24,9 +24,14 @@ module.exports = Component.extend({
 
   onconstruct: function() {
     this.on('*.error', this.addError);
+    this.on('*.notice', this.addNotice);
   },
 
   addError: function(error) {
     this.findComponent('wr-notification-list').addError(error);
+  },
+
+  addNotice: function(message) {
+    this.findComponent('wr-notification-list').addNotice(message);
   }
 });

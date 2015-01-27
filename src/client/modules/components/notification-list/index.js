@@ -32,6 +32,13 @@ module.exports = Component.extend({
     });
   },
 
+  addNotice: function(message) {
+    this.get('notifications').unshift({
+      type: 'notice',
+      title: message
+    });
+  },
+
   toggleDesc: function(event) {
     event = this.event;
     this.toggle(event.keypath + '.showDesc');

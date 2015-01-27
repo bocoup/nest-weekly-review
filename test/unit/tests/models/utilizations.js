@@ -1,4 +1,5 @@
 'use strict';
+var Promise = require('bluebird');
 var sinon = require('sinon');
 
 var Utilizations = require(
@@ -76,67 +77,84 @@ suite('Utilizations collection', function() {
         assert.equal(sync.args[1][0], 'create');
       });
     });
-    test('destroys removed models', function() {
-      var u = new Utilizations([
-        { id: 55 },
-        { id: 56 },
-        { id: 57 },
-        { id: 58 },
-        { id: 59 },
-        { id: 60 }
-      ]);
 
-      // Removed as a single ID-specifying object literal
-      u.remove({ id: 55 });
-      // Removed as an array of ID-specifying object literals
-      u.remove([{ id: 56 }, { id: 57 }]);
-      // Removed as a single model instance
-      u.remove(u.get(58));
-      // Removed as an array of model instances
-      u.remove([u.get(59), u.get(60)]);
+    suite('removal', function() {
+      test('destroys removed models', function() {
+        var u = new Utilizations([
+          { id: 55 },
+          { id: 56 },
+          { id: 57 },
+          { id: 58 },
+          { id: 59 },
+          { id: 60 }
+        ]);
 
-      return u.save().then(function() {
-        assert.sameMembers(syncReport().delete, [55, 56, 57, 58, 59, 60]);
-      });
-    });
-    test('does not reference previously-destroyed models in subsequent invocations', function() {
-      var u = new Utilizations([
-        { id: 81 },
-        { id: 82 },
-        { id: 83 },
-        { id: 84 },
-        { id: 85 },
-        { id: 86 },
-        { id: 87 }
-      ]);
+        // Removed as a single ID-specifying object literal
+        u.remove({ id: 55 });
+        // Removed as an array of ID-specifying object literals
+        u.remove([{ id: 56 }, { id: 57 }]);
+        // Removed as a single model instance
+        u.remove(u.get(58));
+        // Removed as an array of model instances
+        u.remove([u.get(59), u.get(60)]);
 
-      u.remove({ id: 81 });
-      u.remove({ id: 84 });
-      u.remove({ id: 87 });
-
-      return u.save().then(function() {
-          u.remove({ id: 82 });
-          return u.save();
-        }).then(function() {
-          var deleted = syncReport().delete;
-          assert.equal(deleted.length, 4);
-          assert.sameMembers(deleted.slice(0, 3), [81, 84, 87]);
-          assert.equal(deleted[3], 82);
+        return u.save().then(function() {
+          assert.sameMembers(syncReport().delete, [55, 56, 57, 58, 59, 60]);
         });
-    });
-    test('updates models that have been removed then re-inserted', function() {
-      var u = new Utilizations([{ id: 23 }]);
-      var model = u.get(23);
-      var report;
+      });
+      test('updates models that have been removed then re-inserted', function() {
+        var u = new Utilizations([{ id: 23 }]);
+        var model = u.get(23);
+        var report;
 
-      u.remove(model);
-      u.add(model);
-      model.set('id', 45);
+        u.remove(model);
+        u.add(model);
+        model.set('id', 45);
 
-      return u.save().then(function() {
-        report = syncReport();
-        assert.sameMembers(report.update, [45]);
-        assert.notOk(report.delete);
+        return u.save().then(function() {
+          report = syncReport();
+          assert.sameMembers(report.update, [45]);
+          assert.notOk(report.delete);
+        });
+      });
+      test('does not reference previously-destroyed models in subsequent invocations', function() {
+        var u = new Utilizations([
+          { id: 81 },
+          { id: 82 },
+          { id: 83 },
+          { id: 84 },
+          { id: 85 },
+          { id: 86 },
+          { id: 87 }
+        ]);
+
+        u.remove({ id: 81 });
+        u.remove({ id: 84 });
+        u.remove({ id: 87 });
+
+        return u.save().then(function() {
+            u.remove({ id: 82 });
+            return u.save();
+          }).then(function() {
+            var deleted = syncReport().delete;
+            assert.equal(deleted.length, 4);
+            assert.sameMembers(deleted.slice(0, 3), [81, 84, 87]);
+            assert.equal(deleted[3], 82);
+          });
+      });
+
+      test('does not reference models that are in the process of being destroyed in subsequent invocations', function() {
+        var u = new Utilizations([
+          { id: 1 },
+          { id: 2 },
+          { id: 3 }
+        ]);
+
+        u.remove({ id: 2 });
+
+        return Promise.all([u.save(), u.save()]).then(function() {
+          assert.deepEqual(syncReport().delete, [2]);
+        });
       });
     });
 

@@ -50,7 +50,6 @@ module.exports = Collection.extend({
    */
   save: function() {
     var destroyRequests = [];
-    var removed = this._removed;
 
     this._removed.forEach(function(model) {
       // Account for possibility that the model may have been re-inserted into
@@ -59,11 +58,10 @@ module.exports = Collection.extend({
         return;
       }
 
-      destroyRequests.push(model.destroy().then(function() {
-          var index = removed.indexOf(model);
-          removed.splice(index, 1);
-        }.bind(this)));
+      destroyRequests.push(model.destroy());
     }, this);
+
+    this._removed.length = 0;
 
     return Promise.all(destroyRequests).then(function() {
       var changing = this.filter(function(model) {

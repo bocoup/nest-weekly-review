@@ -10,6 +10,36 @@ var superDestroy = Model.prototype.destroy;
 module.exports = Model.extend({
   ajaxConfig: setBearer,
 
+  constructor: function() {
+    Model.apply(this, arguments);
+
+    this.on('change', function() {
+      this.set('_isDirty', true, { silent: true });
+    });
+    this.on('sync', function() {
+      this.set('_isDirty', false, { silent: true });
+    });
+  },
+
+  session: {
+    _isDirty: 'bool'
+  },
+
+  /**
+   * Determine if the model has changes that need to be propagated to the
+   * server.
+   *
+   * This method tracks "dirtiness" via a session attribute that is modified in
+   * response to `change` and `sync` events. Because `change` events may be
+   * suppressed via the `silent` flag, the method falls back to Ampersand
+   * State's `hasChanged` method.
+   *
+   * @returns {boolean}
+   */
+  isDirty: function() {
+    return this.get('_isDirty') || !!this.hasChanged();
+  },
+
   destroy: function(options) {
     var onSuccess = options && options.success;
     var onError = options && options.error;

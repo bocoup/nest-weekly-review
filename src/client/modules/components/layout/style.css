@@ -8,3 +8,16 @@
 .app-header h1 {
   margin: 0;
 }
+
+main {
+  opacity: 1;
+  -webkit-transition: opacity 0.2s;
+  -moz-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+}
+main.is-loading {
+  opacity: 0.2;
+  -webkit-transition: opacity 2s;
+  -moz-transition: opacity 2s;
+  transition: opacity 2s;
+}

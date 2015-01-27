@@ -7,7 +7,7 @@
   <wr-notification-list />
 </header>
 
-<main>
+<main class="{{#if isLoading}}is-loading{{/if}}">
   {{#if route === 'phaseList' }}
   <wr-phase-table
     firstWeek="{{firstWeek}}"

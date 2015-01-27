@@ -26,8 +26,9 @@ module.exports = Router.extend({
     this.positions = new Positions();
     this.utilizationTypes = new UtilizationTypes();
 
-    this.route(/date\/(\d{4})-(\d\d)-(\d\d)\//i, 'phaseList');
-    this.route(/date\/(\d{4})-(\d\d)-(\d\d)\/phase\/(\d+)\//i, 'review');
+    this.asyncRoute(/date\/(\d{4})-(\d\d)-(\d\d)\//i, 'phaseList');
+    this.asyncRoute(/date\/(\d{4})-(\d\d)-(\d\d)\/phase\/(\d+)\//i, 'review');
+    this.asyncRoute('', 'index');
     this.route('logout/', 'logout');
 
     if (!token.get()) {
@@ -80,28 +81,55 @@ module.exports = Router.extend({
     return Router.prototype.execute.apply(this, arguments);
   },
 
-  routes: {
-    '': 'index'
+  /**
+   * Attach a route for some asynchronous functionality.
+   *
+   * @param {string|RegExp} pattern URL pattern that should activate this route
+   * @param {string} name identifier to use when triggering `route` events
+   * @param {function} [callback] the route handler. If unspecified, the method
+   *                              defined on the `name` property of the current
+   *                              router will be used.
+   */
+  asyncRoute: function(pattern, name, callback) {
+    var wrappedCallback;
+
+    if (!callback) {
+      callback = this[name];
+    }
+
+    wrappedCallback = function() {
+      var clearLoading = this.layout.set.bind(this.layout, 'isLoading', false);
+
+      this.layout.set('isLoading', true);
+
+      callback.apply(this, arguments)
+        .then(clearLoading, clearLoading);
+    }.bind(this);
+
+    this.route(pattern, name, wrappedCallback);
   },
 
   index: function() {
     var now = new Date();
-    this.phaseList(now.getFullYear(), now.getMonth() + 1, now.getDate());
+    return this.phaseList(
+      now.getFullYear(), now.getMonth() + 1, now.getDate()
+    );
   },
 
   phaseList: function(year, month, day) {
     var numWeeks = 5;
     var sunday = weekNumber.sundayOf(new Date(year, month - 1, day));
 
-    this.layout.set('route', 'phaseList');
+    return this.getPhases(sunday, numWeeks)
+      .then(function() {
+        this.layout.set('route', 'phaseList');
 
-    this.getPhases(sunday, numWeeks);
-
-    this.layout.set({
-      firstWeek: sunday,
-      numWeeks: numWeeks,
-      phases: this.phases
-    });
+        this.layout.set({
+          firstWeek: sunday,
+          numWeeks: numWeeks,
+          phases: this.phases
+        });
+      }.bind(this));
   },
 
   /**
@@ -200,29 +228,28 @@ module.exports = Router.extend({
   review: function(year, month, day, phaseId) {
     var date = new Date(year, month - 1, day);
 
-    this.layout.set('route', 'review');
+    return this.fetchReviewData({
+        phaseId: parseInt(phaseId, 10),
+        date: date
+      }).then(function(models) {
+          var review = models.phase.reviewAt(date) || new Review({
+            week_number: models.phase.weekOffset(date),
+            project_phase_id: models.phase.get('id')
+          });
 
-    this.fetchReviewData({
-      phaseId: parseInt(phaseId, 10),
-      date: date
-    }).then(function(models) {
-        var review = models.phase.reviewAt(date) || new Review({
-          week_number: models.phase.weekOffset(date),
-          project_phase_id: models.phase.get('id')
-        });
-
-        this.layout.set({
-          activePhases: models.phases,
-          date: date,
-          phase: models.phase,
-          phaselessProjects: this.phaselessProjects,
-          positions: this.positions,
-          review: review,
-          utilizationTypes: this.utilizationTypes
-        });
-      }.bind(this), function(err) {
-        this.layout.addError(err);
-      }.bind(this));
+          this.layout.set({
+            route: 'review',
+            activePhases: models.phases,
+            date: date,
+            phase: models.phase,
+            phaselessProjects: this.phaselessProjects,
+            positions: this.positions,
+            review: review,
+            utilizationTypes: this.utilizationTypes
+          });
+        }.bind(this), function(err) {
+          this.layout.addError(err);
+        }.bind(this));
   },
 
   logout: function() {

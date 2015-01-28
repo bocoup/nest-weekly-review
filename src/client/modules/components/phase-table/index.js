@@ -7,8 +7,11 @@ module.exports = Component.extend({
   template: require('./template.html'),
   css: require('./style.css'),
   data: {
-    firstWeek: new Date(),
-    numWeeks: 0
+    phaseUrl: function(offset) {
+      var date = new Date(this.get('firstWeek').getTime() + offset * WEEK_MS);
+      var sunday = weekNumber.sundayOf(date);
+      return '/date/' + sunday.toISOString().replace(/T.*$/, '') + '/';
+    }
   },
   components: {
     'wr-phase-table-row': require('../phase-table-row/index')
@@ -16,19 +19,7 @@ module.exports = Component.extend({
   partials: {
     date: require('../../partials/date.html')
   },
-  phaseUrl: function(date) {
-    var sunday = weekNumber.sundayOf(date);
-    return '/date/' + sunday.toISOString().replace(/T.*$/, '') + '/';
-  },
   computed: {
-    nextWeek: function() {
-      var date = new Date(this.get('firstWeek').getTime() + WEEK_MS);
-      return this.phaseUrl(date);
-    },
-    prevWeek: function() {
-      var date = new Date(this.get('firstWeek').getTime() - WEEK_MS);
-      return this.phaseUrl(date);
-    },
     visiblePhases: function() {
       var first = this.get('firstWeek');
       var num = this.get('numWeeks');
@@ -50,7 +41,6 @@ module.exports = Component.extend({
       var num = this.get('numWeeks');
       var weeks = [];
       var idx;
-
 
       for (idx = 0; idx < num; ++idx) {
         weeks.push(

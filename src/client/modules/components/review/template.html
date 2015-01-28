@@ -53,7 +53,7 @@
         {{#each weekDays}}
         <th scope="col">
           <span class="day-name">{{ name }}</span>
-          <span class="day-ordinal">({{ dayOrdinal }})</span>
+          <span class="day-ordinal">({{ asOrdinal(date.getDate()) }})</span>
         </th>
         {{/each}}
       </tr>

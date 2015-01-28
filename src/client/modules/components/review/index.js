@@ -17,6 +17,12 @@ module.exports = Component.extend({
     'wr-employee-row': require('../review-employee-row')
   },
 
+  data: {
+    asOrdinal: function(num) {
+      return num + ordinalSuffix(num);
+    }
+  },
+
   computed: {
     monday: function() {
       return new Date(this.get('date').getTime() + DAY_MS);
@@ -25,10 +31,9 @@ module.exports = Component.extend({
       var sunday = this.get('date').getTime();
 
       return DAY_NAMES.map(function(name, idx) {
-        var dayNum = new Date(sunday + (idx + 1) * DAY_MS).getDate();
         return {
           name: name,
-          dayOrdinal: dayNum + ordinalSuffix(dayNum)
+          date: new Date(sunday + (idx + 1) * DAY_MS)
         };
       });
     },

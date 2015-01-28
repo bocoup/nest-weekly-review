@@ -11,10 +11,10 @@
       {{#each weeks}}
       <td>
         {{#if @index === 0}}
-        <a href="{{prevWeek}}">Prev</a>
+        <a href="{{ phaseUrl(-1) }}">Prev</a>
         {{/if}}
         {{#if @index === weeks.length - 1}}
-        <a href="{{nextWeek}}">Next</a>
+        <a href="{{ phaseUrl(1) }}">Next</a>
         {{/if}}
       </td>
       {{/each}}

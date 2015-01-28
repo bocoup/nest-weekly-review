@@ -5,8 +5,25 @@
   max-width: 1024px;
 }
 
+.app-header {
+  margin-top: 0.3em;
+}
+
 .app-header h1 {
   margin: 0;
+  font-size: 1.4em;
+}
+
+.app-header h1 a {
+  text-decoration: none;
+}
+
+.log-out {
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  font-size: 1em;
 }
 
 main {

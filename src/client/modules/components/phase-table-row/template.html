@@ -19,10 +19,12 @@
   {{#each weeks}}
   <td class="phase-week{{#if isActive}} active{{/if}}{{#if review}} reviewed{{/if}}">
     {{#if isActive}}
-    <a href="{{ reviewUrl }}">Review</a>
-    <span class="review-marker">
-      <input type="checkbox" {{#if review}}checked{{/if}} disabled />
-    </span>
+    <a href="{{ reviewUrl }}"></a>
+    {{#if review}}
+    Reviewed!
+    {{else}}
+    Review
+    {{/if}}
     {{/if}}
   </td>
   {{/each}}

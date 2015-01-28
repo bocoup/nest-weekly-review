@@ -3,22 +3,22 @@
     <tr>
       <td></td>
       {{#each weeks}}
-      <td class="week-label">{{>date}}</td>
-      {{/each}}
-    </tr>
-    <tr>
-      <td></td>
-      {{#each weeks}}
       <td>
         {{#if @index === 0}}
-        <a href="{{ phaseUrl(-1) }}">Prev</a>
+        <a href="{{ phaseUrl(-1) }}">&lt; Previous Week</a>
         {{/if}}
         {{#if @index === weeks.length - 1}}
-        <a href="{{ phaseUrl(1) }}">Next</a>
+        <a href="{{ phaseUrl(1) }}">Next Week &gt;</a>
         {{/if}}
       </td>
       {{/each}}
-    </td>
+    </tr>
+    <tr class="labels">
+      <th></th>
+      {{#each weeks}}
+      <th class="week-label">{{>date}}</th>
+      {{/each}}
+    </tr>
   </thead>
   <tbody>
     {{#each visiblePhases:phaseIdx}}

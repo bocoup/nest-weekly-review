@@ -21,7 +21,7 @@
           "set": ".back .set"
         }
       },
-      "dayLabels": "thead .labels th:not(.bocouper)",
+      "dayLabels": "thead .labels th:not(:first-child)",
       "employee":  "tbody .name",
       "weekStart": ".week-info time",
       "notes": ".notes textarea",

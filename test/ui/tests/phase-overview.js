@@ -34,8 +34,15 @@ describe('phase overview', function() {
 
     it('displays the current week according to the local system time', function() {
       var today = new Date();
-      var prevSunday = new Date(today.getTime() - ONE_DAY * today.getDay());
-      var fiveWeeks = new Date(prevSunday.getTime() + ONE_DAY * 7 * 5);
+      var prevSunday, fiveWeeks;
+
+      today.setHours(0);
+      today.setMinutes(0);
+      today.setSeconds(0);
+      today.setMilliseconds(0);
+
+      prevSunday = new Date(today.getTime() - ONE_DAY * today.getDay());
+      fiveWeeks = new Date(prevSunday.getTime() + ONE_DAY * 7 * 5);
 
       assert.equal(
         query.after, prevSunday.toISOString().replace(/T.*/, '')

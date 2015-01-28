@@ -2,9 +2,36 @@
 var cookies = require('cookies-js');
 
 var TOKEN_NAME = 'weekly-review-token';
+var cookieStore, memoryStore, activeStore;
+
+cookieStore = {
+  get: function() {
+    return cookies.get(TOKEN_NAME);
+  },
+  set: function(value) {
+    cookies.set(TOKEN_NAME, value);
+  },
+  unset: function() {
+    cookies.expire(TOKEN_NAME);
+  }
+};
+
+memoryStore = {
+  get: function() {
+    return memoryStore._value;
+  },
+  set: function(value) {
+    memoryStore._value = value;
+  },
+  unset: function() {
+    memoryStore._value = null;
+  }
+};
+
+activeStore = cookies.enabled ? cookieStore : memoryStore;
 
 exports.get = function() {
-  var value = cookies.get(TOKEN_NAME);
+  var value = activeStore.get();
   var pairs;
 
   if (value) {
@@ -18,13 +45,11 @@ exports.get = function() {
 
     if (pair[0] === 'access_token') {
       value = pair[1];
-      cookies.set(TOKEN_NAME, pair[1]);
+      activeStore.set(pair[1]);
     }
   });
 
   return value || null;
 };
 
-exports.unset = function() {
-  cookies.expire(TOKEN_NAME);
-};
+exports.unset = activeStore.unset;

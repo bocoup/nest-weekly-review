@@ -12,11 +12,16 @@ module.exports = Component.extend({
   partials: {
     date: require('../../partials/date.html')
   },
-  reviewUrl: function(offset) {
+
+  sundayFromWeekOffset: function(offset) {
     var phase = this.get('phase');
-    var sunday = weekNumber.sundayOf(
+    return weekNumber.sundayOf(
       new Date(+phase.get('first_day') + offset * WEEK_MS)
     );
+  },
+  reviewUrl: function(offset) {
+    var phase = this.get('phase');
+    var sunday = this.sundayFromWeekOffset(offset);
 
     return '/date/' + sunday.toISOString().replace(/T.*$/, '') +
       '/phase/' + phase.get('id') + '/';
@@ -45,11 +50,20 @@ module.exports = Component.extend({
         weeks.push({
           isActive: isActive,
           review: review,
+          sunday: this.sundayFromWeekOffset(weekOffset),
           reviewUrl: this.reviewUrl(weekOffset)
         });
       }
 
       return weeks;
     }
+  },
+
+  handleWeekHover: function(isActive, phase, date) {
+    if (!isActive) {
+      return;
+    }
+
+    this.fire('brushPhase', phase, date);
   }
 });

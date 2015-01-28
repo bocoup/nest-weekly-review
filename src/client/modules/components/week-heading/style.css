@@ -1,0 +1,29 @@
+header {
+  width: 100%;
+}
+
+/* clear fix */
+header:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.phase-info {
+  float: right;
+  text-align: right;
+}
+
+h2, h3 {
+  margin: 0;
+}
+
+.time-boundary {
+  display: block;
+
+  font-size: 0.8em;
+}
+
+.phase-info h3 {
+  font-weight: normal;
+}

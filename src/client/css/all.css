@@ -13,7 +13,7 @@ html, body {
 body {
   background: #f5f5f5;
   background-image: url('img/stripe.png');
-  background-position-y: -4px;
+  background-position: 0 -4px;
   background-repeat: repeat-x;
   font-family: 'Open Sans', sans-serif;
 }

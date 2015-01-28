@@ -1,0 +1,45 @@
+<header class="week-info">
+  <div class="phase-info">
+    <h3 class="offering">
+      {{#if phase}}
+      {{ phase.project.name }}: {{ phase.name }}
+      {{else}}
+      &nbsp;
+      {{/if}}
+    </h2>
+
+    <span class="time-boundary">
+      {{#if phase.first_day}}
+      Starts: {{>fullDate phase.first_day}}
+      {{else}}
+      &nbsp;
+      {{/if}}
+    </span>
+
+    <span class="time-boundary">
+      {{#if phase.last_day}}
+      Ends: {{>fullDate phase.last_day}}
+      {{else}}
+      &nbsp;
+      {{/if}}
+     </span>
+  </div>
+
+  <div class="start">
+    <span class="label">
+    {{#if monday}}
+    Week starting
+    {{else}}
+    &nbsp;
+    {{/if}}
+    </span>
+
+    <h3 class="date">
+    {{#if monday}}
+      {{>fullDate monday}}
+    {{else}}
+      &nbsp;
+    {{/if}}
+    </h3>
+  </div>
+</header>

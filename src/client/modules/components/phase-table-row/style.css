@@ -1,11 +1,22 @@
-.phase-title {
-  margin: 0;
+.phase-label {
+  padding: 1em 0;
+}
+
+.project-name, .phase-name {
+  display: block;
+}
+
+.project-name {
+  font-size: 0.8em;
+}
+.phase-name {
+  font-size: 1em;
 }
 
 .phase-week {
   position: relative;
 
-  width: 15%;
+  width: 16%;
   border-width: 0;
 
   text-align: center;
@@ -24,10 +35,4 @@
   right: 0;
   bottom: 0;
   left: 0;
-}
-
-.time-boundary {
-  display: block;
-
-  font-size: 0.8em;
 }

@@ -1,27 +1,7 @@
-<header>
-  <div class="week-info">
-    <span class="starting">Week starting</span>
-
-    {{#with monday}}
-      <h2>{{>fullDate}}</h2>
-    {{/with}}
-  </div>
-
-  <div class="phase-info">
-    <h3 class="offering">{{ phase.project.name }}: {{ phase.name }}</h2>
-    <span class="time-boundary">
-      {{#with phase.first_day}}
-      Starts: {{>fullDate}}
-      {{/with}}
-    </span>
-
-    <span class="time-boundary">
-      {{#with phase.last_day}}
-      Ends: {{>fullDate}}
-      {{/with}}
-     </span>
-  </div>
-</header>
+<week-heading
+  date="{{date}}",
+  phase="{{phase}}"
+  />
 
 <div class="primary">
   <form on-submit="handleSubmit()">

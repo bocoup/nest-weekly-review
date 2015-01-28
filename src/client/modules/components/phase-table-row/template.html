@@ -1,23 +1,13 @@
 <tr>
   <td class="phase-label">
-    <h3 class="phase-title">
-      <span class="project-name">{{phase.project.name}}</span>
-      <span class="phase-name">{{phase.name}}</span>
-    </h3>
-    {{#with phase.first_day}}
-    <span class="time-boundary">
-      Starts: {{>date}}
-    </span>
-    {{/with}}
-
-    {{#with phase.last_day}}
-    <span class="time-boundary">
-      Ends: {{>date}}
-    </span>
-    {{/with}}
+    <span class="project-name">{{phase.project.name}}</span>
+    <span class="phase-name">{{phase.name}}</span>
   </td>
   {{#each weeks}}
-  <td class="phase-week{{#if isActive}} active{{/if}}{{#if review}} reviewed{{/if}}">
+  <td
+    class="phase-week{{#if isActive}} active{{/if}}{{#if review}} reviewed{{/if}}"
+    on-mouseenter="handleWeekHover(isActive, phase, sunday)"
+    >
     {{#if isActive}}
     <a href="{{ reviewUrl }}"></a>
     {{#if review}}

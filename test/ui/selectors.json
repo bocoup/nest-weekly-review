@@ -23,7 +23,7 @@
       },
       "dayLabels": "thead .labels th:not(:first-child)",
       "employee":  "tbody .name",
-      "weekStart": ".week-info time",
+      "weekStart": ".week-info .start time",
       "notes": ".notes textarea",
       "verifyBtns": ".btn-verify",
       "submit": ".submit .btn"

@@ -10,11 +10,9 @@ var DAY_NAMES = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
 module.exports = Component.extend({
   template: require('./template.html'),
   css: require('./style.css'),
-  partials: {
-    fullDate: require('../../partials/full-date.html')
-  },
   components: {
-    'wr-employee-row': require('../review-employee-row')
+    'wr-employee-row': require('../review-employee-row'),
+    'week-heading': require('../week-heading')
   },
 
   data: {

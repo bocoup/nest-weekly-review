@@ -1,3 +1,4 @@
+<week-heading />
 <table class="phase-table">
   <thead>
     <tr>
@@ -20,7 +21,7 @@
       {{/each}}
     </tr>
   </thead>
-  <tbody>
+  <tbody on-mouseleave="setWeekHeading(null, null)">
     {{#each visiblePhases:phaseIdx}}
       <wr-phase-table-row
         phase="{{visiblePhases[phaseIdx]}}"

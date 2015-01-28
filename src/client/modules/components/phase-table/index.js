@@ -14,11 +14,30 @@ module.exports = Component.extend({
     }
   },
   components: {
-    'wr-phase-table-row': require('../phase-table-row/index')
+    'wr-phase-table-row': require('../phase-table-row/index'),
+    'week-heading': require('../week-heading')
   },
   partials: {
     date: require('../../partials/date.html')
   },
+
+  onconstruct: function() {
+    this.on('wr-phase-table-row.brushPhase', this.setWeekHeading.bind(this));
+  },
+
+  setWeekHeading: function(phase, date) {
+    var heading = this.findComponent('week-heading');
+
+    if (!heading) {
+      return;
+    }
+
+    heading.set({
+      phase: phase,
+      date: date
+    });
+  },
+
   computed: {
     visiblePhases: function() {
       var first = this.get('firstWeek');

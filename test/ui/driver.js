@@ -48,9 +48,70 @@ function waitFor(conditionFn, options) {
     });
 }
 
-Driver.prototype._$ = function(path) {
-  var selector = buildSelector(path, selectors);
-  return this._cmd.findAllByCssSelector(selector);
+/**
+ * Select an element at a given path as described by the `selectors.json` file.
+ *
+ * @param {string|Array} path - As a string: a dot-separated set of keys in the
+ *                              `selectors.json` file for use in building a CSS
+ *                              selector. As an array, a combination of such
+ *                              dot-separated keys and integers, where integers
+ *                              will be used to limit the returned elements at
+ *                              the appropriate point in the selection
+ *                              operation.
+ *
+ * Examples:
+ *
+ *     driver._$('home.menu.tabs.links')
+ *
+ * Selects all "links" appearing within any tab on the home page's menu.
+ *
+ *     driver._$(['home.menu.tabs', 2, 'links'])
+ *
+ * Selects all "links" appearing within the third tab on the home page's menu.
+ */
+Driver.prototype._$ = function(path, context, pathContext) {
+  var selector;
+
+  context = context || this._cmd;
+
+  if (!Array.isArray(path)) {
+    selector = buildSelector(selectors, pathContext, path);
+
+    return context.findAllByCssSelector(selector);
+  }
+  var firstPart = path[0];
+  var index = path[1];
+  var rest = path.slice(2);
+
+  return this._$(firstPart, context, pathContext)
+    .then(function(els) {
+      var el;
+
+      if (!index) {
+        return els;
+      }
+
+      el = els[index];
+
+      if (pathContext) {
+        pathContext += '.' + firstPart;
+      } else {
+        pathContext = firstPart;
+      }
+
+      if (!el) {
+        throw new Error(
+          'Expected at least ' + (index + 1) + ' elements at region "' +
+          pathContext + '", but only found ' + els.length + '.'
+        );
+      }
+
+      if (!rest.length) {
+        return el;
+      }
+
+      return this._$(rest, el, pathContext);
+    }.bind(this));
 };
 
 Driver.prototype._selectOption = function(element, value) {
@@ -146,9 +207,9 @@ Driver.prototype.login = function() {
  *                            current phase table
  */
 Driver.prototype.viewWeek = function(phaseNumber, weekNumber) {
-  return this._$('phaseTable.week.link')
-    .then(function(weekLinks) {
-      return weekLinks[phaseNumber * 5 + weekNumber].click();
+  return this._$(['phaseTable.week', phaseNumber * 5 + weekNumber, 'link'])
+    .then(function(weekLink) {
+      return weekLink[0].click();
     }).then(function() {
       return this._waitForRegion('phaseWeek.employee');
     }.bind(this));

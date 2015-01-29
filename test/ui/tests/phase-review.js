@@ -15,7 +15,7 @@ describe('phase review', function() {
 
     return driver.get('/date/2014-12-21/')
       .then(function() {
-        return driver.viewWeek(0, 3);
+        return driver.viewWeek(1, 3);
       });
   });
 

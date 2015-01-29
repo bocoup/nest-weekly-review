@@ -2,7 +2,7 @@
 var Promise = require('bluebird');
 
 var selectors = require('./selectors.json');
-var lookup = require('./util/lookup');
+var buildSelector = require('./util/build-selector');
 var dayNames = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
 
 function Driver(options) {
@@ -48,8 +48,8 @@ function waitFor(conditionFn, options) {
     });
 }
 
-Driver.prototype._$ = function(region) {
-  var selector = lookup(region, selectors);
+Driver.prototype._$ = function(path) {
+  var selector = buildSelector(path, selectors);
   return this._cmd.findAllByCssSelector(selector);
 };
 
@@ -146,7 +146,7 @@ Driver.prototype.login = function() {
  *                            current phase table
  */
 Driver.prototype.viewWeek = function(phaseNumber, weekNumber) {
-  return this._$('index.phaseWeekLink')
+  return this._$('phaseTable.week.link')
     .then(function(weekLinks) {
       return weekLinks[phaseNumber * 5 + weekNumber].click();
     }).then(function() {
@@ -204,15 +204,15 @@ Driver.prototype.editUtilization = function(options) {
     .then(function(employeeOffset) {
       offset = employeeOffset * 5 + dayNumber;
 
-      return driver._$('phaseWeek.day');
+      return driver._$('phaseWeek.day.front');
     }).then(function(days) {
       return days[offset].click();
     }).then(function() {
-      return driver._$('phaseWeek.typeInput');
+      return driver._$('phaseWeek.day.typeInput');
     }).then(function(typeInputs) {
       return driver._selectOption(typeInputs[offset], options.type);
     }).then(function() {
-      return driver._$('phaseWeek.set');
+      return driver._$('phaseWeek.day.set');
     }).then(function(set) {
       return set[offset].click();
     });

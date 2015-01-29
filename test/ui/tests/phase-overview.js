@@ -51,12 +51,12 @@ describe('phase overview', function() {
         query.before, fiveWeeks.toISOString().replace(/T.*/, '')
       );
 
-      return driver.read('index.title')
+      return driver.read('title')
         .then(function(text) {
           assert.equal(text, 'Weekly Review', 'Application title visible');
         })
         .then(function() {
-          return driver.readAll('index.weekLabels');
+          return driver.readAll('phaseTable.weekLabels');
         })
         .then(function(labels) {
           var now = new Date();
@@ -78,7 +78,7 @@ describe('phase overview', function() {
     });
 
     it('displays the active phases at the given date', function() {
-      return driver.readAll('index.weekLabels')
+      return driver.readAll('phaseTable.weekLabels')
         .then(function(labels) {
           var match;
 

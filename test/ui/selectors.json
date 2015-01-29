@@ -1,23 +1,40 @@
 {
-  "index": {
-    "title": "h1",
-    "weekLabels": ".phase-table > thead .week-label",
-    "phaseWeekLink": ".phase-table .phase-week a"
+  "title": "h1",
+  "phaseTable": {
+    "_contents": {
+      "weekLabels": ".phase-table > thead .week-label",
+      "week": {
+        "_selector": ".phase-table .phase-week",
+        "_contents": {
+          "link": "a"
+        }
+      }
+    }
   },
   "phaseWeek": {
-    "day": ".week .day .front",
-    "dayLabels": ".week thead .labels th:not(.bocouper)",
-    "employee": ".week tbody .name",
-    "typeInput": ".week .day .back select:nth-child(1)",
-    "set": ".week .day .back .set",
-    "weekStart": ".week-info time",
-    "notes": ".notes textarea",
-    "verifyBtns": ".btn-verify",
-    "submit": ".submit .btn"
+    "_contents": {
+      "day": {
+        "_selector": ".day",
+        "_contents": {
+          "front": ".front",
+          "typeInput": ".back select:nth-child(1)",
+          "set": ".back .set"
+        }
+      },
+      "dayLabels": "thead .labels th:not(.bocouper)",
+      "employee":  "tbody .name",
+      "weekStart": ".week-info time",
+      "notes": ".notes textarea",
+      "verifyBtns": ".btn-verify",
+      "submit": ".submit .btn"
+    }
   },
   "notifications": {
-    "item": ".notification-list .ntfn-item",
-    "error": ".notification-list .ntfn-item.error"
+    "_selector": ".notification-list",
+    "_contents": {
+      "item": ".ntfn-item",
+      "error": ".ntfn-item.error"
+    }
   },
   "session": {
     "loginButton": ".login-prompt .login-button",

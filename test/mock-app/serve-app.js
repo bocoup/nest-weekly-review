@@ -11,6 +11,7 @@ var providersSrc = 'module.exports = ' +
 
 module.exports = function(req, res) {
   var toInject = [];
+  var sourceStream;
 
   if (process.env.WR_BYPASS_AUTH) {
     toInject.push({
@@ -19,5 +20,9 @@ module.exports = function(req, res) {
     });
   }
 
-  build(toInject).pipe(res);
+  sourceStream = build(toInject);
+  sourceStream.on('error', function(err) {
+    res.end('alert("' + err.message + '");');
+  });
+  sourceStream.pipe(res);
 };

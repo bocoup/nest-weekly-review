@@ -1,8 +1,10 @@
 'use strict';
 var Promise = require('bluebird');
 
-var selectors = require('./selectors.json');
-var buildSelector = require('./util/build-selector');
+var selectors = require('../selectors.json');
+var buildSelector = require('./build-selector');
+var readAll = require('./read-all');
+var waitFor = require('./wait-for');
 var dayNames = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
 
 function Driver(options) {
@@ -11,42 +13,6 @@ function Driver(options) {
 }
 
 module.exports = Driver;
-
-function readAll(els) {
-  return Promise.all(els.map(function(el) {
-    return el.getVisibleText();
-  }));
-}
-
-function waitFor(conditionFn, options) {
-  var start = new Date().getTime();
-  var timeout, errorMsg;
-
-  if (!options) {
-    options = {};
-  }
-
-  timeout = options.timeout || 1000;
-  errorMsg = options.errorMsg || 'Timeout';
-
-  return conditionFn()
-    .then(function(result) {
-      var delay, remaining;
-
-      if (result) {
-        return;
-      }
-
-      delay = new Date().getTime() - start;
-      remaining = timeout - delay;
-
-      if (delay < 0) {
-        throw new Error(errorMsg);
-      }
-
-      return waitFor(conditionFn, remaining);
-    });
-}
 
 /**
  * Select an element at a given path as described by the `selectors.json` file.

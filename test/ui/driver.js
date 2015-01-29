@@ -199,6 +199,26 @@ Driver.prototype.login = function() {
 };
 
 /**
+ * Give focus to a week in the phase table.
+ *
+ * @param {number} phaseNumber The zero-indexed offset of the phase in the
+ *                             current phase table
+ * @param {number} weekNumber The zero-indexed offset of the week in the
+ *                            current phase table
+ */
+Driver.prototype.brushWeek = function(phaseNumber, weekNumber) {
+  var driver= this;
+  return this._cmd.findByCssSelector('body')
+    .then(function(body) {
+      return driver._cmd.moveMouseTo(body, 0, 0);
+    }).then(function() {
+      return driver._$(['phaseTable.week', phaseNumber * 5 + weekNumber]);
+    }).then(function(weekEl) {
+      return driver._cmd.moveMouseTo(weekEl);
+    });
+};
+
+/**
  * Navigate from the "overview" page to a specific "week review" page.
  *
  * @param {number} phaseNumber The zero-indexed offset of the phase in the

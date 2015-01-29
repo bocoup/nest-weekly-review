@@ -106,6 +106,22 @@ describe('phase overview', function() {
           assert(match, 'Has a date string in the expected location');
           assert.equal(match[1], 1);
           assert.equal(match[2], 18);
+          return driver.brushWeek(0, 2);
+        }).then(function() {
+          return driver.read('phaseWeekOverview.weekStart');
+        }).then(function(weekStart) {
+          var match = datePattern.exec(weekStart);
+          assert(match, 'Displays a date for the week receiving focus');
+          assert.equal(match[1], 1);
+          assert.equal(match[2], 5);
+          return driver.brushWeek(1, 3);
+        }).then(function() {
+          return driver.read('phaseWeekOverview.weekStart');
+        }).then(function(weekStart) {
+          var match = datePattern.exec(weekStart);
+          assert(match, 'Displays a date for the week receiving focus');
+          assert.equal(match[1], 1);
+          assert.equal(match[2], 12);
         });
     });
   });

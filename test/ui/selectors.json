@@ -11,6 +11,12 @@
       }
     }
   },
+  "phaseWeekOverview": {
+    "_selector": ".week-info",
+    "_contents": {
+      "weekStart": ".start time"
+    }
+  },
   "phaseWeek": {
     "_contents": {
       "day": {

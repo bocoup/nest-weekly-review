@@ -5,7 +5,7 @@
   </td>
   {{#each weeks}}
   <td
-    class="phase-week{{#if isActive}} active{{/if}}{{#if review}} reviewed{{/if}}"
+    class="phase-week {{#if isActive}} active{{/if}} {{#if review}} reviewed{{/if}} {{#if isFirst}} first{{/if}}{{#if isLast}} last{{/if}}"
     on-mouseenter="handleWeekHover(isActive, phase, sunday)"
     >
     {{#if isActive}}

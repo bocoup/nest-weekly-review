@@ -21,12 +21,29 @@
 
   text-align: center;
   vertical-align: middle;
+  border-style: solid;
+  border-color: #888;
 }
 .phase-week.active {
-  background-color: #aaa;
+  border-top-width: 2px;
+  border-bottom-width: 2px;
+}
+.phase-week.active:not(.last) {
+  border-right-width: 1px;
+  border-right-style: dashed;
 }
 .phase-week.reviewed {
   background-color: #40B383;
+}
+.phase-week.active.first {
+  border-left-width: 2px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.phase-week.active.last {
+  border-right-width: 2px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .phase-week a {

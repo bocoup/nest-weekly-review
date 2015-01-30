@@ -35,10 +35,14 @@ Components may communicate with their parents by emitting events.
 
 ### Tests
 
-Unit tests, linting checks and style checks can be run with the following
-command:
+Unit tests, linting checks and style checks can be run with one of the
+following commands (selected according to the development environment):
 
+    # Local development
     $ npm test
+
+    # Vagrant-assisted development
+    $ vagrant exec test
 
 The UI tests have additional requirements on
 [Java](http://www.oracle.com/technetwork/java/index.html) and
@@ -57,7 +61,6 @@ this, remove the `/test/ui/fixtures` directory and run the tests with the
     # (first, ensure the API is available at http://api.loc)
     $ rm -rf test/ui/fixtures
     $ REPLAY=record npm run test-ui
-
 
 The `test/` directory is dedicated to this application's automated tests and
 testing infrastructure. Unit tests are used to express expectations of

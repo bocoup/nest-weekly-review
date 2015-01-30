@@ -11,9 +11,6 @@
   args:
     chdir: "{{ app_base_path }}.tmp"
 
-- name: log file exists
-  file: path={{log_file}} state=touch owner={{app_user}} group={{app_group}}
-
 - name: current production build is removed
   command: rm -rf {{app_base_path}}
 

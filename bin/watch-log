@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+tail -F /var/log/weekly-review.log

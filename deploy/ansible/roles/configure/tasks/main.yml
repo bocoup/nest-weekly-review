@@ -2,6 +2,9 @@
 - name: hostname is set
   hostname: name={{hostname}}
 
+- name: log file exists
+  file: path={{log_file}} state=touch owner={{app_user}} group={{app_group}}
+
 - name: /etc/hosts has loopback references to our domains
   lineinfile: "dest=/etc/hosts line='127.0.0.1 {{hostname}} {{app_fqdn}}'"
 

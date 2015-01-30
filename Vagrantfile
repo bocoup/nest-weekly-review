@@ -12,4 +12,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.inventory_path = "deploy/ansible/inventory/development"
     ansible.playbook = "deploy/ansible/provision.yml"
   end
+
+  config.exec.commands %w{weekly-review}, prepend: 'sudo service'
+  config.exec.commands 'watch-log', prepend: 'sudo', env: { PATH: '$PATH:/vagrant/bin' }
+  config.exec.commands %w[test run], prepend: 'npm'
 end

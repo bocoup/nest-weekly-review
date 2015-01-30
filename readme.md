@@ -30,6 +30,7 @@ Run:
   - Linux: `apt-get/yum install ansible`
 - VirtualBox ([download](https://www.virtualbox.org/))
 - Vagrant ([download](http://www.vagrantup.com/downloads.html))
+- Vagrant "exec" plugin (all platforms): `vagrant plugin install vagrant-exec`
 
 ### Running (production)
 
@@ -78,9 +79,8 @@ from the `deploy/ansible/` directory:
 
     $ ansible-playbook -i inventory/production provision.yml
 
-Future application-level changes that do not require changes to the system
-environment can be deployed with the streamlined "deploy" command described
-below.
+This command only needs to be run when initially configuring a new environment
+or when making changes to the application that modify system-wide settings.
 
 During deployment, code is sourced from the upstream git repo. Execute the
 following command from the `deploy/ansible/` directory:

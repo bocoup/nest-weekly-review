@@ -9,4 +9,3 @@
     - configure
     - nginx
     - services
-- include: deploy.yml

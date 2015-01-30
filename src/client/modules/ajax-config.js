@@ -1,7 +1,7 @@
 /**
- * @file: A function for configuring the behavior of AJAX requests from
- *        network-enabled subclasses of ampersand-state (i.e. ampersand-model
- *        and ampersand-rest-collection)
+ * @file A function for configuring the behavior of AJAX requests from
+ *       network-enabled subclasses of ampersand-state (i.e. ampersand-model
+ *       and ampersand-rest-collection)
  */
 'use strict';
 

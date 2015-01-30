@@ -49,7 +49,7 @@ module.exports = BaseModel.extend({
    * Determine if another utilization model (or collection of properties)
    * describes the same utilization type as this one.
    *
-   * @param {Utilization|object} other
+   * @param {Utilization|Object} other
    *
    * @returns {boolean}
    */
@@ -74,7 +74,7 @@ module.exports = BaseModel.extend({
    * description of `Utilization#matches` for more on utilization matching).
    * Initialze the new model with any additional attributes.
    *
-   * @param {object} [attrs] - Additional attributes to set on the new model
+   * @param {Object} [attrs] - Additional attributes to set on the new model
    *
    * @returns {Utilization}
    */

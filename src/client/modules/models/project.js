@@ -39,7 +39,7 @@ module.exports = Model.extend({
    * not include employee membership information. In cases where that is
    * required, a dedicated request must be made.
    *
-   * @param {object} [options] Behavior modifiers exposed by
+   * @param {Object} [options] Behavior modifiers exposed by
    *                           `Collection#fetch`.
    */
   fetchPhases: function(options) {

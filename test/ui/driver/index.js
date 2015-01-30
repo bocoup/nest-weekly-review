@@ -232,7 +232,7 @@ Driver.prototype._getEmployeeOffset = function(name) {
  * Change a utilization for a given day. This method assumes the driver is
  * currently viewing a "week review" page.
  *
- * @param {object} options
+ * @param {Object} options
  * @param {string} options.name the full name of the employee whose utilization
  *                              should be modified
  * @param {string} options.day  the name of the weekday to modify

@@ -21,7 +21,7 @@ module.exports = Collection.extend({
    * Retrieve phase data for a specific project.
    *
    * @param {number} projectId
-   * @param {object} [options] Behavior modifiers exposed by
+   * @param {Object} [options] Behavior modifiers exposed by
    *                           `Collection#fetch`.
    */
   fetchByProject: function(projectId, options) {

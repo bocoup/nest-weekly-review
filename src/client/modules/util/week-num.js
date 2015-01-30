@@ -9,7 +9,7 @@ var WEEK_MS = 7 * DAY_MS;
  *
  * @param {Date} date
  *
- * @returns {object} Object with numeric `week` and `year` properties
+ * @returns {Object} Object with numeric `week` and `year` properties
  *                   describing the given date
  */
 exports.fromDate = function(date) {

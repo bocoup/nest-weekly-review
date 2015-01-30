@@ -15,11 +15,11 @@
  *     assert(buildSelector(obj, 'main.heading') === '#content h1');
  *     assert(buildSelector(obj, 'main', 'heading') === 'h1');
  *
- * @param {object} selectors
+ * @param {Object} selectors
  * @param {string} [context]
  * @param {string} path
  *
- * @returns {String} CSS selector at the given path
+ * @returns {string} CSS selector at the given path
  */
 module.exports = function(selectors, context, path) {
   var value = selectors;

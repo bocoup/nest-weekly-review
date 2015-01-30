@@ -17,7 +17,7 @@ var pollHttp = require('./poll-http');
  *   erroneously created in some prior test run.
  *
  * @param {number} port
- * @param {function} startFn A function that starts a server process on the
+ * @param {Function} startFn A function that starts a server process on the
  *                           supplied port. This function should return a
  *                           `kill` callback function that kills the server.
  *

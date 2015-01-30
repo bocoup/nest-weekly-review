@@ -8,7 +8,7 @@ var spawn = require('child_process').spawn;
  *
  * @param {string} packageFile - path to the `package.json` file
  * @param {string} name - script to run
- * @param {object} [options] - options forwarded to `child_process.spawn`
+ * @param {Object} [options] - options forwarded to `child_process.spawn`
  *
  * @returns {process} - the spawned child process
  */

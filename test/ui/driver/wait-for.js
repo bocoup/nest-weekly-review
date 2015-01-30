@@ -13,7 +13,7 @@
  *                               When the Promise is fulfilled, the Promise
  *                               returned by this function will also be
  *                               fulfilled.
- * @param {object} [options]
+ * @param {Object} [options]
  * @param {number} [options.timeout] the amount of time to wait before
  *                                   considering the polling operation "failed"
  *                                   and rejecting the returned Promise

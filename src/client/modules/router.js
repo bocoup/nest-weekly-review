@@ -86,7 +86,7 @@ module.exports = Router.extend({
    *
    * @param {string|RegExp} pattern URL pattern that should activate this route
    * @param {string} name identifier to use when triggering `route` events
-   * @param {function} [callback] the route handler. If unspecified, the method
+   * @param {Function} [callback] the route handler. If unspecified, the method
    *                              defined on the `name` property of the current
    *                              router will be used.
    */
@@ -210,7 +210,7 @@ module.exports = Router.extend({
   /**
    * Retrieve all the information necessary to render the "review" page.
    *
-   * @param {object} opts
+   * @param {Object} opts
    * @param {number} opts.phaseId
    * @param {Date} opts.date
    */

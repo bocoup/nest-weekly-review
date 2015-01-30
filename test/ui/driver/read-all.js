@@ -4,7 +4,7 @@ var Promise = require('bluebird');
 /**
  * Get the visible text in one or more LeadFoot Element instances.
  *
- * @param {Array<Leadfoot.Element>}
+ * @param {Array<Leadfoot.Element>} els
  *
  * @returns {Promise} Eventual Array of strings
  */

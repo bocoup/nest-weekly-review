@@ -59,25 +59,14 @@ server:
 
 - `WR_API` - the "base" URL the client should use to make dynamic requests for
   data. By default, the value `http://api.bocoup.com` will be used, but this
-  may be set to a staging server, a server with cached responses (see [the
-  "Mock API Server" section](#mock-api-server) below) or a local installation
-  of the Nest API server.
+  may be set to a staging server or a local installation of the Nest API
+  server.
 - `WR_BYPASS_AUTH` - when set to any value, the application will
   self-authorize. This only makes sense in contexts where `WR_API` references a
   permissive server instance (i.e. a local installation of the API).
 
 The default and current values of all recognized variables are printed to the
 console each time the application is initialized.
-
-### Mock API Server
-
-A mock API server is available for testing. To run it, use the following
-command:
-
-    $ npm run start-api
-
-This server also honors the `NODE_PORT` environment variable. Defaults to
-`4000`.
 
 ### Tests
 

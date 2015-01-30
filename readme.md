@@ -9,6 +9,9 @@ dependencies on your **local** machine or use a **virtual machine** (via
 [Vagrant](http://vagrantup.com)) to run the application in a sandboxed
 environment. Instructions for each are provided below.
 
+For practical details on application architectural, testing strategy, and build
+optimization, please see the `contributing.md` file.
+
 ### Installation
 
 - [Node.js](http://nodejs.org)
@@ -67,37 +70,3 @@ server:
 
 The default and current values of all recognized variables are printed to the
 console each time the application is initialized.
-
-### Tests
-
-Unit tests, linting checks and style checks can be run with the following
-command:
-
-    $ npm test
-
-The UI tests have additional requirements on
-[Java](http://www.oracle.com/technetwork/java/index.html) and
-[Firefox](http://firefox.com). Once those are installed, the tests can be run
-with the following command:
-
-    $ npm run test-ui
-
-The UI tests run against API fixture data to promote reproducibility and
-facilitate offline development. If a change to the application or the tests
-effects the external requests made during the test runs, the fixture data will
-have to be re-recorded from a locally running installation of the API. To do
-this, remove the `/test/ui/fixtures` directory and run the tests with the
-`REPLAY` environmental variable set to `record`. In \*nix environments:
-
-    # (first, ensure the API is available at http://api.loc)
-    $ rm -rf test/ui/fixtures
-    $ REPLAY=record npm run test-ui
-
-### Building for Production
-
-The application can be optimized into a single file with the following command:
-
-    $ npm run build
-
-The location of the Nest API is configurable at build time via the `WR_API`
-environmental variable--that may be set to any arbitrary URL.

@@ -46,6 +46,9 @@ exports.get = function() {
     if (pair[0] === 'access_token') {
       value = pair[1];
       activeStore.set(pair[1]);
+
+      // Hide the token from the URL now.
+      history.replaceState('', {}, location.pathname);
     }
   });
 

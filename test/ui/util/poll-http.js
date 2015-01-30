@@ -2,7 +2,7 @@
 var http = require('http');
 var Promise = require('bluebird');
 
-var retryCount = 5;
+var retryCount = 10;
 var retryPeriod = 300;
 
 function isRunning(port) {

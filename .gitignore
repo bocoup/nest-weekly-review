@@ -1,4 +1,3 @@
 /node_modules/
 /.vagrant/
-/config/secrets/
 /app-production.js

@@ -6,7 +6,6 @@
   "main": "src/server/index.js",
   "scripts": {
     "build": "node build/build.js > app-production.js",
-    "get-secrets": "nest get-secrets --prompt",
     "lint": "jshint src test",
     "start": "node .",
     "start-dev": "node test/mock-app",
@@ -15,9 +14,7 @@
     "test-unit": "mocha --require test/unit/setup.js --ui tdd --recursive test/unit/tests",
     "test-ui": "mocha --ui bdd test/ui/setup test/ui/tests",
     "vagrant-restart-server": "vagrant ssh -c 'sudo service weekly-review restart'",
-    "vagrant-watch-log": "vagrant ssh -c 'sudo tail -F /var/log/weekly-review.log'",
-    "provision": "ansible-playbook -i deploy/ansible/inventory/production deploy/ansible/provision.yml",
-    "deploy": "ansible-playbook -i deploy/ansible/inventory/production deploy/ansible/deploy.yml"
+    "vagrant-watch-log": "vagrant ssh -c 'sudo tail -F /var/log/weekly-review.log'"
   },
   "devDependencies": {
     "bluebird": "^2.5.3",
@@ -30,7 +27,6 @@
     "jscs-jsdoc": "^0.4.4",
     "jshint": "^2.5.10",
     "leadfoot": "^1.2.1",
-    "nest": "git+https://6f278b7cbc5d8c3ba8961945c677a7d1f53e2901:x-oauth-basic@github.com/bocoup/nest-cli.git",
     "path-to-regexp": "^1.0.2",
     "replay": "^1.12.0",
     "selenium-binaries": "^0.2.0",

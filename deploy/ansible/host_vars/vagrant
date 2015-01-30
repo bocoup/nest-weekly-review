@@ -1,7 +1,7 @@
 ---
 env: development
 hostname: weekly-review-vagrant
-app_base_path: /vagrant/
+app_base_path: /vagrant
 app_fqdn: 192.168.33.31
 npm_run_script: start-dev
 ansible_ssh_user: vagrant

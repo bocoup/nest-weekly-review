@@ -6,3 +6,8 @@
   sudo: yes
   roles:
     - deploy
+  vars_prompt:
+    - name: commit
+      prompt: git branch to deploy
+      default: master
+      private: no

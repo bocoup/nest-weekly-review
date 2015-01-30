@@ -70,3 +70,19 @@ server:
 
 The default and current values of all recognized variables are printed to the
 console each time the application is initialized.
+
+### Deployment
+
+To provision the production server environment, execute the following command
+from the `deploy/ansible/` directory:
+
+    $ ansible-playbook -i inventory/production provision.yml
+
+Future application-level changes that do not require changes to the system
+environment can be deployed with the streamlined "deploy" command described
+below.
+
+During deployment, code is sourced from the upstream git repo. Execute the
+following command from the `deploy/ansible/` directory:
+
+    $ ansible-playbook -i inventory/production deploy.yml

@@ -9,3 +9,4 @@
     - configure
     - nginx
     - services
+    - { role: development, when: "env == 'development'" }

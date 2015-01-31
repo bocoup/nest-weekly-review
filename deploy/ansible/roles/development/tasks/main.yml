@@ -1,0 +1,79 @@
+---
+- name: java is installed (for UI testing during development)
+  apt: name=openjdk-7-jre state=present
+  when: env == 'development'
+
+# By default, Selenium uses a blocking random numbers source (`/dev/random`)
+# and hangs when the kernel has no entropy. Virtualized Linux servers (such as
+# the one provided by VirtualBox) historically have had a low amount of
+# entropy. The practical effect in this case is the Selenium server would take
+# a prohibitive amount of time to complete initialization, and the project's UI
+# tests would time out well before this.
+#
+# By configuring Java to use `/dev/urandom` instead of `/dev/random` (a
+# non-blocking source that re-uses the internal entropy pool in producing
+# output), applications that depend on random input can be made to act
+# responsive even in virtualized environments.
+#
+# Notably, the default installation of the OpenJDK JRE is apparently shipped
+# with this configuration set, but as [3] notes, Java ignores that setting
+# unless it is deliberately obscured.
+#
+# Because this configuration is limited to temporary development environments,
+# and because that environment is not used to generate cryptographically secure
+# keys, this substitution should be safe.
+#
+# [1] Issue 8237: Non-deterministic hang in ServletHandler startup for Grid
+#     Node
+#     https://code.google.com/p/selenium/issues/detail?id=8237
+# [2] Challenges With Randomness In Multi-tenant Linux Container Platforms
+#     http://blog.pivotal.io/cloud-foundry-pivotal/features/challenges-with-randomness-in-multi-tenant-linux-container-platforms
+# [3] What do I need to configure, to make sure my software uses /dev/urandom?
+#     http://security.stackexchange.com/questions/14386/what-do-i-need-to-configure-to-make-sure-my-software-uses-dev-urandom/14387#14387
+- name: Configure Java to use `/dev/urandom`. Don't ask
+  lineinfile:
+    dest=/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/security/java.security
+    regexp="^securerandom.source="
+    line="securerandom.source=file:/dev/./urandom"
+
+# A specific version of Firefox should be installed because new Firefox
+# releases occasionally break Selenium integration.
+- name: Download Firefox
+  get_url:
+    url=http://download.cdn.mozilla.net/pub/mozilla.org/firefox/releases/34.0/linux-x86_64/en-US/firefox-34.0.tar.bz2
+    dest=/tmp/firefox.tar.bz2
+
+- name: Create directory for Firefox
+  file:
+    path=/opt/mozilla
+    state=directory
+
+- name: Extract Firefox
+  command: tar xvf /tmp/firefox.tar.bz2
+  args:
+    creates: /opt/mozilla/firefox
+    chdir: /opt/mozilla
+
+- name: Install Firefox
+  file:
+    src=/opt/mozilla/firefox/firefox
+    dest=/usr/bin/firefox
+    state=link
+
+- name: X Virtual Frame Buffer is installed
+  apt: name=xvfb state=present
+
+- name: System is configured to use virtual display
+  lineinfile:
+    dest=/etc/environment
+    regexp="^DISPLAY="
+    line="DISPLAY=:99"
+
+- name: Define a service daemon for xvfb
+  template: src=upstart.conf dest=/etc/init/xvfb.conf backup=no
+
+- name: Start the xvfb service
+  service: name=xvfb state=started
+
+- name: Install Node.js modules
+  npm: path={{app_base_path}}

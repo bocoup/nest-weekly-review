@@ -44,12 +44,15 @@ following commands (selected according to the development environment):
     # Vagrant-assisted development
     $ vagrant exec test
 
-The UI tests have additional requirements on
-[Java](http://www.oracle.com/technetwork/java/index.html) and
-[Firefox](http://firefox.com). Once those are installed, the tests can be run
-with the following command:
+Likewise, the command required to run the UI tests depends on the development
+environment:
 
+    # Local development (this requires that Java and Firefox be installed on
+    # the development machine)
     $ npm run test-ui
+
+    # Vagrant-assisted development
+    $ vagrant exec run test-ui
 
 The UI tests run against API fixture data to promote reproducibility and
 facilitate offline development. If a change to the application or the tests

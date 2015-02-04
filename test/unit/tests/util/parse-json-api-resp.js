@@ -135,7 +135,7 @@ suite('parseJsonApiResponse', function() {
 
       assert.deepEqual(
         parsed[0],
-        { id: 33, ned: [] }
+        { id: 33, ned: null }
       );
     });
 
@@ -182,6 +182,27 @@ suite('parseJsonApiResponse', function() {
         parsed[2],
         { id: 99, ned: [] }
       );
+    });
+
+    test('omitted', function() {
+      var parse = make('crabtree');
+      var response = {
+        crabtree: [
+          {
+            id: 1, name: 'goo',
+            links: {
+              sow: {
+                type: 'project-sows',
+                id: null
+              }
+            }
+          }
+        ]
+      };
+
+      var parsed = parse(response);
+      assert.equal(parsed.length, 1);
+      assert.deepEqual(parsed[0], { id: 1, name: 'goo' });
     });
   });
 });

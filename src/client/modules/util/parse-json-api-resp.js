@@ -13,6 +13,10 @@ function inflate(linkedLookups, key, value) {
 
   lookup = linkedLookups[value.type];
 
+  if (!lookup) {
+    return null;
+  }
+
   if (value.ids) {
     return value.ids.map(function(id) { return lookup[id]; });
   }
@@ -67,10 +71,12 @@ module.exports = function(name) {
           rep[attr] = inflated;
           delete rep.links[attr];
         });
-
-        delete rep.links;
       });
     }
+
+    reps.forEach(function(rep) {
+      delete rep.links;
+    });
 
     return reps;
   };

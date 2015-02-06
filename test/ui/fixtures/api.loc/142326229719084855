@@ -7,28 +7,28 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Fri, 23 Jan 2015 21:23:05 GMT
+date: Fri, 06 Feb 2015 22:38:09 GMT
 content-type: application/json; charset=utf-8
-content-length: 284
+content-length: 287
 connection: close
 x-powered-by: Express
 access-control-allow-origin: *
 vary: Origin
-etag: W/"11c-1c45112b"
-set-cookie: connect.sid=s%3A1Yf5UVeaxLBDuyR5jJ60aZaqORn7hSIo.N3ydh6cVWnjbSsVKNM9MoEVFPRlpxPgpV6VLTYbdbbY; Path=/; HttpOnly
+etag: W/"11f-675886e0"
+set-cookie: connect.sid=s%3A-qGkXA7c3P1MZnWCIlF39YKUbqoWdmSq.kGnPWAFSDMiKJJpcWVC%2FnHFRQ1lKFMELBNQLgnA%2FO5I; Path=/; HttpOnly
 
 {
   "projects": [
     {
-      "id": 3,
-      "name": "Roger's Chicken",
+      "id": 4,
+      "name": "Fundraising Drive",
+      "abbr": "FD",
+      "completed": false,
+      "project_type_id": 1,
       "default_position_id": 1,
       "default_utilization_type_id": 1,
-      "completed": true,
-      "organization_id": 1,
-      "project_type_id": 1,
-      "abbr": "RC",
-      "lead_employee_id": 1
+      "lead_employee_id": 1,
+      "organization_id": 2
     }
   ]
 }

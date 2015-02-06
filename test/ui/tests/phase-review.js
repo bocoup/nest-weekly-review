@@ -111,7 +111,6 @@ describe('phase review', function() {
           middleMan.once('POST', '/project-phase-reviews', handleRequest),
           middleMan.once('PUT', '/utilizations/6', handleRequest),
           middleMan.once('PUT', '/utilizations/7', handleRequest),
-          middleMan.once('PUT', '/utilizations/8', handleRequest),
           middleMan.once('POST', '/utilizations', handleRequest),
           driver.submitReview()
         ]);

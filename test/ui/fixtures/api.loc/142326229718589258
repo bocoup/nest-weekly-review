@@ -7,44 +7,44 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Fri, 23 Jan 2015 21:23:05 GMT
+date: Fri, 06 Feb 2015 22:38:09 GMT
 content-type: application/json; charset=utf-8
 content-length: 599
 connection: close
 x-powered-by: Express
 access-control-allow-origin: *
 vary: Origin
-etag: W/"257-22ed4f67"
-set-cookie: connect.sid=s%3AquA0aCXcuWyFO37R7JBCx1sAlH1Beuqy.8bz%2FjMYZLKyoNiCJBAEIFBA%2Bzhj6XZZk1vmuz805jWo; Path=/; HttpOnly
+etag: W/"257-3fbd9c3a"
+set-cookie: connect.sid=s%3A1Ur8oZCA_2U_wCb2aimfVoUoCLkmsuQ3.MOTTB8LCq3vhzC%2FYKgCHTzb8I%2BokrSODaDlXEC1R%2Brs; Path=/; HttpOnly
 
 {
   "utilization-types": [
     {
       "id": 1,
       "name": "Consulting",
-      "project_required": true,
       "color": "48d800",
+      "project_required": true,
+      "admin_only": false,
       "display_name": null,
-      "unpaid": false,
-      "admin_only": false
+      "unpaid": false
     },
     {
       "id": 2,
       "name": "Education",
-      "project_required": true,
       "color": "fcac6b",
+      "project_required": true,
+      "admin_only": false,
       "display_name": null,
-      "unpaid": false,
-      "admin_only": false
+      "unpaid": false
     },
     {
       "id": 3,
       "name": "Vacation",
-      "project_required": false,
       "color": "ff5fc2",
+      "project_required": false,
+      "admin_only": false,
       "display_name": null,
-      "unpaid": false,
-      "admin_only": false
+      "unpaid": false
     }
   ]
 }

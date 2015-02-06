@@ -1,4 +1,4 @@
-GET /project-phases?after=2015-01-18&before=2015-02-22&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees
+GET /project-phases?after=2015-01-11&before=2015-01-18&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees
 authorization: Bearer fake-token-for-testing
 accept-encoding: gzip, deflate
 accept-language: en-US,en;q=0.5
@@ -7,24 +7,46 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Fri, 23 Jan 2015 21:23:12 GMT
+date: Fri, 06 Feb 2015 22:38:30 GMT
 content-type: application/json; charset=utf-8
 content-length: 2499
 connection: close
 x-powered-by: Express
 access-control-allow-origin: *
 vary: Origin
-etag: W/"P+xIiQqkpzKaYRsccZoW2w=="
-set-cookie: connect.sid=s%3A5wyagGPzdf74ubiV4PsbGtUX47060ndW.MUieT5ij4RTUuFipfZnVXR84NDwUqZxox567ADIGYzs; Path=/; HttpOnly
+etag: W/"K3YLQYOSn9LctjBrPHJZag=="
+set-cookie: connect.sid=s%3ApAGvKtTOGkB0ORXPMzbeF9GT_x3PuC57.aVH3a%2F245dz5cKJBRZaDuwagloyzZvRM%2BXp%2Budi3Md4; Path=/; HttpOnly
 
 {
   "linked": {
+    "project-phase-reviews": [
+      {
+        "id": 1,
+        "project_phase_id": 1,
+        "week_number": 1,
+        "notes": "nice work!",
+        "data": {}
+      }
+    ],
+    "projects": [
+      {
+        "id": 1,
+        "name": "Pudding Skins",
+        "abbr": "PS",
+        "completed": false,
+        "project_type_id": 1,
+        "default_position_id": 1,
+        "default_utilization_type_id": 1,
+        "lead_employee_id": 1,
+        "organization_id": 1
+      }
+    ],
     "employees": [
       {
         "id": 1,
         "first": "Jerry",
         "last": "Seinfeld",
-        "date_start": "2014-01-01T00:00:00.000Z",
+        "date_start": "2012-01-01T00:00:00.000Z",
         "date_end": null,
         "github_user": "superman",
         "position_id": 1,
@@ -52,28 +74,6 @@ set-cookie: connect.sid=s%3A5wyagGPzdf74ubiV4PsbGtUX47060ndW.MUieT5ij4RTUuFipfZn
         "slug": null,
         "supporter_id": 1
       }
-    ],
-    "project-phase-reviews": [
-      {
-        "id": 1,
-        "project_phase_id": 1,
-        "week_number": 1,
-        "notes": "nice work!",
-        "data": {}
-      }
-    ],
-    "projects": [
-      {
-        "id": 1,
-        "name": "Pudding Skins",
-        "default_position_id": 1,
-        "default_utilization_type_id": 1,
-        "completed": false,
-        "organization_id": 1,
-        "project_type_id": 1,
-        "abbr": "PS",
-        "lead_employee_id": 1
-      }
     ]
   },
   "project-phases": [
@@ -83,16 +83,10 @@ set-cookie: connect.sid=s%3A5wyagGPzdf74ubiV4PsbGtUX47060ndW.MUieT5ij4RTUuFipfZn
       "project_id": 1,
       "first_day": "2015-01-04T05:00:00.000Z",
       "last_day": "2015-01-25T05:00:00.000Z",
-      "project_sow_id": null,
       "bill_method_id": null,
       "rate": 0,
+      "project_sow_id": null,
       "links": {
-        "employees": {
-          "type": "employees",
-          "ids": [
-            1
-          ]
-        },
         "reviews": {
           "type": "project-phase-reviews",
           "ids": [
@@ -102,6 +96,12 @@ set-cookie: connect.sid=s%3A5wyagGPzdf74ubiV4PsbGtUX47060ndW.MUieT5ij4RTUuFipfZn
         "project": {
           "type": "projects",
           "id": 1
+        },
+        "employees": {
+          "type": "employees",
+          "ids": [
+            1
+          ]
         }
       }
     },
@@ -111,17 +111,10 @@ set-cookie: connect.sid=s%3A5wyagGPzdf74ubiV4PsbGtUX47060ndW.MUieT5ij4RTUuFipfZn
       "project_id": 1,
       "first_day": "2015-01-11T05:00:00.000Z",
       "last_day": "2015-02-01T05:00:00.000Z",
-      "project_sow_id": null,
       "bill_method_id": null,
       "rate": 0,
+      "project_sow_id": null,
       "links": {
-        "employees": {
-          "type": "employees",
-          "ids": [
-            1,
-            2
-          ]
-        },
         "reviews": {
           "type": "project-phase-reviews",
           "ids": []
@@ -129,6 +122,13 @@ set-cookie: connect.sid=s%3A5wyagGPzdf74ubiV4PsbGtUX47060ndW.MUieT5ij4RTUuFipfZn
         "project": {
           "type": "projects",
           "id": 1
+        },
+        "employees": {
+          "type": "employees",
+          "ids": [
+            1,
+            2
+          ]
         }
       }
     }

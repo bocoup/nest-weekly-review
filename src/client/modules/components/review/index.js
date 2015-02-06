@@ -128,7 +128,10 @@ module.exports = Component.extend({
     verificationRequests = this.get('phase.employees').map(function(employee) {
       var utilizations = employee.get('utilizations');
 
-      utilizations.verify(date, 5);
+      // Verify "silently" to prevent needless thrashing in Ractive. This is
+      // valid because the utilization views do not visualize their
+      // verification status.
+      utilizations.verify(date, 5, { silent: true });
 
       return utilizations.save();
     });

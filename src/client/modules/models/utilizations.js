@@ -246,7 +246,7 @@ module.exports = Collection.extend({
       currentDay = new Date(firstDay.getTime() + ONE_DAY * idx);
       utilization = this.atDate(currentDay);
 
-      if (utilization) {
+      if (utilization && !utilization.get('verified')) {
         utilization.set('verified', true, options);
       }
     }

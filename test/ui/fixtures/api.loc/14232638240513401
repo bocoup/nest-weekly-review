@@ -1,0 +1,93 @@
+GET /project-phases?after=2015-01-04&before=2015-01-11&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees
+authorization: Bearer fake-token-for-testing
+accept-encoding: gzip, deflate
+accept-language: en-US,en;q=0.5
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+host: api.loc
+
+200 HTTP/1.1
+server: nginx/1.4.6 (Ubuntu)
+date: Fri, 06 Feb 2015 23:03:37 GMT
+content-type: application/json; charset=utf-8
+content-length: 1531
+connection: close
+x-powered-by: Express
+access-control-allow-origin: *
+vary: Origin
+etag: W/"2CHYn+fa3C3xVQ1l5t9fvQ=="
+set-cookie: connect.sid=s%3A9tQezC4aW_rTXCTOXmNICns_JoXsp5BN.vEfCAJ38CRkF2pifUEGUcImbWdbgFYgPB9jbERX25x8; Path=/; HttpOnly
+
+{
+  "linked": {
+    "project-phase-reviews": [
+      {
+        "id": 1,
+        "project_phase_id": 1,
+        "week_number": 1,
+        "notes": "nice work!",
+        "data": {}
+      }
+    ],
+    "projects": [
+      {
+        "id": 1,
+        "name": "Pudding Skins",
+        "abbr": "PS",
+        "completed": false,
+        "project_type_id": 1,
+        "default_position_id": 1,
+        "default_utilization_type_id": 1,
+        "lead_employee_id": 1,
+        "organization_id": 1
+      }
+    ],
+    "employees": [
+      {
+        "id": 1,
+        "first": "Jerry",
+        "last": "Seinfeld",
+        "date_start": "2012-01-01T00:00:00.000Z",
+        "date_end": null,
+        "github_user": "superman",
+        "position_id": 1,
+        "email": null,
+        "phone": null,
+        "irc": null,
+        "twitter": null,
+        "website": null,
+        "slug": null,
+        "supporter_id": 1
+      }
+    ]
+  },
+  "project-phases": [
+    {
+      "id": 1,
+      "name": "Make pudding",
+      "project_id": 1,
+      "first_day": "2015-01-04T05:00:00.000Z",
+      "last_day": "2015-01-25T05:00:00.000Z",
+      "bill_method_id": null,
+      "rate": 0,
+      "project_sow_id": null,
+      "links": {
+        "reviews": {
+          "type": "project-phase-reviews",
+          "ids": [
+            1
+          ]
+        },
+        "project": {
+          "type": "projects",
+          "id": 1
+        },
+        "employees": {
+          "type": "employees",
+          "ids": [
+            1
+          ]
+        }
+      }
+    }
+  ]
+}

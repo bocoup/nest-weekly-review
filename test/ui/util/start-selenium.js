@@ -13,8 +13,14 @@ module.exports = function(port) {
         '-jar', jarFile,
         '-port', port
       ]);
+      var killed = false;
       var kill = function() {
-        child.kill();
+        if (!killed) {
+          child.stderr.removeAllListeners();
+          child.stdout.removeAllListeners();
+          child.kill();
+          killed = true;
+        }
 
         return new Promise(function(resolve, reject) {
           child.once('exit', resolve);

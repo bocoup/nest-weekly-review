@@ -9,6 +9,7 @@ var API_ROOT = require('../api-root');
 
 module.exports = BaseModel.extend({
   urlRoot: API_ROOT + '/utilizations',
+  modelType: 'utilizations',
   parse: parse,
   dataTypes: {
     dateStr: dateStr
@@ -54,12 +55,17 @@ module.exports = BaseModel.extend({
    * @returns {boolean}
    */
   matches: function(other) {
+    var otherType;
     if (!other) {
       return false;
     }
 
     if (other.toJSON) {
+      otherType = other.getType();
       other = other.toJSON();
+      if (otherType) {
+        other = other[otherType];
+      }
     }
 
     return this.get('utilization_type_id') === other.utilization_type_id &&

@@ -293,7 +293,7 @@ suite('Utilizations collection', function() {
         utilization_type_id: 3
       });
 
-      models = u.toJSON();
+      models = u.toJSON().utilizations;
 
       assert.equal(models.length, 1);
       assert.equal(current, u.at(0));
@@ -319,7 +319,7 @@ suite('Utilizations collection', function() {
         utilization_type_id: 5
       });
 
-      models = u.toJSON();
+      models = u.toJSON().utilizations;
 
       assert.equal(models.length, 3);
       assert.equal(current, u.at(1));
@@ -368,7 +368,7 @@ suite('Utilizations collection', function() {
         utilization_type_id: 23
       });
 
-      models = u.toJSON();
+      models = u.toJSON().utilizations;
 
       assert.equal(models.length, 1);
       assert.equal(current, u.at(0));
@@ -407,7 +407,7 @@ suite('Utilizations collection', function() {
         utilization_type_id: 23
       });
 
-      models = u.toJSON();
+      models = u.toJSON().utilizations;
 
       assert.equal(models.length, 2);
       assert.equal(current, u.at(0));
@@ -446,7 +446,7 @@ suite('Utilizations collection', function() {
         utilization_type_id: 23
       });
 
-      models = u.toJSON();
+      models = u.toJSON().utilizations;
 
       assert.equal(models.length, 1);
       assert.equal(current, u.at(0));
@@ -485,7 +485,7 @@ suite('Utilizations collection', function() {
         utilization_type_id: 25
       });
 
-      models = u.toJSON();
+      models = u.toJSON().utilizations;
 
       assert.equal(models.length, 2);
       assert.equal(current, u.at(1));
@@ -524,7 +524,7 @@ suite('Utilizations collection', function() {
         utilization_type_id: 25
       });
 
-      models = u.toJSON();
+      models = u.toJSON().utilizations;
 
       assert.equal(models.length, 1);
       assert.equal(current, u.at(0));
@@ -558,7 +558,7 @@ suite('Utilizations collection', function() {
         utilization_type_id: 24
       });
 
-      models = u.toJSON();
+      models = u.toJSON().utilizations;
 
       assert.equal(models.length, 3);
       assert.equal(current, u.at(1));
@@ -602,7 +602,7 @@ suite('Utilizations collection', function() {
         utilization_type_id: 24
       });
 
-      models = u.toJSON();
+      models = u.toJSON().utilizations;
 
       assert.equal(models.length, 3);
       assert.equal(current, u.at(1));
@@ -646,7 +646,7 @@ suite('Utilizations collection', function() {
         utilization_type_id: 23
       });
 
-      models = u.toJSON();
+      models = u.toJSON().utilizations;
 
       assert.equal(models.length, 2);
       assert.equal(current, u.at(0));
@@ -685,7 +685,7 @@ suite('Utilizations collection', function() {
         utilization_type_id: 25
       });
 
-      models = u.toJSON();
+      models = u.toJSON().utilizations;
 
       assert.equal(models.length, 2);
       assert.equal(current, u.at(1));
@@ -729,7 +729,7 @@ suite('Utilizations collection', function() {
         utilization_type_id: 21
       });
 
-      models = u.toJSON();
+      models = u.toJSON().utilizations;
 
       assert.equal(models.length, 3);
       assert.equal(current, u.at(1));
@@ -778,7 +778,7 @@ suite('Utilizations collection', function() {
         utilization_type_id: 24
       });
 
-      models = u.toJSON();
+      models = u.toJSON().utilizations;
 
       assert.equal(models.length, 3);
       assert.equal(current, u.at(1));
@@ -848,7 +848,7 @@ suite('Utilizations collection', function() {
 
         current = u.setAtDate(new Date(2013, 3, 4), null);
 
-        models = u.toJSON();
+        models = u.toJSON().utilizations;
 
         assert.equal(models.length, 0);
         assert.strictEqual(current, null);
@@ -866,7 +866,7 @@ suite('Utilizations collection', function() {
 
         current = u.setAtDate(new Date(2013, 3, 4), null);
 
-        models = u.toJSON();
+        models = u.toJSON().utilizations;
 
         assert.equal(models.length, 2);
         assert.strictEqual(current, null);
@@ -908,7 +908,7 @@ suite('Utilizations collection', function() {
 
         current = u.setAtDate(new Date(2013, 3, 4), null);
 
-        models = u.toJSON();
+        models = u.toJSON().utilizations;
 
         assert.equal(models.length, 2);
         assert.equal(current, null);

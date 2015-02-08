@@ -1,4 +1,4 @@
-# Weekly Review [![Status on TravisCI](https://magnum.travis-ci.com/bocoup/nest-weekly-review.svg?token=gK8nkH4p5NnBw5E9JB7L)](https://magnum.travis-ci.com/bocoup/nest-weekly-review)
+# Weekly Review [![Status on TravisCI](https://travis-ci.org/bocoup/nest-weekly-review.svg?branch=master)](https://travis-ci.org/bocoup/nest-weekly-review)
 
 An application for managing billing data for consulting projects
 

@@ -90,8 +90,8 @@ suite('Utilization model', function() {
     });
 
     test('positive with plain objects', function() {
-      assert.strictEqual(u1.matches(u2.toJSON()), true);
-      assert.strictEqual(u2.matches(u1.toJSON()), true);
+      assert.strictEqual(u1.matches(u2.toJSON().utilizations), true);
+      assert.strictEqual(u2.matches(u1.toJSON().utilizations), true);
     });
 
     test('negative', function() {

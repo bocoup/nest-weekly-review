@@ -1,8 +1,8 @@
 'use strict';
-var Collection = require('ampersand-rest-collection');
 var Promise = require('ractive/ractive.runtime').Promise;
 var extend = require('lodash.assign');
 
+var BaseCollection = require('./_base-collection');
 var Utilization = require('./utilization');
 var parse = require('../util/parse-json-api-resp')('utilizations');
 var setBearer = require('../ajax-config');
@@ -10,8 +10,9 @@ var API_ROOT = require('../api-root');
 
 var ONE_DAY = 1000 * 60 * 60 * 24;
 
-module.exports = Collection.extend({
+module.exports = BaseCollection.extend({
   model: Utilization,
+  modelType: 'utilizations',
   url: API_ROOT + '/utilizations',
   ajaxConfig: setBearer,
   comparator: 'first_day',
@@ -31,7 +32,7 @@ module.exports = Collection.extend({
    * publish a `_remove` event intended for internal use only.
    */
   remove: function(model, options) {
-    var val = Collection.prototype.remove.apply(this, arguments);
+    var val = BaseCollection.prototype.remove.apply(this, arguments);
 
     if (options && options.silent) {
       this.trigger('_remove', model);

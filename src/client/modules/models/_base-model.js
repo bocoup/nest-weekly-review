@@ -4,6 +4,7 @@ var extend = require('lodash.assign');
 var Promise = require('ractive/ractive.runtime').Promise;
 
 var setBearer = require('../ajax-config');
+var superSerialize = Model.prototype.serialize;
 var superSave = Model.prototype.save;
 var superDestroy = Model.prototype.destroy;
 
@@ -38,6 +39,23 @@ module.exports = Model.extend({
    */
   isDirty: function() {
     return this.get('_isDirty') || !!this.hasChanged();
+  },
+
+  serialize: function() {
+    var type = this.getType();
+    var collectionType = this.collection && this.collection.getType();
+    var wrapped;
+
+    if (collectionType && collectionType !== type) {
+      throw new Error(
+        'Model and collection type mismatch ' +
+        '(model: "' + type + '", collection: "' + collectionType + '")'
+      );
+    }
+
+    wrapped = {};
+    wrapped[type] = superSerialize.apply(this, arguments);
+    return wrapped;
   },
 
   destroy: function(options) {

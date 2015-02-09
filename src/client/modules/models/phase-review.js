@@ -1,11 +1,11 @@
 'use strict';
-var Model = require('ampersand-model');
-
+var BaseModel = require('./_base-model');
 var setBearer = require('../ajax-config');
 
 var API_ROOT = require('../api-root');
 
-module.exports = Model.extend({
+module.exports = BaseModel.extend({
+  modelType: 'project-phase-reviews',
   urlRoot: API_ROOT + '/project-phase-reviews',
   ajaxConfig: setBearer,
 

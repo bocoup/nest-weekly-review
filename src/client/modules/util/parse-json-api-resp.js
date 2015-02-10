@@ -74,9 +74,13 @@ module.exports = function(name) {
       });
     }
 
-    reps.forEach(function(rep) {
-      delete rep.links;
-    });
+    if (Array.isArray(reps)) {
+      reps.forEach(function(rep) {
+        delete rep.links;
+      });
+    } else {
+      delete reps.links;
+    }
 
     return reps;
   };

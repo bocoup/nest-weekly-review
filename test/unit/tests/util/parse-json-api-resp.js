@@ -11,6 +11,20 @@ suite('parseJsonApiResponse', function() {
     assert.equal(parse(response), response.gooo);
   });
 
+  test('single model', function() {
+    var parse = make('wrangle');
+    var response = {
+      wrangle: {
+        id: 4,
+        links: {}
+      }
+    };
+
+    var parsed = parse(response);
+
+    assert.deepEqual(parsed, { id: 4 });
+  });
+
   suite('links', function() {
     test('one-to-one', function() {
       var parse = make('crampus');

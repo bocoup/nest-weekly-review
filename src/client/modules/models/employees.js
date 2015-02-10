@@ -1,17 +1,12 @@
 'use strict';
-var Collection = require('ampersand-rest-collection');
+var JsonApiCollection = require('./abstract/json-api-collection');
 
 var Employee = require('./employee');
-var setBearer = require('../ajax-config');
-var parse = require('../util/parse-json-api-resp')('employees');
 var Utilizations = require('./utilizations');
 
-var API_ROOT = require('../api-root');
-
-module.exports = Collection.extend({
+module.exports = JsonApiCollection.extend({
+  modelType: 'employees',
   model: Employee,
-  ajaxConfig: setBearer,
-  url: API_ROOT + '/employees',
 
   fetchUtilizations: function(options) {
     var ids = this.pluck('id');
@@ -36,7 +31,5 @@ module.exports = Collection.extend({
     }.bind(this);
 
     utils.fetch(options);
-  },
-
-  parse: parse
+  }
 });

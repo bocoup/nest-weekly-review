@@ -1,16 +1,11 @@
 'use strict';
-var BaseModel = require('./_base-model');
+var JsonApiModel = require('./abstract/json-api-model');
 
 var UtilizationType = require('./utilization-type');
-var parse = require('../util/parse-json-api-resp')('utilizations');
 var dateStr = require('../util/date-string');
 
-var API_ROOT = require('../api-root');
-
-module.exports = BaseModel.extend({
-  urlRoot: API_ROOT + '/utilizations',
+module.exports = JsonApiModel.extend({
   modelType: 'utilizations',
-  parse: parse,
   dataTypes: {
     dateStr: dateStr
   },
@@ -100,7 +95,7 @@ module.exports = BaseModel.extend({
     }
 
     if (type) {
-      attrs.type = type.toJSON();
+      attrs.type = type.toJSON()['utilization-types'];
     }
 
     return new module.exports(attrs);

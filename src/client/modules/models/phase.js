@@ -10,9 +10,7 @@ var weekNum = require('../util/week-num');
 var API_ROOT = require('../api-root');
 
 module.exports = Model.extend({
-  url: function() {
-    return API_ROOT + '/project-phases/' + this.get('id');
-  },
+  urlRoot:  API_ROOT + '/project-phases',
   ajaxConfig: setBearer,
 
   props: {

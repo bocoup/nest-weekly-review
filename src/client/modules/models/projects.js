@@ -1,15 +1,9 @@
 'use strict';
-var Collection = require('ampersand-rest-collection');
+var JsonApiCollection = require('./abstract/json-api-collection');
 
 var Project = require('./project');
-var setBearer = require('../ajax-config');
-var parse = require('../util/parse-json-api-resp')('projects');
 
-var API_ROOT = require('../api-root');
-
-module.exports = Collection.extend({
-  url: API_ROOT + '/projects',
-  model: Project,
-  ajaxConfig: setBearer,
-  parse: parse
+module.exports = JsonApiCollection.extend({
+  modelType: 'projects',
+  model: Project
 });

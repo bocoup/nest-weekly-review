@@ -2,19 +2,14 @@
 var Promise = require('ractive/ractive.runtime').Promise;
 var extend = require('lodash.assign');
 
-var BaseCollection = require('./_base-collection');
+var JsonApiCollection = require('./abstract/json-api-collection');
 var Utilization = require('./utilization');
-var parse = require('../util/parse-json-api-resp')('utilizations');
-var setBearer = require('../ajax-config');
-var API_ROOT = require('../api-root');
 
 var ONE_DAY = 1000 * 60 * 60 * 24;
 
-module.exports = BaseCollection.extend({
+module.exports = JsonApiCollection.extend({
   model: Utilization,
   modelType: 'utilizations',
-  url: API_ROOT + '/utilizations',
-  ajaxConfig: setBearer,
   comparator: 'first_day',
 
   initialize: function() {
@@ -24,15 +19,13 @@ module.exports = BaseCollection.extend({
     });
   },
 
-  parse: parse,
-
   /**
    * This collection tracks all models that have been removed from it. Because
    * consumer code may silence the `remove` event standard to all Collections,
    * publish a `_remove` event intended for internal use only.
    */
   remove: function(model, options) {
-    var val = BaseCollection.prototype.remove.apply(this, arguments);
+    var val = JsonApiCollection.prototype.remove.apply(this, arguments);
 
     if (options && options.silent) {
       this.trigger('_remove', model);

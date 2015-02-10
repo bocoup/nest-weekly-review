@@ -3,7 +3,10 @@ var Model = require('ampersand-model');
 var extend = require('lodash.assign');
 var Promise = require('ractive/ractive.runtime').Promise;
 
-var setBearer = require('../ajax-config');
+var parse = require('../../util/parse-json-api-resp');
+var setBearer = require('../../ajax-config');
+var API_ROOT = require('../../api-root');
+
 var superSerialize = Model.prototype.serialize;
 var superSave = Model.prototype.save;
 var superDestroy = Model.prototype.destroy;
@@ -20,6 +23,14 @@ module.exports = Model.extend({
     this.on('sync', function() {
       this.set('_isDirty', false, { silent: true });
     });
+  },
+
+  urlRoot: function() {
+    return API_ROOT + '/' + this.getType();
+  },
+
+  parse: function(data) {
+    return parse(this.getType(), data);
   },
 
   session: {
@@ -44,7 +55,7 @@ module.exports = Model.extend({
   serialize: function() {
     var type = this.getType();
     var collectionType = this.collection && this.collection.getType();
-    var wrapped;
+    var serialized;
 
     if (collectionType && collectionType !== type) {
       throw new Error(
@@ -53,9 +64,28 @@ module.exports = Model.extend({
       );
     }
 
-    wrapped = {};
-    wrapped[type] = superSerialize.apply(this, arguments);
-    return wrapped;
+    serialized = {};
+    serialized[type] = superSerialize.call(this);
+    var links = {};
+    var hasLinks = false;
+
+    this.constructor.prototype.__children.forEach(function(key) {
+      hasLinks = true;
+      extend(links, serialized[type][key]);
+      delete serialized[type][key];
+    }, this);
+
+    this.constructor.prototype.__collections.forEach(function(key) {
+      hasLinks = true;
+      extend(links, serialized[type][key]);
+      delete serialized[type][key];
+    }, this);
+
+    if (hasLinks) {
+      serialized.links = links;
+    }
+
+    return serialized;
   },
 
   destroy: function(options) {
@@ -108,3 +138,27 @@ module.exports = Model.extend({
     }.bind(this));
   }
 });
+
+/**
+ * The names of nested properties are required for correct serialization.
+ * Ampersand.js tracks `children` and `collections` internally, but it
+ * maintains those references through private APIs. To promote long-term
+ * stability, spy on the static `extend` method and create custom references to
+ * these property names.
+ */
+module.exports.extend = function(options) {
+  var Ctor = Model.extend.apply(this, arguments);
+  if (options && options.children) {
+    Ctor.prototype.__children = Object.keys(options.children);
+  } else {
+    Ctor.prototype.__children = [];
+  }
+
+  if (options && options.collections) {
+    Ctor.prototype.__collections = Object.keys(options.collections);
+  } else {
+    Ctor.prototype.__collections = [];
+  }
+
+  return Ctor;
+};

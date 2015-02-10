@@ -1,18 +1,16 @@
 'use strict';
-var make = require('../../../../src/client/modules/util/parse-json-api-resp');
+var parse = require('../../../../src/client/modules/util/parse-json-api-resp');
 
 suite('parseJsonApiResponse', function() {
   test('simple document', function() {
-    var parse = make('gooo');
     var response = {
       gooo: [ { id: 333 } ]
     };
 
-    assert.equal(parse(response), response.gooo);
+    assert.equal(parse('gooo', response), response.gooo);
   });
 
   test('single model', function() {
-    var parse = make('wrangle');
     var response = {
       wrangle: {
         id: 4,
@@ -20,14 +18,13 @@ suite('parseJsonApiResponse', function() {
       }
     };
 
-    var parsed = parse(response);
+    var parsed = parse('wrangle', response);
 
     assert.deepEqual(parsed, { id: 4 });
   });
 
   suite('links', function() {
     test('one-to-one', function() {
-      var parse = make('crampus');
       var response = {
         linked: {
           swaddle: [ { id: 3, londy: 2 }, { id: 4, londy: 1 } ]
@@ -39,7 +36,7 @@ suite('parseJsonApiResponse', function() {
         ]
       };
 
-      var parsed = parse(response);
+      var parsed = parse('crampus', response);
 
       assert.deepEqual(
         parsed[0],
@@ -58,7 +55,6 @@ suite('parseJsonApiResponse', function() {
     });
 
     test('one-to-one (with `type` field)', function() {
-      var parse = make('crampus');
       var response = {
         linked: {
           swaddle: [ { id: 3, londy: 2 }, { id: 4, londy: 1 } ]
@@ -70,7 +66,7 @@ suite('parseJsonApiResponse', function() {
         ]
       };
 
-      var parsed = parse(response);
+      var parsed = parse('crampus', response);
 
       assert.deepEqual(
         parsed[0],
@@ -89,7 +85,6 @@ suite('parseJsonApiResponse', function() {
     });
 
     test('one-to-many', function() {
-      var parse = make('foboy');
       var response = {
         linked: {
           ned: [
@@ -112,7 +107,7 @@ suite('parseJsonApiResponse', function() {
         ]
       };
 
-      var parsed = parse(response);
+      var parsed = parse('foboy', response);
 
       assert.deepEqual(
         parsed[0],
@@ -134,7 +129,6 @@ suite('parseJsonApiResponse', function() {
     });
 
     test('one-to-many (without associated `links` entry)', function() {
-      var parse = make('foboy');
       var response = {
         linked: {},
         foboy: [
@@ -145,7 +139,7 @@ suite('parseJsonApiResponse', function() {
         ]
       };
 
-      var parsed = parse(response);
+      var parsed = parse('foboy', response);
 
       assert.deepEqual(
         parsed[0],
@@ -154,7 +148,6 @@ suite('parseJsonApiResponse', function() {
     });
 
     test('one-to-many (with `type` field)', function() {
-      var parse = make('foboy');
       var response = {
         linked: {
           oof: [
@@ -177,7 +170,7 @@ suite('parseJsonApiResponse', function() {
         ]
       };
 
-      var parsed = parse(response);
+      var parsed = parse('foboy', response);
 
       assert.deepEqual(
         parsed[0],
@@ -199,7 +192,6 @@ suite('parseJsonApiResponse', function() {
     });
 
     test('omitted', function() {
-      var parse = make('crabtree');
       var response = {
         crabtree: [
           {
@@ -214,7 +206,7 @@ suite('parseJsonApiResponse', function() {
         ]
       };
 
-      var parsed = parse(response);
+      var parsed = parse('crabtree', response);
       assert.equal(parsed.length, 1);
       assert.deepEqual(parsed[0], { id: 1, name: 'goo' });
     });

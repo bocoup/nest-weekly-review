@@ -1,15 +1,8 @@
 'use strict';
-var Collection = require('ampersand-rest-collection');
+var JsonApiCollection = require('./abstract/json-api-collection');
 var UtilizationType = require('./utilization-type');
-var setBearer = require('../ajax-config');
-var parse = require('../util/parse-json-api-resp')('utilization-types');
 
-var API_ROOT = require('../api-root');
-
-module.exports = Collection.extend({
-  url: API_ROOT + '/utilization-types',
-  model: UtilizationType,
-  ajaxConfig: setBearer,
-
-  parse: parse
+module.exports = JsonApiCollection.extend({
+  modelType: 'utilization-types',
+  model: UtilizationType
 });

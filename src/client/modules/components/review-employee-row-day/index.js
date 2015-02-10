@@ -12,7 +12,7 @@ module.exports = Component.extend({
 
     return {
       utilization_type_id: type.get('id'),
-      type: type.toJSON(),
+      type: type.toJSON()['utilization-types'],
       employee_id: this.get('employee.id'),
       position_id: projectRequired ? this.get('newPosition.id') : 1,
       project_id: projectRequired ? this.get('newProject.id') : 1,

@@ -7,9 +7,7 @@ var API_ROOT = require('../api-root');
 var WEEK_MS = 1000 * 60 * 60 * 24 * 7;
 
 module.exports = Model.extend({
-  url: function() {
-    return API_ROOT + '/projects/' + this.get('id');
-  },
+  urlRoot: API_ROOT + '/projects',
   ajaxConfig: setBearer,
 
   props: {

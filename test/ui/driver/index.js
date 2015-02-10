@@ -142,6 +142,19 @@ Driver.prototype.readAll = function(region) {
 };
 
 /**
+ * Get the number of instances of a given region
+ *
+ * @param {string} region The name of the region that should be counted
+ *
+ * @returns {number}
+ */
+Driver.prototype.count = function(region) {
+  return this._$(region).then(function(els) {
+      return els.length;
+    });
+};
+
+/**
  * Navigate to a specific URL within the application.
  *
  * @param {string} path
@@ -319,6 +332,42 @@ Driver.prototype.submitReview = function() {
         return driver._$('notifications.item')
           .then(function(notifications) {
             return notifications.length !== initialNotificationCount;
+          });
+      });
+    });
+};
+
+/**
+ * Navigate to an adjacent review.
+ *
+ * @param {string} direction Either "next" or "prev"
+ */
+Driver.prototype.cycleReview = function(direction) {
+  var driver = this;
+  var initialWeekStart;
+
+  if (direction !== 'next' && direction !== 'prev') {
+    throw new Error('Unrecognized direction: "' + direction + '".');
+  }
+
+  return this.read('phaseWeek.weekStart')
+    .then(function(text) {
+      initialWeekStart = text;
+
+      return driver._$('phaseWeek.nav.' + direction);
+    }).then(function(els) {
+      var el = els[0];
+
+      if (!el) {
+        throw new Error('Cannot navigate to ' + direction + ' review.');
+      }
+
+      return el.click();
+    }).then(function() {
+      return waitFor(function() {
+        return driver.read('phaseWeek.weekStart')
+          .then(function(newText) {
+            return newText && newText !== initialWeekStart;
           });
       });
     });

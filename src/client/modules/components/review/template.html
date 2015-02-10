@@ -9,9 +9,9 @@
     <thead>
       <tr>
         <th></th>
-        <th scope="col">
+        <th scope="col" class="week-nav">
           {{#if previousWeekHref}}
-          <a href="{{ previousWeekHref }}">&lt; Previous Week</a>
+          <a href="{{ previousWeekHref }}" class="prev">&lt; Previous Week</a>
           {{/if}}
         </th>
         <th scope="col"></th>
@@ -19,9 +19,9 @@
           <a href="{{ allPhaseHref }}">All Phases</a>
         </th>
         <th scope="col"></th>
-        <th scope="col">
+        <th scope="col" class="week-nav">
           {{#if nextWeekHref}}
-          <a href="{{ nextWeekHref }}">Next Week &gt;</a>
+          <a href="{{ nextWeekHref }}" class="next">Next Week &gt;</a>
           {{/if}}
         </th>
       </tr>

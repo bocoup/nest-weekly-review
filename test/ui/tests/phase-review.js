@@ -104,19 +104,41 @@ describe('phase review', function() {
         }).then(function() {
           return driver.verify(['Jerry Seinfeld', 'Cosmo Kramer']);
         }).then(function() {
-          function handleRequest(req, res) {
+          function handlePut(req, res) {
             res.end();
+          }
+          function handleReviewPost(req, res) {
+            res.end(JSON.stringify({ 'project-phase-reviews': { id: 3454 } }));
+          }
+          function handleUtilizationPost(req, res) {
+            res.end(JSON.stringify({ utilizations: { id: 3333 } }));
           }
 
           middleMan.off('*', abort);
 
           return Promise.all([
-            middleMan.once('POST', '/project-phase-reviews', handleRequest),
-            middleMan.once('PUT', '/utilizations/6', handleRequest),
-            middleMan.once('PUT', '/utilizations/7', handleRequest),
-            middleMan.once('POST', '/utilizations', handleRequest),
+            middleMan.once('POST', '/project-phase-reviews', handleReviewPost),
+            middleMan.once('PUT', '/utilizations/6', handlePut),
+            middleMan.once('PUT', '/utilizations/7', handlePut),
+            middleMan.once('POST', '/utilizations', handleUtilizationPost),
             driver.submitReview()
           ]);
+        }).then(function() {
+          return driver.count('phaseWeek.verified');
+        }).then(function(count) {
+          assert.equal(
+            count,
+            2,
+            'Verification information reflects recently-completed operations'
+          );
+
+          return driver.cycleReview('next');
+        }).then(function() {
+          return driver.count('phaseWeek.verified');
+        }).then(function(count) {
+          assert.equal(
+            count, 0, 'Verification information is refreshed after navigation'
+          );
         });
     });
   });

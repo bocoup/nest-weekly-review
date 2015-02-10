@@ -27,12 +27,19 @@
           "set": ".back .set"
         }
       },
+      "nav": {
+        "_contents": {
+          "prev": ".week-nav .prev",
+          "next": ".week-nav .next"
+        }
+      },
       "dayLabels": "thead .labels th:not(:first-child)",
       "employee":  "tbody .name",
       "weekStart": ".week-info .start time",
       "notes": ".notes textarea",
       "verifyBtns": ".btn-verify",
-      "submit": ".submit .btn"
+      "submit": ".submit .btn",
+      "verified": ".verification:checked"
     }
   },
   "notifications": {

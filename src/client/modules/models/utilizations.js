@@ -247,6 +247,26 @@ module.exports = JsonApiCollection.extend({
   },
 
   /**
+   * Determine if the set contains a utilization for every date within a range.
+   *
+   * @param {Date} date The first date to check for utilizations
+   * @param {number} through The total number of days to check
+   *
+   * @returns {boolean}
+   */
+  fullyUtilized: function(date, through) {
+    var idx;
+
+    for (idx = 0; idx < through; ++idx) {
+      if (!this.atDate(date, idx)) {
+        return false;
+      }
+    }
+
+    return true;
+  },
+
+  /**
    * Determine if the set contains a verified utilization for every date within
    * a range.
    *

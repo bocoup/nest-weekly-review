@@ -1138,6 +1138,48 @@ suite('Utilizations collection', function() {
     });
   });
 
+  suite('#fullyUtilized', function() {
+    test('single one-day utilization', function() {
+      var u = new Utilizations([
+        { first_day: new Date(2012, 3, 3), last_day: new Date(2012, 3, 3) }
+      ]);
+
+      assert.equal(u.fullyUtilized(new Date(2012, 3, 2), 1), false);
+      assert.equal(u.fullyUtilized(new Date(2012, 3, 3), 1), true);
+      assert.equal(u.fullyUtilized(new Date(2012, 3, 4), 1), false);
+    });
+
+    test('single multi-day utilization', function() {
+      var u = new Utilizations([
+        { first_day: new Date(2012, 3, 3), last_day: new Date(2012, 3, 5) }
+      ]);
+
+      assert.equal(u.fullyUtilized(new Date(2012, 3, 1), 2), false);
+      assert.equal(u.fullyUtilized(new Date(2012, 3, 2), 2), false);
+      assert.equal(u.fullyUtilized(new Date(2012, 3, 3), 2), true);
+      assert.equal(u.fullyUtilized(new Date(2012, 3, 4), 2), true);
+      assert.equal(u.fullyUtilized(new Date(2012, 3, 5), 2), false);
+      assert.equal(u.fullyUtilized(new Date(2012, 3, 6), 2), false);
+    });
+
+    test('multiple utilizations', function() {
+      var u = new Utilizations([
+        { first_day: new Date(2012, 3, 3), last_day: new Date(2012, 3, 4) },
+        { first_day: new Date(2012, 3, 5), last_day: new Date(2012, 3, 5) },
+        { first_day: new Date(2012, 3, 7), last_day: new Date(2012, 3, 8) }
+      ]);
+
+      assert.equal(u.fullyUtilized(new Date(2012, 3, 1), 3), false);
+      assert.equal(u.fullyUtilized(new Date(2012, 3, 2), 3), false);
+      assert.equal(u.fullyUtilized(new Date(2012, 3, 3), 3), true);
+      assert.equal(u.fullyUtilized(new Date(2012, 3, 4), 3), false);
+      assert.equal(u.fullyUtilized(new Date(2012, 3, 5), 3), false);
+      assert.equal(u.fullyUtilized(new Date(2012, 3, 6), 3), false);
+      assert.equal(u.fullyUtilized(new Date(2012, 3, 7), 3), false);
+      assert.equal(u.fullyUtilized(new Date(2012, 3, 8), 3), false);
+    });
+  });
+
   suite('#areVerified', function() {
     suite('without constraint (all members)', function() {
       test('empty set', function() {

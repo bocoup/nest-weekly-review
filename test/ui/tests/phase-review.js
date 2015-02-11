@@ -196,4 +196,27 @@ describe('phase review', function() {
         });
     });
   });
+
+  it('disallows verification of developer weeks with unset utilizations', function() {
+    var initialVerifiedCount;
+    return driver.viewWeek(1, 4)
+      .then(function() {
+        return driver.count('phaseWeek.verified');
+      }).then(function(verifiedCount) {
+        initialVerifiedCount = verifiedCount;
+
+        return driver.verify(['Cosmo Kramer']);
+      }).then(function() {
+        return driver.count('notifications.error');
+      }).then(function(errorCount) {
+        assert.equal(errorCount, 1, 'An error is displayed to the user');
+        return driver.count('phaseWeek.verified');
+      }).then(function(verifiedCount) {
+        assert.equal(
+          verifiedCount,
+          initialVerifiedCount,
+          'Failed verification attempts are not reflected in the DOM'
+        );
+      });
+  });
 });

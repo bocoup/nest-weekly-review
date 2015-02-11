@@ -28,9 +28,23 @@ module.exports = Component.extend({
         var monday = this.get('monday');
         var utilizations = this.get('utilizations');
 
-        this.set('_verified', val);
-
         if (!val) {
+          return;
+        }
+
+        if (!utilizations.fullyUtilized(monday, 5)) {
+          this.fire('error', {
+            title: 'Cannot verify developer week.',
+            desc: 'A utilization must be set for every weekday before that ' +
+              'week can be verified.'
+          });
+
+          // Explicitly uncheck the "verify" input element in this component's
+          // DOM.
+          // TODO: Investigate why this is necessary (calling
+          //       `this.update('verified')` has no effect.
+          this.nodes['verify-' + this.get('employee.id')].checked = false;
+
           return;
         }
 

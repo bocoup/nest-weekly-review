@@ -7,15 +7,15 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Fri, 06 Feb 2015 22:38:20 GMT
+date: Sun, 15 Feb 2015 16:57:00 GMT
 content-type: application/json; charset=utf-8
-content-length: 2499
+content-length: 2845
 connection: close
 x-powered-by: Express
 access-control-allow-origin: *
 vary: Origin
-etag: W/"K3YLQYOSn9LctjBrPHJZag=="
-set-cookie: connect.sid=s%3AZ0T7WBNVhhD3Ji30YUJs36XeULjpgfqr.%2FTw3fiFxtz6KRgYh%2BiX3XW9o2EaUCtR0TvrX7xsejyI; Path=/; HttpOnly
+etag: W/"Cp7CXDsJ6UIt2aI1XF0RXA=="
+set-cookie: connect.sid=s%3A13S8BDhYetR_h0IXXUKCmlwMH9199OX3.d0TPEOoePbQblDvywz7v1Fnv3yggASuwLpZa%2Fk3tJCI; Path=/; HttpOnly
 
 {
   "linked": {
@@ -23,7 +23,7 @@ set-cookie: connect.sid=s%3AZ0T7WBNVhhD3Ji30YUJs36XeULjpgfqr.%2FTw3fiFxtz6KRgYh%
       {
         "id": 1,
         "project_phase_id": 1,
-        "week_number": 1,
+        "week_number": 2,
         "notes": "nice work!",
         "data": {}
       }
@@ -87,15 +87,23 @@ set-cookie: connect.sid=s%3AZ0T7WBNVhhD3Ji30YUJs36XeULjpgfqr.%2FTw3fiFxtz6KRgYh%
       "rate": 0,
       "project_sow_id": null,
       "links": {
+        "project": {
+          "type": "projects",
+          "id": 1
+        },
+        "sow": {
+          "type": "project-sows",
+          "id": null
+        },
+        "billMethod": {
+          "type": "bill-methods",
+          "id": null
+        },
         "reviews": {
           "type": "project-phase-reviews",
           "ids": [
             1
           ]
-        },
-        "project": {
-          "type": "projects",
-          "id": 1
         },
         "employees": {
           "type": "employees",
@@ -115,13 +123,21 @@ set-cookie: connect.sid=s%3AZ0T7WBNVhhD3Ji30YUJs36XeULjpgfqr.%2FTw3fiFxtz6KRgYh%
       "rate": 0,
       "project_sow_id": null,
       "links": {
-        "reviews": {
-          "type": "project-phase-reviews",
-          "ids": []
-        },
         "project": {
           "type": "projects",
           "id": 1
+        },
+        "sow": {
+          "type": "project-sows",
+          "id": null
+        },
+        "billMethod": {
+          "type": "bill-methods",
+          "id": null
+        },
+        "reviews": {
+          "type": "project-phase-reviews",
+          "ids": []
         },
         "employees": {
           "type": "employees",

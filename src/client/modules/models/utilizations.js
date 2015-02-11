@@ -244,6 +244,28 @@ module.exports = JsonApiCollection.extend({
         utilization.set('verified', true, options);
       }
     }
+  },
+
+  /**
+   * Determine if the set contains a verified utilization for every date within
+   * a range.
+   *
+   * @param {Date} date The first date to check for utilizations
+   * @param {number} through The total number of days to check
+   *
+   * @returns {boolean}
+   */
+  areVerified: function(date, through) {
+    var idx, utilization;
+
+    for (idx = 0; idx < through; ++idx) {
+      utilization = this.atDate(date, idx);
+      if (!utilization || !utilization.get('verified')) {
+        return false;
+      }
+    }
+
+    return true;
   }
 });
 

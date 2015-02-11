@@ -36,6 +36,14 @@ describe('phase review', function() {
           return driver.read('phaseWeek.weekStart');
         }).then(function(weekStart) {
           assert.equal(weekStart, '1 / 12 / 2015');
+
+          return driver.count('phaseWeek.verified');
+        }).then(function(count) {
+          assert.equal(
+            count,
+            1,
+            'Verification information reflects initial utilization state'
+          );
         });
     });
 
@@ -119,7 +127,7 @@ describe('phase review', function() {
           middleMan.on('*', /.*/, abort);
           return driver.submitReview();
         }).then(function() {
-          return driver.verify(['Jerry Seinfeld', 'Cosmo Kramer']);
+          return driver.verify(['Jerry Seinfeld']);
         }).then(function() {
           function handlePut(req, res) {
             res.end();
@@ -135,8 +143,9 @@ describe('phase review', function() {
 
           return Promise.all([
             middleMan.once('POST', '/project-phase-reviews', handleReviewPost),
+            middleMan.once('PUT', '/utilizations/4', handlePut),
+            middleMan.once('PUT', '/utilizations/5', handlePut),
             middleMan.once('PUT', '/utilizations/6', handlePut),
-            middleMan.once('PUT', '/utilizations/7', handlePut),
             middleMan.once('POST', '/utilizations', handleUtilizationPost),
             driver.submitReview()
           ]);
@@ -154,7 +163,7 @@ describe('phase review', function() {
           return driver.count('phaseWeek.verified');
         }).then(function(count) {
           assert.equal(
-            count, 0, 'Verification information is refreshed after navigation'
+            count, 1, 'Verification information is refreshed after navigation'
           );
         });
     });

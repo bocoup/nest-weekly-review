@@ -22,9 +22,6 @@ module.exports = Component.extend({
   },
 
   computed: {
-    monday: function() {
-      return new Date(this.get('date').getTime() + DAY_MS);
-    },
     weekDays: function() {
       var sunday = this.get('date').getTime();
 
@@ -110,9 +107,8 @@ module.exports = Component.extend({
    */
   submit: function() {
     var employeeRows = this.findAllComponents('wr-employee-row');
-    var date = this.get('monday');
     var allVerified = employeeRows.every(function(employeeRow) {
-      return employeeRow.get('verified');
+      return employeeRow.isVerified();
     });
     var verificationRequests;
 
@@ -127,11 +123,6 @@ module.exports = Component.extend({
 
     verificationRequests = this.get('phase.employees').map(function(employee) {
       var utilizations = employee.get('utilizations');
-
-      // Verify "silently" to prevent needless thrashing in Ractive. This is
-      // valid because the utilization views do not visualize their
-      // verification status.
-      utilizations.verify(date, 5, { silent: true });
 
       return utilizations.save();
     });

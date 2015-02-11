@@ -1137,4 +1137,160 @@ suite('Utilizations collection', function() {
       });
     });
   });
+
+  suite('#areVerified', function() {
+    suite('without constraint (all members)', function() {
+      test('empty set', function() {
+        var u = new Utilizations();
+        assert.equal(u.areVerified(new Date(2023, 1, 3), 1), false);
+      });
+
+      test('single unverified', function() {
+        var u = new Utilizations([
+          {
+            first_day: new Date(2023, 1, 3),
+            last_day: new Date(2023, 1, 3),
+            verified: false
+          }
+        ]);
+
+        assert.equal(u.areVerified(new Date(2023, 1, 2), 1), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 3), 1), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 4), 1), false);
+      });
+
+      test('single verified', function() {
+        var u = new Utilizations([
+          {
+            first_day: new Date(2023, 1, 3),
+            last_day: new Date(2023, 1, 4),
+            verified: true
+          }
+        ]);
+
+        assert.equal(u.areVerified(new Date(2023, 1, 2), 1), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 2), 2), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 3), 1), true);
+        assert.equal(u.areVerified(new Date(2023, 1, 3), 2), true);
+        assert.equal(u.areVerified(new Date(2023, 1, 4), 1), true);
+        assert.equal(u.areVerified(new Date(2023, 1, 4), 2), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 5), 1), false);
+      });
+
+      test('multiple (all unverified)', function() {
+        var u = new Utilizations([
+          {
+            first_day: new Date(2023, 1, 3),
+            last_day: new Date(2023, 1, 3),
+            verified: false
+          },
+          {
+            first_day: new Date(2023, 1, 4),
+            last_day: new Date(2023, 1, 5),
+            verified: false
+          }
+        ]);
+
+        assert.equal(u.areVerified(new Date(2023, 1, 2), 1), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 3), 1), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 4), 1), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 5), 1), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 6), 1), false);
+      });
+
+      test('multiple (all verified)', function() {
+        var u = new Utilizations([
+          {
+            first_day: new Date(2023, 1, 3),
+            last_day: new Date(2023, 1, 3),
+            verified: true
+          },
+          {
+            first_day: new Date(2023, 1, 4),
+            last_day: new Date(2023, 1, 5),
+            verified: true
+          },
+          {
+            first_day: new Date(2023, 1, 7),
+            last_day: new Date(2023, 1, 8),
+            verified: true
+          }
+        ]);
+
+        assert.equal(u.areVerified(new Date(2023, 1, 2), 1), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 3), 1), true);
+        assert.equal(u.areVerified(new Date(2023, 1, 4), 1), true);
+        assert.equal(u.areVerified(new Date(2023, 1, 5), 1), true);
+        assert.equal(u.areVerified(new Date(2023, 1, 6), 1), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 7), 1), true);
+        assert.equal(u.areVerified(new Date(2023, 1, 8), 1), true);
+        assert.equal(u.areVerified(new Date(2023, 1, 9), 1), false);
+
+        assert.equal(u.areVerified(new Date(2023, 1, 2), 2), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 3), 2), true);
+        assert.equal(u.areVerified(new Date(2023, 1, 4), 2), true);
+        assert.equal(u.areVerified(new Date(2023, 1, 5), 2), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 6), 2), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 7), 2), true);
+        assert.equal(u.areVerified(new Date(2023, 1, 8), 2), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 9), 2), false);
+
+        assert.equal(u.areVerified(new Date(2023, 1, 2), 3), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 3), 3), true);
+        assert.equal(u.areVerified(new Date(2023, 1, 4), 3), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 5), 3), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 6), 3), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 7), 3), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 8), 3), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 9), 3), false);
+      });
+
+      test('multiple (mixed)', function() {
+        var u = new Utilizations([
+          {
+            first_day: new Date(2023, 1, 3),
+            last_day: new Date(2023, 1, 3),
+            verified: true
+          },
+          {
+            first_day: new Date(2023, 1, 4),
+            last_day: new Date(2023, 1, 5),
+            verified: false
+          },
+          {
+            first_day: new Date(2023, 1, 7),
+            last_day: new Date(2023, 1, 8),
+            verified: true
+          }
+        ]);
+
+        assert.equal(u.areVerified(new Date(2023, 1, 2), 1), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 3), 1), true);
+        assert.equal(u.areVerified(new Date(2023, 1, 4), 1), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 5), 1), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 6), 1), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 7), 1), true);
+        assert.equal(u.areVerified(new Date(2023, 1, 8), 1), true);
+        assert.equal(u.areVerified(new Date(2023, 1, 9), 1), false);
+
+        assert.equal(u.areVerified(new Date(2023, 1, 2), 2), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 3), 2), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 4), 2), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 5), 2), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 6), 2), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 7), 2), true);
+        assert.equal(u.areVerified(new Date(2023, 1, 8), 2), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 9), 2), false);
+
+        assert.equal(u.areVerified(new Date(2023, 1, 2), 3), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 3), 3), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 4), 3), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 5), 3), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 6), 3), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 7), 3), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 8), 3), false);
+        assert.equal(u.areVerified(new Date(2023, 1, 9), 3), false);
+      });
+    });
+  });
 });

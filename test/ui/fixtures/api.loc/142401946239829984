@@ -1,0 +1,18 @@
+GET /utilizations?employee_id=1%2C2&include%5B0%5D=project&include%5B1%5D=type
+if-none-match: W/"d7b/HEg82AMxTcmUZaV0Tw=="
+authorization: Bearer fake-token-for-testing
+accept-encoding: gzip, deflate
+accept-language: en-US,en;q=0.5
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+host: api.loc
+
+304 HTTP/1.1
+server: nginx/1.4.6 (Ubuntu)
+date: Sun, 15 Feb 2015 16:57:42 GMT
+connection: close
+x-powered-by: Express
+access-control-allow-origin: *
+vary: Origin
+etag: W/"d7b/HEg82AMxTcmUZaV0Tw=="
+set-cookie: connect.sid=s%3AgB3HPz8wy4YUxLdDU_Lw4aaa8tYcEV0a.drcAlhX%2FMOopBM9%2FEuYAZkGdoRZv3Nh58E1z2jacBqs; Path=/; HttpOnly
+

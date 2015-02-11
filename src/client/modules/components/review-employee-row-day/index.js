@@ -8,16 +8,16 @@ module.exports = Component.extend({
 
   read: function() {
     var type = this.get('newType');
-    var isConsulting = type.get('isConsulting');
+    var projectRequired = type.get('project_required');
 
     return {
       utilization_type_id: type.get('id'),
       type: type.toJSON(),
       employee_id: this.get('employee.id'),
-      position_id: isConsulting ? this.get('newPosition.id') : 1,
-      project_id: isConsulting ? this.get('newProject.id') : 1,
-      project_phase_id: isConsulting ? this.get('newPhase.id') : null,
-      project: isConsulting ? this.get('newProject') : null
+      position_id: projectRequired ? this.get('newPosition.id') : 1,
+      project_id: projectRequired ? this.get('newProject.id') : 1,
+      project_phase_id: projectRequired ? this.get('newPhase.id') : null,
+      project: projectRequired ? this.get('newProject') : null
     };
   },
 
@@ -136,7 +136,7 @@ module.exports = Component.extend({
 
         var type = this.get('newType');
 
-        if (!type || !type.isConsulting) {
+        if (!type || !type.project_required) {
           return null;
         }
 

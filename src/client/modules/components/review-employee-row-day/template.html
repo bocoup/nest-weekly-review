@@ -14,7 +14,7 @@
   <label for="{{dayName}}{{employee.id}}" class="front" style="{{ style }}" on-dragstart="handleDragstart()" on-dragend="handleDragend()" draggable="true">
     {{#with utilization}}
     <span class="utilization-type">{{ type.name }}</span>
-    {{#if type.isConsulting}}
+    {{#if type.project_required}}
       <span class="utilization-project">{{ project.name }}</span>
     {{/if}}
     {{/with}}
@@ -28,7 +28,7 @@
     </select>
 
     <select id="{{dayName}}{{employee.id}}-position"
-      {{#if !newType.isConsulting}}disabled{{/if}}
+      {{#if !newType.project_required}}disabled{{/if}}
       value="{{newPosition}}">
 
       <option selected disabled>Position</option>
@@ -38,7 +38,7 @@
     </select>
 
     <select id="{{dayName}}{{employee.id}}-project"
-      {{#if !newType.isConsulting}}disabled{{/if}}
+      {{#if !newType.project_required}}disabled{{/if}}
       value="{{newProject}}">
 
       <option selected disabled>Project</option>
@@ -51,7 +51,7 @@
     </select>
 
     <select id="{{dayName}}{{employee.id}}-phase"
-      {{#if !newType.isConsulting || !phases.length}}disabled{{/if}}
+      {{#if !newType.project_required || !phases.length}}disabled{{/if}}
       value="{{newPhase}}">
 
       {{! TODO: Remove the value assigned to the `disabled` attribute once the

@@ -2,21 +2,13 @@
 var Model = require('ampersand-model');
 
 var parse = require('../util/parse-json-api-resp')('type');
-var CONSULTING_ID = 1;
 
 module.exports = Model.extend({
   props: {
     'id': 'number',
     'name': 'string',
-    'color': 'string'
+    'color': 'string',
+    'project_required': 'boolean'
   },
-  parse: parse,
-  derived: {
-    isConsulting: {
-      deps: ['id'],
-      fn: function() {
-        return this.get('id') === CONSULTING_ID;
-      }
-    }
-  }
+  parse: parse
 });

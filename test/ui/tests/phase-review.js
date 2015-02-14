@@ -116,6 +116,9 @@ describe('phase review', function() {
 
     it('correctly submits a review', function() {
       this.timeout(8000);
+      function handleRequest(req, res) {
+        res.end();
+      }
       function abort() {
         throw new Error(
           'No requests should be issued until all employees have been verified.'
@@ -129,9 +132,6 @@ describe('phase review', function() {
         }).then(function() {
           return driver.verify(['Jerry Seinfeld']);
         }).then(function() {
-          function handlePut(req, res) {
-            res.end();
-          }
           function handleReviewPost(req, res) {
             res.end(JSON.stringify({ 'project-phase-reviews': { id: 3454 } }));
           }
@@ -143,9 +143,9 @@ describe('phase review', function() {
 
           return Promise.all([
             middleMan.once('POST', '/project-phase-reviews', handleReviewPost),
-            middleMan.once('PUT', '/utilizations/4', handlePut),
-            middleMan.once('PUT', '/utilizations/5', handlePut),
-            middleMan.once('PUT', '/utilizations/6', handlePut),
+            middleMan.once('PUT', '/utilizations/4', handleRequest),
+            middleMan.once('PUT', '/utilizations/5', handleRequest),
+            middleMan.once('PUT', '/utilizations/6', handleRequest),
             middleMan.once('POST', '/utilizations', handleUtilizationPost),
             driver.submitReview()
           ]);
@@ -157,7 +157,17 @@ describe('phase review', function() {
             2,
             'Verification information reflects recently-completed operations'
           );
+        }).then(function() {
 
+          // Ensure that reviews created by the user in the current browsing
+          // session can be updated.
+          return driver.addNote('. And Bocoup is great.');
+        }).then(function() {
+          return Promise.all([
+            middleMan.once('PUT', '/project-phase-reviews/3454', handleRequest),
+            driver.submitReview()
+          ]);
+        }).then(function() {
           return driver.cycleReview('next');
         }).then(function() {
           return driver.count('phaseWeek.verified');

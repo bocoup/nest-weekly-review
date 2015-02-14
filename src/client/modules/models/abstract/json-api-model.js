@@ -49,7 +49,22 @@ module.exports = Model.extend({
    * @returns {boolean}
    */
   isDirty: function() {
-    return this.get('_isDirty') || !!this.hasChanged();
+    var changedAttrs = this.changedAttributes();
+    var changedKeys = changedAttrs && Object.keys(changedAttrs);
+    var hasChanged;
+
+    // Do not consider a model "dirty" if the only changed value is the
+    // internal `_isDirty` flag (this will be the only changed attribute after
+    // successful `sync` events, where the flag is set from `true` to `false`.
+    if (changedKeys && changedKeys.length > 1) {
+      hasChanged = true;
+    } else if (changedKeys && changedKeys.length === 1) {
+      hasChanged = changedKeys[0] !== '_isDirty';
+    } else {
+      hasChanged = false;
+    }
+
+    return this.get('_isDirty') || hasChanged;
   },
 
   serialize: function() {

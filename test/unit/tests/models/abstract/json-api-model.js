@@ -13,10 +13,17 @@ var Person = Model.extend({
 
 suite('JsonApiModel', function() {
   suite('#isDirty', function() {
+    var SyncPerson = Person.extend({
+      sync: function(operation, model, options) {
+        if (options.success) {
+          setTimeout(options.success, 0);
+        }
+      }
+    });
     var person;
 
     setup(function() {
-      person = new Person();
+      person = new SyncPerson();
     });
 
     test('initially clean', function() {
@@ -40,6 +47,14 @@ suite('JsonApiModel', function() {
       person.set('first', 'mark');
 
       assert.equal(person.isDirty(), true);
+    });
+
+    test('clean after saving', function() {
+      person.set('first', 'matt');
+
+      return person.save().then(function() {
+          assert.equal(person.isDirty(), false);
+        });
     });
   });
 

@@ -2,7 +2,7 @@
 var BaseModel = require('./_base-model');
 
 var UtilizationType = require('./utilization-type');
-var parse = require('../util/parse-json-api-resp')('utilization');
+var parse = require('../util/parse-json-api-resp')('utilizations');
 var dateStr = require('../util/date-string');
 
 var API_ROOT = require('../api-root');

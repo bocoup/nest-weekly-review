@@ -40,24 +40,41 @@ describe('phase review', function() {
     });
 
     it('correctly edits an existing single-day utilization', function() {
+      var hasDeleted = false;
       function handleDelete(req, res) {
-        var id = parseInt(req.params.id, 10);
-        assert.equal(id, 5);
-        res.end(JSON.stringify({ id: id }));
+        hasDeleted = true;
+        res.end();
       }
       function handlePost(req, res) {
-        res.end(JSON.stringify({ id: 6 }));
+        assert(hasDeleted, 'Deletes old utilization before creating new one.');
+        res.end(JSON.stringify({ utilizations: { id: 99 } }));
       }
 
       return Promise.all([
-        middleMan.once('DELETE', '/utilizations/:id', handleDelete),
-        middleMan.once('POST', '/utilizations', handlePost),
-        driver.editUtilization({
-          name: 'Jerry Seinfeld',
-          day: 'thursday',
-          type: 'Education'
-        })
-      ]);
+          middleMan.once('DELETE', '/utilizations/5', handleDelete),
+          middleMan.once('POST', '/utilizations', handlePost),
+          driver.editUtilization({
+            name: 'Jerry Seinfeld',
+            day: 'thursday',
+            type: 'Education'
+          })
+        ]).then(function() {
+          /**
+           * Edit the new utilization to ensure that the application correctly
+           * tracks IDs of the utilizations created on its behalf.
+           */
+          hasDeleted = false;
+
+          return Promise.all([
+              middleMan.once('DELETE', '/utilizations/99', handleDelete),
+              middleMan.once('POST', '/utilizations', handlePost),
+              driver.editUtilization({
+                name: 'Jerry Seinfeld',
+                day: 'thursday',
+                type: 'Vacation'
+              })
+            ]);
+        });
     });
 
     /**

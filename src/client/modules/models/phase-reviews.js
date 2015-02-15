@@ -1,9 +1,10 @@
 'use strict';
-var Collection = require('ampersand-rest-collection');
+var JsonApiCollection = require('./abstract/json-api-collection');
 
 var PhaseReview = require('./phase-review');
 
-module.exports = Collection.extend({
+module.exports = JsonApiCollection.extend({
+  modelType: 'project-phase-reviews',
   model: PhaseReview,
 
   /**

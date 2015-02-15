@@ -16,7 +16,7 @@ describe('phase review', function() {
     return driver.get('/date/2014-12-21/');
   });
 
-  describe('review', function() {
+  describe('new review', function() {
 
     beforeEach(function() {
       return driver.viewWeek(1, 3);
@@ -175,6 +175,26 @@ describe('phase review', function() {
           assert.equal(
             count, 1, 'Verification information is refreshed after navigation'
           );
+        });
+    });
+  });
+
+  describe('previously-existing review', function() {
+    beforeEach(function() {
+      return driver.viewWeek(0, 4);
+    });
+
+    it('correctly updates review', function() {
+      function handleRequest(req, res) {
+        res.end();
+      }
+
+      return driver.addNote('. And Bocoup is great.')
+        .then(function() {
+          return Promise.all([
+            middleMan.once('PUT', '/project-phase-reviews/1', handleRequest),
+            driver.submitReview()
+          ]);
         });
     });
   });

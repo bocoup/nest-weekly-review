@@ -1,4 +1,6 @@
-<td class="day flip{{#if isSaving}} is-saving{{/if}}" on-dragenter="handleDragenter()">
+<td class="day flip{{#if isSaving}} is-saving{{/if}}{{#if utilization.verified}} is-verified{{/if}}"
+  on-dragenter="handleDragenter()"
+  >
   <input type="checkbox"
     id="{{dayName}}{{employee.id}}"
     name="{{dayName}}{{employee.id}}"
@@ -11,13 +13,29 @@
     </div>
   </div>
 
-  <label for="{{dayName}}{{employee.id}}" class="front" style="{{ style }}" on-dragstart="handleDragstart()" on-dragend="handleDragend()" draggable="true">
+  <label for="{{dayName}}{{employee.id}}"
+    class="front"
+    style="{{ style }}"
+    on-dragstart="handleDragstart()"
+    on-dragend="handleDragend()"
+    draggable="true"
+    >
+
     {{#with utilization}}
     <span class="utilization-type">{{ type.name }}</span>
     {{#if type.project_required}}
       <span class="utilization-project">{{ project.name }}</span>
     {{/if}}
     {{/with}}
+
+    {{!
+      The latest version of Firefox (version 34 at the time of this writing)
+      exhibits a bug where `<label>` elements with the `draggable` attribute will
+      not initiate a `dragstart` event. Because the children of such elements will
+      correctly trigger that event on their parent, create an invisible element
+      that completely occupies the space of the parent.
+    }}
+    <div class="firefox-drag-workaround"></div>
   </label>
 
   <div class="back">

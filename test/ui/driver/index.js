@@ -241,6 +241,19 @@ Driver.prototype._getEmployeeOffset = function(name) {
     });
 };
 
+Driver.prototype._getUtilizationOffset = function(options) {
+  var dayNumber = dayNames.indexOf(options.day);
+
+  if (!dayNumber) {
+    throw new Error('Unrecognized day: "' + options.day + '".');
+  }
+
+  return this._getEmployeeOffset(options.name)
+    .then(function(employeeOffset) {
+      return employeeOffset * 5 + dayNumber;
+    });
+};
+
 /**
  * Change a utilization for a given day. This method assumes the driver is
  * currently viewing a "week review" page.
@@ -252,17 +265,12 @@ Driver.prototype._getEmployeeOffset = function(name) {
  * @param {string} options.type the new utilization type
  */
 Driver.prototype.editUtilization = function(options) {
-  var dayNumber = dayNames.indexOf(options.day);
   var driver = this;
   var offset;
 
-  if (!dayNumber) {
-    throw new Error('Unrecognized day: "' + options.day + '".');
-  }
-
-  return this._getEmployeeOffset(options.name)
-    .then(function(employeeOffset) {
-      offset = employeeOffset * 5 + dayNumber;
+  return this._getUtilizationOffset(options)
+    .then(function(_offset) {
+      offset = _offset;
 
       return driver._$('phaseWeek.day.front');
     }).then(function(days) {
@@ -277,6 +285,54 @@ Driver.prototype.editUtilization = function(options) {
       return set[offset].click();
     });
 };
+
+/**
+ * Select a utilization for a given day and drag it to another utilization.
+ *
+ * Firefox, Selenium, and/or Leadfoot do not support scripted drag-and-drop
+ * interactions.
+ * TODO: Find a solution and enable this method.
+ *
+ * @param {Object} options
+ * @param {Object} options.source the utilization to select
+ * @param {string} options.source.name the full name of the employee whose
+ *                                     utilization should be selected
+ * @param {string} options.source.day  the name of the weekday to select
+ * @param {Object} options.destination the utilization to which the selected
+ *                                     utilization should be dragged
+ * @param {string} options.destination.name the full name of the employee whose
+ *                                          utilization should be selected
+ * @param {string} options.destination.day  the name of the weekday to select
+ */
+//Driver.prototype.dragUtilization = function(options) {
+//  var driver = this;
+//  var offset;
+//
+//  throw new Error('Not implemented.');
+//
+//  return this._getUtilizationOffset(options.source)
+//    .then(function(_offset) {
+//      offset = _offset;
+//
+//      return driver._$('phaseWeek.day.front');
+//    }).then(function(days) {
+//      return driver._cmd.moveMouseTo(days[offset]);
+//    }).then(function() {
+//      return driver._cmd.pressMouseButton(0);
+//    }).then(function() {
+//      return driver._getUtilizationOffset(options.destination);
+//    }).then(function(_offset) {
+//      offset = _offset;
+//
+//      return driver._$('phaseWeek.day.front');
+//    }).then(function(days) {
+//      return driver._cmd.moveMouseTo(days[offset]);
+//    }).then(function() {
+//      return driver._cmd.moveMouseTo(null, 5, 5);
+//    }).then(function() {
+//      return driver._cmd.releaseMouseButton(0);
+//    });
+//};
 
 /**
  * Verify the utilizations for one or more employees.

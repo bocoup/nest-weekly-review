@@ -43,7 +43,12 @@ module.exports = Component.extend({
   },
 
   handleDragstart: function() {
-    event._lastDragEnter = this.event.node;
+    var event = this.event;
+
+    // Required to enable element dragging in Firefox:
+    event.original.dataTransfer.setData('text/plain', 'This element may be dragged');
+
+    event._lastDragEnter = event.node;
     this.fire('select', this.get('utilization'));
   },
 

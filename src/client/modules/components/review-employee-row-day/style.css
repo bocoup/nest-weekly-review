@@ -102,3 +102,18 @@
 .flip .back { /* Initially hidden */
   border: 1px solid #aaa;
 }
+
+/**
+ * The latest version of Firefox (version 34 at the time of this writing)
+ * exhibits a bug where <label> elements with the draggable attribute will
+ * not initiate a dragstart event. Because the children of such elements will
+ * correctly trigger that event on their parent create an invisible element
+ * that completely occupies the space of the parent.
+ */
+.flip .firefox-drag-workaround {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}

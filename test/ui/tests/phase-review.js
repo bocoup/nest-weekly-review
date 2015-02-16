@@ -83,6 +83,30 @@ describe('phase review', function() {
               })
             ]);
         });
+        /**
+         * Firefox, Selenium, and/or Leadfoot do not support scripted
+         * drag-and-drop interactions.
+         * TODO: Find a solution and enable this logic.
+         */
+        //}).then(function() {
+        //  function handlePut(req, res) {
+        //    res.end();
+        //  }
+        //  return Promise.all([
+        //      middleMan.once('PUT', '/utilizations/:id', handlePut),
+        //      middleMan.once('PUT', '/utilizations/:id', handlePut),
+        //      driver.dragUtilization({
+        //        source: {
+        //          name: 'Jerry Seinfeld',
+        //          day: 'thursday'
+        //        },
+        //        destination: {
+        //          name: 'Jerry Seinfeld',
+        //          day: 'wednesday'
+        //        }
+        //      })
+        //    ]);
+        //});
     });
 
     /**

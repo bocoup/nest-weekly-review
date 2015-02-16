@@ -63,7 +63,7 @@ module.exports = Component.extend({
   },
 
   selectUtilization: function(utilization) {
-    this.selected = utilization.createMatching().toJSON();
+    this.selected = utilization.createMatching();
   },
 
   brushUtilization: function(component, date) {

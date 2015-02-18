@@ -1,10 +1,17 @@
-.utilization-type, .utilization-project {
+.utilization-type, .utilization-project, .utilization-phase {
   display: block;
 }
 
 .utilization-type {
   font-weight: bold;
+}
+
+.utilization-project {
   font-size: 0.8em;
+}
+
+.utilization-phase {
+  font-size: 0.6em;
 }
 
 /* Day interactions */

@@ -23,7 +23,6 @@ suite('Utilization model', function() {
     var u1 = new Utilization({
       utilization_type_id: 2,
       employee_id: 2,
-      position_id: 2,
       project_id: 2,
       project_phase_id: 2,
       first_date: new Date(2012, 1, 2),
@@ -32,7 +31,6 @@ suite('Utilization model', function() {
     var u2 = new Utilization({
       utilization_type_id: 2,
       employee_id: 2,
-      position_id: 2,
       project_id: 2,
       project_phase_id: 2,
       first_date: new Date(2012, 4, 4),
@@ -41,7 +39,6 @@ suite('Utilization model', function() {
     var u3 = new Utilization({
       utilization_type_id: 3,
       employee_id: 2,
-      position_id: 2,
       project_id: 2,
       project_phase_id: 2,
       first_date: new Date(2012, 4, 4),
@@ -50,7 +47,6 @@ suite('Utilization model', function() {
     var u4 = new Utilization({
       utilization_type_id: 2,
       employee_id: 3,
-      position_id: 2,
       project_id: 2,
       project_phase_id: 2,
       first_date: new Date(2012, 4, 4),
@@ -59,7 +55,6 @@ suite('Utilization model', function() {
     var u5 = new Utilization({
       utilization_type_id: 2,
       employee_id: 2,
-      position_id: 3,
       project_id: 2,
       project_phase_id: 2,
       first_date: new Date(2012, 4, 4),
@@ -68,7 +63,6 @@ suite('Utilization model', function() {
     var u6 = new Utilization({
       utilization_type_id: 2,
       employee_id: 2,
-      position_id: 2,
       project_id: 3,
       project_phase_id: 2,
       first_date: new Date(2012, 4, 4),
@@ -77,7 +71,6 @@ suite('Utilization model', function() {
     var u7 = new Utilization({
       utilization_type_id: 2,
       employee_id: 2,
-      position_id: 2,
       project_id: 2,
       project_phase_id: 3,
       first_date: new Date(2012, 4, 4),
@@ -97,12 +90,10 @@ suite('Utilization model', function() {
     test('negative', function() {
       assert.strictEqual(u1.matches(u3), false);
       assert.strictEqual(u1.matches(u4), false);
-      assert.strictEqual(u1.matches(u5), false);
       assert.strictEqual(u1.matches(u6), false);
       assert.strictEqual(u1.matches(u7), false);
       assert.strictEqual(u2.matches(u3), false);
       assert.strictEqual(u2.matches(u4), false);
-      assert.strictEqual(u2.matches(u5), false);
       assert.strictEqual(u2.matches(u6), false);
       assert.strictEqual(u2.matches(u7), false);
       assert.strictEqual(u3.matches(u4), false);
@@ -126,7 +117,6 @@ suite('Utilization model', function() {
     var u1 = new Utilization({
       utilization_type_id: 2,
       employee_id: 2,
-      position_id: 2,
       project_id: 2,
       project_phase_id: 2,
       first_date: new Date(2012, 1, 2),

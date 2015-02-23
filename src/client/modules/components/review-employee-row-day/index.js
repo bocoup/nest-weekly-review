@@ -14,7 +14,6 @@ module.exports = Component.extend({
       utilization_type_id: type.get('id'),
       type: type.toJSON()['utilization-types'],
       employee_id: this.get('employee.id'),
-      position_id: projectRequired ? this.get('newPosition.id') : 1,
       project_id: projectRequired ? this.get('newProject.id') : 1,
       project_phase_id: projectRequired ? this.get('newPhase.id') : null,
       project: projectRequired ? this.get('newProject') : null
@@ -105,28 +104,6 @@ module.exports = Component.extend({
         }
 
         return newType;
-      }
-    },
-
-    newPosition: {
-      set: function(val) {
-        this.set('_newPosition', val);
-      },
-      get: function() {
-        var newPosition = this.get('_newPosition');
-        var currentPositionId = this.get('utilization.position_id');
-        var positions = this.get('positions');
-
-        if (!newPosition && currentPositionId && positions) {
-          positions.some(function(position) {
-            if (position.id === currentPositionId) {
-              newPosition = position;
-              return true;
-            }
-          });
-        }
-
-        return newPosition;
       }
     },
 

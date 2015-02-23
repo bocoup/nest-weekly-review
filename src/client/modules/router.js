@@ -3,7 +3,6 @@ var Router = require('ampersand-router');
 var Promise = require('ractive/ractive.runtime').Promise;
 
 var Phases = require('./models/phases');
-var Positions = require('./models/positions');
 var Projects = require('./models/projects');
 var UtilizationTypes = require('./models/utilization-types');
 var Review = require('./models/phase-review');
@@ -23,7 +22,6 @@ module.exports = Router.extend({
     });
     this.phases = new Phases();
     this.phaselessProjects = new Projects();
-    this.positions = new Positions();
     this.utilizationTypes = new UtilizationTypes();
 
     this.asyncRoute(/date\/(\d{4})-(\d\d)-(\d\d)\//i, 'phaseList');
@@ -34,15 +32,6 @@ module.exports = Router.extend({
     if (!token.get()) {
       return;
     }
-
-    this.positions.fetch({
-      error: function(model, response) {
-        this.layout.addError({
-          title: 'Couldn\'t fetch position data',
-          description: response.body
-        });
-      }.bind(this)
-    });
 
     /**
     * Fetch all projects which do not have a phase. These will be appended
@@ -243,7 +232,6 @@ module.exports = Router.extend({
             date: date,
             phase: models.phase,
             phaselessProjects: this.phaselessProjects,
-            positions: this.positions,
             review: review,
             utilizationTypes: this.utilizationTypes
           });

@@ -46,16 +46,6 @@
       {{/each}}
     </select>
 
-    <select id="{{dayName}}{{employee.id}}-position"
-      {{#if !newType.project_required}}disabled{{/if}}
-      value="{{newPosition}}">
-
-      <option selected disabled>Position</option>
-      {{#each positions}}
-      <option value="{{this}}">{{name}}</option>
-      {{/each}}
-    </select>
-
     <select id="{{dayName}}{{employee.id}}-project"
       {{#if !newType.project_required}}disabled{{/if}}
       value="{{newProject}}">

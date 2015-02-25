@@ -44,6 +44,11 @@ describe('phase review', function() {
             1,
             'Verification information reflects initial utilization state'
           );
+
+          return driver.readAll('phaseWeek.day.front.phase');
+        }).then(function(phases) {
+          assert.equal(phases[0], 'Make pudding');
+          assert.equal(phases[6], 'Extract pudding skin');
         });
     });
 

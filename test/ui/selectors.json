@@ -22,7 +22,12 @@
       "day": {
         "_selector": ".day",
         "_contents": {
-          "front": ".front",
+          "front": {
+            "_selector": ".front",
+            "_contents": {
+              "phase": ".utilization-phase"
+            }
+          },
           "typeInput": ".back select:nth-child(1)",
           "set": ".back .set"
         }

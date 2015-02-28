@@ -1,21 +1,20 @@
 GET /project-phases?after=2015-01-04&before=2015-01-11&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees
 authorization: Bearer fake-token-for-testing
-accept-encoding: gzip, deflate
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
 host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Sun, 15 Feb 2015 16:57:50 GMT
+date: Sat, 28 Feb 2015 23:43:13 GMT
 content-type: application/json; charset=utf-8
-content-length: 1704
+content-length: 1670
 connection: close
+vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-vary: Origin
-etag: W/"Cm/0QytOf9QzhLrovIjXEQ=="
-set-cookie: connect.sid=s%3AtCFTVPLSRC96vu2dC8LYfZsT2fU4JmhR.WjWQ6u1wIRzlFT%2BJmdaL6Bh2GacfKalqSuNCTAJ7hk8; Path=/; HttpOnly
+etag: W/"uem9omwf7QoVykHfKKfwTg=="
+set-cookie: connect.sid=s%3AjHs88RAAjP4j-BYuxgWvkece8v_3dPq_.ABzOvqv47Y6brfXviDhGtsyKwerydSMedeTOrDCmlcg; Path=/; HttpOnly
 
 {
   "linked": {
@@ -35,7 +34,6 @@ set-cookie: connect.sid=s%3AtCFTVPLSRC96vu2dC8LYfZsT2fU4JmhR.WjWQ6u1wIRzlFT%2BJm
         "abbr": "PS",
         "completed": false,
         "project_type_id": 1,
-        "default_position_id": 1,
         "default_utilization_type_id": 1,
         "lead_employee_id": 1,
         "organization_id": 1

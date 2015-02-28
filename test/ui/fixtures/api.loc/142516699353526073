@@ -1,21 +1,20 @@
 GET /utilizations?employee_id=1&include%5B0%5D=project&include%5B1%5D=type
 authorization: Bearer fake-token-for-testing
-accept-encoding: gzip, deflate
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
 host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Sun, 15 Feb 2015 16:57:50 GMT
+date: Sat, 28 Feb 2015 23:43:13 GMT
 content-type: application/json; charset=utf-8
-content-length: 7882
+content-length: 6881
 connection: close
+vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-vary: Origin
-etag: W/"S8G5q4X2yHqr9DjU4PYDPA=="
-set-cookie: connect.sid=s%3A8AbX_v_skGRnTJjt_bGW1lgSyALgahiH.%2F2tU6UDaORjVWpgblcIQ02d1%2Bk40QgCuqys9Z0EMGnI; Path=/; HttpOnly
+etag: W/"UA9YdztqEEI/OvNJlxh17g=="
+set-cookie: connect.sid=s%3AbeprsJYIaVtezVOoCPe5yM89pGOgHoHv.jmRNnbj3rO4eA4QAC2SsjwxMX83PHgjazIlZYlczLOQ; Path=/; HttpOnly
 
 {
   "linked": {
@@ -26,10 +25,19 @@ set-cookie: connect.sid=s%3A8AbX_v_skGRnTJjt_bGW1lgSyALgahiH.%2F2tU6UDaORjVWpgbl
         "abbr": "PS",
         "completed": false,
         "project_type_id": 1,
-        "default_position_id": 1,
         "default_utilization_type_id": 1,
         "lead_employee_id": 1,
         "organization_id": 1
+      },
+      {
+        "id": 4,
+        "name": "Fundraising Drive",
+        "abbr": "FD",
+        "completed": false,
+        "project_type_id": 1,
+        "default_utilization_type_id": 1,
+        "lead_employee_id": 1,
+        "organization_id": 2
       }
     ],
     "utilization-types": [
@@ -50,15 +58,6 @@ set-cookie: connect.sid=s%3A8AbX_v_skGRnTJjt_bGW1lgSyALgahiH.%2F2tU6UDaORjVWpgbl
         "admin_only": false,
         "display_name": null,
         "unpaid": false
-      },
-      {
-        "id": 3,
-        "name": "Vacation",
-        "color": "ff5fc2",
-        "project_required": false,
-        "admin_only": false,
-        "display_name": null,
-        "unpaid": false
       }
     ]
   },
@@ -67,7 +66,6 @@ set-cookie: connect.sid=s%3A8AbX_v_skGRnTJjt_bGW1lgSyALgahiH.%2F2tU6UDaORjVWpgbl
       "id": 1,
       "utilization_type_id": 1,
       "employee_id": 1,
-      "position_id": 1,
       "project_id": 1,
       "project_phase_id": 1,
       "first_day": "2015-01-01",
@@ -85,11 +83,6 @@ set-cookie: connect.sid=s%3A8AbX_v_skGRnTJjt_bGW1lgSyALgahiH.%2F2tU6UDaORjVWpgbl
         "project": {
           "type": "projects",
           "id": 1
-        },
-        "position": {
-          "type": "positions",
-          "id": 1,
-          "href": "/positions/1"
         },
         "type": {
           "type": "utilization-types",
@@ -110,7 +103,6 @@ set-cookie: connect.sid=s%3A8AbX_v_skGRnTJjt_bGW1lgSyALgahiH.%2F2tU6UDaORjVWpgbl
       "id": 2,
       "utilization_type_id": 1,
       "employee_id": 1,
-      "position_id": 1,
       "project_id": 1,
       "project_phase_id": 1,
       "first_day": "2015-01-04",
@@ -128,11 +120,6 @@ set-cookie: connect.sid=s%3A8AbX_v_skGRnTJjt_bGW1lgSyALgahiH.%2F2tU6UDaORjVWpgbl
         "project": {
           "type": "projects",
           "id": 1
-        },
-        "position": {
-          "type": "positions",
-          "id": 1,
-          "href": "/positions/1"
         },
         "type": {
           "type": "utilization-types",
@@ -153,7 +140,6 @@ set-cookie: connect.sid=s%3A8AbX_v_skGRnTJjt_bGW1lgSyALgahiH.%2F2tU6UDaORjVWpgbl
       "id": 3,
       "utilization_type_id": 2,
       "employee_id": 1,
-      "position_id": 1,
       "project_id": 1,
       "project_phase_id": 1,
       "first_day": "2015-01-08",
@@ -171,11 +157,6 @@ set-cookie: connect.sid=s%3A8AbX_v_skGRnTJjt_bGW1lgSyALgahiH.%2F2tU6UDaORjVWpgbl
         "project": {
           "type": "projects",
           "id": 1
-        },
-        "position": {
-          "type": "positions",
-          "id": 1,
-          "href": "/positions/1"
         },
         "type": {
           "type": "utilization-types",
@@ -196,7 +177,6 @@ set-cookie: connect.sid=s%3A8AbX_v_skGRnTJjt_bGW1lgSyALgahiH.%2F2tU6UDaORjVWpgbl
       "id": 4,
       "utilization_type_id": 1,
       "employee_id": 1,
-      "position_id": 1,
       "project_id": 1,
       "project_phase_id": 1,
       "first_day": "2015-01-12",
@@ -215,11 +195,6 @@ set-cookie: connect.sid=s%3A8AbX_v_skGRnTJjt_bGW1lgSyALgahiH.%2F2tU6UDaORjVWpgbl
           "type": "projects",
           "id": 1
         },
-        "position": {
-          "type": "positions",
-          "id": 1,
-          "href": "/positions/1"
-        },
         "type": {
           "type": "utilization-types",
           "id": 1
@@ -237,11 +212,10 @@ set-cookie: connect.sid=s%3A8AbX_v_skGRnTJjt_bGW1lgSyALgahiH.%2F2tU6UDaORjVWpgbl
     },
     {
       "id": 5,
-      "utilization_type_id": 3,
+      "utilization_type_id": 2,
       "employee_id": 1,
-      "position_id": 1,
-      "project_id": 1,
-      "project_phase_id": 1,
+      "project_id": 4,
+      "project_phase_id": null,
       "first_day": "2015-01-15",
       "last_day": "2015-01-15",
       "billable": false,
@@ -256,21 +230,15 @@ set-cookie: connect.sid=s%3A8AbX_v_skGRnTJjt_bGW1lgSyALgahiH.%2F2tU6UDaORjVWpgbl
         },
         "project": {
           "type": "projects",
-          "id": 1
-        },
-        "position": {
-          "type": "positions",
-          "id": 1,
-          "href": "/positions/1"
+          "id": 4
         },
         "type": {
           "type": "utilization-types",
-          "id": 3
+          "id": 2
         },
         "projectPhase": {
           "type": "project-phases",
-          "id": 1,
-          "href": "/project-phases/1"
+          "id": null
         },
         "sketchCalendar": {
           "type": "sketch-calendars",
@@ -282,7 +250,6 @@ set-cookie: connect.sid=s%3A8AbX_v_skGRnTJjt_bGW1lgSyALgahiH.%2F2tU6UDaORjVWpgbl
       "id": 6,
       "utilization_type_id": 1,
       "employee_id": 1,
-      "position_id": 1,
       "project_id": 1,
       "project_phase_id": 1,
       "first_day": "2015-01-16",
@@ -300,11 +267,6 @@ set-cookie: connect.sid=s%3A8AbX_v_skGRnTJjt_bGW1lgSyALgahiH.%2F2tU6UDaORjVWpgbl
         "project": {
           "type": "projects",
           "id": 1
-        },
-        "position": {
-          "type": "positions",
-          "id": 1,
-          "href": "/positions/1"
         },
         "type": {
           "type": "utilization-types",
@@ -325,7 +287,6 @@ set-cookie: connect.sid=s%3A8AbX_v_skGRnTJjt_bGW1lgSyALgahiH.%2F2tU6UDaORjVWpgbl
       "id": 9,
       "utilization_type_id": 1,
       "employee_id": 1,
-      "position_id": 1,
       "project_id": 1,
       "project_phase_id": 1,
       "first_day": "2015-01-19",
@@ -343,11 +304,6 @@ set-cookie: connect.sid=s%3A8AbX_v_skGRnTJjt_bGW1lgSyALgahiH.%2F2tU6UDaORjVWpgbl
         "project": {
           "type": "projects",
           "id": 1
-        },
-        "position": {
-          "type": "positions",
-          "id": 1,
-          "href": "/positions/1"
         },
         "type": {
           "type": "utilization-types",

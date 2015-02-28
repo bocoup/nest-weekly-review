@@ -1,21 +1,20 @@
-GET /project-phases?after=2014-12-21&before=2015-01-25&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees
+GET /project-phases?after=2015-01-18&before=2015-01-25&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees
 authorization: Bearer fake-token-for-testing
-accept-encoding: gzip, deflate
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
 host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Sun, 15 Feb 2015 16:57:00 GMT
+date: Sat, 28 Feb 2015 23:43:05 GMT
 content-type: application/json; charset=utf-8
-content-length: 2845
+content-length: 2811
 connection: close
+vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-vary: Origin
-etag: W/"Cp7CXDsJ6UIt2aI1XF0RXA=="
-set-cookie: connect.sid=s%3A13S8BDhYetR_h0IXXUKCmlwMH9199OX3.d0TPEOoePbQblDvywz7v1Fnv3yggASuwLpZa%2Fk3tJCI; Path=/; HttpOnly
+etag: W/"nDWh80w0gNgu80Mx3LY8dg=="
+set-cookie: connect.sid=s%3AQHIqBfovvquYHnmMXKQK2xhWFc-LNtlB.rvjHC0uDIPdq0cDARYuk%2FvqlxFhxMkY3uIpBu%2FBIgYc; Path=/; HttpOnly
 
 {
   "linked": {
@@ -35,7 +34,6 @@ set-cookie: connect.sid=s%3A13S8BDhYetR_h0IXXUKCmlwMH9199OX3.d0TPEOoePbQblDvywz7
         "abbr": "PS",
         "completed": false,
         "project_type_id": 1,
-        "default_position_id": 1,
         "default_utilization_type_id": 1,
         "lead_employee_id": 1,
         "organization_id": 1

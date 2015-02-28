@@ -25,6 +25,15 @@ var middleMan, quitSelenium, quitApplication, command;
 global.assert = chai.assert;
 chai.use(require('chai-datetime'));
 
+/**
+ * Prevent the browser from requesting an encoded response so that the recorded
+ * fixture data is human-readable.
+ */
+function disableGzip(req, res, next) {
+  delete req.headers['accept-encoding'];
+  next();
+}
+
 function handleCors(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   next();
@@ -65,6 +74,7 @@ beforeEach(function() {
   var server, capabilities;
 
   this.middleMan.on('*', /.*/, handleCors);
+  this.middleMan.on('*', /.*/, disableGzip);
   this.middleMan.on('OPTIONS', /.*/, handleCorsPreflight);
   this.timeout(30 * 1000);
 

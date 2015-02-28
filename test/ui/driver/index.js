@@ -4,6 +4,7 @@ var Promise = require('bluebird');
 var selectors = require('../selectors.json');
 var buildSelector = require('./build-selector');
 var readAll = require('./read-all');
+var readEl = require('./read-el');
 var waitFor = require('./wait-for');
 var dayNames = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
 
@@ -121,7 +122,7 @@ Driver.prototype._selectOption = function(element, value) {
  */
 Driver.prototype.read = function(region) {
   return this._$(region).then(function(els) {
-      return els[0].getVisibleText();
+      return readEl(els[0]);
     });
 };
 
@@ -136,7 +137,7 @@ Driver.prototype.read = function(region) {
 Driver.prototype.readAll = function(region) {
   return this._$(region).then(function(els) {
       return Promise.all(els.map(function(el) {
-        return el.getVisibleText();
+        return readEl(el);
       }));
     });
 };
@@ -244,13 +245,75 @@ Driver.prototype._getEmployeeOffset = function(name) {
 Driver.prototype._getUtilizationOffset = function(options) {
   var dayNumber = dayNames.indexOf(options.day);
 
-  if (!dayNumber) {
+  if (dayNumber < 0) {
     throw new Error('Unrecognized day: "' + options.day + '".');
   }
 
   return this._getEmployeeOffset(options.name)
     .then(function(employeeOffset) {
       return employeeOffset * 5 + dayNumber;
+    });
+};
+
+/**
+ * Open the utilization data entry form for a given day. This method assumes
+ * the driver is currently viewing a "week review" page.
+ *
+ * @param {Object} options
+ * @param {string} options.name the full name of the employee whose utilization
+ *                              form should be viewed
+ * @param {string} options.day  the name of the weekday to view
+ *
+ * @returns {number} offset of the form being viewed
+ */
+Driver.prototype.viewUtilizationForm = function(options) {
+  var driver = this;
+  var offset;
+
+  return this._getUtilizationOffset(options)
+    .then(function(_offset) {
+      offset = _offset;
+
+      return driver._$('phaseWeek.day.front');
+    }).then(function(days) {
+      return days[offset].click();
+    }).then(function() {
+      return offset;
+    });
+};
+
+/**
+ * Read the utilization data entry form for a given day. This method assumes
+ * the driver is currently viewing a "week review" page.
+ *
+ * @param {Object} options
+ * @param {string} options.name the full name of the employee whose utilization
+ *                              form should be read
+ * @param {string} options.day  the name of the weekday to read
+ */
+Driver.prototype.readUtilizationForm = function(options) {
+  var driver = this;
+  var offset;
+
+  return this._getUtilizationOffset(options)
+    .then(function(_offset) {
+      offset = _offset;
+
+      return Promise.all([
+          driver._$(['phaseWeek.day', offset, 'typeInput']),
+          driver._$(['phaseWeek.day', offset, 'projectInput']),
+          driver._$(['phaseWeek.day', offset, 'phaseInput'])
+        ]);
+    }).then(function(els) {
+      return Promise.all(els.map(function(el) {
+          return readEl(el[0]);
+        }));
+    }).then(function(texts) {
+      return {
+        type: texts[0],
+        project: texts[1],
+        phase: texts[2]
+      };
     });
 };
 
@@ -268,14 +331,9 @@ Driver.prototype.editUtilization = function(options) {
   var driver = this;
   var offset;
 
-  return this._getUtilizationOffset(options)
-    .then(function(_offset) {
+  return this.viewUtilizationForm(options).then(function(_offset) {
       offset = _offset;
 
-      return driver._$('phaseWeek.day.front');
-    }).then(function(days) {
-      return days[offset].click();
-    }).then(function() {
       return driver._$('phaseWeek.day.typeInput');
     }).then(function(typeInputs) {
       return driver._selectOption(typeInputs[offset], options.type);

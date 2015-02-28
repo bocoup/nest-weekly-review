@@ -107,32 +107,35 @@ module.exports = Component.extend({
       }
     },
 
-    newProject: {
-      set: function(val) {
-        this.set('_newProject', val);
+    newProjectId: {
+      set: function(newId) {
+        var project;
+
+        this.get('activeProjects').some(function(activeProject) {
+          if (activeProject.id === newId) {
+            project = activeProject;
+            return true;
+          }
+        });
+
+        this.get('phaselessProjects').some(function(phaselessProject) {
+          if (phaselessProject.id === newId) {
+            project = phaselessProject;
+            return true;
+          }
+        });
+
+        this.set('_newProjectId', newId);
+        this.set('_newProject', project);
+        this.set('newPhase', null);
       },
       get: function() {
-        var newProject = this.get('_newProject');
-        var currentProjectId = this.get('utilization.project_id');
-        var activeProjects = this.get('activeProjects');
-
-        var type = this.get('newType');
-
-        if (!type || !type.project_required) {
-          return null;
-        }
-
-        if (!newProject && currentProjectId && activeProjects) {
-          activeProjects.some(function(project) {
-            if (project.id === currentProjectId) {
-              newProject = project;
-              return true;
-            }
-          });
-        }
-
-        return newProject;
+        return this.get('_newProjectId') || this.get('newProject.id');
       }
+    },
+
+    newProject: function() {
+      return this.get('_newProject') || this.get('utilization.project');
     },
 
     newPhase: {

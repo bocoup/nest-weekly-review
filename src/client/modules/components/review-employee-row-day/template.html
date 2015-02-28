@@ -24,7 +24,7 @@
     {{#with utilization}}
     <span class="utilization-type">{{ type.name }}</span>
     {{#if type.project_required}}
-      <span class="utilization-project">{{ project.name }}</span>
+      <span class="utilization-project">{{ newProject.name }}</span>
       <span class="utilization-phase">{{ newPhase.name }}</span>
     {{/if}}
     {{/with}}
@@ -48,14 +48,14 @@
 
     <select id="{{dayName}}{{employee.id}}-project"
       {{#if !newType.project_required}}disabled{{/if}}
-      value="{{newProject}}">
+      value="{{newProjectId}}">
 
       <option selected disabled>Project</option>
       {{#each activeProjects}}
-      <option value="{{this}}">{{name}}</option>
+      <option value="{{id}}">{{name}}</option>
       {{/each}}
       {{#each phaselessProjects}}
-      <option value="{{this}}">{{name}}</option>
+      <option value="{{id}}">{{name}}</option>
       {{/each}}
     </select>
 

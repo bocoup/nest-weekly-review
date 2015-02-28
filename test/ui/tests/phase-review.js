@@ -49,6 +49,32 @@ describe('phase review', function() {
         }).then(function(phases) {
           assert.equal(phases[0], 'Make pudding');
           assert.equal(phases[6], 'Extract pudding skin');
+
+          return driver.viewUtilizationForm({
+            name: 'Jerry Seinfeld',
+            day: 'thursday'
+          });
+        }).then(function() {
+          return driver.readUtilizationForm({
+            name: 'Jerry Seinfeld',
+            day: 'thursday'
+          });
+        }).then(function(text) {
+          assert.equal(
+            text.type,
+            'Education',
+            'Form renders correctly when initialized with a phaseless project'
+          );
+          assert.equal(
+            text.project,
+            'Fundraising Drive',
+            'Form renders correctly when initialized with a phaseless project'
+          );
+          assert.equal(
+            text.phase,
+            'Select Phase',
+            'Form renders correctly when initialized with a phaseless project'
+          );
         });
     });
 

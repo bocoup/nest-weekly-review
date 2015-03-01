@@ -2,6 +2,7 @@
 var Model = require('ampersand-model');
 
 var Project = require('./project');
+var ProjectOrganization = require('./project_organization');
 var Employees = require('./employees');
 var PhaseReviews = require('./phase-reviews');
 var setBearer = require('../ajax-config');
@@ -21,7 +22,8 @@ module.exports = Model.extend({
     developer_weeks: 'number'
   },
   children: {
-    project: Project
+    project: Project,
+    'project.organization': ProjectOrganization
   },
   collections: {
     employees: Employees,

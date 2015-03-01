@@ -2,6 +2,7 @@
 var JsonApiModel = require('./abstract/json-api-model');
 
 var UtilizationType = require('./utilization-type');
+var ProjectOrganization = require('./project_organization');
 var dateStr = require('../util/date-string');
 
 module.exports = JsonApiModel.extend({
@@ -23,7 +24,8 @@ module.exports = JsonApiModel.extend({
   },
 
   children: {
-    type: UtilizationType
+    type: UtilizationType,
+    projectOrganization: ProjectOrganization
   },
 
   /**

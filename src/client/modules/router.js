@@ -39,7 +39,8 @@ module.exports = Router.extend({
     this.phaselessProjects.fetch({
       data: {
         active: true,
-        hasPhase: false
+        hasPhase: false,
+        include: ['organization']
       },
       error: function (model, response) {
         this.layout.addError({
@@ -156,7 +157,7 @@ module.exports = Router.extend({
         data: {
           after: afterDate.toISOString().replace(/T.*$/, ''),
           before: beforeDate.toISOString().replace(/T.*$/, ''),
-          include: ['reviews', 'project', 'employees']
+          include: ['reviews', 'project', 'employees', 'project.organization']
         },
         success: function() {
           resolve(phases);

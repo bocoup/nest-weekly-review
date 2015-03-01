@@ -1,6 +1,7 @@
 'use strict';
 var Router = require('ampersand-router');
 var Promise = require('ractive/ractive.runtime').Promise;
+var AmpersandAdaptor = require('ractive-adaptors-ampersand');
 
 var Phases = require('./models/phases');
 var Projects = require('./models/projects');
@@ -11,14 +12,11 @@ var Layout = require('./components/layout/index');
 var weekNumber = require('./util/week-num');
 var token = require('./util/token');
 
-var ModelAdapter = require('./adapters/ampersand-model');
-var CollectionAdapter = require('./adapters/ampersand-collection');
-
 module.exports = Router.extend({
   initialize: function(options) {
     this.layout = new Layout({
       el: options.el,
-      adapt: [ModelAdapter, CollectionAdapter]
+      adapt: [AmpersandAdaptor]
     });
     this.phases = new Phases();
     this.phaselessProjects = new Projects();

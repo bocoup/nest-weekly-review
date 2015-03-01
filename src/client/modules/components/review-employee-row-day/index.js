@@ -8,6 +8,13 @@ module.exports = Component.extend({
 
   oninit: function() {
     this.observe('newProjectId', this.handleNewProjectIdChange);
+
+    // Ensure that whenever the `utilization` attribute is updated directly (as
+    // in this view's `setAndSave` method), the view's `projectId` is likewise
+    // updated).
+    this.observe('utilization', function() {
+      this.set('newProjectId', null);
+    });
   },
 
   read: function() {

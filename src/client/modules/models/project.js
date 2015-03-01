@@ -1,6 +1,7 @@
 'use strict';
 var Model = require('ampersand-model');
 
+var Organization = require('./organization');
 var setBearer = require('../ajax-config');
 
 var API_ROOT = require('../api-root');
@@ -17,6 +18,9 @@ module.exports = Model.extend({
     calendar_weeks: 'number',
     developer_weeks: 'number'
   },
+  children: {
+    organization: Organization
+  },
 
   derived: {
     date_end: {
@@ -26,6 +30,16 @@ module.exports = Model.extend({
           this.get('date_start').getTime() +
           this.get('calendar_weeks') * WEEK_MS
         );
+      }
+    },
+    org: {
+      // will this work? seems like the dot notation would break down
+      deps: ['organization', 'parent.project.organization'],
+      fn: function () {
+        if (this.parent) {
+          return this.parent['project.organization'];
+        }
+        return this.organization;
       }
     }
   },

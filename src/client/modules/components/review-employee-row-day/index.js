@@ -6,6 +6,10 @@ module.exports = Component.extend({
   template: require('./template.html'),
   css: require('./style.css'),
 
+  oninit: function() {
+    this.observe('newProjectId', this.handleNewProjectIdChange);
+  },
+
   read: function() {
     var type = this.get('newType');
     var projectRequired = type.get('project_required');
@@ -64,6 +68,18 @@ module.exports = Component.extend({
     this.fire('brush', this, this.get('date'));
   },
 
+  handleNewProjectIdChange: function(id) {
+    // The new project ID should default to the value of the current
+    // utilization's project.
+    if (!id) {
+      this.set('newProjectId', this.get('utilization.project.id'));
+
+    // The phase should be un-set whenever the project changes
+    } else {
+      this.set('newPhase', null);
+    }
+  },
+
   computed: {
     style: function() {
       var hex = this.get('utilization.type.color');
@@ -107,35 +123,31 @@ module.exports = Component.extend({
       }
     },
 
-    newProjectId: {
-      set: function(newId) {
-        var project;
+    newProject: function() {
+      var activeProjects = this.get('activeProjects');
+      var phaselessProjects = this.get('phaselessProjects');
+      var newId = this.get('newProjectId');
+      var project;
 
-        this.get('activeProjects').some(function(activeProject) {
+      if (activeProjects) {
+        activeProjects.some(function(activeProject) {
           if (activeProject.id === newId) {
             project = activeProject;
             return true;
           }
         });
+      }
 
-        this.get('phaselessProjects').some(function(phaselessProject) {
+      if (phaselessProjects) {
+        phaselessProjects.some(function(phaselessProject) {
           if (phaselessProject.id === newId) {
             project = phaselessProject;
             return true;
           }
         });
-
-        this.set('_newProjectId', newId);
-        this.set('_newProject', project);
-        this.set('newPhase', null);
-      },
-      get: function() {
-        return this.get('_newProjectId') || this.get('newProject.id');
       }
-    },
 
-    newProject: function() {
-      return this.get('_newProject') || this.get('utilization.project');
+      return project || this.get('utilization.project');
     },
 
     newPhase: {

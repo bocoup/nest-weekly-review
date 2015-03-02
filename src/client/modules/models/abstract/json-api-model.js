@@ -10,6 +10,7 @@ var API_ROOT = require('../../api-root');
 var superSerialize = Model.prototype.serialize;
 var superSave = Model.prototype.save;
 var superDestroy = Model.prototype.destroy;
+var superSet = Model.prototype.set;
 
 module.exports = Model.extend({
   ajaxConfig: setBearer,
@@ -17,12 +18,11 @@ module.exports = Model.extend({
   constructor: function() {
     Model.apply(this, arguments);
 
-    this.on('change', function() {
-      this.set('_isDirty', true, { silent: true });
-    });
     this.on('sync', function() {
-      this.set('_isDirty', false, { silent: true });
+      this._isDirty = false;
     });
+
+    this._isDirty = false;
   },
 
   urlRoot: function() {
@@ -33,38 +33,24 @@ module.exports = Model.extend({
     return parse(this.getType(), data);
   },
 
-  session: {
-    _isDirty: 'bool'
+  set: function() {
+    var ret = superSet.apply(this, arguments);
+
+    if (this.changedAttributes()) {
+      this._isDirty = true;
+    }
+
+    return ret;
   },
 
   /**
    * Determine if the model has changes that need to be propagated to the
    * server.
    *
-   * This method tracks "dirtiness" via a session attribute that is modified in
-   * response to `change` and `sync` events. Because `change` events may be
-   * suppressed via the `silent` flag, the method falls back to Ampersand
-   * State's `hasChanged` method.
-   *
    * @returns {boolean}
    */
   isDirty: function() {
-    var changedAttrs = this.changedAttributes();
-    var changedKeys = changedAttrs && Object.keys(changedAttrs);
-    var hasChanged;
-
-    // Do not consider a model "dirty" if the only changed value is the
-    // internal `_isDirty` flag (this will be the only changed attribute after
-    // successful `sync` events, where the flag is set from `true` to `false`.
-    if (changedKeys && changedKeys.length > 1) {
-      hasChanged = true;
-    } else if (changedKeys && changedKeys.length === 1) {
-      hasChanged = changedKeys[0] !== '_isDirty';
-    } else {
-      hasChanged = false;
-    }
-
-    return this.get('_isDirty') || hasChanged;
+    return this._isDirty;
   },
 
   serialize: function() {

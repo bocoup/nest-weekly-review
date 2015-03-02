@@ -30,6 +30,12 @@ suite('JsonApiModel', function() {
       assert.equal(person.isDirty(), false);
     });
 
+    test('initially clean (when created with attributes)', function() {
+      var person2 = new SyncPerson({ first: 'karen' });
+
+      assert.equal(person2.isDirty(), false);
+    });
+
     test('dirtied by setting attribute', function() {
       person.set('first', 'mark');
 
@@ -42,24 +48,16 @@ suite('JsonApiModel', function() {
       assert.equal(person.isDirty(), true);
     });
 
-    /**
-     * This test represents an edge case not supported by the current
-     * implementation of the `isDirty` method. Addressing it may require
-     * overriding `AmpersandModel#set` to address (an inherently brittle
-     * approach because multiple Ampersand Model methods can modify state, and
-     * their is not guaruntee that they will use the `set` method internally).
-     * TODO: Address the underlying problem and enable this test.
-     */
-    test.skip('dirtied by setting attribute "silently" twice', function() {
-      person.set('first', 'mark', { silent: true });
-      person.set('first', 'mark', { silent: true });
+    test('still dirty after re-setting attribute to same value', function() {
+      person.set('first', 'mark');
+      person.set('first', 'mark');
 
       assert.equal(person.isDirty(), true);
     });
 
-    test('still dirty after re-setting attribute to same value', function() {
-      person.set('first', 'mark');
-      person.set('first', 'mark');
+    test('dirtied by setting attribute "silently" twice', function() {
+      person.set('first', 'mark', { silent: true });
+      person.set('first', 'mark', { silent: true });
 
       assert.equal(person.isDirty(), true);
     });
@@ -68,6 +66,15 @@ suite('JsonApiModel', function() {
       person.set('first', 'matt');
 
       return person.save().then(function() {
+          assert.equal(person.isDirty(), false);
+        });
+    });
+
+    test('clean after setting to identical value', function() {
+      person.set('first', 'matt');
+
+      return person.save().then(function() {
+          person.set('first', 'matt');
           assert.equal(person.isDirty(), false);
         });
     });

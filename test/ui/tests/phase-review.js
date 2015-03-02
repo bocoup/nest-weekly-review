@@ -148,7 +148,7 @@ describe('phase review', function() {
     it('correctly splits an existing multi-day utilization', function() {
       var hasPut = false;
       function handlePut(req, res) {
-        assert.equal(req.params.id, 4);
+        assert.equal(req.params.id, 7);
         hasPut = true;
         res.end();
       }
@@ -162,11 +162,20 @@ describe('phase review', function() {
           middleMan.once('POST', '/utilizations', handlePost),
           middleMan.once('POST', '/utilizations', handlePost),
           driver.editUtilization({
-            name: 'Jerry Seinfeld',
+            name: 'Cosmo Kramer',
             day: 'tuesday',
             type: 'Vacation'
           })
-        ]);
+        ]).then(function() {
+          return driver.count('phaseWeek.verified');
+        }).then(function(count) {
+          assert.equal(
+            count,
+            0,
+            'Developer weeks become "unverified" when utilization data is ' +
+              'changed'
+          );
+        });
     });
 
     it('correctly submits a review', function() {

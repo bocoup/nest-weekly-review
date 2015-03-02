@@ -331,6 +331,17 @@ Driver.prototype.editUtilization = function(options) {
   var driver = this;
   var offset;
 
+  function whenSaved() {
+    return waitFor(function() {
+        return driver._$('phaseWeek.day.saving')
+          .then(function(savingEls) {
+            return savingEls[offset].isDisplayed();
+          }).then(function(isDisplayed) {
+            return !isDisplayed;
+          });
+      });
+  }
+
   return this.viewUtilizationForm(options).then(function(_offset) {
       offset = _offset;
 
@@ -341,7 +352,7 @@ Driver.prototype.editUtilization = function(options) {
       return driver._$('phaseWeek.day.set');
     }).then(function(set) {
       return set[offset].click();
-    });
+    }).then(whenSaved);
 };
 
 /**

@@ -31,6 +31,7 @@
           "typeInput": ".back select:nth-child(1)",
           "projectInput": ".back select:nth-child(2)",
           "phaseInput": ".back select:nth-child(3)",
+          "saving": ".saving",
           "set": ".back .set"
         }
       },

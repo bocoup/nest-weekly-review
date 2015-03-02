@@ -31,27 +31,6 @@ module.exports = Component.extend({
     };
   },
 
-  setAndSave: function(date, values) {
-    var utilizations = this.get('utilizations');
-    var old = utilizations.atDate(date);
-    var current = utilizations.setAtDate(date, values, { silent: true });
-
-    this.set('isSaving', true);
-
-    utilizations.save().then(function() {
-        this.set('isSaving', false);
-        this.set('utilization', current);
-      }.bind(this), function(err) {
-        this.set('isSaving', false);
-        utilizations.setAtDate(date, old, { silent: true });
-        this.set('utilization', old);
-
-        this.fire('error', {
-          title: 'Failed to save utilization', desc: err
-        });
-      }.bind(this));
-  },
-
   handleDragstart: function() {
     var event = this.event;
 
@@ -212,7 +191,7 @@ module.exports = Component.extend({
           return;
         }
 
-        this.setAndSave(date, this.read());
+        this.fire('set', this, date, this.read());
       }
     }
   }

@@ -282,6 +282,42 @@ suite('Utilizations collection', function() {
       assert.equal(u.atDate(new Date(2012, 2, 2), 6), u.at(2));
       assert.equal(u.atDate(new Date(2012, 2, 2), 7), u.at(2));
     });
+
+    test('with offset (into DST)', function() {
+      var u = new Utilizations([
+        { first_day: new Date(2015, 2, 6), last_day: new Date(2015, 2, 9) },
+        { first_day: new Date(2015, 2, 10), last_day: new Date(2015, 2, 11) }
+      ]);
+
+      assert.equal(u.atDate(new Date(2015, 2, 7), 1), u.at(0));
+      assert.equal(u.atDate(new Date(2015, 2, 7), 2), u.at(0));
+      assert.equal(u.atDate(new Date(2015, 2, 7), 3), u.at(1));
+      assert.equal(u.atDate(new Date(2015, 2, 7), 4), u.at(1));
+      assert.equal(u.atDate(new Date(2015, 2, 7), 5), null);
+
+      assert.equal(u.atDate(new Date(2015, 2, 8), 1), u.at(0));
+      assert.equal(u.atDate(new Date(2015, 2, 8), 2), u.at(1));
+      assert.equal(u.atDate(new Date(2015, 2, 8), 3), u.at(1));
+      assert.equal(u.atDate(new Date(2015, 2, 8), 4), null);
+    });
+
+    test('with offset (out of DST)', function() {
+      var u = new Utilizations([
+        { first_day: new Date(2015, 9, 30), last_day: new Date(2015, 10, 2) },
+        { first_day: new Date(2015, 10, 3), last_day: new Date(2015, 10, 4) }
+      ]);
+
+      assert.equal(u.atDate(new Date(2015, 9, 31), 1), u.at(0));
+      assert.equal(u.atDate(new Date(2015, 9, 31), 2), u.at(0));
+      assert.equal(u.atDate(new Date(2015, 9, 31), 3), u.at(1));
+      assert.equal(u.atDate(new Date(2015, 9, 31), 4), u.at(1));
+      assert.equal(u.atDate(new Date(2015, 9, 31), 5), null);
+
+      assert.equal(u.atDate(new Date(2015, 10, 1), 1), u.at(0));
+      assert.equal(u.atDate(new Date(2015, 10, 1), 2), u.at(1));
+      assert.equal(u.atDate(new Date(2015, 10, 1), 3), u.at(1));
+      assert.equal(u.atDate(new Date(2015, 10, 1), 4), null);
+    });
   });
 
   suite('#setAtDate', function() {

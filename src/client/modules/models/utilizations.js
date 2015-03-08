@@ -5,7 +5,8 @@ var extend = require('lodash.assign');
 var JsonApiCollection = require('./abstract/json-api-collection');
 var Utilization = require('./utilization');
 
-var ONE_DAY = 1000 * 60 * 60 * 24;
+var ONE_HOUR = 1000 * 60 * 60;
+var ONE_DAY = ONE_HOUR * 24;
 
 module.exports = JsonApiCollection.extend({
   model: Utilization,
@@ -92,10 +93,6 @@ module.exports = JsonApiCollection.extend({
    */
   atDate: function(date, offset) {
     return atDate(this.models, date, offset);
-  },
-
-  atDay: function(first, offset) {
-    return this.atDate(new Date(first.getTime() + offset * ONE_DAY));
   },
 
   /**
@@ -301,10 +298,12 @@ module.exports = JsonApiCollection.extend({
  * @returns {Utilization|null}
  */
 function atDate(models, date, offset) {
+  var hours = date.getHours();
   var idx, length, current;
 
   if (offset) {
-    date = new Date(date.getTime() + offset * ONE_DAY);
+    date = new Date(date.getTime() + offset * ONE_DAY + ONE_HOUR);
+    date.setHours(hours);
   }
 
   for (idx = 0, length = models.length; idx < length; ++idx) {

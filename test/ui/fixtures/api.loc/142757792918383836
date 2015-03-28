@@ -7,11 +7,11 @@ host: api.loc
 
 304 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Sat, 28 Feb 2015 23:42:15 GMT
+date: Sat, 28 Mar 2015 21:25:29 GMT
 connection: close
 x-powered-by: Express
 access-control-allow-origin: *
 vary: Origin
 etag: W/"257-3fbd9c3a"
-set-cookie: connect.sid=s%3Ac7ykPoV5E9INYh1KRVtMyvXJwzcJn7EK.W9OTe2aZ4qxm3E1KkgM988voEJgkBOrYvUdeCRGj%2FMc; Path=/; HttpOnly
+set-cookie: connect.sid=s%3AUN2ecWSfAPgnPCWq2p_rg0hwN-SB8F8e.KLfq53yVCgnXKR6YJnIKJIkcOMtkLatZbYV1qxJyK58; Path=/; HttpOnly
 

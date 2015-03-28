@@ -6,15 +6,15 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Sat, 28 Feb 2015 23:43:05 GMT
+date: Sat, 28 Mar 2015 21:26:42 GMT
 content-type: application/json; charset=utf-8
-content-length: 6881
+content-length: 7722
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"UA9YdztqEEI/OvNJlxh17g=="
-set-cookie: connect.sid=s%3AU5oyiWguiubYlifhoOjhm16S4vFffxVi.8zwXF4NTCi22oOZKQioksMtTJl1Jc%2F6cAyEEvlBfO5U; Path=/; HttpOnly
+etag: W/"fLCvrL8gEfUMPUt7ZRgEKw=="
+set-cookie: connect.sid=s%3AeNlkfC1hpe6YolHJuf7sIEEtTFqrzVPz.Kvo5ufU4E8Ct3%2B50eWMcv8PZKxifg1KLeLVPhM5uPT4; Path=/; HttpOnly
 
 {
   "linked": {
@@ -294,6 +294,43 @@ set-cookie: connect.sid=s%3AU5oyiWguiubYlifhoOjhm16S4vFffxVi.8zwXF4NTCi22oOZKQio
       "billable": false,
       "sketch_calendar_id": null,
       "verified": true,
+      "notes": null,
+      "links": {
+        "employee": {
+          "type": "employees",
+          "id": 1,
+          "href": "/employees/1"
+        },
+        "project": {
+          "type": "projects",
+          "id": 1
+        },
+        "type": {
+          "type": "utilization-types",
+          "id": 1
+        },
+        "projectPhase": {
+          "type": "project-phases",
+          "id": 1,
+          "href": "/project-phases/1"
+        },
+        "sketchCalendar": {
+          "type": "sketch-calendars",
+          "id": null
+        }
+      }
+    },
+    {
+      "id": 10,
+      "utilization_type_id": 1,
+      "employee_id": 1,
+      "project_id": 1,
+      "project_phase_id": 1,
+      "first_day": "2015-03-09",
+      "last_day": "2015-03-13",
+      "billable": false,
+      "sketch_calendar_id": null,
+      "verified": false,
       "notes": null,
       "links": {
         "employee": {

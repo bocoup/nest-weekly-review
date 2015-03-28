@@ -54,7 +54,7 @@ Driver.prototype._$ = function(path, context, pathContext) {
     .then(function(els) {
       var el;
 
-      if (!index) {
+      if (index === undefined) {
         return els;
       }
 

@@ -1,4 +1,4 @@
-GET /project-phases?after=2015-01-18&before=2015-01-25&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees
+GET /project-phases?after=2015-03-08&before=2015-04-12&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -6,32 +6,24 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Sat, 28 Feb 2015 23:42:23 GMT
+date: Sat, 28 Mar 2015 21:25:29 GMT
 content-type: application/json; charset=utf-8
-content-length: 2811
+content-length: 2701
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"nDWh80w0gNgu80Mx3LY8dg=="
-set-cookie: connect.sid=s%3AneffGoD0KUbxv5tadhA_Aw1dDepOuCGs.XJTv8%2Fp0UFyio2MpIAyd6lsDfuhlNaT2UdUSOZqxIWQ; Path=/; HttpOnly
+etag: W/"fPs5YZ1HLTVLoKiSK4F8eA=="
+set-cookie: connect.sid=s%3AQf8fakIn1v-8KOr4C-dQ0cUE7pBJtRT7.fqogLcrPcsyfH%2FlK47cB93BD04iGnsCfap4OQ9wS7Zw; Path=/; HttpOnly
 
 {
   "linked": {
-    "project-phase-reviews": [
-      {
-        "id": 1,
-        "project_phase_id": 1,
-        "week_number": 2,
-        "notes": "nice work!",
-        "data": {}
-      }
-    ],
+    "project-phase-reviews": [],
     "projects": [
       {
-        "id": 1,
-        "name": "Pudding Skins",
-        "abbr": "PS",
+        "id": 2,
+        "name": "Muffin Tops",
+        "abbr": "MT",
         "completed": false,
         "project_type_id": 1,
         "default_utilization_type_id": 1,
@@ -71,59 +63,55 @@ set-cookie: connect.sid=s%3AneffGoD0KUbxv5tadhA_Aw1dDepOuCGs.XJTv8%2Fp0UFyio2MpI
         "website": null,
         "slug": null,
         "supporter_id": 1
+      },
+      {
+        "id": 3,
+        "first": "Elaine",
+        "last": "Benes",
+        "date_start": "2014-08-14T00:00:00.000Z",
+        "date_end": null,
+        "github_user": "elain",
+        "position_id": 1,
+        "email": null,
+        "phone": null,
+        "irc": null,
+        "twitter": null,
+        "website": null,
+        "slug": null,
+        "supporter_id": 1
+      },
+      {
+        "id": 4,
+        "first": "George",
+        "last": "Costanza",
+        "date_start": "2012-01-01T00:00:00.000Z",
+        "date_end": null,
+        "github_user": "bosco",
+        "position_id": 1,
+        "email": null,
+        "phone": null,
+        "irc": null,
+        "twitter": null,
+        "website": null,
+        "slug": null,
+        "supporter_id": 1
       }
     ]
   },
   "project-phases": [
     {
-      "id": 1,
-      "name": "Make pudding",
-      "project_id": 1,
-      "first_day": "2015-01-04T05:00:00.000Z",
-      "last_day": "2015-01-25T05:00:00.000Z",
+      "id": 3,
+      "name": "Bake muffins",
+      "project_id": 2,
+      "first_day": "2015-02-01T05:00:00.000Z",
+      "last_day": "2015-05-08T04:00:00.000Z",
       "bill_method_id": null,
       "rate": 0,
       "project_sow_id": null,
       "links": {
         "project": {
           "type": "projects",
-          "id": 1
-        },
-        "sow": {
-          "type": "project-sows",
-          "id": null
-        },
-        "billMethod": {
-          "type": "bill-methods",
-          "id": null
-        },
-        "reviews": {
-          "type": "project-phase-reviews",
-          "ids": [
-            1
-          ]
-        },
-        "employees": {
-          "type": "employees",
-          "ids": [
-            1
-          ]
-        }
-      }
-    },
-    {
-      "id": 2,
-      "name": "Extract pudding skin",
-      "project_id": 1,
-      "first_day": "2015-01-11T05:00:00.000Z",
-      "last_day": "2015-02-01T05:00:00.000Z",
-      "bill_method_id": null,
-      "rate": 0,
-      "project_sow_id": null,
-      "links": {
-        "project": {
-          "type": "projects",
-          "id": 1
+          "id": 2
         },
         "sow": {
           "type": "project-sows",
@@ -141,7 +129,9 @@ set-cookie: connect.sid=s%3AneffGoD0KUbxv5tadhA_Aw1dDepOuCGs.XJTv8%2Fp0UFyio2MpI
           "type": "employees",
           "ids": [
             1,
-            2
+            2,
+            3,
+            4
           ]
         }
       }

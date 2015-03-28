@@ -3,6 +3,7 @@ var Promise = require('bluebird');
 
 describe('phase review', function() {
   var middleMan, driver;
+  this.timeout(8 * 1000);
 
   before(function() {
     middleMan = this.middleMan;
@@ -17,8 +18,6 @@ describe('phase review', function() {
   });
 
   describe('new review', function() {
-    this.timeout(4 * 1000);
-
     beforeEach(function() {
       return driver.viewWeek(1, 3);
     });
@@ -311,6 +310,29 @@ describe('phase review', function() {
           verifiedCount,
           initialVerifiedCount,
           'Failed verification attempts are not reflected in the DOM'
+        );
+      });
+  });
+
+  it('allows verification of developer weeks that begin on a DST boundary', function() {
+    var initialVerifiedCount;
+
+    return driver.get('/date/2015-03-08/')
+      .then(function() {
+        return driver.viewWeek(0, 0);
+      }).then(function() {
+        return driver.count('phaseWeek.verified');
+      }).then(function(verifiedCount) {
+        initialVerifiedCount = verifiedCount;
+
+        return driver.verify(['Jerry Seinfeld']);
+      }).then(function() {
+        return driver.count('phaseWeek.verified');
+      }).then(function(verifiedCount) {
+        assert.equal(
+          verifiedCount,
+          initialVerifiedCount + 1,
+          'Employee successfully verified'
         );
       });
   });

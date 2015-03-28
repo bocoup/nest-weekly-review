@@ -1,12 +1,12 @@
 'use strict';
 var Promise = require('ractive/ractive.runtime').Promise;
+var Moment = require('moment');
 var extend = require('lodash.assign');
 
 var JsonApiCollection = require('./abstract/json-api-collection');
 var Utilization = require('./utilization');
 
-var ONE_HOUR = 1000 * 60 * 60;
-var ONE_DAY = ONE_HOUR * 24;
+var ONE_DAY = 1000 * 60 * 60 * 24;
 
 module.exports = JsonApiCollection.extend({
   model: Utilization,
@@ -298,17 +298,16 @@ module.exports = JsonApiCollection.extend({
  * @returns {Utilization|null}
  */
 function atDate(models, date, offset) {
-  var hours = date.getHours();
+  var moment = new Moment(date).startOf('day');
   var idx, length, current;
 
   if (offset) {
-    date = new Date(date.getTime() + offset * ONE_DAY + ONE_HOUR);
-    date.setHours(hours);
+    moment.add(offset, 'days');
   }
 
   for (idx = 0, length = models.length; idx < length; ++idx) {
     current = models[idx];
-    if (current.includes(date)) {
+    if (current.includes(moment.toDate())) {
       return current;
     }
   }

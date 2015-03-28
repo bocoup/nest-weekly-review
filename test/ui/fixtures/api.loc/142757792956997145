@@ -1,4 +1,4 @@
-GET /utilizations?employee_id=1%2C2&include%5B0%5D=project&include%5B1%5D=type
+GET /utilizations?employee_id=1%2C2%2C3%2C4&include%5B0%5D=project&include%5B1%5D=type
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -6,15 +6,15 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Sat, 28 Feb 2015 23:42:31 GMT
+date: Sat, 28 Mar 2015 21:25:29 GMT
 content-type: application/json; charset=utf-8
-content-length: 8826
+content-length: 9667
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"kGMcRj6PAwppr68iZmiWGg=="
-set-cookie: connect.sid=s%3A7Xt6Q2uDgo9QpBRQLgpJj9bG1PdlAhUn.1F0wr382nGSbU32UrNhYR4EVLhF3ryuopqAKetHfO8c; Path=/; HttpOnly
+etag: W/"J0WuBoaRtR+0WK4fRuExoA=="
+set-cookie: connect.sid=s%3AIuNgqmraJhBW01TMywYEvW05PB5Ab5Tm.rl%2BEq5E5VJGzGG7xu0ieJri%2FUqJpMh0IhV94ex%2FdSuY; Path=/; HttpOnly
 
 {
   "linked": {
@@ -378,6 +378,43 @@ set-cookie: connect.sid=s%3A7Xt6Q2uDgo9QpBRQLgpJj9bG1PdlAhUn.1F0wr382nGSbU32UrNh
       "billable": false,
       "sketch_calendar_id": null,
       "verified": true,
+      "notes": null,
+      "links": {
+        "employee": {
+          "type": "employees",
+          "id": 1,
+          "href": "/employees/1"
+        },
+        "project": {
+          "type": "projects",
+          "id": 1
+        },
+        "type": {
+          "type": "utilization-types",
+          "id": 1
+        },
+        "projectPhase": {
+          "type": "project-phases",
+          "id": 1,
+          "href": "/project-phases/1"
+        },
+        "sketchCalendar": {
+          "type": "sketch-calendars",
+          "id": null
+        }
+      }
+    },
+    {
+      "id": 10,
+      "utilization_type_id": 1,
+      "employee_id": 1,
+      "project_id": 1,
+      "project_phase_id": 1,
+      "first_day": "2015-03-09",
+      "last_day": "2015-03-13",
+      "billable": false,
+      "sketch_calendar_id": null,
+      "verified": false,
       "notes": null,
       "links": {
         "employee": {

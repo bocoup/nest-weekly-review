@@ -17,6 +17,7 @@ describe('phase review', function() {
   });
 
   describe('new review', function() {
+    this.timeout(4 * 1000);
 
     beforeEach(function() {
       return driver.viewWeek(1, 3);

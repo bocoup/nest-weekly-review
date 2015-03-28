@@ -2,6 +2,10 @@
 
 var Component = require('../../util/component');
 
+// The amount of time in milliseconds to display a "notice" (non-error)
+// notification before automatically dismissing it.
+var NOTICE_TIMEOUT = 4 * 1000;
+
 module.exports = Component.extend({
   template: require('./template.html'),
   css: require('./style.css'),
@@ -33,10 +37,13 @@ module.exports = Component.extend({
   },
 
   addNotice: function(message) {
-    this.get('notifications').unshift({
+    var ntfn = {
       type: 'notice',
       title: message
-    });
+    };
+    this.get('notifications').unshift(ntfn);
+
+    setTimeout(this.dismiss.bind(this, ntfn), NOTICE_TIMEOUT);
   },
 
   toggleDesc: function(event) {

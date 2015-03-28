@@ -1,6 +1,7 @@
 'use strict';
 var Component = require('../../util/component');
 
+var Moment = require('moment');
 var weekNumber = require('../../util/week-num');
 
 var DAY_MS = 1000 * 60 * 60 * 24;
@@ -31,7 +32,9 @@ module.exports = Component.extend({
       var viewWidth = this.get('data-num-weeks');
       var viewStart = this.get('data-first-week');
       var phaseStart = this.get('phase.first_day');
-      var between = Math.round(weekNumber.between(phaseStart, viewStart));
+      var between = Math.ceil(
+        new Moment.duration(viewStart - phaseStart).asWeeks()
+      );
       var phaseLength = Math.ceil(
         (this.get('phase.last_day') - phaseStart) / WEEK_MS
       );

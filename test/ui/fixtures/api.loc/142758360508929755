@@ -6,15 +6,15 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Sat, 28 Mar 2015 21:26:31 GMT
+date: Sat, 28 Mar 2015 23:00:05 GMT
 content-type: application/json; charset=utf-8
 content-length: 2811
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"nDWh80w0gNgu80Mx3LY8dg=="
-set-cookie: connect.sid=s%3AwxsCYhSKoqgEQC0v9MFhtAlXWzi7PNld.RaUnHyqqCeifZiCdZfpZrfcQynJKD6A%2BH%2Fl1vj%2Fxo8M; Path=/; HttpOnly
+etag: W/"VqeT9lZpugM85JG0A1N7Ww=="
+set-cookie: connect.sid=s%3A09JjNFGushhImgHBUY1f2yQAbeFTaeqv.Pfg5AoBDWkxVB%2FcMT%2B%2Bkht2zF31SyJHKVx9jcshntf8; Path=/; HttpOnly
 
 {
   "linked": {
@@ -22,7 +22,7 @@ set-cookie: connect.sid=s%3AwxsCYhSKoqgEQC0v9MFhtAlXWzi7PNld.RaUnHyqqCeifZiCdZfp
       {
         "id": 1,
         "project_phase_id": 1,
-        "week_number": 2,
+        "week_number": 3,
         "notes": "nice work!",
         "data": {}
       }
@@ -79,7 +79,7 @@ set-cookie: connect.sid=s%3AwxsCYhSKoqgEQC0v9MFhtAlXWzi7PNld.RaUnHyqqCeifZiCdZfp
       "id": 1,
       "name": "Make pudding",
       "project_id": 1,
-      "first_day": "2015-01-04T05:00:00.000Z",
+      "first_day": "2015-01-01T05:00:00.000Z",
       "last_day": "2015-01-25T05:00:00.000Z",
       "bill_method_id": null,
       "rate": 0,

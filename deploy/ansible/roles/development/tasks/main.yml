@@ -40,7 +40,7 @@
 # releases occasionally break Selenium integration.
 - name: Download Firefox
   get_url:
-    url=http://download.cdn.mozilla.net/pub/mozilla.org/firefox/releases/34.0/linux-x86_64/en-US/firefox-34.0.tar.bz2
+    url=http://download.cdn.mozilla.net/pub/mozilla.org/firefox/releases/37.0/linux-x86_64/en-US/firefox-37.0.tar.bz2
     dest=/tmp/firefox.tar.bz2
 
 - name: Create directory for Firefox

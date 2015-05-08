@@ -26,7 +26,7 @@
     "leadfoot": "^1.2.1",
     "path-to-regexp": "^1.0.2",
     "replay": "^1.12.0",
-    "selenium-binaries": "^0.2.0",
+    "selenium-binaries": "^0.3.6",
     "sinon": "^1.12.1",
     "wordwrap": "0.0.2"
   },

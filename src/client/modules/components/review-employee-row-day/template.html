@@ -28,15 +28,6 @@
       <span class="utilization-phase">{{ newPhase.name }}</span>
     {{/if}}
     {{/with}}
-
-    {{!
-      The latest version of Firefox (version 34 at the time of this writing)
-      exhibits a bug where `<label>` elements with the `draggable` attribute will
-      not initiate a `dragstart` event. Because the children of such elements will
-      correctly trigger that event on their parent, create an invisible element
-      that completely occupies the space of the parent.
-    }}
-    <div class="firefox-drag-workaround"></div>
   </label>
 
   <div class="back">

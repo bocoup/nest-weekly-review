@@ -23,9 +23,11 @@
 
     {{#with utilization}}
     <span class="utilization-type">{{ type.name }}</span>
-    {{#if type.project_required}}
+    {{#if newProject.name}}
       <span class="utilization-project">{{ newProject.name }}</span>
-      <span class="utilization-phase">{{ newPhase.name }}</span>
+      {{#if newPhase.name}}
+        <span class="utilization-phase">{{ newPhase.name }}</span>
+      {{/if}}
     {{/if}}
     {{/with}}
   </label>
@@ -38,7 +40,6 @@
     </select>
 
     <select id="{{dayName}}{{employee.id}}-project"
-      {{#if !newType.project_required}}disabled{{/if}}
       value="{{newProjectId}}">
 
       <option selected disabled>Project</option>
@@ -51,7 +52,7 @@
     </select>
 
     <select id="{{dayName}}{{employee.id}}-phase"
-      {{#if !newType.project_required || !phases.length}}disabled{{/if}}
+      {{#if !phases.length}}disabled{{/if}}
       value="{{newPhase}}">
 
       {{! TODO: Remove the value assigned to the `disabled` attribute once the

@@ -19,15 +19,14 @@ module.exports = Component.extend({
 
   read: function() {
     var type = this.get('newType');
-    var projectRequired = type.get('project_required');
 
     return {
       utilization_type_id: type.get('id'),
       type: type.toJSON()['utilization-types'],
       employee_id: this.get('employee.id'),
-      project_id: projectRequired ? this.get('newProject.id') : 1,
-      project_phase_id: projectRequired ? this.get('newPhase.id') : null,
-      project: projectRequired ? this.get('newProject') : null
+      project_id: this.get('newProject.id'),
+      project_phase_id: this.get('newPhase.id'),
+      project: this.get('newProject')
     };
   },
 

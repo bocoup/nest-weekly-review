@@ -1,7 +1,6 @@
 language: node_js
 node_js:
-  - "0.10"
-  - 0.11
+  - 0.12
 # Start X Virtual Framebuffer so UI tests can run without a display
 # http://docs.travis-ci.com/user/gui-and-headless-browsers/
 before_install:
@@ -14,7 +13,3 @@ env:
     - TEST_SCRIPT=test
     - TEST_SCRIPT=test-ui
 script: npm run $TEST_SCRIPT
-matrix:
-  fast_finish: true
-  allow_failures:
-    - node_js: 0.11

@@ -1,10 +1,57 @@
 'use strict';
+var extend = require('lodash.assign');
+
+/**
+ * Define a new property (or extend an existing one) on an object or one of its
+ * properties, interpreting period characters (".") in the the provided "path"
+ * as attribute separators (creating intermediate objects when necessary). For
+ * instance:
+ *
+ * var obj = {};
+ * extendAt(obj, 'a', {});          // `obj.a` is now an empty object
+ * extendAt(obj, 'a.b', {});        // `obj.a.b` is now an empty object
+ * extendAt(obj, 'a.b.c', 23);      // `obj.a.b.c` is now `23`
+ * extendAt(obj, 'x.y.z', 45);      // `obj.x.y.z` is now `45`
+ * extendAt(obj, 'x.y', { w: 33 }); // `obj.x.y.w` is now `33;
+ *                                  // `obj.x.y.z` is still `45`
+ *
+ * @param {Object} root The object from which the path should be interpreted
+ * @param {string} path The period-separated collection of attributes to use to
+ *                      traverse into the `root` object. If this resolves to an
+ *                      object, that object will be extended with the provided
+ *                      `value`
+ * @param {mixed} value The value to define at the property described by `path`
+ */
+function extendAt(root, path, value) {
+  var parts = path.split('.');
+  var last = parts.pop();
+
+  var parent = parts.reduce(function(curr, next) {
+    if (!(next in curr)) {
+      curr[next] = {};
+    }
+
+    return curr[next];
+  }, root);
+
+  if (typeof parent[last] === 'object') {
+    extend(parent[last], value);
+  } else {
+    parent[last] = value;
+  }
+}
 
 function inflate(linkedLookups, key, value) {
-  var lookup;
+  var lookup, keyParts;
 
   if (value === null || value === undefined) {
     return value;
+  }
+
+  keyParts = key.split('.');
+
+  if (keyParts.length > 1) {
+    key = keyParts[keyParts.length - 1];
   }
 
   if (typeof value === 'string' || typeof value === 'number') {
@@ -67,7 +114,7 @@ module.exports = function(name, data) {
           inflated = inflate(linkedLookups, attr, links);
         }
 
-        rep[attr] = inflated;
+        extendAt(rep, attr, inflated);
         delete rep.links[attr];
       });
     });

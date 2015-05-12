@@ -1,4 +1,4 @@
-GET /v1/project-phases?after=2015-03-08&before=2015-03-15&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees
+GET /v1/project-phases?after=2015-01-11&before=2015-01-18&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees&include%5B3%5D=project.organization
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -6,24 +6,32 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Wed, 13 May 2015 17:42:27 GMT
+date: Wed, 13 May 2015 18:13:19 GMT
 content-type: application/json; charset=utf-8
-content-length: 2921
+content-length: 3307
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"Oi42bk3eli16KvxskyR94Q=="
-set-cookie: connect.sid=s%3Ad4b37zaLR2Gfmezg-rjalIqOq80uSCMt.Q%2Fr7RHy5BLZYzdYHfwsOiJ04IBKOHli6ReueF%2FWCGgk; Path=/; HttpOnly
+etag: W/"uHN/QaH2xzh1LIEE0fuFUA=="
+set-cookie: connect.sid=s%3AlHc_d_UMopDHHjPDMZaO1eCgGvr9PbVH.rWAKtZWbttjJCmNxbEiOVSFhuGwa9kMrPw4dYXT4H6s; Path=/; HttpOnly
 
 {
   "linked": {
-    "project-phase-reviews": [],
+    "project-phase-reviews": [
+      {
+        "id": 1,
+        "project_phase_id": 1,
+        "week_number": 3,
+        "notes": "nice work!",
+        "data": {}
+      }
+    ],
     "projects": [
       {
-        "id": 2,
-        "name": "Muffin Tops",
-        "abbr": "MT",
+        "id": 1,
+        "name": "Pudding Skins",
+        "abbr": "PS",
         "completed": false,
         "project_type_id": 1,
         "default_utilization_type_id": 1,
@@ -67,59 +75,72 @@ set-cookie: connect.sid=s%3Ad4b37zaLR2Gfmezg-rjalIqOq80uSCMt.Q%2Fr7RHy5BLZYzdYHf
         "slug": null,
         "supporter_id": 1,
         "notes": null
-      },
+      }
+    ],
+    "organizations": [
       {
-        "id": 3,
-        "first": "Elaine",
-        "last": "Benes",
-        "date_start": "2014-08-14T00:00:00.000Z",
-        "date_end": null,
-        "github_user": "elain",
-        "position_id": 1,
-        "email": null,
-        "email_personal": null,
-        "phone": null,
-        "irc": null,
-        "twitter": null,
-        "website": null,
-        "slug": null,
-        "supporter_id": 1,
-        "notes": null
-      },
-      {
-        "id": 4,
-        "first": "George",
-        "last": "Costanza",
-        "date_start": "2012-01-01T00:00:00.000Z",
-        "date_end": null,
-        "github_user": "bosco",
-        "position_id": 1,
-        "email": null,
-        "email_personal": null,
-        "phone": null,
-        "irc": null,
-        "twitter": null,
-        "website": null,
-        "slug": null,
-        "supporter_id": 1,
-        "notes": null
+        "id": 1,
+        "name": "Kramerica Industries",
+        "inactive": false,
+        "pipedrive_id": 1234,
+        "github_user": "test"
       }
     ]
   },
   "project-phases": [
     {
-      "id": 3,
-      "name": "Bake muffins",
-      "project_id": 2,
-      "first_day": "2015-02-01T05:00:00.000Z",
-      "last_day": "2015-05-08T04:00:00.000Z",
+      "id": 1,
+      "name": "Make pudding",
+      "project_id": 1,
+      "first_day": "2015-01-01T05:00:00.000Z",
+      "last_day": "2015-01-25T05:00:00.000Z",
       "bill_method_id": null,
       "rate": 0,
       "project_sow_id": null,
       "links": {
         "project": {
           "type": "projects",
-          "id": 2
+          "id": 1
+        },
+        "sow": {
+          "type": "project-sows",
+          "id": null
+        },
+        "billMethod": {
+          "type": "bill-methods",
+          "id": null
+        },
+        "reviews": {
+          "type": "project-phase-reviews",
+          "ids": [
+            1
+          ]
+        },
+        "employees": {
+          "type": "employees",
+          "ids": [
+            1
+          ]
+        },
+        "project.organization": {
+          "type": "organizations",
+          "id": 1
+        }
+      }
+    },
+    {
+      "id": 2,
+      "name": "Extract pudding skin",
+      "project_id": 1,
+      "first_day": "2015-01-11T05:00:00.000Z",
+      "last_day": "2015-02-01T05:00:00.000Z",
+      "bill_method_id": null,
+      "rate": 0,
+      "project_sow_id": null,
+      "links": {
+        "project": {
+          "type": "projects",
+          "id": 1
         },
         "sow": {
           "type": "project-sows",
@@ -137,10 +158,12 @@ set-cookie: connect.sid=s%3Ad4b37zaLR2Gfmezg-rjalIqOq80uSCMt.Q%2Fr7RHy5BLZYzdYHf
           "type": "employees",
           "ids": [
             1,
-            2,
-            3,
-            4
+            2
           ]
+        },
+        "project.organization": {
+          "type": "organizations",
+          "id": 1
         }
       }
     }

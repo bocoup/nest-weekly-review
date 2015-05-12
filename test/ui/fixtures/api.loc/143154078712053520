@@ -1,4 +1,4 @@
-GET /v1/project-phases?after=2015-03-08&before=2015-04-12&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees
+GET /v1/project-phases?after=2015-03-08&before=2015-04-12&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees&include%5B3%5D=project.organization
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -6,15 +6,15 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Wed, 13 May 2015 17:42:27 GMT
+date: Wed, 13 May 2015 18:13:07 GMT
 content-type: application/json; charset=utf-8
-content-length: 2921
+content-length: 3209
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"Oi42bk3eli16KvxskyR94Q=="
-set-cookie: connect.sid=s%3AnSFaxTEZXfCPbISSxeYWQGus_DPCyb7w.ceujB8SsgFYEjhmBo7Wi6PTePYb1Z1kXsC0lXWNCeZM; Path=/; HttpOnly
+etag: W/"00c06P07ZhC95VtCzyi9Iw=="
+set-cookie: connect.sid=s%3AQm1k3VuWqMNwsyr4ZqU8qy_2tv30Hoay.76Kq%2B8eRFJPZRIYVVZu5IVeJKK0fYvTerhoqlM%2FT8%2F8; Path=/; HttpOnly
 
 {
   "linked": {
@@ -104,6 +104,15 @@ set-cookie: connect.sid=s%3AnSFaxTEZXfCPbISSxeYWQGus_DPCyb7w.ceujB8SsgFYEjhmBo7W
         "supporter_id": 1,
         "notes": null
       }
+    ],
+    "organizations": [
+      {
+        "id": 1,
+        "name": "Kramerica Industries",
+        "inactive": false,
+        "pipedrive_id": 1234,
+        "github_user": "test"
+      }
     ]
   },
   "project-phases": [
@@ -141,6 +150,10 @@ set-cookie: connect.sid=s%3AnSFaxTEZXfCPbISSxeYWQGus_DPCyb7w.ceujB8SsgFYEjhmBo7W
             3,
             4
           ]
+        },
+        "project.organization": {
+          "type": "organizations",
+          "id": 1
         }
       }
     }

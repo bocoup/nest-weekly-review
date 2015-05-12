@@ -1,4 +1,4 @@
-GET /v1/projects?active=true&hasPhase=false
+GET /v1/projects?active=true&hasPhase=false&include%5B0%5D=organization
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -6,17 +6,28 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Wed, 13 May 2015 17:41:49 GMT
+date: Wed, 13 May 2015 18:12:30 GMT
 content-type: application/json; charset=utf-8
-content-length: 640
+content-length: 802
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"280-e3520a4b"
-set-cookie: connect.sid=s%3AdDTam1d2MG0VkmcQNrR7W4NaJ69MoLtg.HkZRU8775z9f%2FtWb9SN143tLHEC9ZlmNcE6e7Haaq9g; Path=/; HttpOnly
+etag: W/"322-40df157b"
+set-cookie: connect.sid=s%3A9mzalDUlbLILjFjXhi_eixfMsTi0zNqy.DI84gkw4ibNhZDTBuPul6rRDrBrAgBhWXwxan%2FSZvgM; Path=/; HttpOnly
 
 {
+  "linked": {
+    "organizations": [
+      {
+        "id": 2,
+        "name": "The Human Fund",
+        "inactive": false,
+        "pipedrive_id": 2345,
+        "github_user": "hf"
+      }
+    ]
+  },
   "projects": [
     {
       "id": 4,
@@ -35,8 +46,7 @@ set-cookie: connect.sid=s%3AdDTam1d2MG0VkmcQNrR7W4NaJ69MoLtg.HkZRU8775z9f%2FtWb9
         },
         "organization": {
           "type": "organizations",
-          "id": 2,
-          "href": "/organizations/2"
+          "id": 2
         },
         "type": {
           "type": "project-types",

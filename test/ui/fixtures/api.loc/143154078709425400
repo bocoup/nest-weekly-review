@@ -1,5 +1,5 @@
-GET /v1/projects?active=true&hasPhase=false
-if-none-match: W/"280-e3520a4b"
+GET /v1/projects?active=true&hasPhase=false&include%5B0%5D=organization
+if-none-match: W/"322-40df157b"
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -7,11 +7,11 @@ host: api.loc
 
 304 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Wed, 13 May 2015 17:42:02 GMT
+date: Wed, 13 May 2015 18:13:07 GMT
 connection: close
 x-powered-by: Express
 access-control-allow-origin: *
 vary: Origin
-etag: W/"280-e3520a4b"
-set-cookie: connect.sid=s%3AX0Fv5pi0mYy_v3Iwn2R15qSRyD7cSFau.bK69hfWIFyNInZCV0%2F%2Fr5C1BKodIPIqLcHVAyS8EEPg; Path=/; HttpOnly
+etag: W/"322-40df157b"
+set-cookie: connect.sid=s%3AOnHCepeqc8RQ1o8OD0wNot3iTBbhy2Wp.RqKes5UU3wDFo59BXxgsAPMHt57wJHmGjD%2B1LS5l%2Fkg; Path=/; HttpOnly
 

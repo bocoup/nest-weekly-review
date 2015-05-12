@@ -1,4 +1,4 @@
-GET /v1/project-phases?after=2015-01-18&before=2015-01-25&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees
+GET /v1/project-phases?after=2015-01-18&before=2015-01-25&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees&include%5B3%5D=project.organization
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -6,15 +6,15 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Wed, 13 May 2015 17:43:32 GMT
+date: Wed, 13 May 2015 18:14:15 GMT
 content-type: application/json; charset=utf-8
-content-length: 2921
+content-length: 3307
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"CaDyUCwgVaWFfUZf+7NAlg=="
-set-cookie: connect.sid=s%3AXnZEEEO2q3yDus9mPlNqV3iYJAZ-QWLd.fcSCs5tw7I7RVpjDzuBzhJeDZ493tlAHrEx3yxMv564; Path=/; HttpOnly
+etag: W/"uHN/QaH2xzh1LIEE0fuFUA=="
+set-cookie: connect.sid=s%3AJkovQ8GmFqB_LBWtqJVjtw8o-H0TCx4w.SfEEmoX9OW%2FC7JXSG4EEvWjNFo8AaBjhHf2oPImw2BY; Path=/; HttpOnly
 
 {
   "linked": {
@@ -76,6 +76,15 @@ set-cookie: connect.sid=s%3AXnZEEEO2q3yDus9mPlNqV3iYJAZ-QWLd.fcSCs5tw7I7RVpjDzuB
         "supporter_id": 1,
         "notes": null
       }
+    ],
+    "organizations": [
+      {
+        "id": 1,
+        "name": "Kramerica Industries",
+        "inactive": false,
+        "pipedrive_id": 1234,
+        "github_user": "test"
+      }
     ]
   },
   "project-phases": [
@@ -112,6 +121,10 @@ set-cookie: connect.sid=s%3AXnZEEEO2q3yDus9mPlNqV3iYJAZ-QWLd.fcSCs5tw7I7RVpjDzuB
           "ids": [
             1
           ]
+        },
+        "project.organization": {
+          "type": "organizations",
+          "id": 1
         }
       }
     },
@@ -147,6 +160,10 @@ set-cookie: connect.sid=s%3AXnZEEEO2q3yDus9mPlNqV3iYJAZ-QWLd.fcSCs5tw7I7RVpjDzuB
             1,
             2
           ]
+        },
+        "project.organization": {
+          "type": "organizations",
+          "id": 1
         }
       }
     }

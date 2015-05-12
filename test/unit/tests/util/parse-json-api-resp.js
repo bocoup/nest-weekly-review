@@ -210,5 +210,130 @@ suite('parseJsonApiResponse', function() {
       assert.equal(parsed.length, 1);
       assert.deepEqual(parsed[0], { id: 1, name: 'goo' });
     });
+
+    suite('nested', function() {
+      test('declared after', function() {
+        var response = {
+          linked: {
+            animals: [
+              { id: 23, name: 'ein' }
+            ],
+            desires: [
+              { id: 88, name: 'garbage' }
+            ]
+          },
+          people: [
+            {
+              id: 4,
+              name: 'jory',
+              links: {
+                pet: {
+                  type: 'animals',
+                  id: 23
+                },
+                'pet.desire': {
+                  type: 'desires',
+                  id: 88
+                }
+              }
+            }
+          ]
+        };
+
+        var parsed = parse('people', response);
+        assert.equal(parsed.length, 1);
+        assert.deepEqual(parsed[0], {
+          id: 4,
+          name: 'jory',
+          pet: {
+            id: 23,
+            name: 'ein',
+            desire: {
+              id: 88,
+              name: 'garbage'
+            }
+          }
+        });
+      });
+
+      test('declared before', function() {
+        var response = {
+          linked: {
+            animals: [
+              { id: 23, name: 'ein' }
+            ],
+            desires: [
+              { id: 88, name: 'garbage' }
+            ]
+          },
+          people: [
+            {
+              id: 4,
+              name: 'jory',
+              links: {
+                'pet.desire': {
+                  type: 'desires',
+                  id: 88
+                },
+                pet: {
+                  type: 'animals',
+                  id: 23
+                }
+              }
+            }
+          ]
+        };
+
+        var parsed = parse('people', response);
+        assert.equal(parsed.length, 1);
+        assert.deepEqual(parsed[0], {
+          id: 4,
+          name: 'jory',
+          pet: {
+            id: 23,
+            name: 'ein',
+            desire: {
+              id: 88,
+              name: 'garbage'
+            }
+          }
+        });
+      });
+
+      test('declared without intermediary', function() {
+        var response = {
+          linked: {
+            desires: [
+              { id: 88, name: 'garbage' }
+            ]
+          },
+          people: [
+            {
+              id: 4,
+              name: 'jory',
+              links: {
+                'pet.desire': {
+                  type: 'desires',
+                  id: 88
+                }
+              }
+            }
+          ]
+        };
+
+        var parsed = parse('people', response);
+        assert.equal(parsed.length, 1);
+        assert.deepEqual(parsed[0], {
+          id: 4,
+          name: 'jory',
+          pet: {
+            desire: {
+              id: 88,
+              name: 'garbage'
+            }
+          }
+        });
+      });
+    });
   });
 });

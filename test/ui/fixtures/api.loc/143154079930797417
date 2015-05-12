@@ -1,4 +1,4 @@
-GET /v1/utilizations?employee_id=1%2C2%2C3%2C4&include%5B0%5D=project&include%5B1%5D=type
+GET /v1/utilizations?employee_id=1%2C2&include%5B0%5D=project&include%5B1%5D=type
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -6,7 +6,7 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Wed, 13 May 2015 17:42:27 GMT
+date: Wed, 13 May 2015 18:13:19 GMT
 content-type: application/json; charset=utf-8
 content-length: 9667
 connection: close
@@ -14,7 +14,7 @@ vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
 etag: W/"J0WuBoaRtR+0WK4fRuExoA=="
-set-cookie: connect.sid=s%3AMG4g42KqSw86fDpTs__Rr-g4lRdWpQcb.dDwevEoNBjwdxauH4BAsZPHcYALcB9CIT9yP9w9rvQs; Path=/; HttpOnly
+set-cookie: connect.sid=s%3Ar7oqHJHPMYWLd2n4YDQ63nIgDIuB2TiI.8duAPFRKu5grto%2F44h9eHMmv3RJXIVHaxnKDDM70TRg; Path=/; HttpOnly
 
 {
   "linked": {

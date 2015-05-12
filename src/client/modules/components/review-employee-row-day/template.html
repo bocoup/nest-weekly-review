@@ -24,7 +24,7 @@
     {{#with utilization}}
     <span class="utilization-type">{{ type.name }}</span>
     {{#if newProject.name}}
-      <span class="utilization-project">{{ newProject.org.name }} - {{ newProject.name }}</span>
+      <span class="utilization-project">{{ newProject.organization.name }} - {{ newProject.name }}</span>
       {{#if newPhase.name}}
         <span class="utilization-phase">{{ newPhase.name }}</span>
       {{/if}}
@@ -47,7 +47,7 @@
         value="{{ null }}"
         >Project</option>
       {{#each projects}}
-      <option value="{{id}}">{{org.name}} - {{name}}</option>
+      <option value="{{id}}">{{organization.name}} - {{name}}</option>
       {{/each}}
     </select>
 

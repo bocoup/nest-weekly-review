@@ -31,16 +31,6 @@ module.exports = Model.extend({
           this.get('calendar_weeks') * WEEK_MS
         );
       }
-    },
-    org: {
-      // will this work? seems like the dot notation would break down
-      deps: ['organization', 'parent.project.organization'],
-      fn: function () {
-        if (this.parent) {
-          return this.parent['project.organization'];
-        }
-        return this.organization;
-      }
     }
   },
 

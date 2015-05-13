@@ -1,5 +1,5 @@
 'use strict';
-var JsonApiCollection = require('./abstract/json-api-collection');
+var JsonApiCollection = require('./abstract/nest-api-collection');
 
 var Phase = require('./phase');
 var Employees = require('./employees');

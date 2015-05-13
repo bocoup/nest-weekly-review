@@ -1,7 +1,7 @@
 'use strict';
 var Collection = require('ampersand-rest-collection');
 
-var parse = require('../../util/parse-json-api-resp');
+var parse = require('../../util/parse-nest-api-resp');
 var setBearer = require('../../ajax-config');
 var API_ROOT = require('../../api-root');
 

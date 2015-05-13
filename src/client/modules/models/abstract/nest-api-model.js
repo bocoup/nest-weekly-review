@@ -3,7 +3,7 @@ var Model = require('ampersand-model');
 var extend = require('lodash.assign');
 var Promise = require('ractive/ractive.runtime').Promise;
 
-var parse = require('../../util/parse-json-api-resp');
+var parse = require('../../util/parse-nest-api-resp');
 var setBearer = require('../../ajax-config');
 var API_ROOT = require('../../api-root');
 

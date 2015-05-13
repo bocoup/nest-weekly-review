@@ -1,7 +1,7 @@
 'use strict';
-var parse = require('../../../../src/client/modules/util/parse-json-api-resp');
+var parse = require('../../../../src/client/modules/util/parse-nest-api-resp');
 
-suite('parseJsonApiResponse', function() {
+suite('parseNestApiResponse', function() {
   test('simple document', function() {
     var response = {
       gooo: [ { id: 333 } ]

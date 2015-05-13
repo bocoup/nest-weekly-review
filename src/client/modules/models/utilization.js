@@ -1,5 +1,5 @@
 'use strict';
-var JsonApiModel = require('./abstract/json-api-model');
+var JsonApiModel = require('./abstract/nest-api-model');
 
 var UtilizationType = require('./utilization-type');
 var dateStr = require('../util/date-string');

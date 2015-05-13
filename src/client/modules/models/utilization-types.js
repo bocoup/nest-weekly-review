@@ -1,5 +1,5 @@
 'use strict';
-var JsonApiCollection = require('./abstract/json-api-collection');
+var JsonApiCollection = require('./abstract/nest-api-collection');
 var UtilizationType = require('./utilization-type');
 
 module.exports = JsonApiCollection.extend({

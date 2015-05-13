@@ -1,5 +1,5 @@
 'use strict';
-var JsonApiModel = require('./abstract/json-api-model');
+var JsonApiModel = require('./abstract/nest-api-model');
 
 module.exports = JsonApiModel.extend({
   modelType: 'utilization-types',

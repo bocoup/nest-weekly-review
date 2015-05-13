@@ -7,13 +7,14 @@ module.exports = Component.extend({
   css: require('./style.css'),
 
   oninit: function() {
+    this.set('newProjectId', this.get('utilization.project.id'));
     this.observe('newProjectId', this.handleNewProjectIdChange);
 
     // Ensure that whenever the `utilization` attribute is updated directly (as
     // in this view's `setAndSave` method), the view's `projectId` is likewise
     // updated).
     this.observe('utilization', function() {
-      this.set('newProjectId', null);
+      this.set('newProjectId', this.get('utilization.project.id'));
     });
   },
 
@@ -54,13 +55,8 @@ module.exports = Component.extend({
   },
 
   handleNewProjectIdChange: function(id) {
-    // The new project ID should default to the value of the current
-    // utilization's project.
-    if (!id) {
-      this.set('newProjectId', this.get('utilization.project.id'));
-
     // The phase should be un-set whenever the project changes
-    } else {
+    if (id) {
       this.set('newPhase', null);
     }
   },
@@ -113,6 +109,10 @@ module.exports = Component.extend({
       var phaselessProjects = this.get('phaselessProjects');
       var newId = this.get('newProjectId');
       var project;
+
+      if (!newId) {
+        return null;
+      }
 
       if (activeProjects) {
         activeProjects.some(function(activeProject) {

@@ -42,7 +42,10 @@
     <select id="{{dayName}}{{employee.id}}-project"
       value="{{newProjectId}}">
 
-      <option selected disabled>Project</option>
+      <option selected
+        {{#if newType.project_required }}disabled{{/if}}
+        value="{{ null }}"
+        >Project</option>
       {{#each activeProjects}}
       <option value="{{id}}">{{name}}</option>
       {{/each}}

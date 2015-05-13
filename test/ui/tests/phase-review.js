@@ -90,8 +90,8 @@ describe('phase review', function() {
       }
 
       return Promise.all([
-          middleMan.once('DELETE', '/utilizations/5', handleDelete),
-          middleMan.once('POST', '/utilizations', handlePost),
+          middleMan.once('DELETE', '/v1/utilizations/5', handleDelete),
+          middleMan.once('POST', '/v1/utilizations', handlePost),
           driver.editUtilization({
             name: 'Jerry Seinfeld',
             day: 'thursday',
@@ -105,8 +105,8 @@ describe('phase review', function() {
           hasDeleted = false;
 
           return Promise.all([
-              middleMan.once('DELETE', '/utilizations/99', handleDelete),
-              middleMan.once('POST', '/utilizations', handlePost),
+              middleMan.once('DELETE', '/v1/utilizations/99', handleDelete),
+              middleMan.once('POST', '/v1/utilizations', handlePost),
               driver.editUtilization({
                 name: 'Jerry Seinfeld',
                 day: 'thursday',
@@ -158,9 +158,9 @@ describe('phase review', function() {
       }
 
       return Promise.all([
-          middleMan.once('PUT', '/utilizations/:id', handlePut),
-          middleMan.once('POST', '/utilizations', handlePost),
-          middleMan.once('POST', '/utilizations', handlePost),
+          middleMan.once('PUT', '/v1/utilizations/:id', handlePut),
+          middleMan.once('POST', '/v1/utilizations', handlePost),
+          middleMan.once('POST', '/v1/utilizations', handlePost),
           driver.editUtilization({
             name: 'Cosmo Kramer',
             day: 'tuesday',
@@ -206,11 +206,11 @@ describe('phase review', function() {
           middleMan.off('*', abort);
 
           return Promise.all([
-            middleMan.once('POST', '/project-phase-reviews', handleReviewPost),
-            middleMan.once('PUT', '/utilizations/4', handleRequest),
-            middleMan.once('PUT', '/utilizations/5', handleRequest),
-            middleMan.once('PUT', '/utilizations/6', handleRequest),
-            middleMan.once('POST', '/utilizations', handleUtilizationPost),
+            middleMan.once('POST', '/v1/project-phase-reviews', handleReviewPost),
+            middleMan.once('PUT', '/v1/utilizations/4', handleRequest),
+            middleMan.once('PUT', '/v1/utilizations/5', handleRequest),
+            middleMan.once('PUT', '/v1/utilizations/6', handleRequest),
+            middleMan.once('POST', '/v1/utilizations', handleUtilizationPost),
             driver.submitReview()
           ]);
         }).then(function() {
@@ -228,7 +228,7 @@ describe('phase review', function() {
           return driver.addNote('. And Bocoup is great.');
         }).then(function() {
           return Promise.all([
-            middleMan.once('PUT', '/project-phase-reviews/3454', handleRequest),
+            middleMan.once('PUT', '/v1/project-phase-reviews/3454', handleRequest),
             driver.submitReview()
           ]);
         }).then(function() {
@@ -256,7 +256,7 @@ describe('phase review', function() {
       return driver.addNote('. And Bocoup is great.')
         .then(function() {
           return Promise.all([
-            middleMan.once('PUT', '/project-phase-reviews/1', handleRequest),
+            middleMan.once('PUT', '/v1/project-phase-reviews/1', handleRequest),
             driver.submitReview()
           ]);
         });
@@ -280,11 +280,11 @@ describe('phase review', function() {
           }
 
           return Promise.all([
-            middleMan.once('POST', '/project-phase-reviews', handleRequest),
-            middleMan.once('PUT', '/utilizations/2', handleRequest),
-            middleMan.once('PUT', '/utilizations/3', handleRequest),
-            middleMan.once('POST', '/utilizations', handleRequest),
-            middleMan.once('POST', '/utilizations', handleRequest),
+            middleMan.once('POST', '/v1/project-phase-reviews', handleRequest),
+            middleMan.once('PUT', '/v1/utilizations/2', handleRequest),
+            middleMan.once('PUT', '/v1/utilizations/3', handleRequest),
+            middleMan.once('POST', '/v1/utilizations', handleRequest),
+            middleMan.once('POST', '/v1/utilizations', handleRequest),
             driver.submitReview()
           ]);
         });

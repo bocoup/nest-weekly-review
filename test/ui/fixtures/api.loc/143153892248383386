@@ -1,4 +1,4 @@
-GET /project-phases?after=2014-12-21&before=2015-01-25&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees
+GET /v1/project-phases?after=2014-12-21&before=2015-01-25&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -6,15 +6,15 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Sat, 28 Mar 2015 22:58:38 GMT
+date: Wed, 13 May 2015 17:42:02 GMT
 content-type: application/json; charset=utf-8
-content-length: 2811
+content-length: 2921
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"VqeT9lZpugM85JG0A1N7Ww=="
-set-cookie: connect.sid=s%3AexHHeLDa3bDa2yR7wS3nqVULLvMplNRD.3VfN7SFK6HgBw7eNmzk0xduA6y4n9xsLVpFdpJ3lT3w; Path=/; HttpOnly
+etag: W/"CaDyUCwgVaWFfUZf+7NAlg=="
+set-cookie: connect.sid=s%3AZrRWXZTUhU-fPA8QZ1zD8V7eTEgAyQCE.%2F7Yj4jCV6YlX3rNwxqO5TJGl9nmvoSWyDqmSAgyA2RY; Path=/; HttpOnly
 
 {
   "linked": {
@@ -49,12 +49,14 @@ set-cookie: connect.sid=s%3AexHHeLDa3bDa2yR7wS3nqVULLvMplNRD.3VfN7SFK6HgBw7eNmzk
         "github_user": "superman",
         "position_id": 1,
         "email": null,
+        "email_personal": null,
         "phone": null,
         "irc": null,
         "twitter": null,
         "website": null,
         "slug": null,
-        "supporter_id": 1
+        "supporter_id": 1,
+        "notes": null
       },
       {
         "id": 2,
@@ -65,12 +67,14 @@ set-cookie: connect.sid=s%3AexHHeLDa3bDa2yR7wS3nqVULLvMplNRD.3VfN7SFK6HgBw7eNmzk
         "github_user": "cosmo",
         "position_id": 1,
         "email": null,
+        "email_personal": null,
         "phone": null,
         "irc": null,
         "twitter": null,
         "website": null,
         "slug": null,
-        "supporter_id": 1
+        "supporter_id": 1,
+        "notes": null
       }
     ]
   },

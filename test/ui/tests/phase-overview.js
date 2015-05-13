@@ -27,7 +27,7 @@ describe('phase overview', function() {
         );
       }
       return Promise.all([
-        middleMan.once('GET', '/project-phases', handlePhaseRequest),
+        middleMan.once('GET', '/v1/project-phases', handlePhaseRequest),
         driver.get('/')
       ]);
     });

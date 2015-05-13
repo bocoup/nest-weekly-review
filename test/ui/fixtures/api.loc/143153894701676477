@@ -1,4 +1,4 @@
-GET /projects?active=true&hasPhase=false
+GET /v1/projects?active=true&hasPhase=false
 if-none-match: W/"280-e3520a4b"
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
@@ -7,11 +7,11 @@ host: api.loc
 
 304 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Sat, 28 Mar 2015 22:58:38 GMT
+date: Wed, 13 May 2015 17:42:27 GMT
 connection: close
 x-powered-by: Express
 access-control-allow-origin: *
 vary: Origin
 etag: W/"280-e3520a4b"
-set-cookie: connect.sid=s%3A_608E1Slcbkd-AaDv9F-wE7OD-F2Ia6L.TzhY%2FrvuRiqALRKLpiKkY8zAgsmMrNk8MRBADxwNtck; Path=/; HttpOnly
+set-cookie: connect.sid=s%3Arz1y_njAGbSaUzE_IekIwNxUpYRHDJzb.pNMFXzjh4laTP9vGWbVKuFv3CIe2zQ3y9Xd%2Bk%2BVHtIc; Path=/; HttpOnly
 

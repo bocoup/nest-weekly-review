@@ -1,4 +1,4 @@
-GET /utilization-types
+GET /v1/utilization-types
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -6,7 +6,7 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Sat, 28 Mar 2015 22:58:26 GMT
+date: Wed, 13 May 2015 17:41:49 GMT
 content-type: application/json; charset=utf-8
 content-length: 599
 connection: close
@@ -14,7 +14,7 @@ vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
 etag: W/"257-3fbd9c3a"
-set-cookie: connect.sid=s%3A2ocBrO8JRCo23HoKrKJSTGUQ73I0KN7c.DtzF8vaaJuRg2FtmbvXdHJNK%2BdX0y6q72gYTGIfdWgY; Path=/; HttpOnly
+set-cookie: connect.sid=s%3AtunCDz-v4Vj7OD90YJKqlV1q-6Q7NAuj.%2FqGGy86%2Frg88qjz4UnLZ04jpP3bk9xyggoHA%2FqNW3L8; Path=/; HttpOnly
 
 {
   "utilization-types": [

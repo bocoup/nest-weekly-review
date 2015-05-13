@@ -18,7 +18,7 @@ var MiddleMan = require('./util/middle-man');
 
 var seleniumPort = 4444;
 var applicationPort = 8003;
-var apiUrl = 'http://api.loc';
+var apiUrl = 'http://api.loc/v1';
 var proxyPort = 4023;
 var middleMan, quitSelenium, quitApplication, command;
 
@@ -103,7 +103,7 @@ beforeEach(function() {
 
       return Promise.all([
           this.driver.login(),
-          this.middleMan.once('GET', '/project-phases', ignore)
+          this.middleMan.once('GET', '/v1/project-phases', ignore)
         ]);
     }.bind(this));
 });

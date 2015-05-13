@@ -1,4 +1,4 @@
-GET /project-phases?after=2015-01-04&before=2015-01-11&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees
+GET /v1/project-phases?after=2015-01-11&before=2015-01-18&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -6,15 +6,15 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Sat, 28 Mar 2015 23:00:16 GMT
+date: Wed, 13 May 2015 17:42:39 GMT
 content-type: application/json; charset=utf-8
-content-length: 1670
+content-length: 2921
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"BA4ho1619/PNQi3QmsncaA=="
-set-cookie: connect.sid=s%3AwKDi035Sp2pVXIACR-_Dv6Cujs1qYTyW.JGCUjRseX8XnaowF03AIsz5Gps2BeN1ShHjG3hkpucM; Path=/; HttpOnly
+etag: W/"CaDyUCwgVaWFfUZf+7NAlg=="
+set-cookie: connect.sid=s%3A5blGZrdgFj9cTk7Q1J9TsUxAXB1SiLx1.Y7O7WriMexLqiaTtXcrVG7esGiNV1wRLtE0qwRAFUx8; Path=/; HttpOnly
 
 {
   "linked": {
@@ -49,12 +49,32 @@ set-cookie: connect.sid=s%3AwKDi035Sp2pVXIACR-_Dv6Cujs1qYTyW.JGCUjRseX8XnaowF03A
         "github_user": "superman",
         "position_id": 1,
         "email": null,
+        "email_personal": null,
         "phone": null,
         "irc": null,
         "twitter": null,
         "website": null,
         "slug": null,
-        "supporter_id": 1
+        "supporter_id": 1,
+        "notes": null
+      },
+      {
+        "id": 2,
+        "first": "Cosmo",
+        "last": "Kramer",
+        "date_start": "2015-01-01T00:00:00.000Z",
+        "date_end": null,
+        "github_user": "cosmo",
+        "position_id": 1,
+        "email": null,
+        "email_personal": null,
+        "phone": null,
+        "irc": null,
+        "twitter": null,
+        "website": null,
+        "slug": null,
+        "supporter_id": 1,
+        "notes": null
       }
     ]
   },
@@ -91,6 +111,41 @@ set-cookie: connect.sid=s%3AwKDi035Sp2pVXIACR-_Dv6Cujs1qYTyW.JGCUjRseX8XnaowF03A
           "type": "employees",
           "ids": [
             1
+          ]
+        }
+      }
+    },
+    {
+      "id": 2,
+      "name": "Extract pudding skin",
+      "project_id": 1,
+      "first_day": "2015-01-11T05:00:00.000Z",
+      "last_day": "2015-02-01T05:00:00.000Z",
+      "bill_method_id": null,
+      "rate": 0,
+      "project_sow_id": null,
+      "links": {
+        "project": {
+          "type": "projects",
+          "id": 1
+        },
+        "sow": {
+          "type": "project-sows",
+          "id": null
+        },
+        "billMethod": {
+          "type": "bill-methods",
+          "id": null
+        },
+        "reviews": {
+          "type": "project-phase-reviews",
+          "ids": []
+        },
+        "employees": {
+          "type": "employees",
+          "ids": [
+            1,
+            2
           ]
         }
       }

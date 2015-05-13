@@ -1,4 +1,4 @@
-GET /utilizations?employee_id=1%2C2%2C3%2C4&include%5B0%5D=project&include%5B1%5D=type
+GET /v1/utilizations?employee_id=1&include%5B0%5D=project&include%5B1%5D=type
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -6,15 +6,15 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Sat, 28 Mar 2015 22:59:02 GMT
+date: Wed, 13 May 2015 17:43:32 GMT
 content-type: application/json; charset=utf-8
-content-length: 9667
+content-length: 7722
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"J0WuBoaRtR+0WK4fRuExoA=="
-set-cookie: connect.sid=s%3A5TBc4zT-390DVDFTnTQOpI7TAjYjQtyV.9PfzCQHdVH7NMhhbwbHCt1xh2eF1%2BjsyPRVHxISclPI; Path=/; HttpOnly
+etag: W/"fLCvrL8gEfUMPUt7ZRgEKw=="
+set-cookie: connect.sid=s%3AbvoBjI0mnJRooiqutVhgQDboon74_Hz8.m2lRDnNMh5ehGD7qzemG1Qsi%2BAR6DOJlS9NHhm9K%2FmY; Path=/; HttpOnly
 
 {
   "linked": {
@@ -38,16 +38,6 @@ set-cookie: connect.sid=s%3A5TBc4zT-390DVDFTnTQOpI7TAjYjQtyV.9PfzCQHdVH7NMhhbwbH
         "default_utilization_type_id": 1,
         "lead_employee_id": 1,
         "organization_id": 2
-      },
-      {
-        "id": 2,
-        "name": "Muffin Tops",
-        "abbr": "MT",
-        "completed": false,
-        "project_type_id": 1,
-        "default_utilization_type_id": 1,
-        "lead_employee_id": 1,
-        "organization_id": 1
       }
     ],
     "utilization-types": [
@@ -286,80 +276,6 @@ set-cookie: connect.sid=s%3A5TBc4zT-390DVDFTnTQOpI7TAjYjQtyV.9PfzCQHdVH7NMhhbwbH
           "type": "project-phases",
           "id": 1,
           "href": "/project-phases/1"
-        },
-        "sketchCalendar": {
-          "type": "sketch-calendars",
-          "id": null
-        }
-      }
-    },
-    {
-      "id": 7,
-      "utilization_type_id": 2,
-      "employee_id": 2,
-      "project_id": 1,
-      "project_phase_id": 2,
-      "first_day": "2015-01-12",
-      "last_day": "2015-01-16",
-      "billable": true,
-      "sketch_calendar_id": null,
-      "verified": true,
-      "notes": "another test",
-      "links": {
-        "employee": {
-          "type": "employees",
-          "id": 2,
-          "href": "/employees/2"
-        },
-        "project": {
-          "type": "projects",
-          "id": 1
-        },
-        "type": {
-          "type": "utilization-types",
-          "id": 2
-        },
-        "projectPhase": {
-          "type": "project-phases",
-          "id": 2,
-          "href": "/project-phases/2"
-        },
-        "sketchCalendar": {
-          "type": "sketch-calendars",
-          "id": null
-        }
-      }
-    },
-    {
-      "id": 8,
-      "utilization_type_id": 1,
-      "employee_id": 2,
-      "project_id": 2,
-      "project_phase_id": 3,
-      "first_day": "2015-02-01",
-      "last_day": "2015-02-09",
-      "billable": false,
-      "sketch_calendar_id": null,
-      "verified": false,
-      "notes": "another test",
-      "links": {
-        "employee": {
-          "type": "employees",
-          "id": 2,
-          "href": "/employees/2"
-        },
-        "project": {
-          "type": "projects",
-          "id": 2
-        },
-        "type": {
-          "type": "utilization-types",
-          "id": 1
-        },
-        "projectPhase": {
-          "type": "project-phases",
-          "id": 3,
-          "href": "/project-phases/3"
         },
         "sketchCalendar": {
           "type": "sketch-calendars",

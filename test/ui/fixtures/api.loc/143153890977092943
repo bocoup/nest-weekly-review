@@ -1,4 +1,4 @@
-GET /projects?active=true&hasPhase=false
+GET /v1/projects?active=true&hasPhase=false
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -6,7 +6,7 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Sat, 28 Mar 2015 22:58:26 GMT
+date: Wed, 13 May 2015 17:41:49 GMT
 content-type: application/json; charset=utf-8
 content-length: 640
 connection: close
@@ -14,7 +14,7 @@ vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
 etag: W/"280-e3520a4b"
-set-cookie: connect.sid=s%3A6pWf9WjdjByP6LovNOtBpaNLaJ38NvAc.GH3gFqme1vOjgKXvzFgJcNWOpUS2LLZDUEaVlxgz5GI; Path=/; HttpOnly
+set-cookie: connect.sid=s%3AdDTam1d2MG0VkmcQNrR7W4NaJ69MoLtg.HkZRU8775z9f%2FtWb9SN143tLHEC9ZlmNcE6e7Haaq9g; Path=/; HttpOnly
 
 {
   "projects": [

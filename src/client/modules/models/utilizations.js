@@ -3,7 +3,7 @@ var Promise = require('ractive/ractive.runtime').Promise;
 var Moment = require('moment');
 var extend = require('lodash.assign');
 
-var JsonApiCollection = require('./abstract/json-api-collection');
+var JsonApiCollection = require('./abstract/nest-api-collection');
 var Utilization = require('./utilization');
 
 var ONE_DAY = 1000 * 60 * 60 * 24;

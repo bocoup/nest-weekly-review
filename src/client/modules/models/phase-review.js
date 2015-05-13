@@ -1,5 +1,5 @@
 'use strict';
-var JSONApiModel = require('./abstract/json-api-model');
+var JSONApiModel = require('./abstract/nest-api-model');
 
 module.exports = JSONApiModel.extend({
   modelType: 'project-phase-reviews',

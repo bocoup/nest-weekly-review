@@ -1,7 +1,7 @@
 'use strict';
 
 var Model = require(
-  '../../../../../src/client/modules/models/abstract/json-api-model'
+  '../../../../../src/client/modules/models/abstract/nest-api-model'
 );
 var Person = Model.extend({
   modelType: 'person',

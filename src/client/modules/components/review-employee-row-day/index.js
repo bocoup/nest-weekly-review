@@ -105,8 +105,7 @@ module.exports = Component.extend({
     },
 
     newProject: function() {
-      var activeProjects = this.get('activeProjects');
-      var phaselessProjects = this.get('phaselessProjects');
+      var projects = this.get('projects');
       var newId = this.get('newProjectId');
       var project;
 
@@ -114,19 +113,10 @@ module.exports = Component.extend({
         return null;
       }
 
-      if (activeProjects) {
-        activeProjects.some(function(activeProject) {
-          if (activeProject.id === newId) {
-            project = activeProject;
-            return true;
-          }
-        });
-      }
-
-      if (phaselessProjects) {
-        phaselessProjects.some(function(phaselessProject) {
-          if (phaselessProject.id === newId) {
-            project = phaselessProject;
+      if (projects) {
+        projects.some(function(_project) {
+          if (_project.id === newId) {
+            project = _project;
             return true;
           }
         });

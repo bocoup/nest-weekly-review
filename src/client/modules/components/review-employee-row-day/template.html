@@ -46,10 +46,7 @@
         {{#if newType.project_required }}disabled{{/if}}
         value="{{ null }}"
         >Project</option>
-      {{#each activeProjects}}
-      <option value="{{id}}">{{name}}</option>
-      {{/each}}
-      {{#each phaselessProjects}}
+      {{#each projects}}
       <option value="{{id}}">{{name}}</option>
       {{/each}}
     </select>

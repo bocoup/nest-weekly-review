@@ -54,7 +54,14 @@ module.exports = Component.extend({
 
       return this.weekHref(nextWeek);
     },
-    activeProjects: function() {
+
+    /**
+     * Build an array of projects that may be valid for the current review:
+     *
+     * - All projects for the current review's active phases
+     * - All projects that have no phase
+     */
+    projects: function() {
       return this.get('activePhases').map(function(phase) {
         return phase.project;
       }).filter(function(project, until, projects) {
@@ -67,6 +74,11 @@ module.exports = Component.extend({
         }
 
         return true;
+      }).concat(this.get('phaselessProjects').models)
+      .sort(function(a, b) {
+        var aName = a.get('name').toLowerCase();
+        var bName = b.get('name').toLowerCase();
+        return aName < bName ? -1 : 1;
       });
     }
   },

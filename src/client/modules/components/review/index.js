@@ -76,9 +76,14 @@ module.exports = Component.extend({
         return true;
       }).concat(this.get('phaselessProjects').models)
       .sort(function(a, b) {
-        var aName = a.get('name').toLowerCase();
-        var bName = b.get('name').toLowerCase();
-        return aName < bName ? -1 : 1;
+        var aVal = a.get('organization').get('name');
+        var bVal = b.get('organization').get('name');
+        if (aVal === bVal) {
+          aVal = a.get('name');
+          bVal = b.get('name');
+        }
+
+        return aVal.toLowerCase() > bVal.toLowerCase() ? 1 : -1;
       });
     }
   },

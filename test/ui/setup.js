@@ -14,7 +14,7 @@ var replay = require('replay');
 var Driver = require('./driver');
 var startSelenium = require('./util/start-selenium');
 var startApplication = require('./util/start-application');
-var MiddleMan = require('./util/middle-man');
+var MiddleMan = require('middle-man');
 
 var seleniumPort = 4444;
 var applicationPort = 8003;

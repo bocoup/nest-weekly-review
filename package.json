@@ -24,6 +24,7 @@
     "jscs-jsdoc": "^0.4.4",
     "jshint": "^2.5.10",
     "leadfoot": "^1.2.1",
+    "middle-man": "^0.1.0",
     "path-to-regexp": "^1.0.2",
     "replay": "^1.12.0",
     "selenium-binaries": "^0.3.6",

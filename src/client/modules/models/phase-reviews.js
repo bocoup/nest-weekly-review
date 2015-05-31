@@ -10,8 +10,8 @@ module.exports = JsonApiCollection.extend({
   /**
    * Retrieve the review that describes a given week, if any.
    *
-   * @param {number|string|} weekNumber The week offset within the phase's
-   *                                    project
+   * @param {number|string} weekNumber The week offset within the phase's
+   *                                   project
    *
    * @returns {PhaseReview|null}
    */

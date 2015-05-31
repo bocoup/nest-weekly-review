@@ -4,8 +4,8 @@ var Utilization = require('../../../../src/client/modules/models/utilization');
 suite('Utilization model', function() {
   suite('#includes', function() {
     var u = new Utilization({
-        first_day: new Date(2013, 8, 2),
-        last_day: new Date(2013, 8, 4)
+      first_day: new Date(2013, 8, 2),
+      last_day: new Date(2013, 8, 4)
     });
     test('positive', function() {
       assert.strictEqual(u.includes(new Date(2013, 8, 2)), true);

@@ -19,7 +19,6 @@ optimization, please see the `contributing.md` file.
 Run:
 
     $ npm install
-    $ npm run get-secrets
 
 **Virtual Machine:**
 

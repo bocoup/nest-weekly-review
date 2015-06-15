@@ -10,7 +10,7 @@
   font-size: 0.8em;
 }
 
-.utilization-phase {
+.utilization-phase, .utilization-billable {
   font-size: 0.6em;
 }
 
@@ -56,6 +56,19 @@
   display: block;
   height: 1.2em;
   opacity: 0;
+}
+
+.billable {
+  font-size: 0.8em;
+  cursor: pointer;
+  margin: 5px 0 10px 0;
+  display: block;
+}
+
+.billable input[type="checkbox"] {
+  opacity: 1;
+  display: inline;
+  cursor: pointer;
 }
 
 .day select {

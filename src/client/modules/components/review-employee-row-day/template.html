@@ -29,6 +29,7 @@
         <span class="utilization-phase">{{ newPhase.name }}</span>
       {{/if}}
     {{/if}}
+    <span class="utilization-billable">{{#if newBillable}}Billable{{else}}Non-Billable{{/if}}</span>
     {{/with}}
   </label>
 
@@ -64,6 +65,10 @@
       <option value="{{this}}">{{name}}</option>
       {{/each}}
     </select>
+
+    <label class="billable" for="{{dayName}}{{employee.id}}-billable">
+      Billable: <input id="{{dayName}}{{employee.id}}-billable" type=checkbox checked="{{newBillable}}">
+    </label>
 
     <label class="set" for="{{dayName}}{{employee.id}}">Set</label>
   </div>

@@ -19,7 +19,8 @@ module.exports = JsonApiModel.extend({
     first_day: 'dateStr',
     last_day: 'dateStr',
     project: 'object',
-    verified: 'boolean'
+    verified: 'boolean',
+    billable: 'boolean'
   },
 
   children: {
@@ -65,7 +66,8 @@ module.exports = JsonApiModel.extend({
     return this.get('utilization_type_id') === other.utilization_type_id &&
       this.get('employee_id') === other.employee_id &&
       this.get('project_id') === other.project_id &&
-      this.get('project_phase_id') === other.project_phase_id;
+      this.get('project_phase_id') === other.project_phase_id &&
+      this.get('billable') === other.billable;
   },
 
   /**
@@ -86,6 +88,7 @@ module.exports = JsonApiModel.extend({
     attrs.employee_id = this.get('employee_id');
     attrs.project_id = this.get('project_id');
     attrs.project_phase_id = this.get('project_phase_id');
+    attrs.billable = this.get('billable');
 
     if (project) {
       attrs.project = project;

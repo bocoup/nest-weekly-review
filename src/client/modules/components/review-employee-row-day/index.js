@@ -8,6 +8,7 @@ module.exports = Component.extend({
 
   oninit: function() {
     this.set('newProjectId', this.get('utilization.project.id'));
+    this.set('newBillable', this.get('utilization.billable'));
     this.observe('newProjectId', this.handleNewProjectIdChange);
 
     // Ensure that whenever the `utilization` attribute is updated directly (as
@@ -27,7 +28,8 @@ module.exports = Component.extend({
       employee_id: this.get('employee.id'),
       project_id: this.get('newProject.id'),
       project_phase_id: this.get('newPhase.id'),
-      project: this.get('newProject')
+      project: this.get('newProject'),
+      billable: this.get('newBillable')
     };
   },
 
@@ -144,6 +146,16 @@ module.exports = Component.extend({
         }
 
         return newPhase;
+      }
+    },
+
+    newBillable: {
+      set: function(val) {
+        this.set('_newBillable', val);
+      },
+      get: function() {
+        var newBillable = this.get('_newBillable');
+        return newBillable;
       }
     },
 

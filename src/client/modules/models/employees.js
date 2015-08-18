@@ -8,6 +8,22 @@ module.exports = JsonApiCollection.extend({
   modelType: 'employees',
   model: Employee,
 
+  /**
+   * Specify the calendar ID for each employee's utilization collection. This
+   * controls how new utilizations will be created and which utilizations are
+   * displayed by the application.
+   *
+   * @param {number|null} id A "null" value designates that the default
+   *                         calendar should be used.
+   */
+  setCalendarId: function(id) {
+    this.calendarId = id;
+
+    this.forEach(function(employee) {
+      employee.get('utilizations').calendarId = id;
+    });
+  },
+
   fetchUtilizations: function(options) {
     var ids = this.pluck('id');
     var success = options.success;
@@ -23,6 +39,8 @@ module.exports = JsonApiCollection.extend({
         employee.set('utilizations', utils.select(function(utilization) {
           return utilization.get('employee_id') === employee.get('id');
         }));
+
+        this.setCalendarId(this.calendarId);
       }, this);
 
       if (success) {

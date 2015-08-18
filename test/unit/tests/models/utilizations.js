@@ -336,7 +336,28 @@ suite('Utilizations collection', function() {
       assert.deepEqual(models, [{
         utilization_type_id: 3,
         first_day: dateStr(2013, 3, 4),
-        last_day: dateStr(2013, 3, 4)
+        last_day: dateStr(2013, 3, 4),
+        sketch_calendar_id: null
+      }]);
+    });
+
+    test('empty (with non-default calendarId)', function() {
+      var u = new Utilizations(null, { calendarId: 86 });
+      var models, current;
+
+      current = u.setAtDate(new Date(2013, 3, 4), {
+        utilization_type_id: 3
+      });
+
+      models = u.toJSON().utilizations;
+
+      assert.equal(models.length, 1);
+      assert.equal(current, u.at(0));
+      assert.deepEqual(models, [{
+        utilization_type_id: 3,
+        first_day: dateStr(2013, 3, 4),
+        last_day: dateStr(2013, 3, 4),
+        sketch_calendar_id: 86
       }]);
     });
 
@@ -363,15 +384,18 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 23,
           first_day: dateStr(2013, 3, 3),
-          last_day: dateStr(2013, 3, 3)
+          last_day: dateStr(2013, 3, 3),
+          sketch_calendar_id: null
         }, {
           utilization_type_id: 5,
           first_day: dateStr(2013, 3, 4),
-          last_day: dateStr(2013, 3, 4)
+          last_day: dateStr(2013, 3, 4),
+          sketch_calendar_id: null
         }, {
           utilization_type_id: 23,
           first_day: dateStr(2013, 3, 5),
-          last_day: dateStr(2013, 3, 5)
+          last_day: dateStr(2013, 3, 5),
+          sketch_calendar_id: null
         }
       ]);
     });
@@ -409,7 +433,8 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 23,
           first_day: dateStr(2013, 3, 3),
-          last_day: dateStr(2013, 3, 5)
+          last_day: dateStr(2013, 3, 5),
+          sketch_calendar_id: null
         }]
       );
     });
@@ -447,11 +472,13 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 23,
           first_day: dateStr(2013, 3, 3),
-          last_day: dateStr(2013, 3, 4)
+          last_day: dateStr(2013, 3, 4),
+          sketch_calendar_id: null
         }, {
           utilization_type_id: 25,
           first_day: dateStr(2013, 3, 5),
-          last_day: dateStr(2013, 3, 5)
+          last_day: dateStr(2013, 3, 5),
+          sketch_calendar_id: null
         }]
       );
     });
@@ -484,7 +511,8 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 23,
           first_day: dateStr(2013, 3, 3),
-          last_day: dateStr(2013, 3, 4)
+          last_day: dateStr(2013, 3, 4),
+          sketch_calendar_id: null
         }]
       );
     });
@@ -522,11 +550,13 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 23,
           first_day: dateStr(2013, 3, 3),
-          last_day: dateStr(2013, 3, 3)
+          last_day: dateStr(2013, 3, 3),
+          sketch_calendar_id: null
         }, {
           utilization_type_id: 25,
           first_day: dateStr(2013, 3, 4),
-          last_day: dateStr(2013, 3, 5)
+          last_day: dateStr(2013, 3, 5),
+          sketch_calendar_id: null
         }]
       );
     });
@@ -559,7 +589,8 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 25,
           first_day: dateStr(2013, 3, 4),
-          last_day: dateStr(2013, 3, 5)
+          last_day: dateStr(2013, 3, 5),
+          sketch_calendar_id: null
         }]
       );
     });
@@ -592,15 +623,18 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 23,
           first_day: dateStr(2013, 3, 3),
-          last_day: dateStr(2013, 3, 3)
+          last_day: dateStr(2013, 3, 3),
+          sketch_calendar_id: null
         }, {
           utilization_type_id: 24,
           first_day: dateStr(2013, 3, 4),
           last_day: dateStr(2013, 3, 4),
+          sketch_calendar_id: null
         }, {
           utilization_type_id: 25,
           first_day: dateStr(2013, 3, 5),
-          last_day: dateStr(2013, 3, 5)
+          last_day: dateStr(2013, 3, 5),
+          sketch_calendar_id: null
         }]
       );
     });
@@ -633,15 +667,18 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 23,
           first_day: dateStr(2013, 3, 3),
-          last_day: dateStr(2013, 3, 3)
+          last_day: dateStr(2013, 3, 3),
+          sketch_calendar_id: null
         }, {
           utilization_type_id: 24,
           first_day: dateStr(2013, 3, 4),
           last_day: dateStr(2013, 3, 4),
+          sketch_calendar_id: null
         }, {
           utilization_type_id: 25,
           first_day: dateStr(2013, 3, 5),
-          last_day: dateStr(2013, 3, 5)
+          last_day: dateStr(2013, 3, 5),
+          sketch_calendar_id: null
         }]
       );
     });
@@ -674,11 +711,13 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 23,
           first_day: dateStr(2013, 3, 3),
-          last_day: dateStr(2013, 3, 4)
+          last_day: dateStr(2013, 3, 4),
+          sketch_calendar_id: null
         }, {
           utilization_type_id: 25,
           first_day: dateStr(2013, 3, 5),
           last_day: dateStr(2013, 3, 5),
+          sketch_calendar_id: null
         }]
       );
     });
@@ -711,11 +750,13 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 23,
           first_day: dateStr(2013, 3, 3),
-          last_day: dateStr(2013, 3, 3)
+          last_day: dateStr(2013, 3, 3),
+          sketch_calendar_id: null
         }, {
           utilization_type_id: 25,
           first_day: dateStr(2013, 3, 4),
           last_day: dateStr(2013, 3, 5),
+          sketch_calendar_id: null
         }]
       );
     });
@@ -754,16 +795,19 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 23,
           first_day: dateStr(2013, 3, 3),
-          last_day: dateStr(2013, 3, 3)
+          last_day: dateStr(2013, 3, 3),
+          sketch_calendar_id: null
         }, {
           utilization_type_id: 21,
           first_day: dateStr(2013, 3, 4),
           last_day: dateStr(2013, 3, 4),
-          project_id: 23
+          project_id: 23,
+          sketch_calendar_id: null
         }, {
           utilization_type_id: 25,
           first_day: dateStr(2013, 3, 5),
           last_day: dateStr(2013, 3, 5),
+          sketch_calendar_id: null
         }]
       );
     });
@@ -801,17 +845,85 @@ suite('Utilizations collection', function() {
         [{
           utilization_type_id: 23,
           first_day: dateStr(2013, 3, 3),
-          last_day: dateStr(2013, 3, 3)
+          last_day: dateStr(2013, 3, 3),
+          sketch_calendar_id: null
         }, {
           utilization_type_id: 24,
           first_day: dateStr(2013, 3, 4),
           last_day: dateStr(2013, 3, 4),
+          sketch_calendar_id: null
         }, {
           utilization_type_id: 25,
           first_day: dateStr(2013, 3, 5),
           last_day: dateStr(2013, 3, 5),
+          sketch_calendar_id: null
         }]
       );
+    });
+
+    suite('calendar specification', function() {
+      test('direct update', function() {
+        var u = new Utilizations([
+          {
+            utilization_type_id: 23,
+            first_day: new Date(2013, 3, 3),
+            last_day: new Date(2013, 3, 3),
+            sketch_calendar_id: 2
+          },
+          {
+            utilization_type_id: 24,
+            first_day: new Date(2013, 3, 4),
+            last_day: new Date(2013, 3, 4)
+          },
+          {
+            utilization_type_id: 25,
+            first_day: new Date(2013, 3, 5),
+            last_day: new Date(2013, 3, 5),
+            sketch_calendar_id: 2
+          },
+          {
+            utilization_type_id: 26,
+            first_day: new Date(2013, 3, 4),
+            last_day: new Date(2013, 3, 4),
+            sketch_calendar_id: 2
+          }
+        ], { calendarId: 2 });
+        var models, current;
+
+        current = u.setAtDate(new Date(2013, 3, 4), {
+          utilization_type_id: 21
+        });
+
+        models = u.toJSON().utilizations;
+
+        assert.equal(models.length, 4);
+        console.log(u.pluck('utilization_type_id'));
+        assert.equal(current, u.at(1));
+        assert.deepEqual(
+          models,
+          [{
+            utilization_type_id: 23,
+            first_day: dateStr(2013, 3, 3),
+            last_day: dateStr(2013, 3, 3),
+            sketch_calendar_id: 2
+          }, {
+            utilization_type_id: 21,
+            first_day: dateStr(2013, 3, 4),
+            last_day: dateStr(2013, 3, 4),
+            sketch_calendar_id: 2
+          }, {
+            utilization_type_id: 24,
+            first_day: dateStr(2013, 3, 4),
+            last_day: dateStr(2013, 3, 4),
+            sketch_calendar_id: null
+          }, {
+            utilization_type_id: 25,
+            first_day: dateStr(2013, 3, 5),
+            last_day: dateStr(2013, 3, 5),
+            sketch_calendar_id: 2
+          }]
+        );
+      });
     });
 
     suite('options', function() {
@@ -886,11 +998,13 @@ suite('Utilizations collection', function() {
           [{
             utilization_type_id: 23,
             first_day: dateStr(2013, 3, 3),
-            last_day: dateStr(2013, 3, 3)
+            last_day: dateStr(2013, 3, 3),
+            sketch_calendar_id: null
           }, {
             utilization_type_id: 23,
             first_day: dateStr(2013, 3, 5),
-            last_day: dateStr(2013, 3, 5)
+            last_day: dateStr(2013, 3, 5),
+            sketch_calendar_id: null
           }
         ]);
       });
@@ -926,13 +1040,73 @@ suite('Utilizations collection', function() {
           [{
             utilization_type_id: 23,
             first_day: dateStr(2013, 3, 3),
-            last_day: dateStr(2013, 3, 3)
+            last_day: dateStr(2013, 3, 3),
+            sketch_calendar_id: null
           }, {
             utilization_type_id: 25,
             first_day: dateStr(2013, 3, 5),
             last_day: dateStr(2013, 3, 5),
+            sketch_calendar_id: null
           }]
         );
+      });
+
+      suite('calendar specification', function() {
+        test('direct update', function() {
+          var u = new Utilizations([
+            {
+              utilization_type_id: 23,
+              first_day: new Date(2013, 3, 3),
+              last_day: new Date(2013, 3, 3),
+              sketch_calendar_id: 2
+            },
+            {
+              utilization_type_id: 24,
+              first_day: new Date(2013, 3, 4),
+              last_day: new Date(2013, 3, 4)
+            },
+            {
+              utilization_type_id: 25,
+              first_day: new Date(2013, 3, 5),
+              last_day: new Date(2013, 3, 5),
+              sketch_calendar_id: 2
+            },
+            {
+              utilization_type_id: 26,
+              first_day: new Date(2013, 3, 4),
+              last_day: new Date(2013, 3, 4),
+              sketch_calendar_id: 2
+            }
+          ], { calendarId: 2 });
+          var models, current;
+
+          current = u.setAtDate(new Date(2013, 3, 4), null);
+
+          models = u.toJSON().utilizations;
+
+          assert.equal(models.length, 3);
+          assert.equal(current, null);
+          assert.deepEqual(
+            models,
+            [{
+              utilization_type_id: 23,
+              first_day: dateStr(2013, 3, 3),
+              last_day: dateStr(2013, 3, 3),
+              sketch_calendar_id: 2
+            }, {
+              utilization_type_id: 24,
+              first_day: dateStr(2013, 3, 4),
+              last_day: dateStr(2013, 3, 4),
+              sketch_calendar_id: null
+            }, {
+              utilization_type_id: 25,
+              first_day: dateStr(2013, 3, 5),
+              last_day: dateStr(2013, 3, 5),
+              sketch_calendar_id: 2
+            }]
+          );
+        });
+
       });
     });
   });

@@ -16,6 +16,10 @@ module.exports = JsonApiModel.extend({
     employee_id: 'number',
     project_id: 'number',
     project_phase_id: 'number',
+    sketch_calendar_id: {
+      type: 'number',
+      default: null
+    },
     first_day: 'dateStr',
     last_day: 'dateStr',
     project: 'object',
@@ -50,6 +54,7 @@ module.exports = JsonApiModel.extend({
    * @returns {boolean}
    */
   matches: function(other) {
+    var sketchMatch = true;
     var otherType;
     if (!other) {
       return false;
@@ -63,11 +68,16 @@ module.exports = JsonApiModel.extend({
       }
     }
 
+    if ('sketch_calendar_id' in other) {
+      sketchMatch = this.get('sketch_calendar_id') === other.sketch_calendar_id;
+    }
+
     return this.get('utilization_type_id') === other.utilization_type_id &&
       this.get('employee_id') === other.employee_id &&
       this.get('project_id') === other.project_id &&
       this.get('project_phase_id') === other.project_phase_id &&
-      this.get('billable') === other.billable;
+      this.get('billable') === other.billable &&
+      sketchMatch;
   },
 
   /**
@@ -89,6 +99,7 @@ module.exports = JsonApiModel.extend({
     attrs.project_id = this.get('project_id');
     attrs.project_phase_id = this.get('project_phase_id');
     attrs.billable = this.get('billable');
+    attrs.sketch_calendar_id = this.get('sketch_calendar_id');
 
     if (project) {
       attrs.project = project;

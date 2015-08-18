@@ -13,7 +13,13 @@ module.exports = JsonApiCollection.extend({
   modelType: 'utilizations',
   comparator: 'first_day',
 
-  initialize: function() {
+  /**
+   * @param {Array} [models]
+   * @param {Object} [options]
+   * @param {number|null} [options.calendarId]
+   */
+  initialize: function(models, options) {
+    this.calendarId = options && options.calendarId || null;
     this._removed = [];
     this.on('_remove remove', function(model) {
       this._removed.push(model);
@@ -92,7 +98,11 @@ module.exports = JsonApiCollection.extend({
    * @returns {Utilization|null}
    */
   atDate: function(date, offset) {
-    return atDate(this.models, date, offset);
+    var fromCurrentCalendar = this.models.filter(function(model) {
+      return model.get('sketch_calendar_id') === this.calendarId;
+    }.bind(this));
+
+    return atDate(fromCurrentCalendar, date, offset);
   },
 
   /**
@@ -125,6 +135,7 @@ module.exports = JsonApiCollection.extend({
     }
 
     if (curr && curr !== prev && curr !== next) {
+      removed = curr;
       this.remove(curr, options);
       removed = curr;
       curr = null;
@@ -170,6 +181,7 @@ module.exports = JsonApiCollection.extend({
         curr = removed.createMatching();
         curr.set(attrs);
       } else {
+        attrs.sketch_calendar_id = this.calendarId;
         curr = new Utilization(attrs);
       }
 

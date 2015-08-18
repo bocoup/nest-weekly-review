@@ -12,6 +12,14 @@ var Layout = require('./components/layout/index');
 var weekNumber = require('./util/week-num');
 var token = require('./util/token');
 
+/**
+ * This application is hard-coded to visualize and create utilizations for the
+ * "default" calendar ID only. If a future use case calls for the review of
+ * non-default (a.k.a. "sketch") calendars, this value may be dynamically
+ * modified as necessary.
+ */
+var CALENDAR_ID = null;
+
 module.exports = Router.extend({
   initialize: function(options) {
     this.layout = new Layout({
@@ -224,6 +232,8 @@ module.exports = Router.extend({
             week_number: models.phase.weekOffset(date),
             project_phase_id: models.phase.get('id')
           });
+
+          models.phase.employees.setCalendarId(CALENDAR_ID);
 
           this.layout.set({
             route: 'review',

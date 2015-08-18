@@ -92,6 +92,16 @@ suite('Utilization model', function() {
       last_day: new Date(2012, 4, 5),
       billable: false
     });
+    var u9 = new Utilization({
+      utilization_type_id: 2,
+      employee_id: 2,
+      project_id: 2,
+      project_phase_id: 2,
+      first_date: new Date(2012, 4, 4),
+      last_day: new Date(2012, 4, 5),
+      billable: false,
+      sketch_calendar_id: 86
+    });
 
     test('positive with models', function() {
       assert.strictEqual(u1.matches(u2), true);
@@ -109,26 +119,34 @@ suite('Utilization model', function() {
       assert.strictEqual(u1.matches(u6), false);
       assert.strictEqual(u1.matches(u7), false);
       assert.strictEqual(u1.matches(u8), false);
+      assert.strictEqual(u1.matches(u9), false);
       assert.strictEqual(u2.matches(u3), false);
       assert.strictEqual(u2.matches(u4), false);
       assert.strictEqual(u2.matches(u6), false);
       assert.strictEqual(u2.matches(u7), false);
       assert.strictEqual(u2.matches(u8), false);
+      assert.strictEqual(u2.matches(u9), false);
       assert.strictEqual(u3.matches(u4), false);
       assert.strictEqual(u3.matches(u5), false);
       assert.strictEqual(u3.matches(u6), false);
       assert.strictEqual(u3.matches(u7), false);
       assert.strictEqual(u3.matches(u8), false);
+      assert.strictEqual(u3.matches(u9), false);
       assert.strictEqual(u4.matches(u5), false);
       assert.strictEqual(u4.matches(u6), false);
       assert.strictEqual(u4.matches(u7), false);
       assert.strictEqual(u4.matches(u8), false);
+      assert.strictEqual(u4.matches(u9), false);
       assert.strictEqual(u5.matches(u6), false);
       assert.strictEqual(u5.matches(u7), false);
       assert.strictEqual(u5.matches(u8), false);
+      assert.strictEqual(u5.matches(u9), false);
       assert.strictEqual(u6.matches(u7), false);
       assert.strictEqual(u6.matches(u8), false);
+      assert.strictEqual(u6.matches(u9), false);
       assert.strictEqual(u7.matches(u8), false);
+      assert.strictEqual(u7.matches(u9), false);
+      assert.strictEqual(u8.matches(u9), false);
     });
   });
 
@@ -144,7 +162,8 @@ suite('Utilization model', function() {
       project_phase_id: 2,
       first_date: new Date(2012, 1, 2),
       last_day: new Date(2012, 1, 3),
-      billable: true
+      billable: true,
+      sketch_calendar_id: 86
     });
 
     assert.ok(u1.matches(u1.createMatching()));

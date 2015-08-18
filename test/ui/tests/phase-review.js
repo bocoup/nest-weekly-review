@@ -89,6 +89,16 @@ describe('phase review', function() {
             return driver.read('phaseWeek.weekStart');
           }).then(function(weekStart) {
             assert.equal(weekStart, '12 / 29 / 2014');
+
+            return driver.readAll('phaseWeek.day.front.phase');
+          }).then(function(phases) {
+            assert.equal(
+              phases.length,
+              2,
+              'Does not display utilizations from other calendars'
+            );
+            assert.equal(phases[0], 'Make pudding');
+            assert.equal(phases[1], 'Make pudding');
           });
       });
     });

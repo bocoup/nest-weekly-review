@@ -1,0 +1,49 @@
+GET /v1/utilization-types
+authorization: Bearer fake-token-for-testing
+accept-language: en-US,en;q=0.5
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+host: api.loc
+
+200 HTTP/1.1
+server: nginx/1.4.6 (Ubuntu)
+date: Tue, 18 Aug 2015 23:32:23 GMT
+content-type: application/json; charset=utf-8
+content-length: 599
+connection: close
+vary: Accept-Encoding, Origin
+x-powered-by: Express
+access-control-allow-origin: *
+etag: W/"257-3fbd9c3a"
+set-cookie: connect.sid=s%3AJgSQvrDDh_bV6UbOuoPrrrYWs6V3fQkd.oMj14KjtCS6qJQz%2FMP6nRmr0PiAbUWavhLL0J%2B3x4zo; Path=/; HttpOnly
+
+{
+  "utilization-types": [
+    {
+      "id": 1,
+      "name": "Consulting",
+      "color": "48d800",
+      "project_required": true,
+      "admin_only": false,
+      "display_name": null,
+      "unpaid": false
+    },
+    {
+      "id": 2,
+      "name": "Education",
+      "color": "fcac6b",
+      "project_required": true,
+      "admin_only": false,
+      "display_name": null,
+      "unpaid": false
+    },
+    {
+      "id": 3,
+      "name": "Vacation",
+      "color": "ff5fc2",
+      "project_required": false,
+      "admin_only": false,
+      "display_name": null,
+      "unpaid": false
+    }
+  ]
+}

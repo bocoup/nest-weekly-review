@@ -118,6 +118,7 @@ module.exports = JsonApiCollection.extend({
     var curr = this.atDate(date);
     var next = this.atDate(after);
     var withIndex = extend({ at: this.models.indexOf(prev) + 1 }, options);
+    var removed;
 
     if (curr && curr.matches(attrs)) {
       return curr;
@@ -125,6 +126,7 @@ module.exports = JsonApiCollection.extend({
 
     if (curr && curr !== prev && curr !== next) {
       this.remove(curr, options);
+      removed = curr;
       curr = null;
     }
 
@@ -163,7 +165,15 @@ module.exports = JsonApiCollection.extend({
     if (!curr && attrs) {
       attrs.first_day = new Date(date);
       attrs.last_day = new Date(date);
-      curr = this.add(attrs, withIndex);
+
+      if (removed) {
+        curr = removed.createMatching();
+        curr.set(attrs);
+      } else {
+        curr = new Utilization(attrs);
+      }
+
+      this.add(curr, withIndex);
     }
 
     return curr;

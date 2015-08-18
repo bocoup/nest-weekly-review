@@ -730,7 +730,8 @@ suite('Utilizations collection', function() {
         {
           utilization_type_id: 24,
           first_day: new Date(2013, 3, 4),
-          last_day: new Date(2013, 3, 4)
+          last_day: new Date(2013, 3, 4),
+          project_id: 23
         },
         {
           utilization_type_id: 25,
@@ -758,6 +759,7 @@ suite('Utilizations collection', function() {
           utilization_type_id: 21,
           first_day: dateStr(2013, 3, 4),
           last_day: dateStr(2013, 3, 4),
+          project_id: 23
         }, {
           utilization_type_id: 25,
           first_day: dateStr(2013, 3, 5),

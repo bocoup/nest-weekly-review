@@ -1,4 +1,4 @@
-GET /v1/project-phases?after=2014-12-21&before=2015-01-25&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees&include%5B3%5D=project.organization
+GET /v1/project-phases?after=2014-12-28&before=2015-01-04&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees&include%5B3%5D=project.organization
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -6,15 +6,15 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Wed, 13 May 2015 18:12:42 GMT
+date: Tue, 18 Aug 2015 22:50:56 GMT
 content-type: application/json; charset=utf-8
-content-length: 3307
+content-length: 2101
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"uHN/QaH2xzh1LIEE0fuFUA=="
-set-cookie: connect.sid=s%3AnSQSZgbAjTnsMQ57wKuVegh-H2wnmDuB.h7TfMkxkISZmfeXjQQUWtl7vdFbLKAWx90Ug050R4hc; Path=/; HttpOnly
+etag: W/"wf+37+z7qC2TcLvNtfzmVA=="
+set-cookie: connect.sid=s%3A3hVYiXki6DZop8dvLdXJyto4CoioxFyv.0f650w%2FR%2F9EmJ3TNDSHlqU8aW0CQdsyLBDR0Hv4dvsc; Path=/; HttpOnly
 
 {
   "linked": {
@@ -36,7 +36,8 @@ set-cookie: connect.sid=s%3AnSQSZgbAjTnsMQ57wKuVegh-H2wnmDuB.h7TfMkxkISZmfeXjQQU
         "project_type_id": 1,
         "default_utilization_type_id": 1,
         "lead_employee_id": 1,
-        "organization_id": 1
+        "organization_id": 1,
+        "url_postmortem": "http://docs.google.com/thinger"
       }
     ],
     "employees": [
@@ -47,24 +48,6 @@ set-cookie: connect.sid=s%3AnSQSZgbAjTnsMQ57wKuVegh-H2wnmDuB.h7TfMkxkISZmfeXjQQU
         "date_start": "2012-01-01T00:00:00.000Z",
         "date_end": null,
         "github_user": "superman",
-        "position_id": 1,
-        "email": null,
-        "email_personal": null,
-        "phone": null,
-        "irc": null,
-        "twitter": null,
-        "website": null,
-        "slug": null,
-        "supporter_id": 1,
-        "notes": null
-      },
-      {
-        "id": 2,
-        "first": "Cosmo",
-        "last": "Kramer",
-        "date_start": "2015-01-01T00:00:00.000Z",
-        "date_end": null,
-        "github_user": "cosmo",
         "position_id": 1,
         "email": null,
         "email_personal": null,
@@ -97,6 +80,7 @@ set-cookie: connect.sid=s%3AnSQSZgbAjTnsMQ57wKuVegh-H2wnmDuB.h7TfMkxkISZmfeXjQQU
       "bill_method_id": null,
       "rate": 0,
       "project_sow_id": null,
+      "contracted_days": 0,
       "links": {
         "project": {
           "type": "projects",
@@ -120,45 +104,6 @@ set-cookie: connect.sid=s%3AnSQSZgbAjTnsMQ57wKuVegh-H2wnmDuB.h7TfMkxkISZmfeXjQQU
           "type": "employees",
           "ids": [
             1
-          ]
-        },
-        "project.organization": {
-          "type": "organizations",
-          "id": 1
-        }
-      }
-    },
-    {
-      "id": 2,
-      "name": "Extract pudding skin",
-      "project_id": 1,
-      "first_day": "2015-01-11T05:00:00.000Z",
-      "last_day": "2015-02-01T05:00:00.000Z",
-      "bill_method_id": null,
-      "rate": 0,
-      "project_sow_id": null,
-      "links": {
-        "project": {
-          "type": "projects",
-          "id": 1
-        },
-        "sow": {
-          "type": "project-sows",
-          "id": null
-        },
-        "billMethod": {
-          "type": "bill-methods",
-          "id": null
-        },
-        "reviews": {
-          "type": "project-phase-reviews",
-          "ids": []
-        },
-        "employees": {
-          "type": "employees",
-          "ids": [
-            1,
-            2
           ]
         },
         "project.organization": {

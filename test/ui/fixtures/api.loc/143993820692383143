@@ -6,15 +6,15 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Wed, 13 May 2015 18:12:54 GMT
+date: Tue, 18 Aug 2015 22:50:06 GMT
 content-type: application/json; charset=utf-8
-content-length: 3307
+content-length: 3423
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"uHN/QaH2xzh1LIEE0fuFUA=="
-set-cookie: connect.sid=s%3ApRIWUKqt4EjDt-Q0S59s6SRAnFiUcgG5.IJUQQxKzO6dfRa0vzXLYjEffy0U09N%2Fvy40ydEUIJkc; Path=/; HttpOnly
+etag: W/"ytPX0CW72UBuEZ83YsIO+w=="
+set-cookie: connect.sid=s%3AicH1VwMs_kh1pvgtQ_iKe8TlmhU6zNeg.NkO8G6mNa8Zu15qOW1peh0sRmuXQqpdx8rRJA5F3iS0; Path=/; HttpOnly
 
 {
   "linked": {
@@ -36,7 +36,8 @@ set-cookie: connect.sid=s%3ApRIWUKqt4EjDt-Q0S59s6SRAnFiUcgG5.IJUQQxKzO6dfRa0vzXL
         "project_type_id": 1,
         "default_utilization_type_id": 1,
         "lead_employee_id": 1,
-        "organization_id": 1
+        "organization_id": 1,
+        "url_postmortem": "http://docs.google.com/thinger"
       }
     ],
     "employees": [
@@ -97,6 +98,7 @@ set-cookie: connect.sid=s%3ApRIWUKqt4EjDt-Q0S59s6SRAnFiUcgG5.IJUQQxKzO6dfRa0vzXL
       "bill_method_id": null,
       "rate": 0,
       "project_sow_id": null,
+      "contracted_days": 0,
       "links": {
         "project": {
           "type": "projects",
@@ -137,6 +139,7 @@ set-cookie: connect.sid=s%3ApRIWUKqt4EjDt-Q0S59s6SRAnFiUcgG5.IJUQQxKzO6dfRa0vzXL
       "bill_method_id": null,
       "rate": 0,
       "project_sow_id": null,
+      "contracted_days": 0,
       "links": {
         "project": {
           "type": "projects",

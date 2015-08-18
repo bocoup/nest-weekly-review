@@ -1,4 +1,4 @@
-GET /v1/utilizations?employee_id=1%2C2&include%5B0%5D=project&include%5B1%5D=type
+GET /v1/utilizations?employee_id=1&include%5B0%5D=project&include%5B1%5D=type
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -6,15 +6,15 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Wed, 13 May 2015 18:12:54 GMT
+date: Tue, 18 Aug 2015 22:50:55 GMT
 content-type: application/json; charset=utf-8
-content-length: 9667
+content-length: 7842
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"J0WuBoaRtR+0WK4fRuExoA=="
-set-cookie: connect.sid=s%3AedsBNL-Ghc2iPhFN6JxFHHgX70QYzl3L.28T1OoVEquAFhaipjDbIyZe%2FhOhR4iePEcgpmbnvf1I; Path=/; HttpOnly
+etag: W/"eTYPS/Z3hYJFe/opOMHVsg=="
+set-cookie: connect.sid=s%3AENYvri1w9FzzmblqIZcfN298Fk-X1Sqz.wUVJA8b6t8lHAd73v4%2BqqGnVCKsSy56zuwEWyx2RRng; Path=/; HttpOnly
 
 {
   "linked": {
@@ -27,7 +27,8 @@ set-cookie: connect.sid=s%3AedsBNL-Ghc2iPhFN6JxFHHgX70QYzl3L.28T1OoVEquAFhaipjDb
         "project_type_id": 1,
         "default_utilization_type_id": 1,
         "lead_employee_id": 1,
-        "organization_id": 1
+        "organization_id": 1,
+        "url_postmortem": "http://docs.google.com/thinger"
       },
       {
         "id": 4,
@@ -37,17 +38,8 @@ set-cookie: connect.sid=s%3AedsBNL-Ghc2iPhFN6JxFHHgX70QYzl3L.28T1OoVEquAFhaipjDb
         "project_type_id": 1,
         "default_utilization_type_id": 1,
         "lead_employee_id": 1,
-        "organization_id": 2
-      },
-      {
-        "id": 2,
-        "name": "Muffin Tops",
-        "abbr": "MT",
-        "completed": false,
-        "project_type_id": 1,
-        "default_utilization_type_id": 1,
-        "lead_employee_id": 1,
-        "organization_id": 1
+        "organization_id": 2,
+        "url_postmortem": "http://docs.google.com/thinger"
       }
     ],
     "utilization-types": [
@@ -286,80 +278,6 @@ set-cookie: connect.sid=s%3AedsBNL-Ghc2iPhFN6JxFHHgX70QYzl3L.28T1OoVEquAFhaipjDb
           "type": "project-phases",
           "id": 1,
           "href": "/project-phases/1"
-        },
-        "sketchCalendar": {
-          "type": "sketch-calendars",
-          "id": null
-        }
-      }
-    },
-    {
-      "id": 7,
-      "utilization_type_id": 2,
-      "employee_id": 2,
-      "project_id": 1,
-      "project_phase_id": 2,
-      "first_day": "2015-01-12",
-      "last_day": "2015-01-16",
-      "billable": true,
-      "sketch_calendar_id": null,
-      "verified": true,
-      "notes": "another test",
-      "links": {
-        "employee": {
-          "type": "employees",
-          "id": 2,
-          "href": "/employees/2"
-        },
-        "project": {
-          "type": "projects",
-          "id": 1
-        },
-        "type": {
-          "type": "utilization-types",
-          "id": 2
-        },
-        "projectPhase": {
-          "type": "project-phases",
-          "id": 2,
-          "href": "/project-phases/2"
-        },
-        "sketchCalendar": {
-          "type": "sketch-calendars",
-          "id": null
-        }
-      }
-    },
-    {
-      "id": 8,
-      "utilization_type_id": 1,
-      "employee_id": 2,
-      "project_id": 2,
-      "project_phase_id": 3,
-      "first_day": "2015-02-01",
-      "last_day": "2015-02-09",
-      "billable": false,
-      "sketch_calendar_id": null,
-      "verified": false,
-      "notes": "another test",
-      "links": {
-        "employee": {
-          "type": "employees",
-          "id": 2,
-          "href": "/employees/2"
-        },
-        "project": {
-          "type": "projects",
-          "id": 2
-        },
-        "type": {
-          "type": "utilization-types",
-          "id": 1
-        },
-        "projectPhase": {
-          "type": "project-phases",
-          "id": 3,
-          "href": "/project-phases/3"
         },
         "sketchCalendar": {
           "type": "sketch-calendars",

@@ -101,15 +101,21 @@ module.exports = Component.extend({
   offsetWeek: function(offset) {
     var current = this.get('date');
     var phase = this.get('phase');
-    var otherWeek;
+    var otherWeek, adjacentDay;
 
     if (!phase) {
       return null;
     }
 
-    otherWeek = new Date(+current + 1000 * 60 * 60 * 24 * 7 * offset);
+    if (offset < 0) {
+      adjacentDay = new Date(+current - DAY_MS);
+    } else {
+      adjacentDay = new Date(+current + 7 * DAY_MS);
+    }
 
-    if (!phase.contains(otherWeek)) {
+    otherWeek = new Date(+current + DAY_MS * 7 * offset);
+
+    if (!phase.contains(adjacentDay)) {
       return null;
     }
 

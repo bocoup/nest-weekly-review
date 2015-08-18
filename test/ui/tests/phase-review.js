@@ -18,228 +18,254 @@ describe('phase review', function() {
   });
 
   describe('new review', function() {
-    beforeEach(function() {
-      return driver.viewWeek(1, 3);
+    describe('rendering', function() {
+      it('renders as expected', function() {
+        return driver.viewWeek(1, 3)
+          .then(function() {
+            return driver.readAll('phaseWeek.dayLabels');
+          }).then(function(days) {
+            assert.deepEqual(
+              days,
+              [
+                'MONDAY (12th)', 'TUESDAY (13th)', 'WEDNESDAY (14th)',
+                'THURSDAY (15th)', 'FRIDAY (16th)'
+              ]
+            );
+
+            return driver.read('phaseWeek.weekStart');
+          }).then(function(weekStart) {
+            assert.equal(weekStart, '1 / 12 / 2015');
+
+            return driver.count('phaseWeek.verified');
+          }).then(function(count) {
+            assert.equal(
+              count,
+              1,
+              'Verification information reflects initial utilization state'
+            );
+
+            return driver.readAll('phaseWeek.day.front.phase');
+          }).then(function(phases) {
+            assert.equal(phases[0], 'Make pudding');
+            assert.equal(phases[6], 'Extract pudding skin');
+
+            return driver.viewUtilizationForm({
+              name: 'Jerry Seinfeld',
+              day: 'thursday'
+            });
+          }).then(function() {
+            return driver.readUtilizationForm({
+              name: 'Jerry Seinfeld',
+              day: 'thursday'
+            });
+          }).then(function(text) {
+            assert.equal(
+              text.type,
+              'Education',
+              'Form renders correctly when initialized with a phaseless project'
+            );
+            assert.equal(
+              text.project,
+              'The Human Fund - Fundraising Drive',
+              'Form renders correctly when initialized with a phaseless project'
+            );
+            assert.equal(
+              text.phase,
+              'Select Phase',
+              'Form renders correctly when initialized with a phaseless project'
+            );
+          });
+      });
+
+      it('renders as expected', function() {
+        return driver.viewWeek(0, 2)
+          .then(function() {
+            return driver.read('phaseWeek.weekStart');
+          }).then(function(weekStart) {
+            assert.equal(weekStart, '1 / 5 / 2015');
+
+            return driver.cycleReview('prev');
+          }).then(function() {
+            return driver.read('phaseWeek.weekStart');
+          }).then(function(weekStart) {
+            assert.equal(weekStart, '12 / 29 / 2014');
+          });
+      });
     });
 
-    it('renders as expected', function() {
-      return driver.readAll('phaseWeek.dayLabels')
-        .then(function(days) {
-          assert.deepEqual(
-            days,
-            [
-              'MONDAY (12th)', 'TUESDAY (13th)', 'WEDNESDAY (14th)',
-              'THURSDAY (15th)', 'FRIDAY (16th)'
-            ]
+    describe('editing', function() {
+      beforeEach(function() {
+        return driver.viewWeek(1, 3);
+      });
+
+      it('correctly edits an existing single-day utilization', function() {
+        var hasDeleted = false;
+        function handleDelete(req, res) {
+          hasDeleted = true;
+          res.end();
+        }
+        function handlePost(req, res) {
+          assert(
+            hasDeleted, 'Deletes old utilization before creating new one.'
           );
+          res.end(JSON.stringify({ utilizations: { id: 99 } }));
+        }
 
-          return driver.read('phaseWeek.weekStart');
-        }).then(function(weekStart) {
-          assert.equal(weekStart, '1 / 12 / 2015');
+        return Promise.all([
+            middleMan.once('DELETE', '/v1/utilizations/5', handleDelete),
+            middleMan.once('POST', '/v1/utilizations', handlePost),
+            driver.editUtilization({
+              name: 'Jerry Seinfeld',
+              day: 'thursday',
+              type: 'Education'
+            })
+          ]).then(function() {
+            /**
+             * Edit the new utilization to ensure that the application
+             * correctly tracks IDs of the utilizations created on its behalf.
+             */
+            hasDeleted = false;
 
-          return driver.count('phaseWeek.verified');
-        }).then(function(count) {
-          assert.equal(
-            count,
-            1,
-            'Verification information reflects initial utilization state'
-          );
-
-          return driver.readAll('phaseWeek.day.front.phase');
-        }).then(function(phases) {
-          assert.equal(phases[0], 'Make pudding');
-          assert.equal(phases[6], 'Extract pudding skin');
-
-          return driver.viewUtilizationForm({
-            name: 'Jerry Seinfeld',
-            day: 'thursday'
+            return Promise.all([
+                middleMan.once('DELETE', '/v1/utilizations/99', handleDelete),
+                middleMan.once('POST', '/v1/utilizations', handlePost),
+                driver.editUtilization({
+                  name: 'Jerry Seinfeld',
+                  day: 'thursday',
+                  type: 'Vacation'
+                })
+              ]);
           });
-        }).then(function() {
-          return driver.readUtilizationForm({
-            name: 'Jerry Seinfeld',
-            day: 'thursday'
-          });
-        }).then(function(text) {
-          assert.equal(
-            text.type,
-            'Education',
-            'Form renders correctly when initialized with a phaseless project'
-          );
-          assert.equal(
-            text.project,
-            'The Human Fund - Fundraising Drive',
-            'Form renders correctly when initialized with a phaseless project'
-          );
-          assert.equal(
-            text.phase,
-            'Select Phase',
-            'Form renders correctly when initialized with a phaseless project'
-          );
-        });
-    });
+        /**
+         * Firefox, Selenium, and/or Leadfoot do not support scripted
+         * drag-and-drop interactions.
+         * TODO: Find a solution and enable this logic.
+         */
+        // }).then(function() {
+        //   function handlePut(req, res) {
+        //     res.end();
+        //   }
+        //   return Promise.all([
+        //       middleMan.once('PUT', '/utilizations/:id', handlePut),
+        //       middleMan.once('PUT', '/utilizations/:id', handlePut),
+        //       driver.dragUtilization({
+        //         source: {
+        //           name: 'Jerry Seinfeld',
+        //           day: 'thursday'
+        //         },
+        //         destination: {
+        //           name: 'Jerry Seinfeld',
+        //           day: 'wednesday'
+        //         }
+        //       })
+        //     ]);
+        // });
+      });
 
-    it('correctly edits an existing single-day utilization', function() {
-      var hasDeleted = false;
-      function handleDelete(req, res) {
-        hasDeleted = true;
-        res.end();
-      }
-      function handlePost(req, res) {
-        assert(hasDeleted, 'Deletes old utilization before creating new one.');
-        res.end(JSON.stringify({ utilizations: { id: 99 } }));
-      }
-
-      return Promise.all([
-          middleMan.once('DELETE', '/v1/utilizations/5', handleDelete),
-          middleMan.once('POST', '/v1/utilizations', handlePost),
-          driver.editUtilization({
-            name: 'Jerry Seinfeld',
-            day: 'thursday',
-            type: 'Education'
-          })
-        ]).then(function() {
-          /**
-           * Edit the new utilization to ensure that the application correctly
-           * tracks IDs of the utilizations created on its behalf.
-           */
-          hasDeleted = false;
-
-          return Promise.all([
-              middleMan.once('DELETE', '/v1/utilizations/99', handleDelete),
-              middleMan.once('POST', '/v1/utilizations', handlePost),
-              driver.editUtilization({
-                name: 'Jerry Seinfeld',
-                day: 'thursday',
-                type: 'Vacation'
-              })
-            ]);
-        });
       /**
-       * Firefox, Selenium, and/or Leadfoot do not support scripted
-       * drag-and-drop interactions.
-       * TODO: Find a solution and enable this logic.
+       * The application should update existing utilizations *before* creating
+       * new utilizations. The reverse order will be rejected by the server
+       * because it would require the database temporarily enter an invalid
+       * state.
        */
-      // }).then(function() {
-      //   function handlePut(req, res) {
-      //     res.end();
-      //   }
-      //   return Promise.all([
-      //       middleMan.once('PUT', '/utilizations/:id', handlePut),
-      //       middleMan.once('PUT', '/utilizations/:id', handlePut),
-      //       driver.dragUtilization({
-      //         source: {
-      //           name: 'Jerry Seinfeld',
-      //           day: 'thursday'
-      //         },
-      //         destination: {
-      //           name: 'Jerry Seinfeld',
-      //           day: 'wednesday'
-      //         }
-      //       })
-      //     ]);
-      // });
-    });
-
-    /**
-     * The application should update existing utilizations *before* creating new
-     * utilizations. The reverse order will be rejected by the server because it
-     * would require the database temporarily enter an invalid state.
-     */
-    it('correctly splits an existing multi-day utilization', function() {
-      var hasPut = false;
-      function handlePut(req, res) {
-        assert.equal(req.params.id, 7);
-        hasPut = true;
-        res.end();
-      }
-      function handlePost(req, res) {
-        assert(hasPut, 'Updates existing models before creaating new models');
-        res.end();
-      }
-
-      return Promise.all([
-          middleMan.once('PUT', '/v1/utilizations/:id', handlePut),
-          middleMan.once('POST', '/v1/utilizations', handlePost),
-          middleMan.once('POST', '/v1/utilizations', handlePost),
-          driver.editUtilization({
-            name: 'Cosmo Kramer',
-            day: 'tuesday',
-            type: 'Vacation'
-          })
-        ]).then(function() {
-          return driver.count('phaseWeek.verified');
-        }).then(function(count) {
-          assert.equal(
-            count,
-            0,
-            'Developer weeks become "unverified" when utilization data is ' +
-              'changed'
+      it('correctly splits an existing multi-day utilization', function() {
+        var hasPut = false;
+        function handlePut(req, res) {
+          assert.equal(req.params.id, 7);
+          hasPut = true;
+          res.end();
+        }
+        function handlePost(req, res) {
+          assert(
+            hasPut, 'Updates existing models before creaating new models'
           );
-        });
-    });
+          res.end();
+        }
 
-    it('correctly submits a review', function() {
-      this.timeout(8000);
-      function handleRequest(req, res) {
-        res.end();
-      }
-      function abort() {
-        throw new Error(
-          'No requests should be issued until all employees have been verified.'
-        );
-      }
+        return Promise.all([
+            middleMan.once('PUT', '/v1/utilizations/:id', handlePut),
+            middleMan.once('POST', '/v1/utilizations', handlePost),
+            middleMan.once('POST', '/v1/utilizations', handlePost),
+            driver.editUtilization({
+              name: 'Cosmo Kramer',
+              day: 'tuesday',
+              type: 'Vacation'
+            })
+          ]).then(function() {
+            return driver.count('phaseWeek.verified');
+          }).then(function(count) {
+            assert.equal(
+              count,
+              0,
+              'Developer weeks become "unverified" when utilization data is ' +
+                'changed'
+            );
+          });
+      });
 
-      return driver.addNote('Everyone did a nice job')
-        .then(function() {
-          middleMan.on('*', /.*/, abort);
-          return driver.submitReview();
-        }).then(function() {
-          return driver.verify(['Jerry Seinfeld']);
-        }).then(function() {
-          function handleReviewPost(req, res) {
-            res.end(JSON.stringify({ 'project-phase-reviews': { id: 3454 } }));
-          }
-          function handleUtilizationPost(req, res) {
-            res.end(JSON.stringify({ utilizations: { id: 3333 } }));
-          }
-
-          middleMan.off('*', abort);
-
-          return Promise.all([
-            middleMan.once('POST', '/v1/project-phase-reviews', handleReviewPost),
-            middleMan.once('PUT', '/v1/utilizations/4', handleRequest),
-            middleMan.once('PUT', '/v1/utilizations/5', handleRequest),
-            middleMan.once('PUT', '/v1/utilizations/6', handleRequest),
-            middleMan.once('POST', '/v1/utilizations', handleUtilizationPost),
-            driver.submitReview()
-          ]);
-        }).then(function() {
-          return driver.count('phaseWeek.verified');
-        }).then(function(count) {
-          assert.equal(
-            count,
-            2,
-            'Verification information reflects recently-completed operations'
+      it('correctly submits a review', function() {
+        this.timeout(8000);
+        function handleRequest(req, res) {
+          res.end();
+        }
+        function abort() {
+          throw new Error(
+            'No requests should be issued until all employees have been verified.'
           );
-        }).then(function() {
+        }
 
-          // Ensure that reviews created by the user in the current browsing
-          // session can be updated.
-          return driver.addNote('. And Bocoup is great.');
-        }).then(function() {
-          return Promise.all([
-            middleMan.once('PUT', '/v1/project-phase-reviews/3454', handleRequest),
-            driver.submitReview()
-          ]);
-        }).then(function() {
-          return driver.cycleReview('next');
-        }).then(function() {
-          return driver.count('phaseWeek.verified');
-        }).then(function(count) {
-          assert.equal(
-            count, 1, 'Verification information is refreshed after navigation'
-          );
-        });
+        return driver.addNote('Everyone did a nice job')
+          .then(function() {
+            middleMan.on('*', /.*/, abort);
+            return driver.submitReview();
+          }).then(function() {
+            return driver.verify(['Jerry Seinfeld']);
+          }).then(function() {
+            function handleReviewPost(req, res) {
+              res.end(JSON.stringify({ 'project-phase-reviews': { id: 3454 } }));
+            }
+            function handleUtilizationPost(req, res) {
+              res.end(JSON.stringify({ utilizations: { id: 3333 } }));
+            }
+
+            middleMan.off('*', abort);
+
+            return Promise.all([
+              middleMan.once('POST', '/v1/project-phase-reviews', handleReviewPost),
+              middleMan.once('PUT', '/v1/utilizations/4', handleRequest),
+              middleMan.once('PUT', '/v1/utilizations/5', handleRequest),
+              middleMan.once('PUT', '/v1/utilizations/6', handleRequest),
+              middleMan.once('POST', '/v1/utilizations', handleUtilizationPost),
+              driver.submitReview()
+            ]);
+          }).then(function() {
+            return driver.count('phaseWeek.verified');
+          }).then(function(count) {
+            assert.equal(
+              count,
+              2,
+              'Verification information reflects recently-completed operations'
+            );
+          }).then(function() {
+
+            // Ensure that reviews created by the user in the current browsing
+            // session can be updated.
+            return driver.addNote('. And Bocoup is great.');
+          }).then(function() {
+            return Promise.all([
+              middleMan.once('PUT', '/v1/project-phase-reviews/3454', handleRequest),
+              driver.submitReview()
+            ]);
+          }).then(function() {
+            return driver.cycleReview('next');
+          }).then(function() {
+            return driver.count('phaseWeek.verified');
+          }).then(function(count) {
+            assert.equal(
+              count, 1, 'Verification information is refreshed after navigation'
+            );
+          });
+      });
     });
   });
 

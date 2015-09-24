@@ -1,5 +1,7 @@
 ---
 # configure nginx
+- name: disable default nginx configuration
+  file: path=/etc/nginx/sites-enabled/default state=absent
 
 - name: nginx has a configuration file
   template: src=weekly-review.conf dest=/etc/nginx/conf.d/ backup=no

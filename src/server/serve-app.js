@@ -13,5 +13,6 @@ try {
 }
 
 module.exports = function(req, res) {
+  res.setHeader('Content-Type', 'application/javascript');
   res.send(src);
 };

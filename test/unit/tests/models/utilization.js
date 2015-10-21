@@ -22,6 +22,7 @@ suite('Utilization model', function() {
   suite('#matches', function() {
     var u1 = new Utilization({
       utilization_type_id: 2,
+      initiative_id: 1,
       employee_id: 2,
       project_id: 2,
       project_phase_id: 2,
@@ -31,6 +32,7 @@ suite('Utilization model', function() {
     });
     var u2 = new Utilization({
       utilization_type_id: 2,
+      initiative_id: 1,
       employee_id: 2,
       project_id: 2,
       project_phase_id: 2,
@@ -40,6 +42,7 @@ suite('Utilization model', function() {
     });
     var u3 = new Utilization({
       utilization_type_id: 3,
+      initiative_id: 1,
       employee_id: 2,
       project_id: 2,
       project_phase_id: 2,
@@ -49,6 +52,7 @@ suite('Utilization model', function() {
     });
     var u4 = new Utilization({
       utilization_type_id: 2,
+      initiative_id: 1,
       employee_id: 3,
       project_id: 2,
       project_phase_id: 2,
@@ -58,6 +62,7 @@ suite('Utilization model', function() {
     });
     var u5 = new Utilization({
       utilization_type_id: 2,
+      initiative_id: 1,
       employee_id: 2,
       project_id: 2,
       project_phase_id: 2,
@@ -67,6 +72,7 @@ suite('Utilization model', function() {
     });
     var u6 = new Utilization({
       utilization_type_id: 2,
+      initiative_id: 1,
       employee_id: 2,
       project_id: 3,
       project_phase_id: 2,
@@ -76,6 +82,7 @@ suite('Utilization model', function() {
     });
     var u7 = new Utilization({
       utilization_type_id: 2,
+      initiative_id: 1,
       employee_id: 2,
       project_id: 2,
       project_phase_id: 3,
@@ -85,6 +92,7 @@ suite('Utilization model', function() {
     });
     var u8 = new Utilization({
       utilization_type_id: 2,
+      initiative_id: 1,
       employee_id: 2,
       project_id: 2,
       project_phase_id: 2,
@@ -94,6 +102,7 @@ suite('Utilization model', function() {
     });
     var u9 = new Utilization({
       utilization_type_id: 2,
+      initiative_id: 1,
       employee_id: 2,
       project_id: 2,
       project_phase_id: 2,
@@ -157,6 +166,7 @@ suite('Utilization model', function() {
   test('#createMatching', function() {
     var u1 = new Utilization({
       utilization_type_id: 2,
+      initiative_id: 1,
       employee_id: 2,
       project_id: 2,
       project_phase_id: 2,

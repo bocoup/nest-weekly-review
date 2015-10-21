@@ -8,6 +8,7 @@ module.exports = Component.extend({
 
   oninit: function() {
     this.set('newProjectId', this.get('utilization.project.id'));
+    this.set('newInitiativeId', this.get('utilization.initiative_id'));
     this.set('newBillable', this.get('utilization.billable'));
     this.observe('newProjectId', this.handleNewProjectIdChange);
 
@@ -21,10 +22,12 @@ module.exports = Component.extend({
 
   read: function() {
     var type = this.get('newType');
-
+    var initiative = this.get('newInitiative');
     return {
       utilization_type_id: type.get('id'),
+      initiative_id: initiative.get('id'),
       type: type.toJSON()['utilization-types'],
+      initiative: initiative.toJSON().initiatives,
       employee_id: this.get('employee.id'),
       project_id: this.get('newProject.id'),
       project_phase_id: this.get('newPhase.id'),
@@ -103,6 +106,28 @@ module.exports = Component.extend({
         }
 
         return newType;
+      }
+    },
+
+    newInitiative: {
+      set: function(val) {
+        this.set('_newInitiative', val);
+      },
+      get: function() {
+        var newInitiative = this.get('_newInitiative');
+        var currentInitiativeId = this.get('utilization.initiative_id');
+        var initiatives = this.get('initiatives');
+
+        if (!newInitiative && currentInitiativeId && initiatives) {
+          initiatives.some(function(initiative) {
+            if (initiative.id === currentInitiativeId) {
+              newInitiative = initiative;
+              return true;
+            }
+          });
+        }
+
+        return newInitiative;
       }
     },
 

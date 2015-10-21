@@ -6,15 +6,15 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Tue, 18 Aug 2015 23:32:23 GMT
+date: Wed, 21 Oct 2015 14:50:31 GMT
 content-type: application/json; charset=utf-8
-content-length: 860
+content-length: 714
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"35c-a0701b52"
-set-cookie: connect.sid=s%3A0xIg_X5epp328drxSzsyxQKjtm_Zemmf.fNwQhGToGo137rOO%2FfejCAjE0sqrGtc2gL0SZ0lTc24; Path=/; HttpOnly
+etag: W/"2ca-1a0f1d14"
+set-cookie: connect.sid=s%3AQL5d-TOzfbAAla1wlfg5ctJRR6q9296m.cQVqbdbnQ4sPyRXUzJpLGTQ0BpUm4n4HLS%2FILZ84%2B%2FI; Path=/; HttpOnly
 
 {
   "linked": {
@@ -23,7 +23,7 @@ set-cookie: connect.sid=s%3A0xIg_X5epp328drxSzsyxQKjtm_Zemmf.fNwQhGToGo137rOO%2F
         "id": 2,
         "name": "The Human Fund",
         "inactive": false,
-        "pipedrive_id": 2345,
+        "pipedrive_id": "2345",
         "github_user": "hf"
       }
     ]
@@ -34,7 +34,6 @@ set-cookie: connect.sid=s%3A0xIg_X5epp328drxSzsyxQKjtm_Zemmf.fNwQhGToGo137rOO%2F
       "name": "Fundraising Drive",
       "abbr": "FD",
       "completed": false,
-      "project_type_id": 1,
       "default_utilization_type_id": 1,
       "lead_employee_id": 1,
       "organization_id": 2,
@@ -48,11 +47,6 @@ set-cookie: connect.sid=s%3A0xIg_X5epp328drxSzsyxQKjtm_Zemmf.fNwQhGToGo137rOO%2F
         "organization": {
           "type": "organizations",
           "id": 2
-        },
-        "type": {
-          "type": "project-types",
-          "id": 1,
-          "href": "/project-types/1"
         }
       }
     }

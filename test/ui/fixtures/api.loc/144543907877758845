@@ -1,4 +1,4 @@
-GET /v1/project-phases?after=2015-01-18&before=2015-01-25&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees&include%5B3%5D=project.organization
+GET /v1/project-phases?after=2015-01-11&before=2015-01-18&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees&include%5B3%5D=project.organization
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -6,15 +6,15 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Tue, 18 Aug 2015 23:32:52 GMT
+date: Wed, 21 Oct 2015 14:51:18 GMT
 content-type: application/json; charset=utf-8
-content-length: 3423
+content-length: 3099
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"ytPX0CW72UBuEZ83YsIO+w=="
-set-cookie: connect.sid=s%3ALBNh_eMxMn-piLJrjv75Hxa-HWgmPbdc.q%2BoEmg3nReKtyFbiP10GgOS%2BDycljLgJ8Lnyuwpaf98; Path=/; HttpOnly
+etag: W/"aSrWmhOg2Jt+oVa23Q5yXQ=="
+set-cookie: connect.sid=s%3AHiH4qr-t1QpBbansQ_XJNECnQQHoAMNO.Lir94O33PgvIvk9z5cKqNXTo5dByh5WxVpHKuN3b%2BTg; Path=/; HttpOnly
 
 {
   "linked": {
@@ -33,7 +33,6 @@ set-cookie: connect.sid=s%3ALBNh_eMxMn-piLJrjv75Hxa-HWgmPbdc.q%2BoEmg3nReKtyFbiP
         "name": "Pudding Skins",
         "abbr": "PS",
         "completed": false,
-        "project_type_id": 1,
         "default_utilization_type_id": 1,
         "lead_employee_id": 1,
         "organization_id": 1,
@@ -49,13 +48,13 @@ set-cookie: connect.sid=s%3ALBNh_eMxMn-piLJrjv75Hxa-HWgmPbdc.q%2BoEmg3nReKtyFbiP
         "date_end": null,
         "github_user": "superman",
         "position_id": 1,
-        "email": null,
+        "email": "jerry@bocoup.com",
         "email_personal": null,
         "phone": null,
         "irc": null,
         "twitter": null,
         "website": null,
-        "slug": null,
+        "slug": "jerry-seinfeld",
         "supporter_id": 1,
         "notes": null
       },
@@ -67,13 +66,13 @@ set-cookie: connect.sid=s%3ALBNh_eMxMn-piLJrjv75Hxa-HWgmPbdc.q%2BoEmg3nReKtyFbiP
         "date_end": null,
         "github_user": "cosmo",
         "position_id": 1,
-        "email": null,
+        "email": "cosmo@bocoup.com",
         "email_personal": null,
         "phone": null,
         "irc": null,
         "twitter": null,
         "website": null,
-        "slug": null,
+        "slug": "cosmo-kramer",
         "supporter_id": 1,
         "notes": null
       }
@@ -83,7 +82,7 @@ set-cookie: connect.sid=s%3ALBNh_eMxMn-piLJrjv75Hxa-HWgmPbdc.q%2BoEmg3nReKtyFbiP
         "id": 1,
         "name": "Kramerica Industries",
         "inactive": false,
-        "pipedrive_id": 1234,
+        "pipedrive_id": "1234",
         "github_user": "test"
       }
     ]
@@ -93,8 +92,8 @@ set-cookie: connect.sid=s%3ALBNh_eMxMn-piLJrjv75Hxa-HWgmPbdc.q%2BoEmg3nReKtyFbiP
       "id": 1,
       "name": "Make pudding",
       "project_id": 1,
-      "first_day": "2015-01-01T05:00:00.000Z",
-      "last_day": "2015-01-25T05:00:00.000Z",
+      "first_day": "2015-01-01T00:00:00.000Z",
+      "last_day": "2015-01-25T00:00:00.000Z",
       "bill_method_id": null,
       "rate": 0,
       "project_sow_id": null,
@@ -103,14 +102,6 @@ set-cookie: connect.sid=s%3ALBNh_eMxMn-piLJrjv75Hxa-HWgmPbdc.q%2BoEmg3nReKtyFbiP
         "project": {
           "type": "projects",
           "id": 1
-        },
-        "sow": {
-          "type": "project-sows",
-          "id": null
-        },
-        "billMethod": {
-          "type": "bill-methods",
-          "id": null
         },
         "reviews": {
           "type": "project-phase-reviews",
@@ -134,8 +125,8 @@ set-cookie: connect.sid=s%3ALBNh_eMxMn-piLJrjv75Hxa-HWgmPbdc.q%2BoEmg3nReKtyFbiP
       "id": 2,
       "name": "Extract pudding skin",
       "project_id": 1,
-      "first_day": "2015-01-11T05:00:00.000Z",
-      "last_day": "2015-02-01T05:00:00.000Z",
+      "first_day": "2015-01-11T00:00:00.000Z",
+      "last_day": "2015-02-01T00:00:00.000Z",
       "bill_method_id": null,
       "rate": 0,
       "project_sow_id": null,
@@ -144,14 +135,6 @@ set-cookie: connect.sid=s%3ALBNh_eMxMn-piLJrjv75Hxa-HWgmPbdc.q%2BoEmg3nReKtyFbiP
         "project": {
           "type": "projects",
           "id": 1
-        },
-        "sow": {
-          "type": "project-sows",
-          "id": null
-        },
-        "billMethod": {
-          "type": "bill-methods",
-          "id": null
         },
         "reviews": {
           "type": "project-phase-reviews",

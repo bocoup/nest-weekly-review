@@ -22,7 +22,8 @@
     >
 
     {{#with utilization}}
-    <span class="utilization-type">{{ type.name }}</span>
+    <span class="utilization-type">{{ newType.name }}</span>
+    <span class="utilization-initiative">{{ newInitiative.name }}</span>
     {{#if newProject.name}}
       <span class="utilization-project">{{ newProject.organization.name }} - {{ newProject.name }}</span>
       {{#if newPhase.name}}
@@ -34,8 +35,14 @@
   </label>
 
   <div class="back">
-      <select id="{{dayName}}{{employee.id}}-type" value="{{newType}}">
+    <select id="{{dayName}}{{employee.id}}-type" value="{{newType}}">
       {{#each utilizationTypes}}
+        <option value="{{this}}">{{name}}</option>
+      {{/each}}
+    </select>
+
+    <select id="{{dayName}}{{employee.id}}-initiative" value="{{newInitiative}}">
+      {{#each initiatives}}
         <option value="{{this}}">{{name}}</option>
       {{/each}}
     </select>

@@ -22,6 +22,7 @@ suite('Utilization model', function() {
   suite('#matches', function() {
     var u1 = new Utilization({
       utilization_type_id: 2,
+      initiative_id: 1,
       employee_id: 2,
       project_id: 2,
       project_phase_id: 2,
@@ -31,6 +32,7 @@ suite('Utilization model', function() {
     });
     var u2 = new Utilization({
       utilization_type_id: 2,
+      initiative_id: 1,
       employee_id: 2,
       project_id: 2,
       project_phase_id: 2,
@@ -40,6 +42,7 @@ suite('Utilization model', function() {
     });
     var u3 = new Utilization({
       utilization_type_id: 3,
+      initiative_id: 1,
       employee_id: 2,
       project_id: 2,
       project_phase_id: 2,
@@ -49,6 +52,7 @@ suite('Utilization model', function() {
     });
     var u4 = new Utilization({
       utilization_type_id: 2,
+      initiative_id: 1,
       employee_id: 3,
       project_id: 2,
       project_phase_id: 2,
@@ -58,6 +62,7 @@ suite('Utilization model', function() {
     });
     var u5 = new Utilization({
       utilization_type_id: 2,
+      initiative_id: 1,
       employee_id: 2,
       project_id: 2,
       project_phase_id: 2,
@@ -67,6 +72,7 @@ suite('Utilization model', function() {
     });
     var u6 = new Utilization({
       utilization_type_id: 2,
+      initiative_id: 1,
       employee_id: 2,
       project_id: 3,
       project_phase_id: 2,
@@ -76,6 +82,7 @@ suite('Utilization model', function() {
     });
     var u7 = new Utilization({
       utilization_type_id: 2,
+      initiative_id: 1,
       employee_id: 2,
       project_id: 2,
       project_phase_id: 3,
@@ -85,6 +92,7 @@ suite('Utilization model', function() {
     });
     var u8 = new Utilization({
       utilization_type_id: 2,
+      initiative_id: 1,
       employee_id: 2,
       project_id: 2,
       project_phase_id: 2,
@@ -94,6 +102,7 @@ suite('Utilization model', function() {
     });
     var u9 = new Utilization({
       utilization_type_id: 2,
+      initiative_id: 1,
       employee_id: 2,
       project_id: 2,
       project_phase_id: 2,
@@ -101,6 +110,16 @@ suite('Utilization model', function() {
       last_day: new Date(2012, 4, 5),
       billable: false,
       sketch_calendar_id: 86
+    });
+    var u10 = new Utilization({
+      utilization_type_id: 2,
+      initiative_id: 2,
+      employee_id: 2,
+      project_id: 2,
+      project_phase_id: 2,
+      first_date: new Date(2012, 4, 4),
+      last_day: new Date(2012, 4, 5),
+      billable: true
     });
 
     test('positive with models', function() {
@@ -120,33 +139,42 @@ suite('Utilization model', function() {
       assert.strictEqual(u1.matches(u7), false);
       assert.strictEqual(u1.matches(u8), false);
       assert.strictEqual(u1.matches(u9), false);
+      assert.strictEqual(u1.matches(u10), false);
       assert.strictEqual(u2.matches(u3), false);
       assert.strictEqual(u2.matches(u4), false);
       assert.strictEqual(u2.matches(u6), false);
       assert.strictEqual(u2.matches(u7), false);
       assert.strictEqual(u2.matches(u8), false);
       assert.strictEqual(u2.matches(u9), false);
+      assert.strictEqual(u2.matches(u10), false);
       assert.strictEqual(u3.matches(u4), false);
       assert.strictEqual(u3.matches(u5), false);
       assert.strictEqual(u3.matches(u6), false);
       assert.strictEqual(u3.matches(u7), false);
       assert.strictEqual(u3.matches(u8), false);
       assert.strictEqual(u3.matches(u9), false);
+      assert.strictEqual(u3.matches(u10), false);
       assert.strictEqual(u4.matches(u5), false);
       assert.strictEqual(u4.matches(u6), false);
       assert.strictEqual(u4.matches(u7), false);
       assert.strictEqual(u4.matches(u8), false);
       assert.strictEqual(u4.matches(u9), false);
+      assert.strictEqual(u4.matches(u10), false);
       assert.strictEqual(u5.matches(u6), false);
       assert.strictEqual(u5.matches(u7), false);
       assert.strictEqual(u5.matches(u8), false);
       assert.strictEqual(u5.matches(u9), false);
+      assert.strictEqual(u5.matches(u10), false);
       assert.strictEqual(u6.matches(u7), false);
       assert.strictEqual(u6.matches(u8), false);
       assert.strictEqual(u6.matches(u9), false);
+      assert.strictEqual(u6.matches(u10), false);
       assert.strictEqual(u7.matches(u8), false);
       assert.strictEqual(u7.matches(u9), false);
+      assert.strictEqual(u7.matches(u10), false);
       assert.strictEqual(u8.matches(u9), false);
+      assert.strictEqual(u8.matches(u10), false);
+      assert.strictEqual(u9.matches(u10), false);
     });
   });
 
@@ -157,6 +185,7 @@ suite('Utilization model', function() {
   test('#createMatching', function() {
     var u1 = new Utilization({
       utilization_type_id: 2,
+      initiative_id: 1,
       employee_id: 2,
       project_id: 2,
       project_phase_id: 2,

@@ -1,0 +1,30 @@
+GET /v1/initiatives
+authorization: Bearer fake-token-for-testing
+accept-language: en-US,en;q=0.5
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+host: api.loc
+
+200 HTTP/1.1
+server: nginx/1.4.6 (Ubuntu)
+date: Wed, 21 Oct 2015 14:50:30 GMT
+content-type: application/json; charset=utf-8
+content-length: 128
+connection: close
+vary: Accept-Encoding, Origin
+x-powered-by: Express
+access-control-allow-origin: *
+etag: W/"80-58f33396"
+set-cookie: connect.sid=s%3Ac1Naxvo52NQkyUHf8mZ5RimZ5cv1ZLJD.IidLO5JxKYHndEKpBI5Ze%2BiWT%2BlIOIoK9gfot23fq4M; Path=/; HttpOnly
+
+{
+  "initiatives": [
+    {
+      "id": 1,
+      "name": "none"
+    },
+    {
+      "id": 2,
+      "name": "something"
+    }
+  ]
+}

@@ -6,15 +6,15 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Tue, 18 Aug 2015 23:34:41 GMT
+date: Wed, 21 Oct 2015 14:50:54 GMT
 content-type: application/json; charset=utf-8
-content-length: 3423
+content-length: 3099
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"ytPX0CW72UBuEZ83YsIO+w=="
-set-cookie: connect.sid=s%3A0h9W5L1-xpNEtsu4jKhfMMOV58qrLhHc.M5zITE6ynPPihsDXdvWDEAgudVPVqmUDm%2Focg6XwXrI; Path=/; HttpOnly
+etag: W/"aSrWmhOg2Jt+oVa23Q5yXQ=="
+set-cookie: connect.sid=s%3ARtdXdL8L2CNAdZ1RuY1qNjTpGjY5w5tY.McAJ05I5FD2VIQByU3SNkIghRstGl7%2BuqgoOjBihEJI; Path=/; HttpOnly
 
 {
   "linked": {
@@ -33,7 +33,6 @@ set-cookie: connect.sid=s%3A0h9W5L1-xpNEtsu4jKhfMMOV58qrLhHc.M5zITE6ynPPihsDXdvW
         "name": "Pudding Skins",
         "abbr": "PS",
         "completed": false,
-        "project_type_id": 1,
         "default_utilization_type_id": 1,
         "lead_employee_id": 1,
         "organization_id": 1,
@@ -49,13 +48,13 @@ set-cookie: connect.sid=s%3A0h9W5L1-xpNEtsu4jKhfMMOV58qrLhHc.M5zITE6ynPPihsDXdvW
         "date_end": null,
         "github_user": "superman",
         "position_id": 1,
-        "email": null,
+        "email": "jerry@bocoup.com",
         "email_personal": null,
         "phone": null,
         "irc": null,
         "twitter": null,
         "website": null,
-        "slug": null,
+        "slug": "jerry-seinfeld",
         "supporter_id": 1,
         "notes": null
       },
@@ -67,13 +66,13 @@ set-cookie: connect.sid=s%3A0h9W5L1-xpNEtsu4jKhfMMOV58qrLhHc.M5zITE6ynPPihsDXdvW
         "date_end": null,
         "github_user": "cosmo",
         "position_id": 1,
-        "email": null,
+        "email": "cosmo@bocoup.com",
         "email_personal": null,
         "phone": null,
         "irc": null,
         "twitter": null,
         "website": null,
-        "slug": null,
+        "slug": "cosmo-kramer",
         "supporter_id": 1,
         "notes": null
       }
@@ -83,7 +82,7 @@ set-cookie: connect.sid=s%3A0h9W5L1-xpNEtsu4jKhfMMOV58qrLhHc.M5zITE6ynPPihsDXdvW
         "id": 1,
         "name": "Kramerica Industries",
         "inactive": false,
-        "pipedrive_id": 1234,
+        "pipedrive_id": "1234",
         "github_user": "test"
       }
     ]
@@ -93,8 +92,8 @@ set-cookie: connect.sid=s%3A0h9W5L1-xpNEtsu4jKhfMMOV58qrLhHc.M5zITE6ynPPihsDXdvW
       "id": 1,
       "name": "Make pudding",
       "project_id": 1,
-      "first_day": "2015-01-01T05:00:00.000Z",
-      "last_day": "2015-01-25T05:00:00.000Z",
+      "first_day": "2015-01-01T00:00:00.000Z",
+      "last_day": "2015-01-25T00:00:00.000Z",
       "bill_method_id": null,
       "rate": 0,
       "project_sow_id": null,
@@ -103,14 +102,6 @@ set-cookie: connect.sid=s%3A0h9W5L1-xpNEtsu4jKhfMMOV58qrLhHc.M5zITE6ynPPihsDXdvW
         "project": {
           "type": "projects",
           "id": 1
-        },
-        "sow": {
-          "type": "project-sows",
-          "id": null
-        },
-        "billMethod": {
-          "type": "bill-methods",
-          "id": null
         },
         "reviews": {
           "type": "project-phase-reviews",
@@ -134,8 +125,8 @@ set-cookie: connect.sid=s%3A0h9W5L1-xpNEtsu4jKhfMMOV58qrLhHc.M5zITE6ynPPihsDXdvW
       "id": 2,
       "name": "Extract pudding skin",
       "project_id": 1,
-      "first_day": "2015-01-11T05:00:00.000Z",
-      "last_day": "2015-02-01T05:00:00.000Z",
+      "first_day": "2015-01-11T00:00:00.000Z",
+      "last_day": "2015-02-01T00:00:00.000Z",
       "bill_method_id": null,
       "rate": 0,
       "project_sow_id": null,
@@ -144,14 +135,6 @@ set-cookie: connect.sid=s%3A0h9W5L1-xpNEtsu4jKhfMMOV58qrLhHc.M5zITE6ynPPihsDXdvW
         "project": {
           "type": "projects",
           "id": 1
-        },
-        "sow": {
-          "type": "project-sows",
-          "id": null
-        },
-        "billMethod": {
-          "type": "bill-methods",
-          "id": null
         },
         "reviews": {
           "type": "project-phase-reviews",

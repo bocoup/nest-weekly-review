@@ -1,4 +1,4 @@
-.utilization-type, .utilization-project, .utilization-phase {
+.utilization-type, .utilization-initiative, .utilization-project, .utilization-phase {
   display: block;
 }
 
@@ -6,17 +6,13 @@
   font-weight: bold;
 }
 
-.utilization-project {
+.utilization-project, .utilization-phase, .utilization-billable {
   font-size: 0.8em;
-}
-
-.utilization-phase, .utilization-billable {
-  font-size: 0.6em;
 }
 
 /* Day interactions */
 .day {
-  height: 10em;
+  height: 11em;
 }
 .day .front, .day .back {
   padding: 0.8em;

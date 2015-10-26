@@ -13,6 +13,7 @@ module.exports = JsonApiModel.extend({
   props: {
     id: 'number',
     utilization_type_id: 'number',
+    initiative_id: 'number',
     employee_id: 'number',
     project_id: 'number',
     project_phase_id: 'number',
@@ -73,6 +74,7 @@ module.exports = JsonApiModel.extend({
     }
 
     return this.get('utilization_type_id') === other.utilization_type_id &&
+      this.get('initiative_id') === other.initiative_id &&
       this.get('employee_id') === other.employee_id &&
       this.get('project_id') === other.project_id &&
       this.get('project_phase_id') === other.project_phase_id &&
@@ -92,9 +94,11 @@ module.exports = JsonApiModel.extend({
   createMatching: function(attrs) {
     var project = this.get('project');
     var type = this.get('type');
+    var initiative = this.get('initiative');
 
     attrs = attrs || {};
     attrs.utilization_type_id = this.get('utilization_type_id');
+    attrs.initiative_id = this.get('initiative_id');
     attrs.employee_id = this.get('employee_id');
     attrs.project_id = this.get('project_id');
     attrs.project_phase_id = this.get('project_phase_id');
@@ -107,6 +111,10 @@ module.exports = JsonApiModel.extend({
 
     if (type) {
       attrs.type = type.toJSON()['utilization-types'];
+    }
+
+    if (initiative) {
+      attrs.initiative = initiative.toJSON().initiatives;
     }
 
     return new module.exports(attrs);

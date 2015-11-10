@@ -1,13 +1,38 @@
-.utilization-type, .utilization-initiative, .utilization-project, .utilization-phase {
-  display: block;
-}
-
-.utilization-type {
+.utilization-attr.utilization-type {
+  font-size: 1em;
   font-weight: bold;
 }
 
-.utilization-project, .utilization-phase, .utilization-billable {
-  font-size: 0.8em;
+.utilization-attr {
+  display: block;
+
+  font-size: 0.9em;
+}
+
+.utilization-billable {
+  display: none;
+}
+
+.utilization-billable.active {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+
+  display: block;
+  height: 1em;
+  width: 0.45em;
+  overflow: hidden;
+
+  font-size: 10em;
+  font-weight: bold;
+  opacity: 0.2;
+}
+
+.front label {
+  display: block;
+  padding-top: 0.5em;
+
+  font-size: 0.6em;
 }
 
 /* Day interactions */

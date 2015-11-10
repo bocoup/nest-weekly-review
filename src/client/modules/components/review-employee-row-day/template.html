@@ -22,16 +22,47 @@
     >
 
     {{#with utilization}}
-    <span class="utilization-type">{{ newType.name }}</span>
-    <span class="utilization-leave-request-type">{{ newLeaveRequestType.displayName }}</span>
-    <span class="utilization-initiative">{{ newInitiative.name }}</span>
+    <span class="utilization-attr utilization-type">{{ newType.name }}</span>
+
+    <label>
+      {{#if newLeaveRequestType}}
+        Leave Request Type
+      {{else}}
+        &nbsp;
+      {{/if}}
+    </label>
+    <span
+      class="utilization-attr utilization-leave-request-type"
+      alt="Leave Request Type">
+      {{#if newLeaveRequestType}}
+        {{ newLeaveRequestType.displayName }}
+      {{else}}
+        &nbsp;
+      {{/if}}
+    </span>
+
+    <label>Initiative</label>
+    <span class="utilization-attr utilization-initiative">
+      {{ newInitiative.name }}
+    </span>
+
     {{#if newProject.name}}
-      <span class="utilization-project">{{ newProject.organization.name }} - {{ newProject.name }}</span>
+      <label>Project</label>
+      <span class="utilization-attr utilization-project">
+        {{ newProject.organization.name }} - {{ newProject.name }}
+      </span>
+
       {{#if newPhase.name}}
-        <span class="utilization-phase">{{ newPhase.name }}</span>
+        <label>Phase</label>
+        <span class="utilization-attr utilization-phase">
+          {{ newPhase.name }}
+        </span>
       {{/if}}
     {{/if}}
-    <span class="utilization-billable">{{#if newBillable}}Billable{{else}}Non-Billable{{/if}}</span>
+
+    <span class="utilization-billable {{#if newBillable}}active{{/if}}">
+      $
+    </span>
     {{/with}}
   </label>
 

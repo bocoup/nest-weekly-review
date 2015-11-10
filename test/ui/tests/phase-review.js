@@ -65,6 +65,11 @@ describe('phase review', function() {
               'Form renders correctly when initialized with a phaseless project'
             );
             assert.equal(
+              text.initiative,
+              'none',
+              'Form renders correctly when initialized with a phaseless project'
+            );
+            assert.equal(
               text.project,
               'The Human Fund - Fundraising Drive',
               'Form renders correctly when initialized with a phaseless project'

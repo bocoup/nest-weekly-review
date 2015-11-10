@@ -37,5 +37,7 @@ module.exports = function(el) {
       return el;
     }).then(function(el) {
       return el.getVisibleText();
+    }).then(function(text) {
+      return text.trim();
     });
 };

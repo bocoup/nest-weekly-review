@@ -10,6 +10,9 @@ var Promise = require('bluebird');
  */
 module.exports = function(els) {
   return Promise.all(els.map(function(el) {
-    return el.getVisibleText();
+    return el.getVisibleText()
+      .then(function(text) {
+        return text.trim();
+      });
   }));
 };

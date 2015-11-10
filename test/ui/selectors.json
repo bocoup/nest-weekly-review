@@ -25,13 +25,15 @@
           "front": {
             "_selector": ".front",
             "_contents": {
-              "phase": ".utilization-phase"
+              "phase": ".utilization-phase",
+              "leaveRequestType": ".utilization-leave-request-type"
             }
           },
           "typeInput": ".back select:nth-child(1)",
-          "initiativeInput": ".back select:nth-child(2)",
-          "projectInput": ".back select:nth-child(3)",
-          "phaseInput": ".back select:nth-child(4)",
+          "leaveRequestTypeInput": ".back select:nth-child(2)",
+          "initiativeInput": ".back select:nth-child(3)",
+          "projectInput": ".back select:nth-child(4)",
+          "phaseInput": ".back select:nth-child(5)",
           "saving": ".saving",
           "set": ".back .set"
         }

@@ -1,0 +1,17 @@
+GET /v1/projects?active=true&hasPhase=false&include%5B0%5D=organization
+if-none-match: W/"2ca-1a0f1d14"
+authorization: Bearer fake-token-for-testing
+accept-language: en-US,en;q=0.5
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+host: api.loc
+
+304 HTTP/1.1
+server: nginx/1.4.6 (Ubuntu)
+date: Tue, 10 Nov 2015 18:52:52 GMT
+connection: close
+x-powered-by: Express
+access-control-allow-origin: *
+vary: Origin
+etag: W/"2ca-1a0f1d14"
+set-cookie: connect.sid=s%3Ail6zK4zbxsreyARrGdl4iZtcqyQAL2dK.zy9NZbg77ZoDKwHnbwh%2Bar4t4%2FIScHJmMP%2FniRlfHTY; Path=/; HttpOnly
+

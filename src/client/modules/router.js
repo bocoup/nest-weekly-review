@@ -7,6 +7,7 @@ var Phases = require('./models/phases');
 var Projects = require('./models/projects');
 var UtilizationTypes = require('./models/utilization-types');
 var Initiatives = require('./models/initiatives');
+var LeaveRequestTypes = require('./models/leave-request-types');
 var Review = require('./models/phase-review');
 
 var Layout = require('./components/layout/index');
@@ -31,6 +32,7 @@ module.exports = Router.extend({
     this.phaselessProjects = new Projects();
     this.utilizationTypes = new UtilizationTypes();
     this.initiatives = new Initiatives();
+    this.leaveRequestTypes = new LeaveRequestTypes();
 
     this.asyncRoute(/date\/(\d{4})-(\d\d)-(\d\d)\//i, 'phaseList');
     this.asyncRoute(/date\/(\d{4})-(\d\d)-(\d\d)\/phase\/(\d+)\//i, 'review');
@@ -73,6 +75,15 @@ module.exports = Router.extend({
       error: function(model, response) {
         this.layout.addError({
           title: 'Couldn\'t fetch initiative data',
+          description: response.body
+        });
+      }.bind(this)
+    });
+
+    this.leaveRequestTypes.fetch({
+      error: function(model, response) {
+        this.layout.addError({
+          title: 'Couldn\'t fetch "leave request" data',
           description: response.body
         });
       }.bind(this)
@@ -254,7 +265,8 @@ module.exports = Router.extend({
             phaselessProjects: this.phaselessProjects,
             review: review,
             utilizationTypes: this.utilizationTypes,
-            initiatives: this.initiatives
+            initiatives: this.initiatives,
+            leaveRequestTypes: this.leaveRequestTypes
           });
         }.bind(this), function(err) {
           this.layout.addError(err);

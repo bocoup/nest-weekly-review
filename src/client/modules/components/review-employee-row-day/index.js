@@ -8,6 +8,7 @@ module.exports = Component.extend({
 
   oninit: function() {
     this.set('newProjectId', this.get('utilization.project.id'));
+    this.set('newLeaveRequestId', this.get('utilization.leave_request_type_id'));
     this.set('newInitiativeId', this.get('utilization.initiative_id'));
     this.set('newBillable', this.get('utilization.billable'));
     this.observe('newProjectId', this.handleNewProjectIdChange);
@@ -22,9 +23,12 @@ module.exports = Component.extend({
 
   read: function() {
     var type = this.get('newType');
+    var leaveRequestTypeId = this.get('newLeaveRequestType.id');
     var initiative = this.get('newInitiative');
+
     return {
       utilization_type_id: type.get('id'),
+      leave_request_type_id: leaveRequestTypeId || null,
       initiative_id: initiative.get('id'),
       type: type.toJSON()['utilization-types'],
       initiative: initiative.toJSON().initiatives,
@@ -106,6 +110,28 @@ module.exports = Component.extend({
         }
 
         return newType;
+      }
+    },
+
+    newLeaveRequestType: {
+      set: function(val) {
+        this.set('_newLeaveRequestType', val);
+      },
+      get: function() {
+        var newLeaveRequestType = this.get('_newLeaveRequestType');
+        var currentLeaveRequestId = this.get('utilization.leave_request_type_id');
+        var leaveRequestTypes = this.get('leaveRequestTypes');
+
+        if (!newLeaveRequestType && currentLeaveRequestId && leaveRequestTypes) {
+          leaveRequestTypes.some(function(leaveRequestType) {
+            if (leaveRequestType.id === currentLeaveRequestId) {
+              newLeaveRequestType = leaveRequestType;
+              return true;
+            }
+          });
+        }
+
+        return newLeaveRequestType;
       }
     },
 

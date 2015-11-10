@@ -49,6 +49,19 @@ describe('phase review', function() {
             assert.equal(phases[0], 'Make pudding');
             assert.equal(phases[6], 'Extract pudding skin');
 
+            return driver.readAll('phaseWeek.day.front.leaveRequestType');
+          }).then(function(leaveRequestTypes) {
+            assert.equal(leaveRequestTypes[0], 'PTO');
+            assert.equal(leaveRequestTypes[1], 'PTO');
+            assert.equal(leaveRequestTypes[2], 'PTO');
+            assert.equal(leaveRequestTypes[3], '');
+            assert.equal(leaveRequestTypes[4], '');
+            assert.equal(leaveRequestTypes[5], '');
+            assert.equal(leaveRequestTypes[6], '');
+            assert.equal(leaveRequestTypes[7], '');
+            assert.equal(leaveRequestTypes[8], '');
+            assert.equal(leaveRequestTypes[9], '');
+
             return driver.viewUtilizationForm({
               name: 'Jerry Seinfeld',
               day: 'thursday'
@@ -62,6 +75,11 @@ describe('phase review', function() {
             assert.equal(
               text.type,
               'Education',
+              'Form renders correctly when initialized with a phaseless project'
+            );
+            assert.equal(
+              text.leaveRequestType,
+              'Leave Request Type',
               'Form renders correctly when initialized with a phaseless project'
             );
             assert.equal(

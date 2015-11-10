@@ -301,6 +301,7 @@ Driver.prototype.readUtilizationForm = function(options) {
 
       return Promise.all([
           driver._$(['phaseWeek.day', offset, 'typeInput']),
+          driver._$(['phaseWeek.day', offset, 'leaveRequestTypeInput']),
           driver._$(['phaseWeek.day', offset, 'initiativeInput']),
           driver._$(['phaseWeek.day', offset, 'projectInput']),
           driver._$(['phaseWeek.day', offset, 'phaseInput'])
@@ -312,9 +313,10 @@ Driver.prototype.readUtilizationForm = function(options) {
     }).then(function(texts) {
       return {
         type: texts[0],
-        initiative: texts[1],
-        project: texts[2],
-        phase: texts[3]
+        leaveRequestType: texts[1],
+        initiative: texts[2],
+        project: texts[3],
+        phase: texts[4]
       };
     });
 };

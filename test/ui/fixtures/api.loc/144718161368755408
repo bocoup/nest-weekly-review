@@ -1,4 +1,4 @@
-GET /v1/utilizations?employee_id=1%2C2&include%5B0%5D=project&include%5B1%5D=type
+GET /v1/utilizations?employee_id=1&include%5B0%5D=project&include%5B1%5D=type
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -6,15 +6,15 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Tue, 10 Nov 2015 16:54:13 GMT
+date: Tue, 10 Nov 2015 18:53:33 GMT
 content-type: application/json; charset=utf-8
-content-length: 12422
+content-length: 10153
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"nR9srUvTjh1CYfNuKqsKIw=="
-set-cookie: connect.sid=s%3ATfSn_98Dzm-gpWkfsb7r-It8i6_b57kD.YMk2Hp%2FLuwpd8xrPr4GhL086k3%2FP39RlVpZ%2B3jOR%2FxY; Path=/; HttpOnly
+etag: W/"FnymCJ8dJYaV9o+O3o34cg=="
+set-cookie: connect.sid=s%3AUWJrH0r5ynOQXf-nTW7BGYrEADFphVdj.k%2FPp5iUfsQd6tY7oajw8BwMKLukc8oAaSaAq2jtp%2BWE; Path=/; HttpOnly
 
 {
   "linked": {
@@ -37,16 +37,6 @@ set-cookie: connect.sid=s%3ATfSn_98Dzm-gpWkfsb7r-It8i6_b57kD.YMk2Hp%2FLuwpd8xrPr
         "default_utilization_type_id": 1,
         "lead_employee_id": 1,
         "organization_id": 2,
-        "url_postmortem": "http://docs.google.com/thinger"
-      },
-      {
-        "id": 2,
-        "name": "Muffin Tops",
-        "abbr": "MT",
-        "completed": false,
-        "default_utilization_type_id": 1,
-        "lead_employee_id": 1,
-        "organization_id": 1,
         "url_postmortem": "http://docs.google.com/thinger"
       }
     ],
@@ -200,7 +190,7 @@ set-cookie: connect.sid=s%3ATfSn_98Dzm-gpWkfsb7r-It8i6_b57kD.YMk2Hp%2FLuwpd8xrPr
     {
       "id": 4,
       "utilization_type_id": 1,
-      "leave_request_type_id": null,
+      "leave_request_type_id": 3,
       "initiative_id": 1,
       "employee_id": 1,
       "project_id": 1,
@@ -227,7 +217,8 @@ set-cookie: connect.sid=s%3ATfSn_98Dzm-gpWkfsb7r-It8i6_b57kD.YMk2Hp%2FLuwpd8xrPr
         },
         "leaveRequestType": {
           "type": "leave-request-types",
-          "id": null
+          "id": 3,
+          "href": "/leave-request-types/3"
         },
         "projectPhase": {
           "type": "project-phases",
@@ -318,92 +309,6 @@ set-cookie: connect.sid=s%3ATfSn_98Dzm-gpWkfsb7r-It8i6_b57kD.YMk2Hp%2FLuwpd8xrPr
           "type": "project-phases",
           "id": 1,
           "href": "/project-phases/1"
-        },
-        "sketchCalendar": {
-          "type": "sketch-calendars",
-          "id": null
-        }
-      }
-    },
-    {
-      "id": 7,
-      "utilization_type_id": 2,
-      "leave_request_type_id": null,
-      "initiative_id": 1,
-      "employee_id": 2,
-      "project_id": 1,
-      "project_phase_id": 2,
-      "first_day": "2015-01-12",
-      "last_day": "2015-01-16",
-      "billable": true,
-      "sketch_calendar_id": null,
-      "verified": true,
-      "notes": "another test",
-      "links": {
-        "employee": {
-          "type": "employees",
-          "id": 2,
-          "href": "/employees/2"
-        },
-        "project": {
-          "type": "projects",
-          "id": 1
-        },
-        "type": {
-          "type": "utilization-types",
-          "id": 2
-        },
-        "leaveRequestType": {
-          "type": "leave-request-types",
-          "id": null
-        },
-        "projectPhase": {
-          "type": "project-phases",
-          "id": 2,
-          "href": "/project-phases/2"
-        },
-        "sketchCalendar": {
-          "type": "sketch-calendars",
-          "id": null
-        }
-      }
-    },
-    {
-      "id": 8,
-      "utilization_type_id": 1,
-      "leave_request_type_id": null,
-      "initiative_id": 1,
-      "employee_id": 2,
-      "project_id": 2,
-      "project_phase_id": 3,
-      "first_day": "2015-02-01",
-      "last_day": "2015-02-09",
-      "billable": false,
-      "sketch_calendar_id": null,
-      "verified": false,
-      "notes": "another test",
-      "links": {
-        "employee": {
-          "type": "employees",
-          "id": 2,
-          "href": "/employees/2"
-        },
-        "project": {
-          "type": "projects",
-          "id": 2
-        },
-        "type": {
-          "type": "utilization-types",
-          "id": 1
-        },
-        "leaveRequestType": {
-          "type": "leave-request-types",
-          "id": null
-        },
-        "projectPhase": {
-          "type": "project-phases",
-          "id": 3,
-          "href": "/project-phases/3"
         },
         "sketchCalendar": {
           "type": "sketch-calendars",

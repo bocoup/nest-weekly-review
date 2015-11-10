@@ -6,15 +6,15 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Tue, 10 Nov 2015 16:53:51 GMT
+date: Tue, 10 Nov 2015 18:53:01 GMT
 content-type: application/json; charset=utf-8
-content-length: 12422
+content-length: 12460
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"nR9srUvTjh1CYfNuKqsKIw=="
-set-cookie: connect.sid=s%3AM77EyPUmmVCU7uxrc2LedVXsEhCqWQS5.NOA2RyWJvKl%2FJeQOANveMkv8Y%2F87vXZhwNYb5%2FXyCfM; Path=/; HttpOnly
+etag: W/"EXfMZ/Eg4gVuGWWeERPeSg=="
+set-cookie: connect.sid=s%3Aznupmp2cYLKFv_GVEWaBhhHA1SGu6vQA.A2T93xWrR1GdqhI0XFcN7vWzdFU5UqFrO49rqwYIeUE; Path=/; HttpOnly
 
 {
   "linked": {
@@ -200,7 +200,7 @@ set-cookie: connect.sid=s%3AM77EyPUmmVCU7uxrc2LedVXsEhCqWQS5.NOA2RyWJvKl%2FJeQOA
     {
       "id": 4,
       "utilization_type_id": 1,
-      "leave_request_type_id": null,
+      "leave_request_type_id": 3,
       "initiative_id": 1,
       "employee_id": 1,
       "project_id": 1,
@@ -227,7 +227,8 @@ set-cookie: connect.sid=s%3AM77EyPUmmVCU7uxrc2LedVXsEhCqWQS5.NOA2RyWJvKl%2FJeQOA
         },
         "leaveRequestType": {
           "type": "leave-request-types",
-          "id": null
+          "id": 3,
+          "href": "/leave-request-types/3"
         },
         "projectPhase": {
           "type": "project-phases",

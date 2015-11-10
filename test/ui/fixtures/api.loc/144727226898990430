@@ -1,4 +1,4 @@
-GET /v1/project-phases?after=2014-12-21&before=2015-01-25&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees&include%5B3%5D=project.organization
+GET /v1/project-phases?after=2015-01-04&before=2015-01-11&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees&include%5B3%5D=project.organization
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -6,15 +6,15 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Tue, 10 Nov 2015 18:52:52 GMT
+date: Wed, 11 Nov 2015 20:04:28 GMT
 content-type: application/json; charset=utf-8
-content-length: 3099
+content-length: 1926
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"aSrWmhOg2Jt+oVa23Q5yXQ=="
-set-cookie: connect.sid=s%3AchzkFFMQ8wOA2vWWI2mM8o7lIKQ5oKQ5.0DCQQ4h%2FF8KV6FFiRfxYmGXAiSTki9v5Kj%2FZoi4cl4o; Path=/; HttpOnly
+etag: W/"4AIWm7SJGZgiyCBJgeIBng=="
+set-cookie: connect.sid=s%3AfasBu-Q1ZjTedyXB5YiorYBBUqAnTTt6.Oo%2BOnUivpC8GTRB83IZ0wEsgYcgfv3%2FSdlTbt4pCxck; Path=/; HttpOnly
 
 {
   "linked": {
@@ -57,24 +57,6 @@ set-cookie: connect.sid=s%3AchzkFFMQ8wOA2vWWI2mM8o7lIKQ5oKQ5.0DCQQ4h%2FF8KV6FFiR
         "slug": "jerry-seinfeld",
         "supporter_id": 1,
         "notes": null
-      },
-      {
-        "id": 2,
-        "first": "Cosmo",
-        "last": "Kramer",
-        "date_start": "2015-01-01T00:00:00.000Z",
-        "date_end": null,
-        "github_user": "cosmo",
-        "position_id": 1,
-        "email": "cosmo@bocoup.com",
-        "email_personal": null,
-        "phone": null,
-        "irc": null,
-        "twitter": null,
-        "website": null,
-        "slug": "cosmo-kramer",
-        "supporter_id": 1,
-        "notes": null
       }
     ],
     "organizations": [
@@ -113,38 +95,6 @@ set-cookie: connect.sid=s%3AchzkFFMQ8wOA2vWWI2mM8o7lIKQ5oKQ5.0DCQQ4h%2FF8KV6FFiR
           "type": "employees",
           "ids": [
             1
-          ]
-        },
-        "project.organization": {
-          "type": "organizations",
-          "id": 1
-        }
-      }
-    },
-    {
-      "id": 2,
-      "name": "Extract pudding skin",
-      "project_id": 1,
-      "first_day": "2015-01-11T00:00:00.000Z",
-      "last_day": "2015-02-01T00:00:00.000Z",
-      "bill_method_id": null,
-      "rate": 0,
-      "project_sow_id": null,
-      "contracted_days": 0,
-      "links": {
-        "project": {
-          "type": "projects",
-          "id": 1
-        },
-        "reviews": {
-          "type": "project-phase-reviews",
-          "ids": []
-        },
-        "employees": {
-          "type": "employees",
-          "ids": [
-            1,
-            2
           ]
         },
         "project.organization": {

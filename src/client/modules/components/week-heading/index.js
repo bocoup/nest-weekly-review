@@ -1,7 +1,7 @@
 'use strict';
-var Component = require('../../util/component');
+var Moment = require('moment');
 
-var DAY_MS = 1000 * 60 * 60 * 24;
+var Component = require('../../util/component');
 
 module.exports = Component.extend({
   css: require('./style.css'),
@@ -12,7 +12,7 @@ module.exports = Component.extend({
 
   computed: {
     monday: function() {
-      return new Date(this.get('date').getTime() + DAY_MS);
+      return new Moment(this.get('date')).add(1, 'day').toDate();
     }
   }
 });

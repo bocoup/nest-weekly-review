@@ -1,4 +1,6 @@
 'use strict';
+var Moment = require('moment');
+
 var Component = require('../../util/component');
 var hexToRgb = require('../../util/hex-to-rgb');
 
@@ -76,9 +78,10 @@ module.exports = Component.extend({
       return 'background-color: rgba(' + hexToRgb(hex) + ',0.5);';
     },
     date: function() {
-      var offset = this.get('dayNum') * 1000* 60 * 60 * 24;
-
-      return new Date(this.get('weekStart').getTime() + offset);
+      return new Moment(this.get('weekStart'))
+        .startOf('day')
+        .add(this.get('dayNum'), 'days')
+        .toDate();
     },
 
     /**

@@ -2,6 +2,7 @@
 var Router = require('ampersand-router');
 var Promise = require('ractive/ractive.runtime').Promise;
 var AmpersandAdaptor = require('ractive-adaptors-ampersand');
+var Moment = require('moment');
 
 var Phases = require('./models/phases');
 var Projects = require('./models/projects');
@@ -11,7 +12,6 @@ var LeaveRequestTypes = require('./models/leave-request-types');
 var Review = require('./models/phase-review');
 
 var Layout = require('./components/layout/index');
-var weekNumber = require('./util/week-num');
 var token = require('./util/token');
 
 /**
@@ -136,7 +136,9 @@ module.exports = Router.extend({
 
   phaseList: function(year, month, day) {
     var numWeeks = 5;
-    var sunday = weekNumber.sundayOf(new Date(year, month - 1, day));
+    var sunday = new Moment([year, month - 1, day])
+      .startOf('week')
+      .toDate();
 
     return this.getPhases(sunday, numWeeks)
       .then(function() {

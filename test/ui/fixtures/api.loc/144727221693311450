@@ -6,7 +6,7 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Tue, 10 Nov 2015 18:52:41 GMT
+date: Wed, 11 Nov 2015 20:03:36 GMT
 content-type: application/json; charset=utf-8
 content-length: 128
 connection: close
@@ -14,7 +14,7 @@ vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
 etag: W/"80-58f33396"
-set-cookie: connect.sid=s%3ANNkQS1DOi6i8OvtvwKynunJReywMxSEm.j4TJpptbi7fnFYWd0i79LxdNKl%2FmEvfHzO2%2BKmw9Owc; Path=/; HttpOnly
+set-cookie: connect.sid=s%3AYfMfcjFAhkSjRWi8OFV11eSQ_4-LFEdc.JFXHnzZDJ877jJe092vemSHwpvuddjzFA27XSo0dlqI; Path=/; HttpOnly
 
 {
   "initiatives": [

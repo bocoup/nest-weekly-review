@@ -1,6 +1,7 @@
 'use strict';
 var isDate = require('lodash.isdate');
 var timezoneRE = /Z|[-+]\d\d:\d\d/;
+var moment = require('moment');
 
 module.exports = {
   set: function (newVal) {
@@ -9,7 +10,7 @@ module.exports = {
     if (isDate(newVal)) {
       date = newVal;
     } else {
-      date = new Date(newVal);
+      date = moment.utc(newVal).toDate();
     }
 
     return {

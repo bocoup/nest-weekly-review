@@ -1,5 +1,6 @@
 'use strict';
 var Promise = require('ractive/ractive.runtime').Promise;
+var Moment = require('moment');
 
 var Component = require('../../util/component');
 var ordinalSuffix = require('../../util/ordinal-suffix');
@@ -28,7 +29,7 @@ module.exports = Component.extend({
       return DAY_NAMES.map(function(name, idx) {
         return {
           name: name,
-          date: new Date(sunday + (idx + 1) * DAY_MS)
+          date: new Moment(sunday).add(idx + 1, 'days').toDate()
         };
       });
     },

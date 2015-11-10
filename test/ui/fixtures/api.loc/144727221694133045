@@ -1,4 +1,4 @@
-GET /v1/utilization-types
+GET /v1/leave-request-types
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -6,37 +6,34 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Tue, 10 Nov 2015 18:52:41 GMT
+date: Wed, 11 Nov 2015 20:03:36 GMT
 content-type: application/json; charset=utf-8
-content-length: 472
+content-length: 430
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"1d8-eb3a7d6"
-set-cookie: connect.sid=s%3AdWCJCsSoSuTGSOqLaObSI_J5_yqAFH_0.O8HsB%2Fs1RmO2WQlT7wivSms8HOsG%2BM7CX9%2BeHcpPhEc; Path=/; HttpOnly
+etag: W/"1ae-6ac50d89"
+set-cookie: connect.sid=s%3AOT2HBo9OrJdW9fODTHQ1JkbB-Gs_fEG2.9v%2FTdOtVGgb2ZdmNFe8qNZA6qW5yufBW9Xd5xqbumLg; Path=/; HttpOnly
 
 {
-  "utilization-types": [
-    {
-      "id": 1,
-      "name": "Consulting",
-      "description": "description here",
-      "color": "48d800",
-      "display_name": null
-    },
-    {
-      "id": 2,
-      "name": "Education",
-      "description": "description here",
-      "color": "fcac6b",
-      "display_name": null
-    },
+  "leave-request-types": [
     {
       "id": 3,
-      "name": "Perch",
+      "name": "PTO",
       "description": "description here",
       "color": "ff5fc2",
+      "is_admin_only": false,
+      "is_unpaid": false,
+      "display_name": null
+    },
+    {
+      "id": 4,
+      "name": "Sick",
+      "description": "description here",
+      "color": "ff5fc2",
+      "is_admin_only": false,
+      "is_unpaid": false,
       "display_name": null
     }
   ]

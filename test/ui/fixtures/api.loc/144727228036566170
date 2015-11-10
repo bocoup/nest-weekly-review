@@ -1,4 +1,4 @@
-GET /v1/project-phases?after=2015-01-04&before=2015-01-11&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees&include%5B3%5D=project.organization
+GET /v1/project-phases?after=2015-11-01&before=2015-12-06&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees&include%5B3%5D=project.organization
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -6,32 +6,24 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Tue, 10 Nov 2015 18:53:33 GMT
+date: Wed, 11 Nov 2015 20:04:40 GMT
 content-type: application/json; charset=utf-8
-content-length: 1926
+content-length: 1768
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"4AIWm7SJGZgiyCBJgeIBng=="
-set-cookie: connect.sid=s%3ADS2G-rMFWftknqOuU-6oyJypmwzhIfAu.n2016TwwQCidtk2AKcQPaxEhPuyPWVy4agKvWKktrxI; Path=/; HttpOnly
+etag: W/"k+rN3/OmcjfEbNTr64fKJQ=="
+set-cookie: connect.sid=s%3Abm8zYZXcV4NlRI-kzh_LgfFhnHmJowYH.oXOF5G7o50bwAb%2BPGA7CkMxRQ4SVGAcSrm%2FjsIBjNJU; Path=/; HttpOnly
 
 {
   "linked": {
-    "project-phase-reviews": [
-      {
-        "id": 1,
-        "project_phase_id": 1,
-        "week_number": 3,
-        "notes": "nice work!",
-        "data": {}
-      }
-    ],
+    "project-phase-reviews": [],
     "projects": [
       {
-        "id": 1,
-        "name": "Pudding Skins",
-        "abbr": "PS",
+        "id": 2,
+        "name": "Muffin Tops",
+        "abbr": "MT",
         "completed": false,
         "default_utilization_type_id": 1,
         "lead_employee_id": 1,
@@ -71,11 +63,11 @@ set-cookie: connect.sid=s%3ADS2G-rMFWftknqOuU-6oyJypmwzhIfAu.n2016TwwQCidtk2AKcQ
   },
   "project-phases": [
     {
-      "id": 1,
-      "name": "Make pudding",
-      "project_id": 1,
-      "first_day": "2015-01-01T00:00:00.000Z",
-      "last_day": "2015-01-25T00:00:00.000Z",
+      "id": 4,
+      "name": "Span across a DST boundary",
+      "project_id": 2,
+      "first_day": "2015-10-25T00:00:00.000Z",
+      "last_day": "2015-11-07T00:00:00.000Z",
       "bill_method_id": null,
       "rate": 0,
       "project_sow_id": null,
@@ -83,13 +75,11 @@ set-cookie: connect.sid=s%3ADS2G-rMFWftknqOuU-6oyJypmwzhIfAu.n2016TwwQCidtk2AKcQ
       "links": {
         "project": {
           "type": "projects",
-          "id": 1
+          "id": 2
         },
         "reviews": {
           "type": "project-phase-reviews",
-          "ids": [
-            1
-          ]
+          "ids": []
         },
         "employees": {
           "type": "employees",

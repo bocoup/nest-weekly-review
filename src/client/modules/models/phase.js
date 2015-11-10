@@ -6,18 +6,22 @@ var Employees = require('./employees');
 var PhaseReviews = require('./phase-reviews');
 var setBearer = require('../ajax-config');
 var weekNum = require('../util/week-num');
+var dateStr = require('../util/date-string');
 
 var API_ROOT = require('../api-root');
 
 module.exports = Model.extend({
   urlRoot:  API_ROOT + '/project-phases',
   ajaxConfig: setBearer,
+  dataTypes: {
+    dateStr: dateStr
+  },
 
   props: {
     id: 'number',
     name: 'string',
-    first_day: 'date',
-    last_day: 'date',
+    first_day: 'dateStr',
+    last_day: 'dateStr',
     developer_weeks: 'number'
   },
   children: {

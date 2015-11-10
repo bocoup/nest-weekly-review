@@ -121,9 +121,9 @@ module.exports = JsonApiCollection.extend({
    *                        `date` after the set operation has completed.
    */
   setAtDate: function(date, attrs, options) {
-    var timestamp = date.getTime();
-    var before = new Date(timestamp - ONE_DAY);
-    var after = new Date(timestamp + ONE_DAY);
+    var moment = new Moment(date).startOf('day');
+    var before = moment.clone().add(-1, 'days').toDate();
+    var after = moment.clone().add(1, 'days').toDate();
     var prev = this.atDate(before);
     var curr = this.atDate(date);
     var next = this.atDate(after);

@@ -2,10 +2,6 @@
 var Component = require('../../util/component');
 
 var Moment = require('moment');
-var weekNumber = require('../../util/week-num');
-
-var DAY_MS = 1000 * 60 * 60 * 24;
-var WEEK_MS = DAY_MS * 7;
 
 module.exports = Component.extend({
   template: require('./template.html'),
@@ -15,10 +11,10 @@ module.exports = Component.extend({
   },
 
   sundayFromWeekOffset: function(offset) {
-    var phase = this.get('phase');
-    return weekNumber.sundayOf(
-      new Date(+phase.get('first_day') + offset * WEEK_MS)
-    );
+    return new Moment(+this.get('phase.first_day'))
+      .add(offset, 'weeks')
+      .startOf('week')
+      .toDate();
   },
   reviewUrl: function(offset) {
     var phase = this.get('phase');
@@ -30,13 +26,13 @@ module.exports = Component.extend({
   computed: {
     weeks: function() {
       var viewWidth = this.get('data-num-weeks');
-      var viewStart = this.get('data-first-week');
-      var phaseStart = this.get('phase.first_day');
+      var viewStart = new Moment(this.get('data-first-week'));
+      var phaseStart = new Moment(this.get('phase.first_day'));
       var between = Math.ceil(
-        new Moment.duration(viewStart - phaseStart).asWeeks()
+        viewStart.diff(phaseStart, 'weeks', true)
       );
       var phaseLength = Math.ceil(
-        (this.get('phase.last_day') - phaseStart) / WEEK_MS
+        new Moment(this.get('phase.last_day')).diff(phaseStart, 'weeks', true)
       );
       var weeks = [];
       var weekOffset, idx, isActive, review;

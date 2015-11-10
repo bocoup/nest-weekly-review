@@ -6,15 +6,15 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Tue, 10 Nov 2015 18:53:33 GMT
+date: Wed, 11 Nov 2015 20:04:40 GMT
 content-type: application/json; charset=utf-8
-content-length: 10153
+content-length: 11214
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"FnymCJ8dJYaV9o+O3o34cg=="
-set-cookie: connect.sid=s%3AUWJrH0r5ynOQXf-nTW7BGYrEADFphVdj.k%2FPp5iUfsQd6tY7oajw8BwMKLukc8oAaSaAq2jtp%2BWE; Path=/; HttpOnly
+etag: W/"JMEwTQqd59g0oYOQ3xteNg=="
+set-cookie: connect.sid=s%3A6Jzez7wqTFyXNFjuq9KTD4pX-UJvy9kt.s8X4xlLYSLUdrNnA2JL%2BfKkHCmV1L3f0RUZAyq%2BmaOM; Path=/; HttpOnly
 
 {
   "linked": {
@@ -443,6 +443,49 @@ set-cookie: connect.sid=s%3AUWJrH0r5ynOQXf-nTW7BGYrEADFphVdj.k%2FPp5iUfsQd6tY7oa
           "type": "sketch-calendars",
           "id": 1,
           "href": "/sketch-calendars/1"
+        }
+      }
+    },
+    {
+      "id": 12,
+      "utilization_type_id": 1,
+      "leave_request_type_id": null,
+      "initiative_id": 1,
+      "employee_id": 1,
+      "project_id": 1,
+      "project_phase_id": 1,
+      "first_day": "2015-10-30",
+      "last_day": "2015-11-02",
+      "billable": true,
+      "sketch_calendar_id": null,
+      "verified": false,
+      "notes": "This utilization spans a daylight saving's time boundary.",
+      "links": {
+        "employee": {
+          "type": "employees",
+          "id": 1,
+          "href": "/employees/1"
+        },
+        "project": {
+          "type": "projects",
+          "id": 1
+        },
+        "type": {
+          "type": "utilization-types",
+          "id": 1
+        },
+        "leaveRequestType": {
+          "type": "leave-request-types",
+          "id": null
+        },
+        "projectPhase": {
+          "type": "project-phases",
+          "id": 1,
+          "href": "/project-phases/1"
+        },
+        "sketchCalendar": {
+          "type": "sketch-calendars",
+          "id": null
         }
       }
     }

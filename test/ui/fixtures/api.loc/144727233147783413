@@ -1,4 +1,4 @@
-GET /v1/utilizations?employee_id=1%2C2&include%5B0%5D=project&include%5B1%5D=type
+GET /v1/utilizations?employee_id=1&include%5B0%5D=project&include%5B1%5D=type
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -6,15 +6,15 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Tue, 10 Nov 2015 18:53:23 GMT
+date: Wed, 11 Nov 2015 20:05:31 GMT
 content-type: application/json; charset=utf-8
-content-length: 12460
+content-length: 11214
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"EXfMZ/Eg4gVuGWWeERPeSg=="
-set-cookie: connect.sid=s%3A3mfCkoCv-rzTDiyjSF6uRwVR0MJl7C0V.1CDq6sBZXafKlNk11jYOg8IrEWplsE%2FrMeXfl2GHdSo; Path=/; HttpOnly
+etag: W/"JMEwTQqd59g0oYOQ3xteNg=="
+set-cookie: connect.sid=s%3AAYZ2oIX9dQnUEN6gREkXyL-4qRdXOh1s.9d5ncczECnUhzNO%2BLS7tje92%2FBxXSc5J%2BSLNGbxlJfA; Path=/; HttpOnly
 
 {
   "linked": {
@@ -37,16 +37,6 @@ set-cookie: connect.sid=s%3A3mfCkoCv-rzTDiyjSF6uRwVR0MJl7C0V.1CDq6sBZXafKlNk11jY
         "default_utilization_type_id": 1,
         "lead_employee_id": 1,
         "organization_id": 2,
-        "url_postmortem": "http://docs.google.com/thinger"
-      },
-      {
-        "id": 2,
-        "name": "Muffin Tops",
-        "abbr": "MT",
-        "completed": false,
-        "default_utilization_type_id": 1,
-        "lead_employee_id": 1,
-        "organization_id": 1,
         "url_postmortem": "http://docs.google.com/thinger"
       }
     ],
@@ -327,92 +317,6 @@ set-cookie: connect.sid=s%3A3mfCkoCv-rzTDiyjSF6uRwVR0MJl7C0V.1CDq6sBZXafKlNk11jY
       }
     },
     {
-      "id": 7,
-      "utilization_type_id": 2,
-      "leave_request_type_id": null,
-      "initiative_id": 1,
-      "employee_id": 2,
-      "project_id": 1,
-      "project_phase_id": 2,
-      "first_day": "2015-01-12",
-      "last_day": "2015-01-16",
-      "billable": true,
-      "sketch_calendar_id": null,
-      "verified": true,
-      "notes": "another test",
-      "links": {
-        "employee": {
-          "type": "employees",
-          "id": 2,
-          "href": "/employees/2"
-        },
-        "project": {
-          "type": "projects",
-          "id": 1
-        },
-        "type": {
-          "type": "utilization-types",
-          "id": 2
-        },
-        "leaveRequestType": {
-          "type": "leave-request-types",
-          "id": null
-        },
-        "projectPhase": {
-          "type": "project-phases",
-          "id": 2,
-          "href": "/project-phases/2"
-        },
-        "sketchCalendar": {
-          "type": "sketch-calendars",
-          "id": null
-        }
-      }
-    },
-    {
-      "id": 8,
-      "utilization_type_id": 1,
-      "leave_request_type_id": null,
-      "initiative_id": 1,
-      "employee_id": 2,
-      "project_id": 2,
-      "project_phase_id": 3,
-      "first_day": "2015-02-01",
-      "last_day": "2015-02-09",
-      "billable": false,
-      "sketch_calendar_id": null,
-      "verified": false,
-      "notes": "another test",
-      "links": {
-        "employee": {
-          "type": "employees",
-          "id": 2,
-          "href": "/employees/2"
-        },
-        "project": {
-          "type": "projects",
-          "id": 2
-        },
-        "type": {
-          "type": "utilization-types",
-          "id": 1
-        },
-        "leaveRequestType": {
-          "type": "leave-request-types",
-          "id": null
-        },
-        "projectPhase": {
-          "type": "project-phases",
-          "id": 3,
-          "href": "/project-phases/3"
-        },
-        "sketchCalendar": {
-          "type": "sketch-calendars",
-          "id": null
-        }
-      }
-    },
-    {
       "id": 9,
       "utilization_type_id": 1,
       "leave_request_type_id": null,
@@ -539,6 +443,49 @@ set-cookie: connect.sid=s%3A3mfCkoCv-rzTDiyjSF6uRwVR0MJl7C0V.1CDq6sBZXafKlNk11jY
           "type": "sketch-calendars",
           "id": 1,
           "href": "/sketch-calendars/1"
+        }
+      }
+    },
+    {
+      "id": 12,
+      "utilization_type_id": 1,
+      "leave_request_type_id": null,
+      "initiative_id": 1,
+      "employee_id": 1,
+      "project_id": 1,
+      "project_phase_id": 1,
+      "first_day": "2015-10-30",
+      "last_day": "2015-11-02",
+      "billable": true,
+      "sketch_calendar_id": null,
+      "verified": false,
+      "notes": "This utilization spans a daylight saving's time boundary.",
+      "links": {
+        "employee": {
+          "type": "employees",
+          "id": 1,
+          "href": "/employees/1"
+        },
+        "project": {
+          "type": "projects",
+          "id": 1
+        },
+        "type": {
+          "type": "utilization-types",
+          "id": 1
+        },
+        "leaveRequestType": {
+          "type": "leave-request-types",
+          "id": null
+        },
+        "projectPhase": {
+          "type": "project-phases",
+          "id": 1,
+          "href": "/project-phases/1"
+        },
+        "sketchCalendar": {
+          "type": "sketch-calendars",
+          "id": null
         }
       }
     }

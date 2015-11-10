@@ -1,4 +1,6 @@
 'use strict';
+var Moment = require('moment');
+
 var Component = require('../../util/component');
 var weekNumber = require('../../util/week-num');
 var WEEK_MS = 7 * 24 * 60 * 60 * 1000;
@@ -56,15 +58,13 @@ module.exports = Component.extend({
       });
     },
     weeks: function() {
-      var first = this.get('firstWeek');
+      var first = new Moment(this.get('firstWeek')).startOf('week');
       var num = this.get('numWeeks');
       var weeks = [];
       var idx;
 
       for (idx = 0; idx < num; ++idx) {
-        weeks.push(
-          new Date(first.getTime() + idx * WEEK_MS)
-        );
+        weeks.push(first.clone().add(idx, 'weeks').toDate());
       }
 
       return weeks;

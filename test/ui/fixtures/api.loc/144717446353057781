@@ -1,4 +1,4 @@
-GET /v1/project-phases?after=2015-01-04&before=2015-01-11&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees&include%5B3%5D=project.organization
+GET /v1/project-phases?after=2014-12-28&before=2015-01-04&include%5B0%5D=reviews&include%5B1%5D=project&include%5B2%5D=employees&include%5B3%5D=project.organization
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -6,7 +6,7 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Wed, 21 Oct 2015 14:51:30 GMT
+date: Tue, 10 Nov 2015 16:54:23 GMT
 content-type: application/json; charset=utf-8
 content-length: 1926
 connection: close
@@ -14,7 +14,7 @@ vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
 etag: W/"4AIWm7SJGZgiyCBJgeIBng=="
-set-cookie: connect.sid=s%3AJxfIPQW1zXKYkFU-VCQZ968vZ7VhP3Ii.34l3SeAYVWnDdGTzamhtqrmWdoQRIASXpHvcxEVCWv4; Path=/; HttpOnly
+set-cookie: connect.sid=s%3AIbdKBVXImTZ0l54YKMn2HFLWv7iKvOcI.j%2BoWboUoWFZvXEvuL%2BoBTTyVVOb7y%2F3HaJGn19UVqsk; Path=/; HttpOnly
 
 {
   "linked": {

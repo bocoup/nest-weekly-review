@@ -1,4 +1,4 @@
-GET /v1/utilizations?employee_id=1%2C2&include%5B0%5D=project&include%5B1%5D=type
+GET /v1/utilizations?employee_id=1&include%5B0%5D=project&include%5B1%5D=type
 authorization: Bearer fake-token-for-testing
 accept-language: en-US,en;q=0.5
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -6,15 +6,15 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Wed, 21 Oct 2015 14:50:54 GMT
+date: Tue, 10 Nov 2015 16:54:23 GMT
 content-type: application/json; charset=utf-8
-content-length: 11130
+content-length: 10115
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"6CDZaJ+PPA+TJnm5uuTR1Q=="
-set-cookie: connect.sid=s%3AOvtfnf7r6qwSFQJduM9Z6ug34R7HRkCB.AjLzmqGzYP4ql%2F%2B%2BtIXVBnXnsZJ628vNCwXWSoUMlTE; Path=/; HttpOnly
+etag: W/"mD1yhfNFbO0G4fL0Wvu2VQ=="
+set-cookie: connect.sid=s%3ASTHPzYQbYSG-YebeLKU07PffvZvywvyW.19WKkTKV97732s5OVS4xn%2FyW8GVDOMlfo2a5Heiik50; Path=/; HttpOnly
 
 {
   "linked": {
@@ -38,16 +38,6 @@ set-cookie: connect.sid=s%3AOvtfnf7r6qwSFQJduM9Z6ug34R7HRkCB.AjLzmqGzYP4ql%2F%2B
         "lead_employee_id": 1,
         "organization_id": 2,
         "url_postmortem": "http://docs.google.com/thinger"
-      },
-      {
-        "id": 2,
-        "name": "Muffin Tops",
-        "abbr": "MT",
-        "completed": false,
-        "default_utilization_type_id": 1,
-        "lead_employee_id": 1,
-        "organization_id": 1,
-        "url_postmortem": "http://docs.google.com/thinger"
       }
     ],
     "utilization-types": [
@@ -56,10 +46,6 @@ set-cookie: connect.sid=s%3AOvtfnf7r6qwSFQJduM9Z6ug34R7HRkCB.AjLzmqGzYP4ql%2F%2B
         "name": "Consulting",
         "description": "description here",
         "color": "48d800",
-        "project_required": true,
-        "is_time_off": false,
-        "is_admin_only": false,
-        "is_unpaid": false,
         "display_name": null
       },
       {
@@ -67,10 +53,6 @@ set-cookie: connect.sid=s%3AOvtfnf7r6qwSFQJduM9Z6ug34R7HRkCB.AjLzmqGzYP4ql%2F%2B
         "name": "Education",
         "description": "description here",
         "color": "fcac6b",
-        "project_required": true,
-        "is_time_off": false,
-        "is_admin_only": false,
-        "is_unpaid": false,
         "display_name": null
       }
     ]
@@ -79,6 +61,7 @@ set-cookie: connect.sid=s%3AOvtfnf7r6qwSFQJduM9Z6ug34R7HRkCB.AjLzmqGzYP4ql%2F%2B
     {
       "id": 1,
       "utilization_type_id": 1,
+      "leave_request_type_id": null,
       "initiative_id": 1,
       "employee_id": 1,
       "project_id": 1,
@@ -103,6 +86,10 @@ set-cookie: connect.sid=s%3AOvtfnf7r6qwSFQJduM9Z6ug34R7HRkCB.AjLzmqGzYP4ql%2F%2B
           "type": "utilization-types",
           "id": 1
         },
+        "leaveRequestType": {
+          "type": "leave-request-types",
+          "id": null
+        },
         "projectPhase": {
           "type": "project-phases",
           "id": 1,
@@ -117,6 +104,7 @@ set-cookie: connect.sid=s%3AOvtfnf7r6qwSFQJduM9Z6ug34R7HRkCB.AjLzmqGzYP4ql%2F%2B
     {
       "id": 2,
       "utilization_type_id": 1,
+      "leave_request_type_id": null,
       "initiative_id": 1,
       "employee_id": 1,
       "project_id": 1,
@@ -141,6 +129,10 @@ set-cookie: connect.sid=s%3AOvtfnf7r6qwSFQJduM9Z6ug34R7HRkCB.AjLzmqGzYP4ql%2F%2B
           "type": "utilization-types",
           "id": 1
         },
+        "leaveRequestType": {
+          "type": "leave-request-types",
+          "id": null
+        },
         "projectPhase": {
           "type": "project-phases",
           "id": 1,
@@ -155,6 +147,7 @@ set-cookie: connect.sid=s%3AOvtfnf7r6qwSFQJduM9Z6ug34R7HRkCB.AjLzmqGzYP4ql%2F%2B
     {
       "id": 3,
       "utilization_type_id": 2,
+      "leave_request_type_id": null,
       "initiative_id": 1,
       "employee_id": 1,
       "project_id": 1,
@@ -179,6 +172,10 @@ set-cookie: connect.sid=s%3AOvtfnf7r6qwSFQJduM9Z6ug34R7HRkCB.AjLzmqGzYP4ql%2F%2B
           "type": "utilization-types",
           "id": 2
         },
+        "leaveRequestType": {
+          "type": "leave-request-types",
+          "id": null
+        },
         "projectPhase": {
           "type": "project-phases",
           "id": 1,
@@ -193,6 +190,7 @@ set-cookie: connect.sid=s%3AOvtfnf7r6qwSFQJduM9Z6ug34R7HRkCB.AjLzmqGzYP4ql%2F%2B
     {
       "id": 4,
       "utilization_type_id": 1,
+      "leave_request_type_id": null,
       "initiative_id": 1,
       "employee_id": 1,
       "project_id": 1,
@@ -217,6 +215,10 @@ set-cookie: connect.sid=s%3AOvtfnf7r6qwSFQJduM9Z6ug34R7HRkCB.AjLzmqGzYP4ql%2F%2B
           "type": "utilization-types",
           "id": 1
         },
+        "leaveRequestType": {
+          "type": "leave-request-types",
+          "id": null
+        },
         "projectPhase": {
           "type": "project-phases",
           "id": 1,
@@ -231,6 +233,7 @@ set-cookie: connect.sid=s%3AOvtfnf7r6qwSFQJduM9Z6ug34R7HRkCB.AjLzmqGzYP4ql%2F%2B
     {
       "id": 5,
       "utilization_type_id": 2,
+      "leave_request_type_id": null,
       "initiative_id": 1,
       "employee_id": 1,
       "project_id": 4,
@@ -255,6 +258,10 @@ set-cookie: connect.sid=s%3AOvtfnf7r6qwSFQJduM9Z6ug34R7HRkCB.AjLzmqGzYP4ql%2F%2B
           "type": "utilization-types",
           "id": 2
         },
+        "leaveRequestType": {
+          "type": "leave-request-types",
+          "id": null
+        },
         "projectPhase": {
           "type": "project-phases",
           "id": null
@@ -268,6 +275,7 @@ set-cookie: connect.sid=s%3AOvtfnf7r6qwSFQJduM9Z6ug34R7HRkCB.AjLzmqGzYP4ql%2F%2B
     {
       "id": 6,
       "utilization_type_id": 1,
+      "leave_request_type_id": null,
       "initiative_id": 1,
       "employee_id": 1,
       "project_id": 1,
@@ -292,6 +300,10 @@ set-cookie: connect.sid=s%3AOvtfnf7r6qwSFQJduM9Z6ug34R7HRkCB.AjLzmqGzYP4ql%2F%2B
           "type": "utilization-types",
           "id": 1
         },
+        "leaveRequestType": {
+          "type": "leave-request-types",
+          "id": null
+        },
         "projectPhase": {
           "type": "project-phases",
           "id": 1,
@@ -304,84 +316,9 @@ set-cookie: connect.sid=s%3AOvtfnf7r6qwSFQJduM9Z6ug34R7HRkCB.AjLzmqGzYP4ql%2F%2B
       }
     },
     {
-      "id": 7,
-      "utilization_type_id": 2,
-      "initiative_id": 1,
-      "employee_id": 2,
-      "project_id": 1,
-      "project_phase_id": 2,
-      "first_day": "2015-01-12",
-      "last_day": "2015-01-16",
-      "billable": true,
-      "sketch_calendar_id": null,
-      "verified": true,
-      "notes": "another test",
-      "links": {
-        "employee": {
-          "type": "employees",
-          "id": 2,
-          "href": "/employees/2"
-        },
-        "project": {
-          "type": "projects",
-          "id": 1
-        },
-        "type": {
-          "type": "utilization-types",
-          "id": 2
-        },
-        "projectPhase": {
-          "type": "project-phases",
-          "id": 2,
-          "href": "/project-phases/2"
-        },
-        "sketchCalendar": {
-          "type": "sketch-calendars",
-          "id": null
-        }
-      }
-    },
-    {
-      "id": 8,
-      "utilization_type_id": 1,
-      "initiative_id": 1,
-      "employee_id": 2,
-      "project_id": 2,
-      "project_phase_id": 3,
-      "first_day": "2015-02-01",
-      "last_day": "2015-02-09",
-      "billable": false,
-      "sketch_calendar_id": null,
-      "verified": false,
-      "notes": "another test",
-      "links": {
-        "employee": {
-          "type": "employees",
-          "id": 2,
-          "href": "/employees/2"
-        },
-        "project": {
-          "type": "projects",
-          "id": 2
-        },
-        "type": {
-          "type": "utilization-types",
-          "id": 1
-        },
-        "projectPhase": {
-          "type": "project-phases",
-          "id": 3,
-          "href": "/project-phases/3"
-        },
-        "sketchCalendar": {
-          "type": "sketch-calendars",
-          "id": null
-        }
-      }
-    },
-    {
       "id": 9,
       "utilization_type_id": 1,
+      "leave_request_type_id": null,
       "initiative_id": 1,
       "employee_id": 1,
       "project_id": 1,
@@ -406,6 +343,10 @@ set-cookie: connect.sid=s%3AOvtfnf7r6qwSFQJduM9Z6ug34R7HRkCB.AjLzmqGzYP4ql%2F%2B
           "type": "utilization-types",
           "id": 1
         },
+        "leaveRequestType": {
+          "type": "leave-request-types",
+          "id": null
+        },
         "projectPhase": {
           "type": "project-phases",
           "id": 1,
@@ -420,6 +361,7 @@ set-cookie: connect.sid=s%3AOvtfnf7r6qwSFQJduM9Z6ug34R7HRkCB.AjLzmqGzYP4ql%2F%2B
     {
       "id": 10,
       "utilization_type_id": 1,
+      "leave_request_type_id": null,
       "initiative_id": 1,
       "employee_id": 1,
       "project_id": 1,
@@ -444,6 +386,10 @@ set-cookie: connect.sid=s%3AOvtfnf7r6qwSFQJduM9Z6ug34R7HRkCB.AjLzmqGzYP4ql%2F%2B
           "type": "utilization-types",
           "id": 1
         },
+        "leaveRequestType": {
+          "type": "leave-request-types",
+          "id": null
+        },
         "projectPhase": {
           "type": "project-phases",
           "id": 1,
@@ -458,6 +404,7 @@ set-cookie: connect.sid=s%3AOvtfnf7r6qwSFQJduM9Z6ug34R7HRkCB.AjLzmqGzYP4ql%2F%2B
     {
       "id": 11,
       "utilization_type_id": 1,
+      "leave_request_type_id": null,
       "initiative_id": 1,
       "employee_id": 1,
       "project_id": 1,
@@ -481,6 +428,10 @@ set-cookie: connect.sid=s%3AOvtfnf7r6qwSFQJduM9Z6ug34R7HRkCB.AjLzmqGzYP4ql%2F%2B
         "type": {
           "type": "utilization-types",
           "id": 1
+        },
+        "leaveRequestType": {
+          "type": "leave-request-types",
+          "id": null
         },
         "projectPhase": {
           "type": "project-phases",

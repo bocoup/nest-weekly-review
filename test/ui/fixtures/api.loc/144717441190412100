@@ -6,15 +6,15 @@ host: api.loc
 
 200 HTTP/1.1
 server: nginx/1.4.6 (Ubuntu)
-date: Wed, 21 Oct 2015 14:50:30 GMT
+date: Tue, 10 Nov 2015 16:53:31 GMT
 content-type: application/json; charset=utf-8
-content-length: 823
+content-length: 472
 connection: close
 vary: Accept-Encoding, Origin
 x-powered-by: Express
 access-control-allow-origin: *
-etag: W/"337-2db73cc"
-set-cookie: connect.sid=s%3AVgrkExg4VPs2V5NU2PqxR3zsdc_8eaqa.qFJk2plv1384N0uHFgJebiohMSMmYd538S8HNt50ETc; Path=/; HttpOnly
+etag: W/"1d8-eb3a7d6"
+set-cookie: connect.sid=s%3A6CUXI3DM9DecsRYw8SERoGYvIwAumkQy.Z4P4g%2BfdaQ4SRBabBg1cL9dhoLKtzXFFaQGv9BMqiOc; Path=/; HttpOnly
 
 {
   "utilization-types": [
@@ -23,10 +23,6 @@ set-cookie: connect.sid=s%3AVgrkExg4VPs2V5NU2PqxR3zsdc_8eaqa.qFJk2plv1384N0uHFgJ
       "name": "Consulting",
       "description": "description here",
       "color": "48d800",
-      "project_required": true,
-      "is_time_off": false,
-      "is_admin_only": false,
-      "is_unpaid": false,
       "display_name": null
     },
     {
@@ -34,21 +30,13 @@ set-cookie: connect.sid=s%3AVgrkExg4VPs2V5NU2PqxR3zsdc_8eaqa.qFJk2plv1384N0uHFgJ
       "name": "Education",
       "description": "description here",
       "color": "fcac6b",
-      "project_required": true,
-      "is_time_off": false,
-      "is_admin_only": false,
-      "is_unpaid": false,
       "display_name": null
     },
     {
       "id": 3,
-      "name": "Vacation",
+      "name": "Perch",
       "description": "description here",
       "color": "ff5fc2",
-      "project_required": false,
-      "is_time_off": true,
-      "is_admin_only": false,
-      "is_unpaid": false,
       "display_name": null
     }
   ]

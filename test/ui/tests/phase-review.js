@@ -142,7 +142,7 @@ describe('phase review', function() {
                 driver.editUtilization({
                   name: 'Jerry Seinfeld',
                   day: 'thursday',
-                  type: 'Vacation'
+                  type: 'Perch'
                 })
               ]);
           });
@@ -199,7 +199,7 @@ describe('phase review', function() {
             driver.editUtilization({
               name: 'Cosmo Kramer',
               day: 'tuesday',
-              type: 'Vacation'
+              type: 'Perch'
             })
           ]).then(function() {
             return driver.count('phaseWeek.verified');

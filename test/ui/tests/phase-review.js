@@ -74,7 +74,7 @@ describe('phase review', function() {
           }).then(function(text) {
             assert.equal(
               text.type,
-              'Education',
+              'Retail Education',
               'Form renders correctly when initialized with a phaseless project'
             );
             assert.equal(
@@ -168,9 +168,27 @@ describe('phase review', function() {
                 driver.editUtilization({
                   name: 'Jerry Seinfeld',
                   day: 'monday',
-                  type: 'Education'
+                  type: 'Retail Education'
                 })
               ]);
+          })
+          .then(function() {
+            return driver.verify(['Jerry Seinfeld']);
+          })
+          .then(function() {
+            function handleReviewPost(req, res) {
+              res.end(JSON.stringify({ 'project-phase-reviews': { id: 3454 } }));
+            }
+            function handleRequest(req, res) {
+              res.end();
+            }
+
+            return Promise.all([
+              middleMan.once('POST', '/v1/project-phase-reviews', handleReviewPost),
+              middleMan.once('PUT', '/v1/utilizations/12', handleRequest),
+              middleMan.once('POST', '/v1/utilizations', handleRequest),
+              driver.submitReview()
+            ]);
           });
       });
 
@@ -222,7 +240,7 @@ describe('phase review', function() {
             driver.editUtilization({
               name: 'Jerry Seinfeld',
               day: 'thursday',
-              type: 'Education'
+              type: 'Retail Education'
             })
           ]).then(function() {
             /**

@@ -1,0 +1,493 @@
+GET /v1/utilizations?employee_id=1&include%5B0%5D=project&include%5B1%5D=type
+authorization: Bearer fake-token-for-testing
+accept-language: en-US,en;q=0.5
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+host: api.loc
+
+200 HTTP/1.1
+server: nginx/1.4.6 (Ubuntu)
+date: Thu, 12 Nov 2015 15:15:48 GMT
+content-type: application/json; charset=utf-8
+content-length: 11221
+connection: close
+vary: Accept-Encoding, Origin
+x-powered-by: Express
+access-control-allow-origin: *
+etag: W/"LJ272n1uQiQPG2JOXHgvYg=="
+set-cookie: connect.sid=s%3APdGY1WFNo32_d4p_MfU6ZUjqaxUgSuk4.k6PLo2EpIruvI0m%2F2VS6f5syzMhqc1iHhx4nUGRDaU8; Path=/; HttpOnly
+
+{
+  "linked": {
+    "projects": [
+      {
+        "id": 1,
+        "name": "Pudding Skins",
+        "abbr": "PS",
+        "completed": false,
+        "default_utilization_type_id": 1,
+        "lead_employee_id": 1,
+        "organization_id": 1,
+        "url_postmortem": "http://docs.google.com/thinger"
+      },
+      {
+        "id": 4,
+        "name": "Fundraising Drive",
+        "abbr": "FD",
+        "completed": false,
+        "default_utilization_type_id": 1,
+        "lead_employee_id": 1,
+        "organization_id": 2,
+        "url_postmortem": "http://docs.google.com/thinger"
+      }
+    ],
+    "utilization-types": [
+      {
+        "id": 1,
+        "name": "Consulting",
+        "description": "description here",
+        "color": "48d800",
+        "display_name": null
+      },
+      {
+        "id": 2,
+        "name": "Retail Education",
+        "description": "description here",
+        "color": "fcac6b",
+        "display_name": null
+      }
+    ]
+  },
+  "utilizations": [
+    {
+      "id": 1,
+      "utilization_type_id": 1,
+      "leave_request_type_id": null,
+      "initiative_id": 1,
+      "employee_id": 1,
+      "project_id": 1,
+      "project_phase_id": 1,
+      "first_day": "2015-01-01",
+      "last_day": "2015-01-03",
+      "billable": true,
+      "sketch_calendar_id": null,
+      "verified": false,
+      "notes": "test note",
+      "links": {
+        "employee": {
+          "type": "employees",
+          "id": 1,
+          "href": "/employees/1"
+        },
+        "project": {
+          "type": "projects",
+          "id": 1
+        },
+        "type": {
+          "type": "utilization-types",
+          "id": 1
+        },
+        "leaveRequestType": {
+          "type": "leave-request-types",
+          "id": null
+        },
+        "projectPhase": {
+          "type": "project-phases",
+          "id": 1,
+          "href": "/project-phases/1"
+        },
+        "sketchCalendar": {
+          "type": "sketch-calendars",
+          "id": null
+        }
+      }
+    },
+    {
+      "id": 2,
+      "utilization_type_id": 1,
+      "leave_request_type_id": null,
+      "initiative_id": 1,
+      "employee_id": 1,
+      "project_id": 1,
+      "project_phase_id": 1,
+      "first_day": "2015-01-04",
+      "last_day": "2015-01-07",
+      "billable": true,
+      "sketch_calendar_id": null,
+      "verified": false,
+      "notes": "test note",
+      "links": {
+        "employee": {
+          "type": "employees",
+          "id": 1,
+          "href": "/employees/1"
+        },
+        "project": {
+          "type": "projects",
+          "id": 1
+        },
+        "type": {
+          "type": "utilization-types",
+          "id": 1
+        },
+        "leaveRequestType": {
+          "type": "leave-request-types",
+          "id": null
+        },
+        "projectPhase": {
+          "type": "project-phases",
+          "id": 1,
+          "href": "/project-phases/1"
+        },
+        "sketchCalendar": {
+          "type": "sketch-calendars",
+          "id": null
+        }
+      }
+    },
+    {
+      "id": 3,
+      "utilization_type_id": 2,
+      "leave_request_type_id": null,
+      "initiative_id": 1,
+      "employee_id": 1,
+      "project_id": 1,
+      "project_phase_id": 1,
+      "first_day": "2015-01-08",
+      "last_day": "2015-01-10",
+      "billable": true,
+      "sketch_calendar_id": null,
+      "verified": false,
+      "notes": "test note",
+      "links": {
+        "employee": {
+          "type": "employees",
+          "id": 1,
+          "href": "/employees/1"
+        },
+        "project": {
+          "type": "projects",
+          "id": 1
+        },
+        "type": {
+          "type": "utilization-types",
+          "id": 2
+        },
+        "leaveRequestType": {
+          "type": "leave-request-types",
+          "id": null
+        },
+        "projectPhase": {
+          "type": "project-phases",
+          "id": 1,
+          "href": "/project-phases/1"
+        },
+        "sketchCalendar": {
+          "type": "sketch-calendars",
+          "id": null
+        }
+      }
+    },
+    {
+      "id": 4,
+      "utilization_type_id": 1,
+      "leave_request_type_id": 3,
+      "initiative_id": 1,
+      "employee_id": 1,
+      "project_id": 1,
+      "project_phase_id": 1,
+      "first_day": "2015-01-12",
+      "last_day": "2015-01-14",
+      "billable": true,
+      "sketch_calendar_id": null,
+      "verified": false,
+      "notes": null,
+      "links": {
+        "employee": {
+          "type": "employees",
+          "id": 1,
+          "href": "/employees/1"
+        },
+        "project": {
+          "type": "projects",
+          "id": 1
+        },
+        "type": {
+          "type": "utilization-types",
+          "id": 1
+        },
+        "leaveRequestType": {
+          "type": "leave-request-types",
+          "id": 3,
+          "href": "/leave-request-types/3"
+        },
+        "projectPhase": {
+          "type": "project-phases",
+          "id": 1,
+          "href": "/project-phases/1"
+        },
+        "sketchCalendar": {
+          "type": "sketch-calendars",
+          "id": null
+        }
+      }
+    },
+    {
+      "id": 5,
+      "utilization_type_id": 2,
+      "leave_request_type_id": null,
+      "initiative_id": 1,
+      "employee_id": 1,
+      "project_id": 4,
+      "project_phase_id": null,
+      "first_day": "2015-01-15",
+      "last_day": "2015-01-15",
+      "billable": false,
+      "sketch_calendar_id": null,
+      "verified": false,
+      "notes": null,
+      "links": {
+        "employee": {
+          "type": "employees",
+          "id": 1,
+          "href": "/employees/1"
+        },
+        "project": {
+          "type": "projects",
+          "id": 4
+        },
+        "type": {
+          "type": "utilization-types",
+          "id": 2
+        },
+        "leaveRequestType": {
+          "type": "leave-request-types",
+          "id": null
+        },
+        "projectPhase": {
+          "type": "project-phases",
+          "id": null
+        },
+        "sketchCalendar": {
+          "type": "sketch-calendars",
+          "id": null
+        }
+      }
+    },
+    {
+      "id": 6,
+      "utilization_type_id": 1,
+      "leave_request_type_id": null,
+      "initiative_id": 1,
+      "employee_id": 1,
+      "project_id": 1,
+      "project_phase_id": 1,
+      "first_day": "2015-01-16",
+      "last_day": "2015-01-17",
+      "billable": false,
+      "sketch_calendar_id": null,
+      "verified": false,
+      "notes": null,
+      "links": {
+        "employee": {
+          "type": "employees",
+          "id": 1,
+          "href": "/employees/1"
+        },
+        "project": {
+          "type": "projects",
+          "id": 1
+        },
+        "type": {
+          "type": "utilization-types",
+          "id": 1
+        },
+        "leaveRequestType": {
+          "type": "leave-request-types",
+          "id": null
+        },
+        "projectPhase": {
+          "type": "project-phases",
+          "id": 1,
+          "href": "/project-phases/1"
+        },
+        "sketchCalendar": {
+          "type": "sketch-calendars",
+          "id": null
+        }
+      }
+    },
+    {
+      "id": 9,
+      "utilization_type_id": 1,
+      "leave_request_type_id": null,
+      "initiative_id": 1,
+      "employee_id": 1,
+      "project_id": 1,
+      "project_phase_id": 1,
+      "first_day": "2015-01-19",
+      "last_day": "2015-01-23",
+      "billable": false,
+      "sketch_calendar_id": null,
+      "verified": true,
+      "notes": null,
+      "links": {
+        "employee": {
+          "type": "employees",
+          "id": 1,
+          "href": "/employees/1"
+        },
+        "project": {
+          "type": "projects",
+          "id": 1
+        },
+        "type": {
+          "type": "utilization-types",
+          "id": 1
+        },
+        "leaveRequestType": {
+          "type": "leave-request-types",
+          "id": null
+        },
+        "projectPhase": {
+          "type": "project-phases",
+          "id": 1,
+          "href": "/project-phases/1"
+        },
+        "sketchCalendar": {
+          "type": "sketch-calendars",
+          "id": null
+        }
+      }
+    },
+    {
+      "id": 10,
+      "utilization_type_id": 1,
+      "leave_request_type_id": null,
+      "initiative_id": 1,
+      "employee_id": 1,
+      "project_id": 1,
+      "project_phase_id": 1,
+      "first_day": "2015-03-09",
+      "last_day": "2015-03-13",
+      "billable": false,
+      "sketch_calendar_id": null,
+      "verified": false,
+      "notes": null,
+      "links": {
+        "employee": {
+          "type": "employees",
+          "id": 1,
+          "href": "/employees/1"
+        },
+        "project": {
+          "type": "projects",
+          "id": 1
+        },
+        "type": {
+          "type": "utilization-types",
+          "id": 1
+        },
+        "leaveRequestType": {
+          "type": "leave-request-types",
+          "id": null
+        },
+        "projectPhase": {
+          "type": "project-phases",
+          "id": 1,
+          "href": "/project-phases/1"
+        },
+        "sketchCalendar": {
+          "type": "sketch-calendars",
+          "id": null
+        }
+      }
+    },
+    {
+      "id": 11,
+      "utilization_type_id": 1,
+      "leave_request_type_id": null,
+      "initiative_id": 1,
+      "employee_id": 1,
+      "project_id": 1,
+      "project_phase_id": 1,
+      "first_day": "2014-12-30",
+      "last_day": "2014-12-30",
+      "billable": true,
+      "sketch_calendar_id": 1,
+      "verified": false,
+      "notes": "This utilization should not be visible in Weekly Review.",
+      "links": {
+        "employee": {
+          "type": "employees",
+          "id": 1,
+          "href": "/employees/1"
+        },
+        "project": {
+          "type": "projects",
+          "id": 1
+        },
+        "type": {
+          "type": "utilization-types",
+          "id": 1
+        },
+        "leaveRequestType": {
+          "type": "leave-request-types",
+          "id": null
+        },
+        "projectPhase": {
+          "type": "project-phases",
+          "id": 1,
+          "href": "/project-phases/1"
+        },
+        "sketchCalendar": {
+          "type": "sketch-calendars",
+          "id": 1,
+          "href": "/sketch-calendars/1"
+        }
+      }
+    },
+    {
+      "id": 12,
+      "utilization_type_id": 1,
+      "leave_request_type_id": null,
+      "initiative_id": 1,
+      "employee_id": 1,
+      "project_id": 1,
+      "project_phase_id": 1,
+      "first_day": "2015-10-30",
+      "last_day": "2015-11-06",
+      "billable": true,
+      "sketch_calendar_id": null,
+      "verified": false,
+      "notes": "This utilization spans a daylight saving's time boundary.",
+      "links": {
+        "employee": {
+          "type": "employees",
+          "id": 1,
+          "href": "/employees/1"
+        },
+        "project": {
+          "type": "projects",
+          "id": 1
+        },
+        "type": {
+          "type": "utilization-types",
+          "id": 1
+        },
+        "leaveRequestType": {
+          "type": "leave-request-types",
+          "id": null
+        },
+        "projectPhase": {
+          "type": "project-phases",
+          "id": 1,
+          "href": "/project-phases/1"
+        },
+        "sketchCalendar": {
+          "type": "sketch-calendars",
+          "id": null
+        }
+      }
+    }
+  ]
+}

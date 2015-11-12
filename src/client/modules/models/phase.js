@@ -1,11 +1,11 @@
 'use strict';
 var Model = require('ampersand-model');
+var Moment = require('moment');
 
 var Project = require('./project');
 var Employees = require('./employees');
 var PhaseReviews = require('./phase-reviews');
 var setBearer = require('../ajax-config');
-var weekNum = require('../util/week-num');
 var dateStr = require('../util/date-string');
 
 var API_ROOT = require('../api-root');
@@ -37,10 +37,9 @@ module.exports = Model.extend({
   },
 
   weekOffset: function(date) {
-    var thisOffsets = weekNum.fromDate(this.get('first_day'));
-    var thatOffsets = weekNum.fromDate(date);
-    return (thatOffsets.week - thisOffsets.week) +
-      (thatOffsets.year - thisOffsets.year) * 52;
+    return -1 * new Moment(this.get('first_day'))
+      .startOf('week')
+      .diff(date, 'weeks');
   },
 
   reviewAt: function(date) {

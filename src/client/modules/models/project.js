@@ -5,7 +5,6 @@ var Organization = require('./organization');
 var setBearer = require('../ajax-config');
 
 var API_ROOT = require('../api-root');
-var WEEK_MS = 1000 * 60 * 60 * 24 * 7;
 
 module.exports = Model.extend({
   urlRoot: API_ROOT + '/projects',
@@ -20,18 +19,6 @@ module.exports = Model.extend({
   },
   children: {
     organization: Organization
-  },
-
-  derived: {
-    date_end: {
-      deps: ['date_start', 'calendar_weeks'],
-      fn: function() {
-        return new Date(
-          this.get('date_start').getTime() +
-          this.get('calendar_weeks') * WEEK_MS
-        );
-      }
-    }
   },
 
   /**

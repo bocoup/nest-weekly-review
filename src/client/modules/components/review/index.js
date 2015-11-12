@@ -5,7 +5,6 @@ var Moment = require('moment');
 var Component = require('../../util/component');
 var ordinalSuffix = require('../../util/ordinal-suffix');
 
-var DAY_MS = 1000 * 60 * 60 * 24;
 var DAY_NAMES = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
 
 module.exports = Component.extend({
@@ -100,7 +99,7 @@ module.exports = Component.extend({
   },
 
   offsetWeek: function(offset) {
-    var current = this.get('date');
+    var current = new Moment(this.get('date'));
     var phase = this.get('phase');
     var otherWeek, adjacentDay;
 
@@ -109,12 +108,13 @@ module.exports = Component.extend({
     }
 
     if (offset < 0) {
-      adjacentDay = new Date(+current - DAY_MS);
+      adjacentDay = current.clone().subtract(1, 'days').toDate();
     } else {
-      adjacentDay = new Date(+current + 7 * DAY_MS);
+      adjacentDay = current.clone().add(7, 'days').toDate();
     }
 
-    otherWeek = new Date(+current + DAY_MS * 7 * offset);
+    otherWeek = current.clone().add(offset, 'weeks').toDate();
+
 
     if (!phase.contains(adjacentDay)) {
       return null;

@@ -45,6 +45,39 @@ suite('Phase', function() {
         ]
       });
     });
+
+    suite('phases starting midweek', function() {
+      setup(function() {
+        phase.set(
+          'first_day', new Date(2014, 11, 10)
+        );
+      });
+
+      test('before first review', function() {
+        assert.strictEqual(
+          phase.reviewAt(new Date(2014, 11, 20)), null
+        );
+      });
+
+      test('beginning of first week', function() {
+        assert.equal(
+          phase.reviewAt(new Date(2014, 11, 21)), phase.reviews.at(0)
+        );
+      });
+
+      test('middle of first week', function() {
+        assert.equal(
+          phase.reviewAt(new Date(2014, 11, 24)), phase.reviews.at(0)
+        );
+      });
+
+      test('end of first week', function() {
+        assert.equal(
+          phase.reviewAt(new Date(2014, 11, 27)), phase.reviews.at(0)
+        );
+      });
+    });
+
     test('before phase', function() {
       assert.strictEqual(phase.reviewAt(new Date(2014, 11, 3)), null);
     });

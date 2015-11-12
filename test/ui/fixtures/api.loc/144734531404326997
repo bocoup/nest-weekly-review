@@ -1,0 +1,43 @@
+GET /v1/utilization-types
+authorization: Bearer fake-token-for-testing
+accept-language: en-US,en;q=0.5
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+host: api.loc
+
+200 HTTP/1.1
+server: nginx/1.4.6 (Ubuntu)
+date: Thu, 12 Nov 2015 16:21:54 GMT
+content-type: application/json; charset=utf-8
+content-length: 479
+connection: close
+vary: Accept-Encoding, Origin
+x-powered-by: Express
+access-control-allow-origin: *
+etag: W/"1df-cf000fdb"
+set-cookie: connect.sid=s%3A3oYfnNdbuY4mClsoayMpw7Cm-Oqv1P0I.tUzkGEu0VhkDMlpX3DaSRg77x8uT86DsrqhDBquMn3E; Path=/; HttpOnly
+
+{
+  "utilization-types": [
+    {
+      "id": 1,
+      "name": "Consulting",
+      "description": "description here",
+      "color": "48d800",
+      "display_name": null
+    },
+    {
+      "id": 2,
+      "name": "Retail Education",
+      "description": "description here",
+      "color": "fcac6b",
+      "display_name": null
+    },
+    {
+      "id": 3,
+      "name": "Perch",
+      "description": "description here",
+      "color": "ff5fc2",
+      "display_name": null
+    }
+  ]
+}

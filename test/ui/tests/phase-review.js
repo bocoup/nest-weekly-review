@@ -74,7 +74,7 @@ describe('phase review', function() {
           }).then(function(text) {
             assert.equal(
               text.type,
-              'Education',
+              'Retail Education',
               'Form renders correctly when initialized with a phaseless project'
             );
             assert.equal(
@@ -126,28 +126,8 @@ describe('phase review', function() {
       });
     });
 
-    describe('DST boundary', function() {
-      beforeEach(function() {
-        return driver.get('/date/2015-11-01/')
-          .then(function() {
-            return driver.viewWeek(0, 0);
-          });
-      });
-
-      it('renders as expected', function() {
-        return driver.readAll('phaseWeek.dayLabels')
-          .then(function(days) {
-            assert.deepEqual(
-              days,
-              [
-                'MONDAY (2nd)', 'TUESDAY (3rd)', 'WEDNESDAY (4th)',
-                'THURSDAY (5th)', 'FRIDAY (6th)'
-              ]
-            );
-          });
-      });
-
-      it('correctly splits an existing multi-day utilization', function() {
+    describe('DST boundaries', function() {
+      it('into DST', function() {
         var putCount = 0;
         var postCount = 0;
         function handlePut(req, res) {
@@ -165,15 +145,74 @@ describe('phase review', function() {
           postCount += 1;
         }
 
-        return Promise.all([
-            middleMan.once('PUT', '/v1/utilizations/:id', handlePut),
-            middleMan.once('POST', '/v1/utilizations', handlePost),
-            driver.editUtilization({
-              name: 'Jerry Seinfeld',
-              day: 'monday',
-              type: 'Education'
-            })
-          ]);
+        return driver.get('/date/2015-11-01/')
+          .then(function() {
+            return driver.viewWeek(0, 0);
+          })
+          .then(function() {
+            return driver.readAll('phaseWeek.dayLabels');
+          })
+          .then(function(days) {
+            assert.deepEqual(
+              days,
+              [
+                'MONDAY (2nd)', 'TUESDAY (3rd)', 'WEDNESDAY (4th)',
+                'THURSDAY (5th)', 'FRIDAY (6th)'
+              ],
+              'Renders day labels as expected'
+            );
+
+            return Promise.all([
+                middleMan.once('PUT', '/v1/utilizations/:id', handlePut),
+                middleMan.once('POST', '/v1/utilizations', handlePost),
+                driver.editUtilization({
+                  name: 'Jerry Seinfeld',
+                  day: 'monday',
+                  type: 'Retail Education'
+                })
+              ]);
+          })
+          .then(function() {
+            return driver.verify(['Jerry Seinfeld']);
+          })
+          .then(function() {
+            function handleReviewPost(req, res) {
+              res.end(JSON.stringify({ 'project-phase-reviews': { id: 3454 } }));
+            }
+            function handleRequest(req, res) {
+              res.end();
+            }
+
+            return Promise.all([
+              middleMan.once('POST', '/v1/project-phase-reviews', handleReviewPost),
+              middleMan.once('PUT', '/v1/utilizations/12', handleRequest),
+              middleMan.once('POST', '/v1/utilizations', handleRequest),
+              driver.submitReview()
+            ]);
+          });
+      });
+
+      it('out of DST', function() {
+        var initialVerifiedCount;
+
+        return driver.get('/date/2015-03-08/')
+          .then(function() {
+            return driver.viewWeek(0, 0);
+          }).then(function() {
+            return driver.count('phaseWeek.verified');
+          }).then(function(verifiedCount) {
+            initialVerifiedCount = verifiedCount;
+
+            return driver.verify(['Jerry Seinfeld']);
+          }).then(function() {
+            return driver.count('phaseWeek.verified');
+          }).then(function(verifiedCount) {
+            assert.equal(
+              verifiedCount,
+              initialVerifiedCount + 1,
+              'Employee successfully verified'
+            );
+          });
       });
     });
 
@@ -201,7 +240,7 @@ describe('phase review', function() {
             driver.editUtilization({
               name: 'Jerry Seinfeld',
               day: 'thursday',
-              type: 'Education'
+              type: 'Retail Education'
             })
           ]).then(function() {
             /**
@@ -424,26 +463,4 @@ describe('phase review', function() {
       });
   });
 
-  it('allows verification of developer weeks that begin on a DST boundary', function() {
-    var initialVerifiedCount;
-
-    return driver.get('/date/2015-03-08/')
-      .then(function() {
-        return driver.viewWeek(0, 0);
-      }).then(function() {
-        return driver.count('phaseWeek.verified');
-      }).then(function(verifiedCount) {
-        initialVerifiedCount = verifiedCount;
-
-        return driver.verify(['Jerry Seinfeld']);
-      }).then(function() {
-        return driver.count('phaseWeek.verified');
-      }).then(function(verifiedCount) {
-        assert.equal(
-          verifiedCount,
-          initialVerifiedCount + 1,
-          'Employee successfully verified'
-        );
-      });
-  });
 });

@@ -12,7 +12,13 @@ module.exports = Component.extend({
 
   computed: {
     monday: function() {
-      return new Moment(this.get('date')).add(1, 'day').toDate();
+      var sunday = this.get('date');
+
+      if (!sunday) {
+        return;
+      }
+
+      return new Moment(sunday).add(1, 'day').toDate();
     }
   }
 });

@@ -1,0 +1,54 @@
+GET /v1/projects?active=true&hasPhase=false&include%5B0%5D=organization
+authorization: Bearer fake-token-for-testing
+accept-language: en-US,en;q=0.5
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+host: api.loc
+
+200 HTTP/1.1
+server: nginx/1.4.6 (Ubuntu)
+date: Thu, 12 Nov 2015 16:21:54 GMT
+content-type: application/json; charset=utf-8
+content-length: 714
+connection: close
+vary: Accept-Encoding, Origin
+x-powered-by: Express
+access-control-allow-origin: *
+etag: W/"2ca-1a0f1d14"
+set-cookie: connect.sid=s%3A58x1bSO6BzkX7nNn6mQeydVzZfcus_Mi.PAtay6SD7OTO5K%2FCs1d2QexaribvnYTSrpyN8mX6%2BGE; Path=/; HttpOnly
+
+{
+  "linked": {
+    "organizations": [
+      {
+        "id": 2,
+        "name": "The Human Fund",
+        "inactive": false,
+        "pipedrive_id": "2345",
+        "github_user": "hf"
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": 4,
+      "name": "Fundraising Drive",
+      "abbr": "FD",
+      "completed": false,
+      "default_utilization_type_id": 1,
+      "lead_employee_id": 1,
+      "organization_id": 2,
+      "url_postmortem": "http://docs.google.com/thinger",
+      "links": {
+        "lead": {
+          "type": "employees",
+          "id": 1,
+          "href": "/employees/1"
+        },
+        "organization": {
+          "type": "organizations",
+          "id": 2
+        }
+      }
+    }
+  ]
+}

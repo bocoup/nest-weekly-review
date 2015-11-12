@@ -6,8 +6,6 @@ var extend = require('lodash.assign');
 var JsonApiCollection = require('./abstract/nest-api-collection');
 var Utilization = require('./utilization');
 
-var ONE_DAY = 1000 * 60 * 60 * 24;
-
 module.exports = JsonApiCollection.extend({
   model: Utilization,
   modelType: 'utilizations',
@@ -210,7 +208,7 @@ module.exports = JsonApiCollection.extend({
    * @returns {null|Utilization} The newly-created utilization (if any)
    */
   split: function(splitDate, options) {
-    var preSplitDate = new Date(splitDate.getTime() - ONE_DAY);
+    var preSplitDate = new Moment(splitDate).subtract(1, 'days').toDate();
     var first = this.atDate(splitDate);
     var previous = this.atDate(preSplitDate);
     var newUtilization;
@@ -252,11 +250,11 @@ module.exports = JsonApiCollection.extend({
 
     // Split utilizations at either end of the period (when necessary)
     this.split(firstDay, options);
-    this.split(new Date(firstDay.getTime() + ONE_DAY * through), options);
+    this.split(new Moment(firstDay).add(through, 'days').toDate(), options);
 
     for (idx = 0; idx < through; ++idx) {
-      prevDay = currentDay || new Date(firstDay.getTime() - ONE_DAY);
-      currentDay = new Date(firstDay.getTime() + ONE_DAY * idx);
+      prevDay = currentDay || new Moment(firstDay).subtract(1, 'days').toDate();
+      currentDay = new Moment(firstDay).add(idx, 'days').toDate();
       utilization = this.atDate(currentDay);
 
       if (utilization && !utilization.get('verified')) {

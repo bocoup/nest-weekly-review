@@ -6,7 +6,7 @@ var configurableItems = [
   {
     name: 'WR_API',
     desc: 'Data source',
-    dflt: 'https://api-staging.bocoup.com'
+    dflt: 'https://api-staging.bocoup.com/v1'
   },
   { name: 'NODE_PORT', desc: 'Application server port', dflt: '8000' },
   {

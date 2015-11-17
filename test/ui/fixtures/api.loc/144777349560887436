@@ -1,0 +1,40 @@
+GET /v1/leave-request-types
+authorization: Bearer fake-token-for-testing
+accept-language: en-US,en;q=0.5
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+host: api.loc
+
+200 HTTP/1.1
+server: nginx/1.4.6 (Ubuntu)
+date: Tue, 17 Nov 2015 15:18:15 GMT
+content-type: application/json; charset=utf-8
+content-length: 430
+connection: close
+vary: Accept-Encoding, Origin
+x-powered-by: Express
+access-control-allow-origin: *
+etag: W/"1ae-6ac50d89"
+set-cookie: connect.sid=s%3AHTDj3MADFkNUENfAf5TYjnaXeJsvOmBC.iDRjayL5hgtrAdfhwUYjpUA%2FV1NeEpP08uh%2FHqSLJCs; Path=/; HttpOnly
+
+{
+  "leave-request-types": [
+    {
+      "id": 3,
+      "name": "PTO",
+      "description": "description here",
+      "color": "ff5fc2",
+      "is_admin_only": false,
+      "is_unpaid": false,
+      "display_name": null
+    },
+    {
+      "id": 4,
+      "name": "Sick",
+      "description": "description here",
+      "color": "ff5fc2",
+      "is_admin_only": false,
+      "is_unpaid": false,
+      "display_name": null
+    }
+  ]
+}

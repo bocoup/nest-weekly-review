@@ -122,6 +122,10 @@ describe('phase review', function() {
             );
             assert.equal(phases[0], 'Make pudding');
             assert.equal(phases[1], 'Make pudding');
+
+            return driver.count('phaseWeek.day.front.billable');
+          }).then(function(count) {
+            assert.equal(count, 0, 'Resets "billable" status between weeks');
           });
       });
     });

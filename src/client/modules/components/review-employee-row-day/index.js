@@ -12,7 +12,6 @@ module.exports = Component.extend({
     this.set('newProjectId', this.get('utilization.project.id'));
     this.set('newLeaveRequestId', this.get('utilization.leave_request_type_id'));
     this.set('newInitiativeId', this.get('utilization.initiative_id'));
-    this.set('newBillable', this.get('utilization.billable'));
     this.observe('newProjectId', this.handleNewProjectIdChange);
 
     // Ensure that whenever the `utilization` attribute is updated directly (as
@@ -20,6 +19,7 @@ module.exports = Component.extend({
     // updated).
     this.observe('utilization', function() {
       this.set('newProjectId', this.get('utilization.project.id'));
+      this.set('newBillable', null);
     });
   },
 
@@ -209,7 +209,9 @@ module.exports = Component.extend({
       },
       get: function() {
         var newBillable = this.get('_newBillable');
-        return newBillable;
+        var currentBillable = this.get('utilization.billable');
+
+        return typeof newBillable === 'boolean' ? newBillable : currentBillable;
       }
     },
 

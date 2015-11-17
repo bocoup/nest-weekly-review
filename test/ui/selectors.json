@@ -26,7 +26,8 @@
             "_selector": ".front",
             "_contents": {
               "phase": ".utilization-phase",
-              "leaveRequestType": ".utilization-leave-request-type"
+              "leaveRequestType": ".utilization-leave-request-type",
+              "billable": ".utilization-billable.active"
             }
           },
           "typeInput": ".back select:nth-child(1)",

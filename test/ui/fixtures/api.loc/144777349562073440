@@ -1,0 +1,64 @@
+GET /v1/utilization-types
+authorization: Bearer fake-token-for-testing
+accept-language: en-US,en;q=0.5
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+host: api.loc
+
+200 HTTP/1.1
+server: nginx/1.4.6 (Ubuntu)
+date: Tue, 17 Nov 2015 15:18:15 GMT
+content-type: application/json; charset=utf-8
+content-length: 944
+connection: close
+vary: Accept-Encoding, Origin
+x-powered-by: Express
+access-control-allow-origin: *
+etag: W/"3b0-415bcf1c"
+set-cookie: connect.sid=s%3AK_KxKBtptUBCrhqB2CyiL_x6mq-dvz3O.QQKwW6QHjCWBYYgy12GhHkr3NqjHCcNI0BrvIN3j8f0; Path=/; HttpOnly
+
+{
+  "utilization-types": [
+    {
+      "id": 1,
+      "name": "Consulting",
+      "description": "description here",
+      "color": "48d800",
+      "display_name": null,
+      "links": {
+        "businessUnit": {
+          "type": "business-units",
+          "id": 1,
+          "href": "/business-units/1"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "name": "Retail Education",
+      "description": "description here",
+      "color": "fcac6b",
+      "display_name": null,
+      "links": {
+        "businessUnit": {
+          "type": "business-units",
+          "id": 2,
+          "href": "/business-units/2"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "name": "Perch",
+      "description": "description here",
+      "color": "ff5fc2",
+      "display_name": null,
+      "links": {
+        "businessUnit": {
+          "type": "business-units",
+          "id": 3,
+          "href": "/business-units/3"
+        }
+      }
+    }
+  ]
+}

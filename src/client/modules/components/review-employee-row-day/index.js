@@ -122,17 +122,18 @@ module.exports = Component.extend({
       },
       get: function() {
         var newLeaveRequestType = this.get('_newLeaveRequestType');
-        var currentLeaveRequestId = this.get('utilization.leave_request_type_id');
+        var currentLeaveRequestTypeId = this.get('utilization.leave_request_type_id');
         var leaveRequestTypes = this.get('leaveRequestTypes');
 
-        if (!newLeaveRequestType && currentLeaveRequestId && leaveRequestTypes) {
+        if (newLeaveRequestType !== null && currentLeaveRequestTypeId && leaveRequestTypes) {
           leaveRequestTypes.some(function(leaveRequestType) {
-            if (leaveRequestType.id === currentLeaveRequestId) {
+            if (leaveRequestType.id === currentLeaveRequestTypeId) {
               newLeaveRequestType = leaveRequestType;
               return true;
             }
           });
         }
+
 
         return newLeaveRequestType;
       }

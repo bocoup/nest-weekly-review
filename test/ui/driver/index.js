@@ -353,10 +353,23 @@ Driver.prototype.editUtilization = function(options) {
     }).then(function(typeInputs) {
       return driver._selectOption(typeInputs[offset], options.type);
     }).then(function() {
+      if ('leaveRequestType' in options) {
+        return driver._setLeaveRequestType(options.leaveRequestType, offset);
+      }
+    }).then(function() {
       return driver._$('phaseWeek.day.set');
     }).then(function(set) {
       return set[offset].click();
     }).then(whenSaved);
+};
+
+Driver.prototype._setLeaveRequestType = function(name, offset) {
+  var driver = this;
+
+  return driver._$('phaseWeek.day.leaveRequestTypeInput')
+    .then(function(typeInputs) {
+      return driver._selectOption(typeInputs[offset], name);
+    });
 };
 
 /**

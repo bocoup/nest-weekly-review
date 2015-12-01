@@ -244,9 +244,23 @@ describe('phase review', function() {
             driver.editUtilization({
               name: 'Jerry Seinfeld',
               day: 'thursday',
-              type: 'Retail Education'
+              type: 'Retail Education',
+              leaveRequestType: 'Sick'
             })
           ]).then(function() {
+            return driver.readAll('phaseWeek.day.front.leaveRequestType');
+          }).then(function(leaveRequestTypes) {
+            assert.equal(leaveRequestTypes[0], 'PTO');
+            assert.equal(leaveRequestTypes[1], 'PTO');
+            assert.equal(leaveRequestTypes[2], 'PTO');
+            assert.equal(leaveRequestTypes[3], 'Sick');
+            assert.equal(leaveRequestTypes[4], '');
+            assert.equal(leaveRequestTypes[5], '');
+            assert.equal(leaveRequestTypes[6], '');
+            assert.equal(leaveRequestTypes[7], '');
+            assert.equal(leaveRequestTypes[8], '');
+            assert.equal(leaveRequestTypes[9], '');
+
             /**
              * Edit the new utilization to ensure that the application
              * correctly tracks IDs of the utilizations created on its behalf.
@@ -259,9 +273,23 @@ describe('phase review', function() {
                 driver.editUtilization({
                   name: 'Jerry Seinfeld',
                   day: 'thursday',
-                  type: 'Perch'
+                  type: 'Perch',
+                  leaveRequestType: 'Leave Request Type'
                 })
               ]);
+          }).then(function() {
+            return driver.readAll('phaseWeek.day.front.leaveRequestType');
+          }).then(function(leaveRequestTypes) {
+            assert.equal(leaveRequestTypes[0], 'PTO');
+            assert.equal(leaveRequestTypes[1], 'PTO');
+            assert.equal(leaveRequestTypes[2], 'PTO');
+            assert.equal(leaveRequestTypes[3], '');
+            assert.equal(leaveRequestTypes[4], '');
+            assert.equal(leaveRequestTypes[5], '');
+            assert.equal(leaveRequestTypes[6], '');
+            assert.equal(leaveRequestTypes[7], '');
+            assert.equal(leaveRequestTypes[8], '');
+            assert.equal(leaveRequestTypes[9], '');
           });
         /**
          * Firefox, Selenium, and/or Leadfoot do not support scripted

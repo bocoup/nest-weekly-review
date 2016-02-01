@@ -33,8 +33,9 @@
   },
   "dependencies": {
     "ampersand-model": "^4.0.3",
+    "ampersand-state": "4.8.2",
     "ampersand-rest-collection": "^2.0.4",
-    "ampersand-router": "^1.0.6",
+    "ampersand-router": "1.0.6",
     "body-parser": "^1.10.0",
     "browserify": "^8.0.2",
     "cookies": "^0.5.0",

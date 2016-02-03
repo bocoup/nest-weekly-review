@@ -13,7 +13,7 @@ module.exports = Model.extend({
   props: {
     id: 'number',
     name: 'string',
-    date_start: 'date',
+    first_day: 'date',
     calendar_weeks: 'number',
     developer_weeks: 'number'
   },
@@ -37,8 +37,8 @@ module.exports = Model.extend({
 
   parse: function(attrs) {
 
-    if ('date_start' in attrs) {
-      attrs.date_start = new Date(attrs.date_start);
+    if ('first_day' in attrs) {
+      attrs.first_day = new Date(attrs.first_day);
     }
 
     return attrs;
